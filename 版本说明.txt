@@ -1,0 +1,5 @@
+swq-linux-protocol-conver-huawei-2021-01-11
+1、添加mqtt协议
+2、添加json格式解析程序
+swq-linux-protocol-conver-huawei-2021-01-22
+1、准备添加modbus一主多从功能，需要修改real设备点表

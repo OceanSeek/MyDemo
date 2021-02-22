@@ -1,0 +1,2 @@
+int Sqlite(void);
+
