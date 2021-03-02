@@ -124,6 +124,7 @@ uint8_t ModbusRtuMaster_Send(int DevNo,char *buf, int len){
 		}
 		usleep(10000);
 		HuaWei485Ctrl_Switch(DevNo, RS485CTL_Read);
+		
     }
 #else
 	if(strcmp("Serial", gpDevice[DevNo].Com) == 0){
@@ -370,7 +371,7 @@ int ModbusAskHoldingRegister(int DevNo)
 	if(quantity == 0) return false;
 	startAddr = addr[0];
 	if(DevNo == 0)
-		log("\nDevID is %d addrStart is %d quantity is %d  OldSlaverAddr is %d", gpDevice[DevNo].ID, startAddr, quantity, OldSlaverAddr);
+		log("\nDevID is %d addrStart is %d quantity is %d  OldSlaverAddr is %d\n", gpDevice[DevNo].ID, startAddr, quantity, OldSlaverAddr);
 	ModbusRtuMaster_ASK(DevNo, OldSlaverAddr, ReadHoldingRegister, startAddr, quantity);
 	return true;
 

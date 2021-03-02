@@ -49,7 +49,7 @@ int HuaWei485Ctrl_Switch(int DevNo, int ctrlvalue)
 	}
 	crlfd = open(CtrlPort, O_RDWR | O_NOCTTY | O_NONBLOCK);
     if (crlfd < 0){ 
-        printf("open file rs485Ctrl fail \r\n");        
+        printf("open file %s fail \r\n", CtrlPort);        
         return -1;
     } 
 	
@@ -58,6 +58,8 @@ int HuaWei485Ctrl_Switch(int DevNo, int ctrlvalue)
 		printf("write  file %s fail \r\n", CtrlPort);
 		return -1;
 	}
+
+	close(crlfd);
 
 }
 

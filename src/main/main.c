@@ -417,7 +417,7 @@ int ComConfigCK(int DevNo)
 	}
 #endif
 	
-	ttyfd = UART0_Open(ttyPort); //�򿪴��ڣ������ļ�������	
+	ttyfd = UART0_Open(ttyPort); 
 	if(ttyfd < 0)
 	{
 		perror("Open %s fail!\n",ttyPort);
