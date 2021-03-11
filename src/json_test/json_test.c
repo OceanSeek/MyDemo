@@ -5,9 +5,9 @@ MODBUS_ASK_T Modbus_Ask_T;
 char* Json_eSDKGetIPInfo()
 {
 	char *retString;
-	//ÏÈ´´½¨¿Õ¶ÔÏó
+	//ï¿½È´ï¿½ï¿½ï¿½ï¿½Õ¶ï¿½ï¿½ï¿½
     cJSON *json = cJSON_CreateObject();
-    //ÔÚ¶ÔÏóÉÏÌí¼Ó¼üÖµ¶Ô
+    //ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¼ï¿½Öµï¿½ï¿½
     cJSON_AddStringToObject(json,"token","12345");
 
 	char *timestamp;
@@ -15,7 +15,7 @@ char* Json_eSDKGetIPInfo()
     cJSON_AddStringToObject(json,"timestamp",timestamp);
 	free(timestamp);
 	timestamp = NULL;
-    //ÇåÀí¹¤×÷
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     char *buf = cJSON_Print(json);
 //	log(buf);
     cJSON_Delete(json);
@@ -27,20 +27,20 @@ char* Json_eSDKGetIPInfo()
 char* Json_ModbusSendCoilStatus(uint16_t startAddr, uint16_t quantity)
 {
 	char *retString;
-	//ÏÈ´´½¨¿Õ¶ÔÏó
+	//ï¿½È´ï¿½ï¿½ï¿½ï¿½Õ¶ï¿½ï¿½ï¿½
     cJSON *json = cJSON_CreateObject();
-    //ÔÚ¶ÔÏóÉÏÌí¼Ó¼üÖµ¶Ô
+    //ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¼ï¿½Öµï¿½ï¿½
 //    cJSON_AddStringToObject(json,"devices","12345");
 
-    //Ìí¼ÓÊý×é
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     cJSON *devices_array = NULL;
     cJSON_AddItemToObject(json,"devices",devices_array=cJSON_CreateArray());
-    //ÔÚÊý×éÉÏÌí¼Ó¶ÔÏó
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½
     cJSON *obj_1 = NULL;
     cJSON_AddItemToArray(devices_array,obj_1=cJSON_CreateObject());
     cJSON_AddStringToObject(obj_1,"deviceId",CLIENTID);
 
-    //Ìí¼ÓÊý×é
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     cJSON *services_array = NULL;
     cJSON_AddItemToObject(obj_1,"services",services_array=cJSON_CreateArray());
 	
@@ -50,7 +50,7 @@ char* Json_ModbusSendCoilStatus(uint16_t startAddr, uint16_t quantity)
     cJSON *obj_3 = NULL;
     cJSON_AddItemToObject(obj_2,"data",obj_3=cJSON_CreateObject());
 
-    //Ìí¼ÓÊý×é
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     cJSON *CoilStatus_array = NULL;
 	cJSON_AddItemToObject(obj_3,"CoilStatus",CoilStatus_array=cJSON_CreateArray());
 
@@ -86,7 +86,7 @@ char* Json_ModbusSendCoilStatus(uint16_t startAddr, uint16_t quantity)
 	timestamp = NULL;
     cJSON_AddItemToObject(obj_2,"serviceId",cJSON_CreateString("serviceName"));
 	
-    //ÇåÀí¹¤×÷
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     char *buf = cJSON_Print(json);
 //	log(buf);
     cJSON_Delete(json);
@@ -97,18 +97,18 @@ char* Json_ModbusSendCoilStatus(uint16_t startAddr, uint16_t quantity)
 char* Json_ModbusSendInputStatus(uint16_t startAddr, uint16_t quantity)
 {
 	char *retString;
-	//ÏÈ´´½¨¿Õ¶ÔÏó
+	//ï¿½È´ï¿½ï¿½ï¿½ï¿½Õ¶ï¿½ï¿½ï¿½
     cJSON *json = cJSON_CreateObject();
 
-    //Ìí¼ÓÊý×é
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     cJSON *devices_array = NULL;
     cJSON_AddItemToObject(json,"devices",devices_array=cJSON_CreateArray());
-    //ÔÚÊý×éÉÏÌí¼Ó¶ÔÏó
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½
     cJSON *obj_1 = NULL;
     cJSON_AddItemToArray(devices_array,obj_1=cJSON_CreateObject());
     cJSON_AddStringToObject(obj_1,"deviceId",CLIENTID);
 
-    //Ìí¼ÓÊý×é
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     cJSON *services_array = NULL;
     cJSON_AddItemToObject(obj_1,"services",services_array=cJSON_CreateArray());
 	
@@ -118,7 +118,7 @@ char* Json_ModbusSendInputStatus(uint16_t startAddr, uint16_t quantity)
     cJSON *obj_3 = NULL;
     cJSON_AddItemToObject(obj_2,"data",obj_3=cJSON_CreateObject());
 	
-    //Ìí¼ÓÊý×é
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     cJSON *InputStatus_array = NULL;
 	cJSON_AddItemToObject(obj_3,"InputStatus",InputStatus_array=cJSON_CreateArray());
 
@@ -154,7 +154,7 @@ char* Json_ModbusSendInputStatus(uint16_t startAddr, uint16_t quantity)
 	timestamp = NULL;
     cJSON_AddItemToObject(obj_2,"serviceId",cJSON_CreateString("serviceName"));
 	
-    //ÇåÀí¹¤×÷
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     char *buf = cJSON_Print(json);
 //	log(buf);
     cJSON_Delete(json);
@@ -166,18 +166,18 @@ char* Json_ModbusSendInputStatus(uint16_t startAddr, uint16_t quantity)
 char* Json_ModbusSendHoldingRegs(uint16_t startAddr, uint16_t quantity)
 {
 	char *retString;
-	//ÏÈ´´½¨¿Õ¶ÔÏó
+	//ï¿½È´ï¿½ï¿½ï¿½ï¿½Õ¶ï¿½ï¿½ï¿½
     cJSON *json = cJSON_CreateObject();
 
-    //Ìí¼ÓÊý×é
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     cJSON *devices_array = NULL;
     cJSON_AddItemToObject(json,"devices",devices_array=cJSON_CreateArray());
-    //ÔÚÊý×éÉÏÌí¼Ó¶ÔÏó
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½
     cJSON *obj_1 = NULL;
     cJSON_AddItemToArray(devices_array,obj_1=cJSON_CreateObject());
     cJSON_AddStringToObject(obj_1,"deviceId",CLIENTID);
 
-    //Ìí¼ÓÊý×é
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     cJSON *services_array = NULL;
     cJSON_AddItemToObject(obj_1,"services",services_array=cJSON_CreateArray());
 	
@@ -187,7 +187,7 @@ char* Json_ModbusSendHoldingRegs(uint16_t startAddr, uint16_t quantity)
     cJSON *obj_3 = NULL;
     cJSON_AddItemToObject(obj_2,"data",obj_3=cJSON_CreateObject());
 	
-    //Ìí¼ÓÊý×é
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     cJSON *HoldingRegister_array = NULL;
 	cJSON_AddItemToObject(obj_3,"HoldingRegister",HoldingRegister_array=cJSON_CreateArray());
 
@@ -222,7 +222,7 @@ char* Json_ModbusSendHoldingRegs(uint16_t startAddr, uint16_t quantity)
 	timestamp = NULL;
     cJSON_AddItemToObject(obj_2,"serviceId",cJSON_CreateString("serviceName"));
 	
-    //ÇåÀí¹¤×÷
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     char *buf = cJSON_Print(json);
 //	log(buf);
     cJSON_Delete(json);
@@ -234,18 +234,18 @@ char* Json_ModbusSendHoldingRegs(uint16_t startAddr, uint16_t quantity)
 char* Json_ModbusSendInputRegs(uint16_t startAddr, uint16_t quantity)
 {
 	char *retString;
-	//ÏÈ´´½¨¿Õ¶ÔÏó
+	//ï¿½È´ï¿½ï¿½ï¿½ï¿½Õ¶ï¿½ï¿½ï¿½
     cJSON *json = cJSON_CreateObject();
 
-    //Ìí¼ÓÊý×é
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     cJSON *devices_array = NULL;
     cJSON_AddItemToObject(json,"devices",devices_array=cJSON_CreateArray());
-    //ÔÚÊý×éÉÏÌí¼Ó¶ÔÏó
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½
     cJSON *obj_1 = NULL;
     cJSON_AddItemToArray(devices_array,obj_1=cJSON_CreateObject());
     cJSON_AddStringToObject(obj_1,"deviceId",CLIENTID);
 
-    //Ìí¼ÓÊý×é
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     cJSON *services_array = NULL;
     cJSON_AddItemToObject(obj_1,"services",services_array=cJSON_CreateArray());
 	
@@ -255,7 +255,7 @@ char* Json_ModbusSendInputRegs(uint16_t startAddr, uint16_t quantity)
     cJSON *obj_3 = NULL;
     cJSON_AddItemToObject(obj_2,"data",obj_3=cJSON_CreateObject());
 	
-    //Ìí¼ÓÊý×é
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     cJSON *InputRegister_array = NULL;
 	cJSON_AddItemToObject(obj_3,"InputRegister",InputRegister_array=cJSON_CreateArray());
 
@@ -290,7 +290,7 @@ char* Json_ModbusSendInputRegs(uint16_t startAddr, uint16_t quantity)
 	timestamp = NULL;
     cJSON_AddItemToObject(obj_2,"serviceId",cJSON_CreateString("serviceName"));
 	
-    //ÇåÀí¹¤×÷
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     char *buf = cJSON_Print(json);
 //	log(buf);
     cJSON_Delete(json);
@@ -340,19 +340,19 @@ int Json_GetAskData(char *name, char* value)
 
 int Json_Send_Data()
 {
-	//ÏÈ´´½¨¿Õ¶ÔÏó
+	//ï¿½È´ï¿½ï¿½ï¿½ï¿½Õ¶ï¿½ï¿½ï¿½
     cJSON *json = cJSON_CreateObject();
-    //ÔÚ¶ÔÏóÉÏÌí¼Ó¼üÖµ¶Ô
+    //ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¼ï¿½Öµï¿½ï¿½
     cJSON_AddStringToObject(json,"country","china");
-    //Ìí¼ÓÊý×é
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     cJSON *array = NULL;
     cJSON_AddItemToObject(json,"stars",array=cJSON_CreateArray());
-    //ÔÚÊý×éÉÏÌí¼Ó¶ÔÏó
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½
     cJSON *obj = NULL;
     cJSON_AddItemToArray(array,obj=cJSON_CreateObject());
     cJSON_AddItemToObject(obj,"name",cJSON_CreateString("Faye"));
     cJSON_AddStringToObject(obj,"address","beijing");
-    //ÔÚ¶ÔÏóÉÏÌí¼Ó¼üÖµ¶Ô
+    //ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¼ï¿½Öµï¿½ï¿½
     cJSON_AddItemToArray(array,obj=cJSON_CreateObject());
     cJSON_AddItemToObject(obj,"name",cJSON_CreateString("andy"));
     cJSON_AddItemToObject(obj,"address",cJSON_CreateString("HK"));
@@ -361,7 +361,7 @@ int Json_Send_Data()
     cJSON_AddStringToObject(obj,"name","eddie");
     cJSON_AddStringToObject(obj,"address","TaiWan");
 
-    //ÇåÀí¹¤×÷
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     FILE *fp = fopen("create.json","w");
     char *buf = cJSON_Print(json);
 	log(buf);
@@ -399,7 +399,7 @@ void Json_PrintItemValue(cJSON *Item)
 
 }
 
-//µÝ¹é¶ÁÈ¡JSONÊý¾Ý
+//ï¿½Ý¹ï¿½ï¿½È¡JSONï¿½ï¿½ï¿½ï¿½
 int Json_ParseData_recursion(cJSON *parentNode)
 {
 	int size,i;
@@ -422,7 +422,7 @@ int Json_ParseData_recursion(cJSON *parentNode)
 
 int Json_DealModbusData(MODBUS_ASK_T askParameter)
 {
-	char *topic,*playload;
+	char *playload;
 	switch (askParameter._function)
 	{
 		case ReadCoilStatus:
@@ -441,7 +441,10 @@ int Json_DealModbusData(MODBUS_ASK_T askParameter)
 			playload = NULL;
 			break;
 	}
-	topic = "/v1/devices/device_03/datas";
+    char *firstName = "/v1/devices/";
+    char *data = "/datas";
+    char *topic = mqtt_topic_joint(firstName, CLIENTID, data);
+	log("send topic is %s\n", topic);
 	Mqtt_Client_public(topic, playload);
 
 	
@@ -468,7 +471,19 @@ int Json_ParseData(char *string)
 		Json_DealModbusData(Modbus_Ask_T);
 		Modbus_Ask_T._ask = false;
 	}
-	
+	node = cJSON_GetObjectItem(json,"list");
+    if(node == NULL)
+	{
+		log("family node == NULL\n");
+	}
+	else
+	{
+		log("found family node\n");
+		log("node value is %s\n", node->string);
+	}
+
+
+	cJSON_Delete(json);
     return RET_SUCESS;
 
 }

@@ -626,16 +626,15 @@ int nonblockingUDP(const char* ip, short port, int timeout, int DevNo)
 		return -1;
 	}
 
-	//׼����ַ
 	struct sockaddr_in addr = {};
 	addr.sin_family = AF_INET;//ipv4
-	addr.sin_port = htons(port);//�˿ں�
-	addr.sin_addr.s_addr = inet_addr(ip);//�ҵ�ip��ַ
-	//��
+	addr.sin_port = htons(port);//
+	addr.sin_addr.s_addr = inet_addr(ip);
+	
 	int ret = bind(fd,(struct sockaddr *)&addr,sizeof(addr));
 	if (0 > ret)
 	{
-		 perror("bind udp ip:%s\n",ip);
+		 perror("bind udp ip:%s,errorcode:%d\n", ip, ret);
 		 return -1;
 	}
 
@@ -1125,7 +1124,7 @@ int main()
 	pthread_mutex_init(&mutex2,NULL);
 	CreatePthread();
 
-//	Mqtt_Connect();
+	Mqtt_Connect();
 	Init_Json_Test();
 	char *topic_01 = "app1/get/request/esdk/ipAddr";
 	char *topic_02 = "app1/get/request/esdk/deviceInfo";
@@ -1142,11 +1141,11 @@ int main()
 		lasttime_ms = (long long)lasttime.tv_sec*1000 + lasttime.tv_usec/1000;
 		if(nowtime_ms-lasttime_ms >=Timer_1000ms){
 			sys_time_cnt++;
-//			if(sys_time_cnt %5 == 0)Mqtt_Client_public(topic[(cnt++)%6]);
+			// if(sys_time_cnt %5 == 0)Mqtt_Client_public("app1/get/request/esdk/ipRoute", "helloworld");
 //			if(sys_time_cnt %15 == 0)Mqtt_Client_public(topic_07);
 //			log("time cnt %d\n",sys_time_cnt);
 
-//			if(sys_time_cnt %5 == 0)Mqtt_Reconnect();
+			if(sys_time_cnt %5 == 0)Mqtt_Reconnect();
 			
 			lasttime = nowtime;
 //			FeedWatchDog(wd_fd);
@@ -1154,10 +1153,9 @@ int main()
 		CheckBrustYx();
 		CheckBrustYxSoe();
 		CheckBrustDZ();
-		usleep(50000);//usleep�߳����ߣ�sleep��������
-		
+		usleep(50000);
 	}
-		
+	
  	close(wd_fd);
 	return 0;
 }

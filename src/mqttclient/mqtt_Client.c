@@ -1,17 +1,21 @@
 #include "sys.h"
 
-#define ADDRESS     "tcp://112.93.129.113:1883" //∏¸∏ƒ¥À¥¶µÿ÷∑
-#define ADDRESS_02     "tcp://192.168.1.135:1883" //∏¸∏ƒ¥À¥¶µÿ÷∑
-//#define ADDRESS     "tcp://127.0.0.1:1883" //∏¸∏ƒ¥À¥¶µÿ÷∑
-//#define ADDRESS     "tcp://mqtt.eclipse.org:1883" //∏¸∏ƒ¥À¥¶µÿ÷∑
-#define TOPIC       "topic01"  //∏¸∏ƒ∑¢ÀÕµƒª∞Ã‚
+// #define ADDRESS     "tcp://112.93.129.113:1883" //Âçé‰∏∫‰∫ëÂú∞ÂùÄ
+#define ADDRESS     "tcp://1.15.122.102:1883" //ËÖæËÆØ‰∫ëÂú∞ÂùÄ
+#define ADDRESS_02     "tcp://192.168.1.135:1883" //Êú¨Âú∞Âú∞ÂùÄ
+//#define ADDRESS     "tcp://127.0.0.1:1883" //ÔøΩÔøΩÔøΩƒ¥À¥ÔøΩÔøΩÔøΩ÷∑
+//#define ADDRESS     "tcp://mqtt.eclipse.org:1883" //ÔøΩÔøΩÔøΩƒ¥À¥ÔøΩÔøΩÔøΩ÷∑
+#define TOPIC       "topic01"  //ÔøΩÔøΩÔøΩƒ∑ÔøΩÔøΩÕµƒªÔøΩÔøΩÔøΩ
 
-#define PAYLOAD     "Hello Man, Can you see me ?!" //∏¸∏ƒ–≈œ¢ƒ⁄»›
-#define QOS         1 	//0£∫÷¡∂‡“ª¥Œ£ª1£∫÷¡…Ÿ1¥Œ£ª2£∫»∑±£÷ª”–“ª¥Œ
+#define PAYLOAD     "Hello Man, Can you see me ?!" //ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩœ¢ÔøΩÔøΩÔøΩÔøΩ
+#define QOS         1 	//0ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ“ªÔøΩŒ£ÔøΩ1ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ1ÔøΩŒ£ÔøΩ2ÔøΩÔøΩ»∑ÔøΩÔøΩ÷ªÔøΩÔøΩ“ªÔøΩÔøΩ
 #define TIMEOUT     10000L
 
-char *username= "E939DB405D8B44248B13C41C4A67AA1E"; //ÃÌº”µƒ”√ªß√˚
-char *password = "dece03aaaaaaaaaaaaaa"; //ÃÌº”µƒ√‹¬Î
+char *username= "E939DB405D8B44248B13C41C4A67AA1E"; //ÔøΩÔøΩÔøΩ”µÔøΩÔøΩ√ªÔøΩÔøΩÔøΩ
+char *password = "dece03aaaaaaaaaaaaaa"; //ÔøΩÔøΩÔøΩ”µÔøΩÔøΩÔøΩÔøΩÔøΩ
+
+// ËÆ¢ÈòÖ‰∏ªÈ¢ò
+char *topic_sub_command, *topic_sub_updataApp;
 
 
 static MQTTClient client;
@@ -21,13 +25,8 @@ MQTTClient_connectOptions conn_opts = MQTTClient_connectOptions_initializer;
 
 int Mqtt_Client_public(char *topic, char *playloadstring)
 {
-    //#define MQTTClient_message_initializer { {'M', 'Q', 'T', 'M'}, 0, 0, NULL, 0, 0, 0, 0 }
     MQTTClient_message pubmsg = MQTTClient_message_initializer;
-    //…˘√˜œ˚œ¢token
     MQTTClient_deliveryToken token;
-    int rc;
-//	char *playloadstring;
-//	playloadstring = Json_eSDKGetIPInfo();
 
 	if(playloadstring == NULL) return RET_ERROR;
 	
@@ -36,17 +35,162 @@ int Mqtt_Client_public(char *topic, char *playloadstring)
     pubmsg.qos = QOS;
     pubmsg.retained = 0;
     MQTTClient_publishMessage(client, topic, &pubmsg, &token);
-    printf("Waiting for up to %d seconds for publication of %s\n"
-            "on topic %s for client with ClientID: %s\n\n",
-            (int)(TIMEOUT/1000), playloadstring, topic, CLIENTID);
-    rc = MQTTClient_waitForCompletion(client, token, TIMEOUT);
-    printf("Message with delivery token %d delivered\n\n", token);
-    return rc;
+    // printf("Waiting for up to %d seconds for publication of %s\n"
+    //         "on topic %s for client with ClientID: %s\n\n",
+    //         (int)(TIMEOUT/1000), playloadstring, topic, CLIENTID);
+    // rc = MQTTClient_waitForCompletion(client, token, TIMEOUT);
+    // printf("Message with delivery token %d delivered\n\n", token);
+    // LogSysLocalTime();
+    return RET_SUCESS;
 
 }
 
 volatile MQTTClient_deliveryToken deliveredtoken;
 
+//ÊãºÊé•‰∏ªÈ¢òÂ≠óÁ¨¶‰∏≤
+char *mqtt_topic_joint(char *firstName, char *middleName, char *lastName)
+{
+    char *topic;
+    topic = (char *)malloc(strlen(firstName) + strlen(middleName) + strlen(lastName));
+    strcpy(topic, firstName);
+    strcat(topic, middleName);
+    strcat(topic, lastName);
+    return topic;
+}
+
+int8_t Check_Deivce_ID(cJSON *json)
+{
+    cJSON *node = NULL;
+    node = cJSON_GetObjectItem(json,"deviceId");
+    if(node == NULL){
+		log("deviceId node == NULL\n");
+        return RET_ERROR;
+	}
+    char *deviceid;
+    deviceid = node->valuestring;
+    if(strcmp(deviceid, CLIENTID) != 0){
+		perror("deviceid(%s) is not this device \n", deviceid);
+		return RET_ERROR;
+    } 
+    return RET_SUCESS;
+}
+
+int8_t Deal_topic_command(char* string)
+{
+    cJSON *json = cJSON_Parse(string);
+    cJSON *node = NULL;
+	int size;
+
+	if(json == NULL){
+		perror("playload is not json type\n");
+		return RET_ERROR;
+	}
+	
+	if(Check_Deivce_ID(json) == RET_ERROR) return RET_ERROR;
+	
+	node = cJSON_GetObjectItem(json,"cmd");
+    if(node != NULL){
+        log("cmd is %s\n", node->valuestring);
+    }
+
+	node = cJSON_GetObjectItem(json,"paras");
+    if(node == NULL){
+		log("paras node == NULL\n");
+		return RET_ERROR;
+    }
+
+    cJSON *Tnode = NULL;
+	Tnode = cJSON_GetObjectItem(node,"function");
+    if(Tnode != NULL){
+        log("function is %s\n", Tnode->valuestring);
+        Modbus_Ask_T._function = atoi(Tnode->valuestring);
+    }
+
+	Tnode = cJSON_GetObjectItem(node,"modbusAsk");
+    if(Tnode != NULL){
+        log("modbusAsk is %s\n", Tnode->valuestring);
+        if(strcmp(Tnode->valuestring, "true") == 0){
+            Modbus_Ask_T._ask = true;
+        } 
+    }    
+
+	Tnode = cJSON_GetObjectItem(node,"startAddr");
+    if(Tnode != NULL){
+        log("startAddr is %s\n", Tnode->valuestring);
+        Modbus_Ask_T._startAddr = atoi(Tnode->valuestring);
+    }
+
+	Tnode = cJSON_GetObjectItem(node,"quantity");
+    if(Tnode != NULL){
+        log("quantity is %s\n", Tnode->valuestring);
+        Modbus_Ask_T._quantity = atoi(Tnode->valuestring);
+    }
+    if(Modbus_Ask_T._ask){
+		Json_DealModbusData(Modbus_Ask_T);
+		Modbus_Ask_T._ask = false;
+	}
+
+	cJSON_Delete(json);
+    return RET_SUCESS;
+
+}
+
+int8_t Deal_topic_updataApp(char* string)
+{
+    cJSON *json = cJSON_Parse(string);
+    cJSON *node = NULL;
+    char *url_app, *updata_app, *app_file_name;
+	int size;
+
+	if(json == NULL){
+		perror("playload is not json type\n");
+		return RET_ERROR;
+	}
+	
+	if(Check_Deivce_ID(json) == RET_ERROR) return RET_ERROR;
+
+	node = cJSON_GetObjectItem(json,"updata_app");
+    if(node != NULL){
+        log("updata_app is %s\n", node->valuestring);
+        updata_app = node->valuestring;
+    }
+
+	node = cJSON_GetObjectItem(json,"url_app");
+    if(node != NULL){
+        log("app_file_name is %s\n", node->valuestring);
+        url_app = node->valuestring;
+    }
+	node = cJSON_GetObjectItem(json,"app_file_name");
+    if(node != NULL){
+        log("app_file_name is %s\n", node->valuestring);
+        app_file_name = node->valuestring;
+    }
+    
+    if(strcmp(updata_app, "yes") == 0){
+        log("start updata\n");
+        char *updata_App_url;
+        updata_App_url = (char *)malloc(strlen("curl ") + strlen(url_app) + strlen(" -o " ) + strlen(app_file_name));
+        strcpy(updata_App_url, "curl ");
+        strcat(updata_App_url, url_app);
+        strcat(updata_App_url, " -o ");
+        strcat(updata_App_url, app_file_name);
+        system(updata_App_url);
+        free(updata_App_url);
+        //ÂçáÁ∫ßÂâçË¶ÅÈáäÊîæÊñá‰ª∂ÊèèËø∞Á¨¶ÔºåÂê¶ÂàôÈáçÂêØÊó∂Ôºå‰∏çËÉΩÊâìÂºÄ
+        int i = 0;
+        for(i=0;i<gVars.dwDevNum;i++){
+            close(gpDevice[i].fd);
+        }
+        
+        system("/home/weitao/remote_update.sh");
+
+    } 
+    cJSON_Delete(json);
+    return RET_SUCESS;
+
+}
+
+//Ê∂àÊÅØÂèëÂ∏ÉÊàêÂäüÁ°ÆËÆ§ÂõûË∞ÉÂáΩÊï∞
 void delivered(void *context, MQTTClient_deliveryToken dt)
 {
     printf("Message with token value %d delivery confirmed\n", dt);
@@ -58,7 +202,16 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *m
     printf("Message arrived\n");
     printf("     topic: %s\n", topicName);
     printf("   message: %.*s\n", message->payloadlen, (char*)message->payload);
-	Json_ParseData((char*)message->payload);
+
+    if(strcmp(topicName, topic_sub_command) == 0){
+        log("this is topic_sub_command\n");
+        Deal_topic_command((char*)message->payload);
+    }    
+
+    if(strcmp(topicName, topic_sub_updataApp) == 0){
+        log("this is topic_sub_updataApp\n");
+        Deal_topic_updataApp((char*)message->payload);
+    } 
 	
     MQTTClient_freeMessage(&message);
 //    MQTTClient_free(topicName);
@@ -83,28 +236,42 @@ int Mqtt_Connect(void)
 	}
 }
 
-
 int Mqtt_Reconnect(void)
 {
-	if(MQTTConnectStatus == MQTT_DISCONNECT)Mqtt_Connect();
+	if(MQTTConnectStatus == MQTT_DISCONNECT){
+        log("mqtt reconnet\n");
+        Mqtt_Connect();
+    }
 }
 
 int Mqtt_Client_subscribe()
 {
 	int rc;
 		
-	char *topic_01 = "esdk/get/response/app1/ipAddr";
-	char *topic_02 = "esdk/get/response/app1/deviceInfo";
-	char *topic_03 = "#";
-	char *topic_04 = "/v1/devices/device_03/commandResponse";
-	char *topic_05 = "uDzAMyyb3491/out/device_03";
-	char *topic_06 = "/v1/devices/device_03/command";
+    char *firstName = "/v1/devices/";
+    char *command = "/command";
+    char *updateApp = "/CloudToPoint/updataApp";
+    topic_sub_command = mqtt_topic_joint(firstName, CLIENTID, command);
+    topic_sub_updataApp = mqtt_topic_joint(firstName, CLIENTID, updateApp);
+
+    char *pTopic[] = {topic_sub_command, topic_sub_updataApp};
+    int *pQos;
+    int count;
+    count = sizeof(pTopic)/sizeof(pTopic[0]);
+    pQos = (int *)malloc(count * sizeof(int));
+    memset(pQos, 0, count);
 	
-	
-    printf("Subscribing to topic %s\nfor client %s using QoS%d\n\n"
-           "\n\n", topic_06, CLIENTID, QOS);
-	
-    if ((rc = MQTTClient_subscribe(client, topic_06, QOS)) != MQTTCLIENT_SUCCESS)
+    // ËÆ¢ÈòÖÂçï‰∏™‰∏ªÈ¢ò
+    // if ((rc = MQTTClient_subscribe(client, topic_06, QOS)) != MQTTCLIENT_SUCCESS)
+    // {
+    // 	printf("Failed to subscribe, return code %d\n", rc);
+    // 	rc = EXIT_FAILURE;
+	// 	MQTTClient_destroy(&client);
+	// 	return rc;
+    // }
+
+    // ËÆ¢ÈòÖÂ§ö‰∏™‰∏ªÈ¢ò
+    if ((rc = MQTTClient_subscribeMany(client, count, pTopic, pQos)) != MQTTCLIENT_SUCCESS)
     {
     	printf("Failed to subscribe, return code %d\n", rc);
     	rc = EXIT_FAILURE;
@@ -112,16 +279,11 @@ int Mqtt_Client_subscribe()
 		return rc;
     }
 
-//    printf("Subscribing to topic %s\nfor client %s using QoS%d\n\n"
-//           "\n\n", topic_02, CLIENTID, QOS);
-//    if ((rc = MQTTClient_subscribe(client, topic_02, QOS)) != MQTTCLIENT_SUCCESS)
-//    {
-//    	printf("Failed to subscribe TOPIC_02, return code %d\n", rc);
-//    	rc = EXIT_FAILURE;
-//		MQTTClient_destroy(&client);
-//		return rc;
-//    }
-	    
+    int i;
+    for(i = 0; i < count; i++){
+        log("subscribe topic:%s\n", pTopic[i]);
+    }
+    free(pQos);
     return rc;
 
 }
@@ -165,16 +327,15 @@ void Mqtt_Client_Create_Thread(void *arg)
 
 int Init_Mqtt_Client()
 {
-    //…˘√˜œ˚œ¢token
     MQTTClient_deliveryToken token;
     int rc;
-    // π”√≤Œ ˝¥¥Ω®“ª∏ˆclient£¨≤¢Ω´∆‰∏≥÷µ∏¯÷Æ«∞…˘√˜µƒclient
+    //mqttÈÖçÁΩÆÊúçÂä°Âô®ÂèÇÊï∞
     MQTTClient_create(&client, ADDRESS, CLIENTID,
         MQTTCLIENT_PERSISTENCE_NONE, NULL);
     conn_opts.keepAliveInterval = 20;
     conn_opts.cleansession = 1;
-    conn_opts.username = username; //Ω´”√ªß√˚–¥»Î¡¨Ω”—°œÓ÷–
-    conn_opts.password = password;//Ω´√‹¬Î–¥»Î¡¨Ω”—°œÓ÷–
+    conn_opts.username = username; 
+    conn_opts.password = password;
 
     if ((rc = MQTTClient_setCallbacks(client, NULL, connlost, msgarrvd, delivered)) != MQTTCLIENT_SUCCESS)
     {
@@ -187,7 +348,7 @@ int Init_Mqtt_Client()
 	
     if ((rc = MQTTClient_connect(client, &conn_opts)) != MQTTCLIENT_SUCCESS)
     {
-        printf("Failed to connect, return code %d\n", rc);
+        printf("Failed to connect mqtt broker, return code %d\n", rc);
 		return RET_ERROR;
     }
 

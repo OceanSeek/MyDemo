@@ -1,7 +1,8 @@
 #ifndef _mqtt_Client_H
 #define _mqtt_Client_H
 
-#define CLIENTID    "D3491110407lzFpy" //更改此处客户端ID
+// #define CLIENTID    "D3491110407lzFpy" //鍗庝负浜戠敓鎴愮殑ID
+#define CLIENTID    "device_04" //鑷畾涔塈D
 extern char *username; 
 extern char *password; 
 
@@ -15,6 +16,8 @@ int Mqtt_Client_subscribe();
 void Mqtt_Client_Create_Thread(void *arg);
 int Mqtt_Connect(void);
 int Mqtt_Reconnect(void);
+char *mqtt_topic_joint(char *firstName, char *middleName, char *lastName);
+
 
 #endif
 

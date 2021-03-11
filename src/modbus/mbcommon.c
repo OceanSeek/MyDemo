@@ -114,7 +114,7 @@ void ReadCoilStatusData(uint16_t startAddress,uint16_t quantity,bool *statusList
 			return;
 		}
 		statusDataSrc[i] = gpDevice[DevNo].ModbusData.pCoilStatus[nPoint];
-		log("qunatity is %d npoint is %d value is %d\n",quantity,nPoint,statusDataSrc[i]);
+		// log("qunatity is %d npoint is %d value is %d\n",quantity,nPoint,statusDataSrc[i]);
 	}
 	
 	memcpy(statusList, statusDataSrc, quantity);
