@@ -3,16 +3,16 @@
 // #define ADDRESS     "tcp://112.93.129.113:1883" //华为云地址
 #define ADDRESS     "tcp://1.15.122.102:1883" //腾讯云地址
 #define ADDRESS_02     "tcp://192.168.1.135:1883" //本地地址
-//#define ADDRESS     "tcp://127.0.0.1:1883" //���Ĵ˴���ַ
-//#define ADDRESS     "tcp://mqtt.eclipse.org:1883" //���Ĵ˴���ַ
-#define TOPIC       "topic01"  //���ķ��͵Ļ���
+//#define ADDRESS     "tcp://127.0.0.1:1883" //
+//#define ADDRESS     "tcp://mqtt.eclipse.org:1883" //
+#define TOPIC       "topic01"  
 
-#define PAYLOAD     "Hello Man, Can you see me ?!" //������Ϣ����
-#define QOS         1 	//0������һ�Σ�1������1�Σ�2��ȷ��ֻ��һ��
+#define PAYLOAD     "Hello Man, Can you see me ?!" 
+#define QOS         1 	//0:至多一次，1：至少一次，2：确保一次
 #define TIMEOUT     10000L
 
-char *username= "E939DB405D8B44248B13C41C4A67AA1E"; //���ӵ��û���
-char *password = "dece03aaaaaaaaaaaaaa"; //���ӵ�����
+char *username= "E939DB405D8B44248B13C41C4A67AA1E"; 
+char *password = "dece03aaaaaaaaaaaaaa"; 
 
 // 订阅主题
 char *topic_sub_command, *topic_sub_updataApp;
@@ -254,10 +254,10 @@ int Mqtt_Client_subscribe()
     topic_sub_command = mqtt_topic_joint(firstName, CLIENTID, command);
     topic_sub_updataApp = mqtt_topic_joint(firstName, CLIENTID, updateApp);
 
-    char *pTopic[] = {topic_sub_command, topic_sub_updataApp};
+    char *pTopics_sub[] = {topic_sub_command, topic_sub_updataApp};
     int *pQos;
     int count;
-    count = sizeof(pTopic)/sizeof(pTopic[0]);
+    count = sizeof(pTopics_sub)/sizeof(pTopics_sub[0]);
     pQos = (int *)malloc(count * sizeof(int));
     memset(pQos, 0, count);
 	
@@ -271,7 +271,7 @@ int Mqtt_Client_subscribe()
     // }
 
     // 订阅多个主题
-    if ((rc = MQTTClient_subscribeMany(client, count, pTopic, pQos)) != MQTTCLIENT_SUCCESS)
+    if ((rc = MQTTClient_subscribeMany(client, count, pTopics_sub, pQos)) != MQTTCLIENT_SUCCESS)
     {
     	printf("Failed to subscribe, return code %d\n", rc);
     	rc = EXIT_FAILURE;
@@ -281,7 +281,7 @@ int Mqtt_Client_subscribe()
 
     int i;
     for(i = 0; i < count; i++){
-        log("subscribe topic:%s\n", pTopic[i]);
+        log("subscribe topic:%s\n", pTopics_sub[i]);
     }
     free(pQos);
     return rc;
