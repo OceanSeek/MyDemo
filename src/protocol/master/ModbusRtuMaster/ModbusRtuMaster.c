@@ -20,7 +20,7 @@ int ModbusRtuMaster_Receive(int DevNo, uint8_t *buf, uint16_t len);
 int ModbusRtuMaster_OnTimeOut(int DevNo);
 int ModbusRtuMaster_Task(int DevNo);
 
-RTUAccessedSlaveType slaver_id1;//´ÓÕ¾ÔÝÊ±ÉèÖÃÎªÖ»ÓÐÒ»¸ö
+RTUAccessedSlaveType slaver_id1;//ï¿½ï¿½Õ¾ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ÎªÖ»ï¿½ï¿½Ò»ï¿½ï¿½
 
 
 int Init_ModbusRtuMaster(int DevNo)
@@ -31,7 +31,7 @@ int Init_ModbusRtuMaster(int DevNo)
 	gpDevice[DevNo].OnTimeOut = ModbusRtuMaster_OnTimeOut;
 	gpDevice[DevNo].pModbusMaster = (RTULocalMasterType*)malloc(sizeof(RTULocalMasterType));
 	gpDevice[DevNo].pSendBuf = malloc(300);
-	slaver_id1.stationAddress = 1;//´ÓÕ¾µØÖ·
+	slaver_id1.stationAddress = 1;//ï¿½ï¿½Õ¾ï¿½ï¿½Ö·
 	gpDevice[DevNo].pModbusMaster->slaveNumber = 1;
 	gpDevice[DevNo].pModbusMaster->pSlave = &slaver_id1;
 	InitializeRTUMasterObject(gpDevice[DevNo].pModbusMaster, 1, &slaver_id1, NULL, NULL, NULL, NULL);
@@ -63,9 +63,9 @@ int Init_ModbusRtuMaster(int DevNo)
 }
 
 
-//¼ì²é±¨ÎÄºÏ·¨ÐÔ
+//ï¿½ï¿½é±¨ï¿½ÄºÏ·ï¿½ï¿½ï¿½
 static int SearchOneFrame(uint8_t *pbuf, uint16_t len){
-	uint8_t Min_BUFF_Len = 7;//×î¶Ì±¨ÎÄ³¤¶È
+	uint8_t Min_BUFF_Len = 7;//ï¿½ï¿½Ì±ï¿½ï¿½Ä³ï¿½ï¿½ï¿½
 	uint8_t pFun;
 	int buflen=0;
 	uint8_t num = 0;
@@ -78,14 +78,14 @@ static int SearchOneFrame(uint8_t *pbuf, uint16_t len){
 	num = pbuf[2];
 	switch(pFun)
 	{
-		case 1:		//¶ÁÏßÈ¦	
-		case 2:		//¶ÁÀëÉ¢Á¿ÊäÈë
-		case 3:		//¶Á±£³Ö¼Ä´æÆ÷
-		case 4:		//¶ÁÊäÈë¼Ä´æÆ÷
+		case 1:		//ï¿½ï¿½ï¿½ï¿½È¦	
+		case 2:		//ï¿½ï¿½ï¿½ï¿½É¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		case 3:		//ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼Ä´ï¿½ï¿½ï¿½
+		case 4:		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½
 			buflen = num + 5; 
 			return buflen;
-		case 5: 	//Ð´µ¥ÏßÈ¦
-		case 6: 	//Ð´µ¥¸ö¼Ä´æÆ÷
+		case 5: 	//Ð´ï¿½ï¿½ï¿½ï¿½È¦
+		case 6: 	//Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½
 			return buflen = 8;
 			break;
 		default:
@@ -97,17 +97,46 @@ static int SearchOneFrame(uint8_t *pbuf, uint16_t len){
 
 uint8_t ModbusRtuMaster_Send(int DevNo,char *buf, int len){
 
-	if(strcmp("UDP", gpDevice[DevNo].TcpType) == 0){
-		struct sockaddr_in dest_addr = {};
-		dest_addr.sin_family = AF_INET;//ipv4
-		dest_addr.sin_port = htons(gpDevice[DevNo].UDP_Dest_PORT);
-		dest_addr.sin_addr.s_addr = inet_addr(gpDevice[DevNo].UDP_Dest_IP);
-		sendto(gpDevice[DevNo].fd, buf, len, 0, (struct sockaddr *)&dest_addr,sizeof(dest_addr)); 
-	}
-    else if(-1 == write(gpDevice[DevNo].fd, buf,len)){
-        perror("Send error fd ,fd is (%d)\n",gpDevice[DevNo].fd);
-        return RET_ERROR;
+	// if(strcmp("UDP", gpDevice[DevNo].TcpType) == 0){
+	// 	struct sockaddr_in dest_addr = {};
+	// 	dest_addr.sin_family = AF_INET;//ipv4
+	// 	dest_addr.sin_port = htons(gpDevice[DevNo].UDP_Dest_PORT);
+	// 	dest_addr.sin_addr.s_addr = inet_addr(gpDevice[DevNo].UDP_Dest_IP);
+	// 	sendto(gpDevice[DevNo].fd, buf, len, 0, (struct sockaddr *)&dest_addr,sizeof(dest_addr)); 
+	// }
+    // else {
+	// 	log("devno is %d, fd is %d\n", DevNo, gpDevice[DevNo].fd);
+	// 	if(-1 == write(gpDevice[DevNo].fd, buf,len)){
+	// 		perror("Send error fd ,fd is (%d)\n", gpDevice[DevNo].fd);
+	// 		return RET_ERROR;
+    // 	}
+	// }
+
+#ifdef HUAWEI
+	if(strcmp("Serial", gpDevice[DevNo].Com) == 0){
+		HuaWei485Ctrl_Switch(DevNo, RS485CTL_Write);
+		// DumpHEX(buf, len);
+		if(-1 == write(gpDevice[DevNo].fd,buf,len)){
+			perror("Send error \n");
+			log("DevNo(%d)	fd(%d)\n",DevNo, gpDevice[DevNo].fd);
+			HuaWei485Ctrl_Switch(DevNo, RS485CTL_Read);
+			return RET_ERROR;
+		}
+		usleep(10000);
+		HuaWei485Ctrl_Switch(DevNo, RS485CTL_Read);
+		
     }
+#else
+	if(strcmp("Serial", gpDevice[DevNo].Com) == 0){
+		if(-1 == write(gpDevice[DevNo].fd,buf,len)){
+			perror("Send error \n");
+			log("DevNo(%d)	fd(%d)\n",DevNo, gpDevice[DevNo].fd);
+			return RET_ERROR;
+		}		
+    }
+#endif
+
+		
     gpDevice[DevNo].ReSendNum++;
 
 	MonitorTx(monitorData._TX_ID, DevNo, monitorData._fd, buf, len);
@@ -120,7 +149,7 @@ int ModbusRtuMaster_Receive(int DevNo, uint8_t *buf, uint16_t len)
 
     uint8_t *BufTemp = NULL;
     int16_t LenRemain,LenTmp;
-	uint8_t Min_BUFF_Len = 6;//×î¶Ì±¨ÎÄ³¤¶È
+	uint8_t Min_BUFF_Len = 6;//æœ€çŸ­æŠ¥æ–‡é•¿åº¦
 	int16_t ret = -1;
 	
     if(buf == NULL){
@@ -170,19 +199,19 @@ int ModbusRtuMaster_Deal(int DevNo, uint8_t *pbuf, uint16_t len)
 	
 	switch(pFun)
 	{
-		case 1:		//¶ÁÏßÈ¦	
+		case 1:		//ï¿½ï¿½ï¿½ï¿½È¦	
 			break;
-		case 2:		//¶ÁÀëÉ¢Á¿ÊäÈë
+		case 2:		//ï¿½ï¿½ï¿½ï¿½É¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			break;
-		case 3:		//¶Á±£³Ö¼Ä´æÆ÷
+		case 3:		//ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼Ä´ï¿½ï¿½ï¿½
 			break;
-		case 4:		//¶ÁÊäÈë¼Ä´æÆ÷
+		case 4:		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½
 			break;
-		case 5: 	//Ð´µ¥ÏßÈ¦
+		case 5: 	//Ð´ï¿½ï¿½ï¿½ï¿½È¦
 			break;
-		case 6: 	//Ð´µ¥¸ö¼Ä´æÆ÷
+		case 6: 	//Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½
 			break;
-		case 16:	//Ð´¶à¸ö¼Ä´æÆ÷
+		case 16:	//Ð´ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½
 			break;
 		default:
 			return RET_ERROR;
@@ -341,7 +370,8 @@ int ModbusAskHoldingRegister(int DevNo)
 	}
 	if(quantity == 0) return false;
 	startAddr = addr[0];
-	log("DevID is %d addrStart is %d quantity is %d  OldSlaverAddr is %d\n", gpDevice[DevNo].ID, startAddr, quantity, OldSlaverAddr);
+	// if(DevNo == 0)
+		// log("\nDevID is %d addrStart is %d quantity is %d  OldSlaverAddr is %d\n", gpDevice[DevNo].ID, startAddr, quantity, OldSlaverAddr);
 	ModbusRtuMaster_ASK(DevNo, OldSlaverAddr, ReadHoldingRegister, startAddr, quantity);
 	return true;
 
@@ -375,10 +405,20 @@ int ModbusAskInputResgister(int DevNo)
 
 int ModbusSendAsk(int DevNo)
 {
-	ModbusAskCoilStatus(DevNo);
-	ModbusAskInputStatus(DevNo);
-	ModbusAskHoldingRegister(DevNo);
-	ModbusAskInputResgister(DevNo);
+	
+	// ModbusAskCoilStatus(DevNo);
+	// ModbusAskInputStatus(DevNo);
+	// ModbusAskHoldingRegister(DevNo);
+	// ModbusAskInputResgister(DevNo);
+
+	if(ModbusAskCoilStatus(DevNo))
+		return true;
+	if(ModbusAskInputStatus(DevNo))
+		return true;
+	if(ModbusAskHoldingRegister(DevNo))
+		return true;
+	if(ModbusAskInputResgister(DevNo))
+		return true;
 }
 
 void Modbus_TestData(int DevNo, uint32_t timeCnt)

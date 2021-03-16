@@ -17,7 +17,7 @@ int write_log(char* fmt, int type, const char *file, const char *func, uint32_t 
 //	log("timebuf is %s \n",timebuf);
 	filename1 = "log1.txt";
 	filename2 = "log2.txt";
-	FILE *fp = fopen(filename1, "a");//²ÎÊýaÍùºó×·¼Ó
+	FILE *fp = fopen(filename1, "a");//ï¿½ï¿½ï¿½ï¿½aï¿½ï¿½ï¿½ï¿½×·ï¿½ï¿½
 	if(!fp) return -1;
 	fseek(fp, 0L, SEEK_END);
 	uint32_t size = ftell(fp);

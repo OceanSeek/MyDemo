@@ -1,18 +1,18 @@
 /******************************************************************************/
-/** Ä£¿éÃû³Æ£ºModbusÍ¨Ñ¶                                                     **/
-/** ÎÄ¼şÃû³Æ£ºmbcommon.c                                                     **/
-/** °æ    ±¾£ºV1.0.0                                                         **/
-/** ¼ò    ½é£ºÓÃÓÚÊµÏÖModbus¸÷ÖÖÇé¿öÏÂµÄ¹«ÓÃ²¿·Ö                             **/
+/** Ä£ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ModbusÍ¨Ñ¶                                                     **/
+/** ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Æ£ï¿½mbcommon.c                                                     **/
+/** ï¿½ï¿½    ï¿½ï¿½ï¿½ï¿½V1.0.0                                                         **/
+/** ï¿½ï¿½    ï¿½é£ºï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½Modbusï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÂµÄ¹ï¿½ï¿½Ã²ï¿½ï¿½ï¿½                             **/
 /**--------------------------------------------------------------------------**/
-/** ĞŞ¸Ä¼ÇÂ¼£º                                                               **/
-/**     °æ±¾      ÈÕÆÚ              ×÷Õß              ËµÃ÷                   **/
-/**     V1.0.0  2015-07-18          Ä¾ÄÏ              ´´½¨ÎÄ¼ş               **/
+/** ï¿½Ş¸Ä¼ï¿½Â¼ï¿½ï¿½                                                               **/
+/**     ï¿½æ±¾      ï¿½ï¿½ï¿½ï¿½              ï¿½ï¿½ï¿½ï¿½              Ëµï¿½ï¿½                   **/
+/**     V1.0.0  2015-07-18          Ä¾ï¿½ï¿½              ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½               **/
 /**                                                                          **/
 /******************************************************************************/ 
 #include "sys.h"
 #include "mbcommon.h"
 
-/*½«½ÓÊÕµ½µÄĞ´µ¥¸öCoilÖµ×ª»¯Îª²¼¶ûÁ¿£¬¶ÔÓ¦0x05¹¦ÄÜÂë*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½Ğ´ï¿½ï¿½ï¿½ï¿½CoilÖµ×ªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦0x05ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 bool CovertSingleCommandCoilToBoolStatus(uint16_t coilValue,bool value)
 {
   bool state=value;
@@ -27,7 +27,7 @@ bool CovertSingleCommandCoilToBoolStatus(uint16_t coilValue,bool value)
   return state;
 }
 
-/*¼ìÑéËùĞ´Êı¾İÊÇ·ñ·ûºÏÎïÀíÁ¿ÒªÇó·¶Î§²¢´¦Àí(µ¥¾«¶È¸¡µãÊı)*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ´ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Î§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½ï¿½)*/
 float CheckWriteFloatDataIsValid(float value,float range,float zero)
 {
   if(value>=range)
@@ -44,7 +44,7 @@ float CheckWriteFloatDataIsValid(float value,float range,float zero)
   }
 }
 
-/*¼ìÑéËùĞ´Êı¾İÊÇ·ñ·ûºÏÎïÀíÁ¿ÒªÇó·¶Î§²¢´¦Àí(Ë«¾«¶È¸¡µãÊı)*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ´ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Î§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(Ë«ï¿½ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½ï¿½)*/
 double CheckWriteDoubleDataIsValid(double value,double range,double zero)
 {
   if(value>=range)
@@ -61,7 +61,7 @@ double CheckWriteDoubleDataIsValid(double value,double range,double zero)
   }
 }
 
-/*¼ìÑéËùĞ´Êı¾İÊÇ·ñ·ûºÏÎïÀíÁ¿ÒªÇó·¶Î§²¢´¦Àí(16Î»ÕûÊı)*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ´ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Î§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(16Î»ï¿½ï¿½ï¿½ï¿½)*/
 uint16_t CheckWriteInt16DataIsValid(uint16_t value,uint16_t range,uint16_t zero)
 {
   if(value>=range)
@@ -78,7 +78,7 @@ uint16_t CheckWriteInt16DataIsValid(uint16_t value,uint16_t range,uint16_t zero)
   }
 }
 
-/*¼ìÑéËùĞ´Êı¾İÊÇ·ñ·ûºÏÎïÀíÁ¿ÒªÇó·¶Î§²¢´¦Àí(32Î»ÕûÊı)*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ´ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Î§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(32Î»ï¿½ï¿½ï¿½ï¿½)*/
 uint32_t CheckWriteInt32DataIsValid(uint32_t value,uint32_t range,uint32_t zero)
 {
   if(value>=range)
@@ -114,7 +114,7 @@ void ReadCoilStatusData(uint16_t startAddress,uint16_t quantity,bool *statusList
 			return;
 		}
 		statusDataSrc[i] = gpDevice[DevNo].ModbusData.pCoilStatus[nPoint];
-		log("qunatity is %d npoint is %d value is %d\n",quantity,nPoint,statusDataSrc[i]);
+		// log("qunatity is %d npoint is %d value is %d\n",quantity,nPoint,statusDataSrc[i]);
 	}
 	
 	memcpy(statusList, statusDataSrc, quantity);
@@ -193,61 +193,61 @@ void ReadInputgRegData(uint16_t startAddress,uint16_t quantity,uint16_t *registe
 
 
 
-/*»ñÈ¡ÏëÒª¶ÁÈ¡µÄCoilÁ¿µÄÖµ*/
+/*ï¿½ï¿½È¡ï¿½ï¿½Òªï¿½ï¿½È¡ï¿½ï¿½Coilï¿½ï¿½ï¿½ï¿½Öµ*/
 void GetCoilStatus(int DevNo, uint16_t startAddress,uint16_t quantity,bool *statusList)
 {
   ReadCoilStatusData(startAddress, quantity, statusList);
 }
 
-/*»ñÈ¡ÏëÒª¶ÁÈ¡µÄInputStatusÁ¿µÄÖµ*/
+/*ï¿½ï¿½È¡ï¿½ï¿½Òªï¿½ï¿½È¡ï¿½ï¿½InputStatusï¿½ï¿½ï¿½ï¿½Öµ*/
 void GetInputStatus(int DevNo, uint16_t startAddress,uint16_t quantity,bool *statusValue)
 {
-  //Èç¹ûĞèÒªModbus TCP Server/RTU SlaveÓ¦ÓÃÖĞÊµÏÖ¾ßÌåÄÚÈİ
+  //ï¿½ï¿½ï¿½ï¿½ï¿½ÒªModbus TCP Server/RTU SlaveÓ¦ï¿½ï¿½ï¿½ï¿½Êµï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	ReadInputStatusData(startAddress, quantity, statusValue);
 }
 
-/*»ñÈ¡ÏëÒª¶ÁÈ¡µÄ±£³Ö¼Ä´æÆ÷µÄÖµ*/
+/*ï¿½ï¿½È¡ï¿½ï¿½Òªï¿½ï¿½È¡ï¿½Ä±ï¿½ï¿½Ö¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Öµ*/
 void GetHoldingRegister(int DevNo, uint16_t startAddress,uint16_t quantity,uint16_t *registerValue)
 {
- 	//Èç¹ûĞèÒªModbus TCP Server/RTU SlaveÓ¦ÓÃÖĞÊµÏÖ¾ßÌåÄÚÈİ
+ 	//ï¿½ï¿½ï¿½ï¿½ï¿½ÒªModbus TCP Server/RTU SlaveÓ¦ï¿½ï¿½ï¿½ï¿½Êµï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  	ReadHoldingRegData(startAddress, quantity, registerValue);
 }
 
-/*»ñÈ¡ÏëÒª¶ÁÈ¡µÄÊäÈë¼Ä´æÆ÷µÄÖµ*/
+/*ï¿½ï¿½È¡ï¿½ï¿½Òªï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Öµ*/
 void GetInputRegister(int DevNo, uint16_t startAddress,uint16_t quantity,uint16_t *registerValue)
 {
- 	//Èç¹ûĞèÒªModbus TCP Server/RTU SlaveÓ¦ÓÃÖĞÊµÏÖ¾ßÌåÄÚÈİ
+ 	//ï¿½ï¿½ï¿½ï¿½ï¿½ÒªModbus TCP Server/RTU SlaveÓ¦ï¿½ï¿½ï¿½ï¿½Êµï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	ReadInputgRegData(startAddress, quantity, registerValue);
 }
 
-/*ÉèÖÃµ¥¸öÏßÈ¦µÄÖµ*/
+/*ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½È¦ï¿½ï¿½Öµ*/
 void SetSingleCoil(int DevNo, uint16_t coilAddress,bool coilValue)
 {
-  //Èç¹ûĞèÒªModbus TCP Server/RTU SlaveÓ¦ÓÃÖĞÊµÏÖ¾ßÌåÄÚÈİ
+  //ï¿½ï¿½ï¿½ï¿½ï¿½ÒªModbus TCP Server/RTU SlaveÓ¦ï¿½ï¿½ï¿½ï¿½Êµï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }
 
-/*ÉèÖÃµ¥¸ö¼Ä´æÆ÷µÄÖµ*/
+/*ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Öµ*/
 void SetSingleRegister(int DevNo, uint16_t registerAddress,uint16_t registerValue)
 {
-  //Èç¹ûĞèÒªModbus TCP Server/RTU SlaveÓ¦ÓÃÖĞÊµÏÖ¾ßÌåÄÚÈİ
+  //ï¿½ï¿½ï¿½ï¿½ï¿½ÒªModbus TCP Server/RTU SlaveÓ¦ï¿½ï¿½ï¿½ï¿½Êµï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }
 
-/*ÉèÖÃ¶à¸öÏßÈ¦µÄÖµ*/
+/*ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½È¦ï¿½ï¿½Öµ*/
 void SetMultipleCoil(int DevNo, uint16_t startAddress,uint16_t quantity,bool *statusValue)
 {
-  //Èç¹ûĞèÒªModbus TCP Server/RTU SlaveÓ¦ÓÃÖĞÊµÏÖ¾ßÌåÄÚÈİ
+  //ï¿½ï¿½ï¿½ï¿½ï¿½ÒªModbus TCP Server/RTU SlaveÓ¦ï¿½ï¿½ï¿½ï¿½Êµï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }
 
-/*ÉèÖÃ¶à¸ö¼Ä´æÆ÷µÄÖµ*/
+/*ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Öµ*/
 void SetMultipleRegister(int DevNo, uint16_t startAddress,uint16_t quantity,uint16_t *registerValue)
 {
-  //Èç¹ûĞèÒªModbus TCP Server/RTU SlaveÓ¦ÓÃÖĞÊµÏÖ¾ßÌåÄÚÈİ
+  //ï¿½ï¿½ï¿½ï¿½ï¿½ÒªModbus TCP Server/RTU SlaveÓ¦ï¿½ï¿½ï¿½ï¿½Êµï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }
 
-/*¸üĞÂ¶Á»ØÀ´µÄÏßÈ¦×´Ì¬*/
+/*ï¿½ï¿½ï¿½Â¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¦×´Ì¬*/
 void UpdateCoilStatus(int DevNo, uint8_t salveAddress,uint16_t startAddress,uint16_t quantity,bool *stateValue)
 {
-  //ÔÚ¿Í»§¶Ë£¨Ö÷Õ¾£©Ó¦ÓÃÖĞÊµÏÖ
+  //ï¿½Ú¿Í»ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Õ¾ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½
 	int startRegister = -1, i;
 
 	for( i = 0; i < gpDevice[DevNo].ModbusData._CoilStatusNum ; i++){
@@ -258,7 +258,7 @@ void UpdateCoilStatus(int DevNo, uint8_t salveAddress,uint16_t startAddress,uint
 			}
 		}
 	}
-	if(startRegister = -1){
+	if(startRegister == -1){
 		perror("startRegister = -1");
 		return;
 	}
@@ -280,10 +280,10 @@ void UpdateCoilStatus(int DevNo, uint8_t salveAddress,uint16_t startAddress,uint
   
 }
 
-/*¸üĞÂ¶Á»ØÀ´µÄÊäÈë×´Ì¬Öµ*/
+/*ï¿½ï¿½ï¿½Â¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬Öµ*/
 void UpdateInputStatus(int DevNo, uint8_t salveAddress,uint16_t startAddress,uint16_t quantity,bool *stateValue)
 {
-  //ÔÚ¿Í»§¶Ë£¨Ö÷Õ¾£©Ó¦ÓÃÖĞÊµÏÖ
+  //ï¿½Ú¿Í»ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Õ¾ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½
 	int startRegister = -1, i;
 
 	for( i = 0; i < gpDevice[DevNo].ModbusData._InputStatusNum ; i++){
@@ -294,7 +294,7 @@ void UpdateInputStatus(int DevNo, uint8_t salveAddress,uint16_t startAddress,uin
 			}
 		}
 	}
-	if(startRegister = -1){
+	if(startRegister == -1){
 		perror("startRegister = -1");
 		return;
 	}
@@ -319,7 +319,7 @@ void UpdateInputStatus(int DevNo, uint8_t salveAddress,uint16_t startAddress,uin
 	log("\n");
 }
 
-/*¸üĞÂ¶Á»ØÀ´µÄ±£³Ö¼Ä´æÆ÷,¹¦ÄÜÂë03*/
+/*ï¿½ï¿½ï¿½Â¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½Ö¼Ä´ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½03*/
 void UpdateHoldingRegister(int DevNo, uint8_t salveAddress,uint16_t startAddress,uint16_t quantity,uint16_t *registerValue)
 {
 	int startRegister = -1, i;
@@ -332,8 +332,8 @@ void UpdateHoldingRegister(int DevNo, uint8_t salveAddress,uint16_t startAddress
 		}
 		
 	}
-	if(startRegister = -1){
-		perror("startRegister = -1");
+	if(startRegister == -1){
+		perror("startRegister = -1, startAddress is %d", startAddress);
 		return;
 	}
 	if(gpDevice[DevNo].ModbusData.pHoldingRegister == NULL) return;
@@ -356,64 +356,64 @@ void UpdateHoldingRegister(int DevNo, uint8_t salveAddress,uint16_t startAddress
 	log("\n");
 
 	
-  //ÔÚ¿Í»§¶Ë£¨Ö÷Õ¾£©Ó¦ÓÃÖĞÊµÏÖ
+  //ï¿½Ú¿Í»ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Õ¾ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½
 // uint16_t startRegister=HoldingResterEndAddress+1;
 //
 //  switch(salveAddress)
 //  {
-//  case BPQStationAddress:       //¸üĞÂ¶ÁÈ¡µÄ±äÆµÆ÷²ÎÊı
+//  case BPQStationAddress:       //ï¿½ï¿½ï¿½Â¶ï¿½È¡ï¿½Ä±ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //    {
 //      startRegister=36;
 //      break;
 //    }
-//  case PUMPStationAddress:      //¸üĞÂÈä¶¯±Ã
+//  case PUMPStationAddress:      //ï¿½ï¿½ï¿½ï¿½ï¿½ä¶¯ï¿½ï¿½
 //    {
 ////      aPara.phyPara.pumpRotateSpeed=registerValue[1];
 //      startRegister=HoldingResterEndAddress+1;
 //      break;
 //    }
-//  case JIG1StationAddress:      //¸üĞÂ°Ú±ÛĞ¡µç»ú
+//  case JIG1StationAddress:      //ï¿½ï¿½ï¿½Â°Ú±ï¿½Ğ¡ï¿½ï¿½ï¿½
 //    {
 //      startRegister=48;
 //      break;
 //    }
-//  case JIG2StationAddress:      //¸üĞÂ°Ú±ÛĞ¡µç»ú
+//  case JIG2StationAddress:      //ï¿½ï¿½ï¿½Â°Ú±ï¿½Ğ¡ï¿½ï¿½ï¿½
 //    {
 //      startRegister=52;
 //      break;
 //    }
-//  case JIG3StationAddress:      //¸üĞÂ°Ú±ÛĞ¡µç»ú
+//  case JIG3StationAddress:      //ï¿½ï¿½ï¿½Â°Ú±ï¿½Ğ¡ï¿½ï¿½ï¿½
 //    {
 //      startRegister=56;
 //      break;
 //    }
-//  case HLPStationAddress:       //¸üĞÂºìÍâÎÂ¶È
+//  case HLPStationAddress:       //ï¿½ï¿½ï¿½Âºï¿½ï¿½ï¿½ï¿½Â¶ï¿½
 //    {
 //      aPara.phyPara.hlpObjectTemperature=registerValue[0]/100.0;
 //      startRegister=HoldingResterEndAddress+1;
 //      break;
 //    }
-//  case ROL1StationAddress:      //¸üĞÂ°Ú±Û¿ØÖÆ
+//  case ROL1StationAddress:      //ï¿½ï¿½ï¿½Â°Ú±Û¿ï¿½ï¿½ï¿½
 //    {
 //      startRegister=quantity<3?60:62;
 //      break;
 //    }
-//  case ROL2StationAddress:      //¸üĞÂ°Ú±Û¿ØÖÆ
+//  case ROL2StationAddress:      //ï¿½ï¿½ï¿½Â°Ú±Û¿ï¿½ï¿½ï¿½
 //    {
 //      startRegister=quantity<3?70:72;
 //      break;
 //    }
-//  case ROL3StationAddress:      //¸üĞÂ°Ú±Û¿ØÖÆ
+//  case ROL3StationAddress:      //ï¿½ï¿½ï¿½Â°Ú±Û¿ï¿½ï¿½ï¿½
 //    {
 //      startRegister=quantity<3?80:82;
 //      break;
 //    }
-//  case DRUMStationAddress:      //¸üĞÂ¹öÍ²µç»ú
+//  case DRUMStationAddress:      //ï¿½ï¿½ï¿½Â¹ï¿½Í²ï¿½ï¿½ï¿½
 //    {
 //      startRegister=quantity<3?90:92;
 //      break;
 //    }
-//  default:                      //¹ÊÕÏÌ¬
+//  default:                      //ï¿½ï¿½ï¿½ï¿½Ì¬
 //    {
 //      startRegister=HoldingResterEndAddress+1;
 //      break;
@@ -429,10 +429,10 @@ void UpdateHoldingRegister(int DevNo, uint8_t salveAddress,uint16_t startAddress
 //  }  
 }
 
-/*¸üĞÂ¶Á»ØÀ´µÄÊäÈë¼Ä´æÆ÷*/
+/*ï¿½ï¿½ï¿½Â¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½*/
 void UpdateInputResgister(int DevNo, uint8_t salveAddress,uint16_t startAddress,uint16_t quantity,uint16_t *registerValue)
 {
-  //ÔÚ¿Í»§¶Ë£¨Ö÷Õ¾£©Ó¦ÓÃÖĞÊµÏÖ
+  //ï¿½Ú¿Í»ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Õ¾ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½
 	int startRegister = -1, i;
 	for( i = 0; i < gpDevice[DevNo].ModbusData._HoldingRegNum ; i++){
 		if(salveAddress == gpDevice[DevNo].ModbusData.pInputResgister_T[i]._SlaverAddr){
@@ -442,7 +442,7 @@ void UpdateInputResgister(int DevNo, uint8_t salveAddress,uint16_t startAddress,
 			}
 		}
 	}
-	if(startRegister = -1){
+	if(startRegister == -1){
 		perror("startRegister = -1");
 		return;
 	}

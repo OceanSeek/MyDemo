@@ -83,9 +83,9 @@ int  ModbusRtuSlaver_Send(int DevNo,char *buf, int len)
 
 
 
-//¼ì²é±¨ÎÄºÏ·¨ÐÔ
+//ï¿½ï¿½é±¨ï¿½ÄºÏ·ï¿½ï¿½ï¿½
 static int SearchOneFrame(uint8_t *pbuf, uint16_t len){
-	uint8_t Min_BUFF_Len = 6;//×î¶Ì±¨ÎÄ³¤¶È
+	uint8_t Min_BUFF_Len = 6;//ï¿½ï¿½Ì±ï¿½ï¿½Ä³ï¿½ï¿½ï¿½
 	uint8_t pFun;
 	int buflen=0;
 	int num = 0;
@@ -96,17 +96,18 @@ static int SearchOneFrame(uint8_t *pbuf, uint16_t len){
 	num = pbuf[2];
 	switch(pFun)
 	{
-		case 1:		//¶ÁÏßÈ¦	
-		case 2:		//¶ÁÀëÉ¢Á¿ÊäÈë
-		case 3:		//¶Á±£³Ö¼Ä´æÆ÷
-		case 4:		//¶ÁÊäÈë¼Ä´æÆ÷
-		case 5: 	//Ð´µ¥ÏßÈ¦
-		case 6: 	//Ð´µ¥¸ö¼Ä´æÆ÷
+		case 1:		//ï¿½ï¿½ï¿½ï¿½È¦	
+		case 2:		//ï¿½ï¿½ï¿½ï¿½É¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		case 3:		//ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼Ä´ï¿½ï¿½ï¿½
+		case 4:		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½
+		case 5: 	//Ð´ï¿½ï¿½ï¿½ï¿½È¦
+		case 6: 	//Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½
 			buflen = 8;
 			return buflen;
 			break;
-		case 16:	//Ð´¶à¸ö¼Ä´æÆ÷
-			buflen = 2*num + 9;
+		case 16:	//Ð´ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½
+			buflen = 2*num + 9;
+
 			return buflen;
 		default:
 			return RET_ERROR;
@@ -120,7 +121,7 @@ int Modbus_Rtu_Slaver_Receive(int DevNo, uint8_t *buf, uint16_t len)
 
     uint8_t *BufTemp = NULL;
     int16_t LenRemain,LenTmp;
-	uint8_t Min_BUFF_Len = 8;//×î¶Ì±¨ÎÄ³¤¶È
+	uint8_t Min_BUFF_Len = 8;//ï¿½ï¿½Ì±ï¿½ï¿½Ä³ï¿½ï¿½ï¿½
 	int16_t ret = -1;
 	
     if(buf == NULL){
@@ -143,7 +144,7 @@ int Modbus_Rtu_Slaver_Receive(int DevNo, uint8_t *buf, uint16_t len)
                 perror("len error(%d) \n",len);
                 return RET_ERROR;
             }
-			log("Dev %d:receive:",DevNo);
+			log("Dev %d:receive:", DevNo);
 			DumpHEX(buf, len);
             Modbus_Deal(DevNo, BufTemp, LenTmp);
         }
@@ -176,20 +177,20 @@ int Modbus_Deal(int DevNo, uint8_t *pbuf, uint16_t len)
 	ModbusRtuSlaver_Send(DevNo, gpDevice[DevNo].pSendBuf, SendLen);
 	switch(pFun)
 	{
-		case 1:		//¶ÁÏßÈ¦	
+		case 1:		//ï¿½ï¿½ï¿½ï¿½È¦	
 			break;
-		case 2:		//¶ÁÀëÉ¢Á¿ÊäÈë
+		case 2:		//ï¿½ï¿½ï¿½ï¿½É¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			break;
-		case 3:		//¶Á±£³Ö¼Ä´æÆ÷
+		case 3:		//ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼Ä´ï¿½ï¿½ï¿½
 			break;
-		case 4:		//¶ÁÊäÈë¼Ä´æÆ÷
+		case 4:		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½
 			break;
-		case 5: 	//Ð´µ¥ÏßÈ¦
+		case 5: 	//Ð´ï¿½ï¿½ï¿½ï¿½È¦
 			break;
-		case 6: 	//Ð´µ¥¸ö¼Ä´æÆ÷
+		case 6: 	//Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½
 			PRINT_FUNLINE;
 			break;
-		case 16:	//Ð´¶à¸ö¼Ä´æÆ÷
+		case 16:	//Ð´ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½
 			break;
 		default:
 			return RET_ERROR;

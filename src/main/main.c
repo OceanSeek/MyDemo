@@ -11,12 +11,12 @@ pthread_mutex_t mutex;
 pthread_mutex_t mutex2;
 int listenfd,connfd;
 unsigned int StaCount = 0;
-uint32_t sys_time_cnt = 0;//¼ÆÊ±Æ÷£¬500msÒ»´Î
+uint32_t sys_time_cnt = 0;//ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½500msÒ»ï¿½ï¿½
 
  
  
 
-//¾Ö²¿º¯Êý
+//ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½
 void *Pthread_Task(void *arg);
 int ComConfig(int *arg);
 int ComConfigTCPClient(int	*arg);
@@ -47,11 +47,11 @@ void InitDevice(void)
 
 
 /*******************************************************************  
-*Ãû³Æ£º      		InitDeviceYKInfo  
-*¹¦ÄÜ£º			×¢²áÖ÷Õ¾Ð­ÒéµÄÒ£¿Øº¯Êý  
-*Èë¿Ú²ÎÊý£ºÎÞ        
+*ï¿½ï¿½ï¿½Æ£ï¿½      		InitDeviceYKInfo  
+*ï¿½ï¿½ï¿½Ü£ï¿½			×¢ï¿½ï¿½ï¿½ï¿½Õ¾Ð­ï¿½ï¿½ï¿½Ò£ï¿½Øºï¿½ï¿½ï¿½  
+*ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½        
  
-*³ö¿Ú²ÎÊý£ºÎÞ
+*ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 *******************************************************************/ 
 void InitProtocol()
 {
@@ -103,10 +103,10 @@ void InitProtocol()
 }
 
 /*******************************************************************  
-*Ãû³Æ£º      		Empty_Task  
-*¹¦ÄÜ£º			Õ¼Î»º¯Êý£¬Èô¹æÔ¼ÎÞÑ­»·ÈÎÎñ£¬ÔòÕ¼Î»  
-*Èë¿Ú²ÎÊý£ºÎÞ        
-*³ö¿Ú²ÎÊý£ºÕýÈ··µ»Ø0£¬´íÎó·µ»Ø-1
+*ï¿½ï¿½ï¿½Æ£ï¿½      		Empty_Task  
+*ï¿½ï¿½ï¿½Ü£ï¿½			Õ¼Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼Î»  
+*ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½        
+*ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½ï¿½ï¿½ï¿½ó·µ»ï¿½-1
 *******************************************************************/ 
 int Empty_Task(int DevNo)
 {
@@ -118,10 +118,10 @@ int Empty_Task(int DevNo)
 }
 
 /*******************************************************************  
-*Ãû³Æ£º      		Empty_OnTimeOut  
-*¹¦ÄÜ£º			Õ¼Î»º¯Êý£¬Èô¹æÔ¼ÎÞ¶¨Ê±ÈÎÎñ£¬ÔòÕ¼Î»  
-*Èë¿Ú²ÎÊý£ºÎÞ        
-*³ö¿Ú²ÎÊý£ºÕýÈ··µ»Ø0£¬´íÎó·µ»Ø-1
+*ï¿½ï¿½ï¿½Æ£ï¿½      		Empty_OnTimeOut  
+*ï¿½ï¿½ï¿½Ü£ï¿½			Õ¼Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½Þ¶ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼Î»  
+*ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½        
+*ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½ï¿½ï¿½ï¿½ó·µ»ï¿½-1
 *******************************************************************/ 
 int Empty_OnTimeOut(int DevNo)
 {
@@ -133,10 +133,10 @@ int Empty_OnTimeOut(int DevNo)
 }
 
 /*******************************************************************  
-*Ãû³Æ£º      		Empty_Receive  
-*¹¦ÄÜ£º			Õ¼Î»º¯Êý£¬Èô¹æÔ¼ÎÞ½ÓÊÕÈÎÎñ£¬ÔòÕ¼Î»  
-*Èë¿Ú²ÎÊý£ºÎÞ        
-*³ö¿Ú²ÎÊý£ºÕýÈ··µ»Ø0£¬´íÎó·µ»Ø-1
+*ï¿½ï¿½ï¿½Æ£ï¿½      		Empty_Receive  
+*ï¿½ï¿½ï¿½Ü£ï¿½			Õ¼Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼Î»  
+*ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½        
+*ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½ï¿½ï¿½ï¿½ó·µ»ï¿½-1
 *******************************************************************/
 int Empty_Receive(int DevNo, uint8_t *buf, uint16_t len)
 {
@@ -148,11 +148,11 @@ int Empty_Receive(int DevNo, uint8_t *buf, uint16_t len)
 }
 
 /*******************************************************************  
-*Ãû³Æ£º      		CreatePthread  
-*¹¦ÄÜ£º			´´½¨Ïß³Ì  
-*Èë¿Ú²ÎÊý£ºÎÞ        
+*ï¿½ï¿½ï¿½Æ£ï¿½      		CreatePthread  
+*ï¿½ï¿½ï¿½Ü£ï¿½			ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½  
+*ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½        
  
-*³ö¿Ú²ÎÊý£ºÕýÈ··µ»Ø0£¬´íÎó·µ»Ø-1
+*ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½ï¿½ï¿½ï¿½ó·µ»ï¿½-1
 *******************************************************************/ 
 static int threadID[MAXDEVNUM];
 int CreatePthread(void){
@@ -178,12 +178,12 @@ int CreatePthread(void){
 	return 0;
 }
 /*******************************************************************  
-*Ãû³Æ£º      		ClearDevicParamater  
-*¹¦ÄÜ£º			ÇåÁãÉè±¸²ÎÊý  
-*Èë¿Ú²ÎÊý£º         
-*	@DevNo 		Éè±¸ID
+*ï¿½ï¿½ï¿½Æ£ï¿½      		ClearDevicParamater  
+*ï¿½ï¿½ï¿½Ü£ï¿½			ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½ï¿½  
+*ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½         
+*	@DevNo 		ï¿½è±¸ID
  
-*³ö¿Ú²ÎÊý£ºÕýÈ··µ»ØÎª0£¬´íÎó·µ»ØÎª-1 
+*ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½ï¿½ï¿½ï¿½ó·µ»ï¿½Îª-1 
 *******************************************************************/ 
 int ClearDevicParamater(int DevNo)
 {
@@ -193,19 +193,19 @@ int ClearDevicParamater(int DevNo)
 }
 
 /*******************************************************************  
-*Ãû³Æ£º			Pthread_Task  
-*¹¦ÄÜ£º			´´½¨Ïß³Ì  
-*Èë¿Ú²ÎÊý£º		
-*	arg:	Éè±¸ID
-*³ö¿Ú²ÎÊý£º
-*	PTableName: ·µ»Ø±íµ¥Ö¸Õë
-*ÐÞ¸ÄÈÕÆÚ£º2020-3-19
-*	×èÈûÄ£Ê½ÏÂ£¬"Pthread_Task_ID++"²»ÄÜ·ÅÔÚºóÃæ£¬·ñÔò»á³ö´í¡£´´½¨Ïß³ÌµÄ³ÌÐò»á²»¹Ü×èÈûÊÇ·ñ·µ»Ø¶¼»á´´½¨£¬Èç¹û
-*	¡°Pthread_Task_ID++¡±·ÅÔÚºóÃæÔò²»ÄÜÖ´ÐÐ£¬Pthread_Task_IDµÄÖµ¾Í»áÒ»Ö±ÊÇ0¡£
-*ÐÞ¸ÄÈÕÆÚ£º2020-6-8
-*	½«Pthread_Task_IDÉ¾³ý£¬²ÉÓÃ´«²Î·½Ê½´«µÝDevNo
-*ÐÞ¸ÄÈÕÆÚ£º2020-7-9
-*	½«fdÌí¼Ó½øgpdevice½á¹¹ÌåÖÐ
+*ï¿½ï¿½ï¿½Æ£ï¿½			Pthread_Task  
+*ï¿½ï¿½ï¿½Ü£ï¿½			ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½  
+*ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½		
+*	arg:	ï¿½è±¸ID
+*ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½
+*	PTableName: ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
+*ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ú£ï¿½2020-3-19
+*	ï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½Â£ï¿½"Pthread_Task_ID++"ï¿½ï¿½ï¿½Ü·ï¿½ï¿½Úºï¿½ï¿½æ£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³ÌµÄ³ï¿½ï¿½ï¿½á²»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ñ·µ»Ø¶ï¿½ï¿½á´´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+*	ï¿½ï¿½Pthread_Task_ID++ï¿½ï¿½ï¿½ï¿½ï¿½Úºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð£ï¿½Pthread_Task_IDï¿½ï¿½Öµï¿½Í»ï¿½Ò»Ö±ï¿½ï¿½0ï¿½ï¿½
+*ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ú£ï¿½2020-6-8
+*	ï¿½ï¿½Pthread_Task_IDÉ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã´ï¿½ï¿½Î·ï¿½Ê½ï¿½ï¿½ï¿½ï¿½DevNo
+*ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ú£ï¿½2020-7-9
+*	ï¿½ï¿½fdï¿½ï¿½ï¿½Ó½ï¿½gpdeviceï¿½á¹¹ï¿½ï¿½ï¿½ï¿½
 *******************************************************************/ 
 void *Pthread_Task(void *arg)
 {	
@@ -236,10 +236,10 @@ void *Pthread_Task(void *arg)
 *
 * Function name ComConfig
 * Description        : com config
-* Parameter         £º
+* Parameter         ï¿½ï¿½
 *        @arg            device id 
 
-* Return          £º-1 error  ,  fd
+* Return          ï¿½ï¿½-1 error  ,  fd
 * Others		:
 **********************************************************/
 int ComConfig(int *arg)
@@ -290,18 +290,18 @@ int ComConfig(int *arg)
 
 }
 /*******************************************************************  
-*Ãû³Æ£º			ComConfigTCPClient  
-*¹¦ÄÜ£º			ÅäÖÃTCP¿Í»§¶Ë  
-*Èë¿Ú²ÎÊý£º		
-*	arg:	Éè±¸ID
-*³ö¿Ú²ÎÊý£º
+*ï¿½ï¿½ï¿½Æ£ï¿½			ComConfigTCPClient  
+*ï¿½ï¿½ï¿½Ü£ï¿½			ï¿½ï¿½ï¿½ï¿½TCPï¿½Í»ï¿½ï¿½ï¿½  
+*ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½		
+*	arg:	ï¿½è±¸ID
+*ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½
 *	
-*ÐÞ¸ÄÈÕÆÚ£º2020-3-19
-*	×èÈûÄ£Ê½ÏÂ£¬"Pthread_Task_ID++"²»ÄÜ·ÅÔÚºóÃæ£¬·ñÔò»á³ö´í¡£´´½¨Ïß³ÌµÄ³ÌÐò»á²»¹Ü×èÈûÊÇ·ñ·µ»Ø¶¼»á´´½¨£¬Èç¹û
-*	¡°Pthread_Task_ID++¡±·ÅÔÚºóÃæÔò²»ÄÜÖ´ÐÐ£¬Pthread_Task_IDµÄÖµ¾Í»áÒ»Ö±ÊÇ0¡£
-*ÐÞ¸ÄÈÕÆÚ£º2020-6-8
-*	½«Pthread_Task_IDÉ¾³ý£¬²ÉÓÃ´«²Î·½Ê½´«µÝDevNo
-*	logbuf²»¿ÉÊ¹ÓÃÈ«¾Ö¾²Ì¬±äÁ¿£¬¶àÏß³ÌÍ¬Ê±¸³Öµ»áÓÐ³åÍ»,ÔÚÕâÊ¹ÓÃÈ«¾Ö±äÁ¿£¬Ã¿¸öÉè±¸·ÖÅäÒ»¸ölogbuf
+*ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ú£ï¿½2020-3-19
+*	ï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½Â£ï¿½"Pthread_Task_ID++"ï¿½ï¿½ï¿½Ü·ï¿½ï¿½Úºï¿½ï¿½æ£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³ÌµÄ³ï¿½ï¿½ï¿½á²»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ñ·µ»Ø¶ï¿½ï¿½á´´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+*	ï¿½ï¿½Pthread_Task_ID++ï¿½ï¿½ï¿½ï¿½ï¿½Úºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð£ï¿½Pthread_Task_IDï¿½ï¿½Öµï¿½Í»ï¿½Ò»Ö±ï¿½ï¿½0ï¿½ï¿½
+*ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ú£ï¿½2020-6-8
+*	ï¿½ï¿½Pthread_Task_IDÉ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã´ï¿½ï¿½Î·ï¿½Ê½ï¿½ï¿½ï¿½ï¿½DevNo
+*	logbufï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½È«ï¿½Ö¾ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½Í¬Ê±ï¿½ï¿½Öµï¿½ï¿½ï¿½Ð³ï¿½Í»,ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½È«ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½logbuf
 *******************************************************************/ 
 int ComConfigTCPClient(int *arg)
 {
@@ -324,12 +324,12 @@ int ComConfigTCPClient(int *arg)
 
 /*******************************************************
 *
-* Function name 	£ºComConfigTCPServer
+* Function name 	ï¿½ï¿½ComConfigTCPServer
 * Description    	: tcp secver config. 
-* Parameter         £º
+* Parameter         ï¿½ï¿½
 * 		@DevNo		:device id 
 
-* Return        	£ºfd
+* Return        	ï¿½ï¿½fd
 * Others			:
 * 	
 **********************************************************/
@@ -346,10 +346,10 @@ int ComConfigTCPServer(int *arg)
 *
 * Function name 	ComConfigUDP
 * Description    	: tcp secver config. 
-* Parameter         £º
+* Parameter         ï¿½ï¿½
 * 		@DevNo		:device id 
 
-* Return        	£ºfd
+* Return        	ï¿½ï¿½fd
 * Others			:
 * 	
 **********************************************************/
@@ -369,16 +369,16 @@ int ComConfigUDP(int *arg)
 *
 * Function name 	ComConfigCK
 * Description    	: serial port config 
-* Parameter         £º
+* Parameter         ï¿½ï¿½
 * 		@DevNo		:device id 
 
-* Return        	£ºfd , -1:error
+* Return        	ï¿½ï¿½fd , -1:error
 * Others			:
 * 	
 **********************************************************/
 int ComConfigCK(int DevNo)
 {
-	int err;			   //·µ»Øµ÷ÓÃº¯ÊýµÄ×´Ì¬	
+	int err;			   //ï¿½ï¿½ï¿½Øµï¿½ï¿½Ãºï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬	
 	int len;							
 	int i;
 	char rcv_buf[256];			   
@@ -417,7 +417,7 @@ int ComConfigCK(int DevNo)
 	}
 #endif
 	
-	ttyfd = UART0_Open(ttyPort); //´ò¿ª´®¿Ú£¬·µ»ØÎÄ¼þÃèÊö·û	
+	ttyfd = UART0_Open(ttyPort); 
 	if(ttyfd < 0)
 	{
 		perror("Open %s fail!\n",ttyPort);
@@ -461,15 +461,15 @@ int OnTimeOut(struct timeval *lasttime, uint32_t TimeOut, long long *nowtime_ms,
 
 /*******************************************************
 *
-* Function name £ºnonblockingClient
+* Function name ï¿½ï¿½nonblockingClient
 * Description        : TCPClient nonblock Connect
-* Parameter         £º
+* Parameter         ï¿½ï¿½
 *        @fd            returen fd 
 *        @ip	        destination ip    
 *        @port     		ip port
 *        @timeout     	connect overtime
 *        @DevNo       	device id
-* Return          £º0 success  ,  other fail
+* Return          ï¿½ï¿½0 success  ,  other fail
 **********************************************************/
 int nonblockingClient(const char* ip, short port, int timeout, int DevNo)
 {
@@ -480,7 +480,7 @@ int nonblockingClient(const char* ip, short port, int timeout, int DevNo)
   	    log("create socket error: %s(errno: %d)\n", strerror(errno),errno);  
 		exit(0);  
 	}	
-    //ÉèÖÃ·Ç×èÈû
+    //ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½
 	int flag = fcntl(fd, F_GETFL, 0);
 	if (fcntl(fd, F_SETFL, flag | O_NONBLOCK) == -1)
 	{
@@ -493,7 +493,7 @@ int nonblockingClient(const char* ip, short port, int timeout, int DevNo)
 	sockaddr_in.sin_addr.s_addr = inet_addr(ip);
 	sockaddr_in.sin_port = htons(port);
 	sockaddr_in.sin_family = AF_INET;
-    //ÎªÁË´¦ÀíEINTR,½«connect·ÅÔÚÑ­»·ÄÚ
+    //Îªï¿½Ë´ï¿½ï¿½ï¿½EINTR,ï¿½ï¿½connectï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½
 	
     while (1)
     {
@@ -550,8 +550,8 @@ int nonblockingClient(const char* ip, short port, int timeout, int DevNo)
 		}
  
         /**
-        * ÔÚlinuxÏÂ£¬select·µ»Øfd¿ÉÐ´£¬ÓÐÁ½ÖÖÇé¿ö£º1.Á¬½Ó³É¹¦£¬2.·¢Éú´íÎó
-        * getsockopt·µ»ØerrorÎª0ÔòÅÅ³ý´íÎóÇé¿ö£¬Á¬½ÓÒÑ½¨Á¢
+        * ï¿½ï¿½linuxï¿½Â£ï¿½selectï¿½ï¿½ï¿½ï¿½fdï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1.ï¿½ï¿½ï¿½Ó³É¹ï¿½ï¿½ï¿½2.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        * getsockoptï¿½ï¿½ï¿½ï¿½errorÎª0ï¿½ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ½ï¿½ï¿½ï¿½
         */
  		log("DevNo(%d) connect successfully  fd(%d) ip(%s) port(%d) ",DevNo,fd, ip, port);
 		LogSysLocalTime();
@@ -626,16 +626,15 @@ int nonblockingUDP(const char* ip, short port, int timeout, int DevNo)
 		return -1;
 	}
 
-	//×¼±¸µØÖ·
 	struct sockaddr_in addr = {};
 	addr.sin_family = AF_INET;//ipv4
-	addr.sin_port = htons(port);//¶Ë¿ÚºÅ
-	addr.sin_addr.s_addr = inet_addr(ip);//ÎÒµÄipµØÖ·
-	//°ó¶¨
+	addr.sin_port = htons(port);//
+	addr.sin_addr.s_addr = inet_addr(ip);
+	
 	int ret = bind(fd,(struct sockaddr *)&addr,sizeof(addr));
 	if (0 > ret)
 	{
-		 perror("bind udp ip:%s\n",ip);
+		 perror("bind udp ip:%s,errorcode:%d\n", ip, ret);
 		 return -1;
 	}
 
@@ -670,16 +669,16 @@ void *AppTask(void *arg)
 }
 
 /*******************************************************************  
-*Ãû³Æ£º      		ReAcceptServer  
-*¹¦ÄÜ£º			¶ÁÈ¡×Ö·û³¤¶ÈÒì³£Ê±£¬Ô¶·½¿Í»§¶Ë¶Ï¿ªÁ´½Ó£¬ÖØÐÂÕìÌý  
-*Èë¿Ú²ÎÊý£º         
-*	@DevNo		Éè±¸IDºÅ
-*	@len		¶ÁÈ¡µ½µÄ×Ö·û³¤¶È
-                    port    ´®¿ÚºÅ(ttyS0,ttyS1,ttyS2)  
-*³ö¿Ú²ÎÊý£ºÕýÈ··µ»ØÎª0£¬´íÎó·µ»ØÎª-1 
-*ÐÞ¸ÄÈÕÆÚ£º2020-7-9
-*	tcp·þÎñÆ÷¶Ë¿ÚÎÄ¼þÃèÊö·û´æ·ÅÎªsfd£¬´æ·ÅÔÚgpdeviceÖÐ
-*	tcp·þÎñÆ÷ÕìÌý¶Ë¿ÚÎÄ¼þÃèÊö·û´æ·ÅÎªfd£¬´æ·ÅÔÚgpdeviceÖÐ
+*ï¿½ï¿½ï¿½Æ£ï¿½      		ReAcceptServer  
+*ï¿½ï¿½ï¿½Ü£ï¿½			ï¿½ï¿½È¡ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì³£Ê±ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½Í»ï¿½ï¿½Ë¶Ï¿ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
+*ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½         
+*	@DevNo		ï¿½è±¸IDï¿½ï¿½
+*	@len		ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½
+                    port    ï¿½ï¿½ï¿½Úºï¿½(ttyS0,ttyS1,ttyS2)  
+*ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½ï¿½ï¿½ï¿½ó·µ»ï¿½Îª-1 
+*ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ú£ï¿½2020-7-9
+*	tcpï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªsfdï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½gpdeviceï¿½ï¿½
+*	tcpï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªfdï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½gpdeviceï¿½ï¿½
 *******************************************************************/ 
 int ReAcceptServer(int DevNo, int len)
 {
@@ -689,14 +688,14 @@ int ReAcceptServer(int DevNo, int len)
 	
 	sin_size = sizeof(struct sockaddr_in);
 	
-	if(len	<= 0 || len > 1500){//Ô¶·½¹Ø±ÕÁ´½Ó
+	if(len	<= 0 || len > 1500){//Ô¶ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½
 		perror("tcpserver: the other side has been closed (%d)\n",len);
 		sprintf(gpDevice[DevNo].logbuf, "tcpserver: the other side has been closed (%d)\n",len);
 		write_log(gpDevice[DevNo].logbuf, LOGMARNING, __FILE__, __FUNCTION__, __LINE__);
 		gpDevice[DevNo].Flag_Link_Ready = LinkDisconect;
 		gpDevice[DevNo].Flag_Brust_Send_Enable = DISABLE;
 		Monitor_Disable(DevNo);
-		close(gpDevice[DevNo].fd);//ÊÍ·Åsocket
+		close(gpDevice[DevNo].fd);//ï¿½Í·ï¿½socket
 		
 		while(1){
 			nfd = accept(gpDevice[DevNo].sfd, (struct sockaddr *)(&c_add), &sin_size);
@@ -807,7 +806,7 @@ int TcpServerTask(int DevNo)
 			}
 			gpDevice[DevNo].OnTimeOut(DevNo);
 		}
-		//³¬Ê±ÎÞÓ¦´ðÔò¹Ø±Õfd£¬ÖØÐÂÕìÌý
+		//ï¿½ï¿½Ê±ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Ø±ï¿½fdï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		OverTimeReConnectServer(DevNo, Timer_60s);
 
 		fd_set rfds,wfds;	
@@ -972,7 +971,7 @@ int CKTask(int DevNo)
 		if(len > 0)    
 		{	 
 			MonitorRx(monitorData._RX_ID, DevNo, monitorData._fd, buff, len);
-			log("DevNo %d Serial receive:", DevNo);
+			log("DevID %d Serial receive:", gpDevice[DevNo].ID);
 			DumpHEX(buff, len);
 			if(gpDevice[DevNo].Receive == NULL){
 				gpDevice[DevNo].Receive = Empty_Receive;
@@ -1030,11 +1029,11 @@ void sysUsecTime()
     log("time_now:%d /%d /%d %d :%d :%d.%3ld\n", 1900+p->tm_year, 1+p->tm_mon, p->tm_mday, p->tm_hour, p->tm_min, p->tm_sec, tv.tv_usec);  
 } 
 /*******************************************************************  
-*Ãû³Æ£º      		led_run_switch  
-*¹¦ÄÜ£º			ledµãµÆ  
-*Èë¿Ú²ÎÊý£º         
-*	@gpioID 	LEDµÄ±àºÅ
-*	@status 	×´Ì¬£º0ÁÁµÆ£¬1ÃðµÆ
+*ï¿½ï¿½ï¿½Æ£ï¿½      		led_run_switch  
+*ï¿½ï¿½ï¿½Ü£ï¿½			ledï¿½ï¿½ï¿½  
+*ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½         
+*	@gpioID 	LEDï¿½Ä±ï¿½ï¿½
+*	@status 	×´Ì¬ï¿½ï¿½0ï¿½ï¿½ï¿½Æ£ï¿½1ï¿½ï¿½ï¿½
 *******************************************************************/ 
 void led_run_switch(int gpioID, int status)
 {
@@ -1055,11 +1054,11 @@ void led_run_switch(int gpioID, int status)
 	fclose(p);
 }
 /*******************************************************************  
-*Ãû³Æ£º      		IntWatchDog  
-*¹¦ÄÜ£º			³õÊ¼»¯¿ªÃÅ¹·  
-*Èë¿Ú²ÎÊý£º         
-*·µ»ØÖµ£º
-*	·µ»Ø¿´ÃÅ¹·ÎÄ¼þÃèÊö·û
+*ï¿½ï¿½ï¿½Æ£ï¿½      		IntWatchDog  
+*ï¿½ï¿½ï¿½Ü£ï¿½			ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Å¹ï¿½  
+*ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½         
+*ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½
+*	ï¿½ï¿½ï¿½Ø¿ï¿½ï¿½Å¹ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 *******************************************************************/ 
 int IntWatchDog()
 {
@@ -1079,14 +1078,14 @@ int IntWatchDog()
 
 }
 /*******************************************************************  
-*Ãû³Æ£º      		FeedWatchDog  
-*¹¦ÄÜ£º			Î¹¹·  
-*Èë¿Ú²ÎÊý£º
-*	wd_fd ¿´ÃÅ¹·ÎÄ¼þÃèÊö·û
+*ï¿½ï¿½ï¿½Æ£ï¿½      		FeedWatchDog  
+*ï¿½ï¿½ï¿½Ü£ï¿½			Î¹ï¿½ï¿½  
+*ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½
+*	wd_fd ï¿½ï¿½ï¿½Å¹ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 *******************************************************************/ 
 void FeedWatchDog(int wd_fd){
 	static unsigned char food = 0;	
-	// Ã¿¸öÒ»¶ÎÊ±¼äÏò/dev/watchdog Éè±¸Ð´ÈëÊý¾Ý£¨¡°¶¨ÆÚÎ¹¹·¡±£©  
+	// Ã¿ï¿½ï¿½Ò»ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½/dev/watchdog ï¿½è±¸Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 	if(wd_fd >= 0)  
 	{  
 		ssize_t eaten = write(wd_fd, &food, 1);  
@@ -1125,7 +1124,7 @@ int main()
 	pthread_mutex_init(&mutex2,NULL);
 	CreatePthread();
 
-//	Mqtt_Connect();
+	Mqtt_Connect();
 	Init_Json_Test();
 	char *topic_01 = "app1/get/request/esdk/ipAddr";
 	char *topic_02 = "app1/get/request/esdk/deviceInfo";
@@ -1142,11 +1141,11 @@ int main()
 		lasttime_ms = (long long)lasttime.tv_sec*1000 + lasttime.tv_usec/1000;
 		if(nowtime_ms-lasttime_ms >=Timer_1000ms){
 			sys_time_cnt++;
-//			if(sys_time_cnt %5 == 0)Mqtt_Client_public(topic[(cnt++)%6]);
+			// if(sys_time_cnt %5 == 0)Mqtt_Client_public("app1/get/request/esdk/ipRoute", "helloworld");
 //			if(sys_time_cnt %15 == 0)Mqtt_Client_public(topic_07);
 //			log("time cnt %d\n",sys_time_cnt);
 
-//			if(sys_time_cnt %5 == 0)Mqtt_Reconnect();
+			if(sys_time_cnt %5 == 0)Mqtt_Reconnect();
 			
 			lasttime = nowtime;
 //			FeedWatchDog(wd_fd);
@@ -1154,10 +1153,9 @@ int main()
 		CheckBrustYx();
 		CheckBrustYxSoe();
 		CheckBrustDZ();
-		usleep(50000);//usleepÏß³ÌÐÝÃß£¬sleep½ø³ÌÐÝÃß
-		
+		usleep(50000);
 	}
-		
+	
  	close(wd_fd);
 	return 0;
 }
