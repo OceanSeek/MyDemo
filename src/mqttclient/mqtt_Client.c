@@ -165,7 +165,6 @@ int8_t Deal_topic_updataApp(char* string)
         log("app_file_name is %s\n", node->valuestring);
         app_file_name = node->valuestring;
     }
-    
     if(strcmp(updata_app, "yes") == 0){
         log("start updata\n");
         char *updata_App_url;
@@ -178,12 +177,11 @@ int8_t Deal_topic_updataApp(char* string)
         free(updata_App_url);
         //升级前要释放文件描述符，否则重启时，不能打开
         int i = 0;
-        for(i=0;i<gVars.dwDevNum;i++){
+        for(i = 0; i < gVars.dwDevNum; i++){
             close(gpDevice[i].fd);
         }
         
         system("/home/weitao/remote_update.sh");
-
     } 
     cJSON_Delete(json);
     return RET_SUCESS;
