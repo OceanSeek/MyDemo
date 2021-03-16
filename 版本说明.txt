@@ -1,8 +1,4 @@
 swq-linux-protocol-conver-huawei-2021-01-11
-1、添加mqtt协议
-2、添加json格式解析程序
+1銆佹坊鍔爉qtt鍗忚
+2銆佹坊鍔爅son鏍煎紡瑙ｆ瀽绋嬪簭
 swq-linux-protocol-conver-huawei-2021-01-22
-1、准备添加modbus一主多从功能，需要修改real设备点表
-
-swq-linux-protocol-conver-huawei-2021-02-23
-1、添加modbus一主多从功能，UDP方式可正常使用，但是串口方式存在问题：多个子设备用同一个串口可能存在问题

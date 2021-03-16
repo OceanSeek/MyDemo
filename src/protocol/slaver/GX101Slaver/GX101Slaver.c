@@ -2081,7 +2081,7 @@ int GX101Slaver_Deal_68(int DevNo, uint8_t *buf, uint16_t len){
         perror("GX101Slaver_68 len error \n");
         return RET_ERROR;
     }
-    
+    int pameter_01 = 1;
 	
 	
     /*deal the function code*/
