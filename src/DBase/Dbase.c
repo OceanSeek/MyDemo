@@ -1,12 +1,12 @@
 #include "sys.h"
 
-//È«¾Ö±äÁ¿
+//È«ï¿½Ö±ï¿½ï¿½ï¿½
 TVars     		gVars;
 
 
 
 //======================================================
-//	Íâ²¿±äÁ¿ÉùÃ÷Çø
+//	ï¿½â²¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //======================================================
 PTDevie gpDevice;
 TransTable_T *TransYXTable;
@@ -36,14 +36,14 @@ TBurstBcd BCDRecord[MAXYCRECORD];
 
 
 //======================================================
-//¾Ö²¿±äÁ¿ÉùÃ÷Çø
+//ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ////======================================================
-static uint32_t gdwMaxPortNum; 	//¸ù¾Ý²ÎÊýÎÄ¼þËùÈ·¶¨µÄ×î´ó¶Ë¿Ú¸öÊý
+static uint32_t gdwMaxPortNum; 	//ï¿½ï¿½ï¿½Ý²ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿Ú¸ï¿½ï¿½ï¿½
 
 
 
 //======================================================
-//¾Ö²¿º¯ÊýÉùÃ÷Çø
+//ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //======================================================
 void InitOtherDbase(void);
 int InitPortsTab(void);
@@ -73,7 +73,7 @@ sqlite3* DBase_Open(char *TableName){
 	int i=0;
 
 
-	rc = sqlite3_open(TableName,&db);//´ò¿ªÊý¾Ý¿â£¬Èç¹û²»´æÔÚ¾Í´´½¨Ò»¸ö
+	rc = sqlite3_open(TableName,&db);//ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿â£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¾Í´ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
 	if(rc){
 		fprintf(stderr,"can't open database:%s \n",sqlite3_errmsg(db));
 		log("can't open database: \n");
@@ -81,7 +81,7 @@ sqlite3* DBase_Open(char *TableName){
 		return 0;
 	}
 	else 
-		log("You have open a sqliet3 database named IEC104_data.db successful!\n");
+		log("You have open a sqliet3 database named /mnt/internal_storage/dcu/IEC104_data.db successful!\n");
 	
 	return db;
 }
@@ -128,12 +128,12 @@ uint32_t GetDevFlagValue(int    DevID, DWORD dwFlagNo)
 }
 
 /******************************************************************************/
-/** º¯ Êý		GetDev(int DevID)                                           	**/
-/** ¹¦ ÄÜ 	                                                          **/
-/***1¡¢¸ù¾ÝIDºÅ·µ»ØÉè±¸½á¹¹Ìå                                                         **/
-/** ²Î Êý                                                         **/
+/** ï¿½ï¿½ ï¿½ï¿½		GetDev(int DevID)                                           	**/
+/** ï¿½ï¿½ ï¿½ï¿½ 	                                                          **/
+/***1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDï¿½Å·ï¿½ï¿½ï¿½ï¿½è±¸ï¿½á¹¹ï¿½ï¿½                                                         **/
+/** ï¿½ï¿½ ï¿½ï¿½                                                         **/
 /***DevID:                                                       **/
-/** ÈÕ  ÆÚ   2020Äê11ÔÂ30ÈÕ                                                   **/
+/** ï¿½ï¿½  ï¿½ï¿½   2020ï¿½ï¿½11ï¿½ï¿½30ï¿½ï¿½                                                   **/
 /******************************************************************************/
 PTDevie GetDev(int DevID)
 {
@@ -141,12 +141,12 @@ PTDevie GetDev(int DevID)
 }
 
 /******************************************************************************/
-/** º¯ Êý		GetDevNo(int DevID)                                           	**/
-/** ¹¦ ÄÜ 	                                                          **/
-/***1¡¢¸ù¾ÝIDºÅ·µ»ØÉè±¸ÐòºÅ                                                         **/
-/** ²Î Êý                                                         **/
+/** ï¿½ï¿½ ï¿½ï¿½		GetDevNo(int DevID)                                           	**/
+/** ï¿½ï¿½ ï¿½ï¿½ 	                                                          **/
+/***1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDï¿½Å·ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½                                                         **/
+/** ï¿½ï¿½ ï¿½ï¿½                                                         **/
 /***DevID:                                                       **/
-/** ÈÕ  ÆÚ   2020Äê11ÔÂ30ÈÕ                                                   **/
+/** ï¿½ï¿½  ï¿½ï¿½   2020ï¿½ï¿½11ï¿½ï¿½30ï¿½ï¿½                                                   **/
 /******************************************************************************/
 int GetDevNo(int DevID)
 {
@@ -159,13 +159,13 @@ int GetDevNo(int DevID)
 }
 
 /******************************************************************************/
-/** º¯ Êý		ModifyTransTable(sqlite3 *db, char *TableName)                   **/
-/** ¹¦ ÄÜ 	                                                          	**/
-/***1¡¢ÉèÖÃ±íµ¥ÊôÐÔ                                                         	**/
-/** ²Î Êý                                                       		  	**/
-/***db:ÐèÒª´ò¿ªµÄÊý¾Ý¿â                                                       	**/
-/***TableName:ÐèÒªÐÞ¸ÄÊôÐÔµÄ±íµ¥Ãû                                     	        **/
-/** ÈÕ  ÆÚ   2020Äê1ÔÂ7ÈÕ                                                    **/
+/** ï¿½ï¿½ ï¿½ï¿½		ModifyTransTable(sqlite3 *db, char *TableName)                   **/
+/** ï¿½ï¿½ ï¿½ï¿½ 	                                                          	**/
+/***1ï¿½ï¿½ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½                                                         	**/
+/** ï¿½ï¿½ ï¿½ï¿½                                                       		  	**/
+/***db:ï¿½ï¿½Òªï¿½ò¿ªµï¿½ï¿½ï¿½ï¿½Ý¿ï¿½                                                       	**/
+/***TableName:ï¿½ï¿½Òªï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ÔµÄ±ï¿½ï¿½ï¿½ï¿½ï¿½                                     	        **/
+/** ï¿½ï¿½  ï¿½ï¿½   2020ï¿½ï¿½1ï¿½ï¿½7ï¿½ï¿½                                                    **/
 /******************************************************************************/
 void ModifyTransTable(sqlite3 *db, char *TableName){
 	char *sql;
@@ -200,13 +200,13 @@ void ModifyTransTable(sqlite3 *db, char *TableName){
 }
 
 /******************************************************************************/
-/** º¯ Êý		ModifyModbusTransTable(sqlite3 *db, char *TableName)                   **/
-/** ¹¦ ÄÜ 	                                                          	**/
-/***1¡¢ÉèÖÃ±íµ¥ÊôÐÔ                                                         	**/
-/** ²Î Êý                                                       		  	**/
-/***db:ÐèÒª´ò¿ªµÄÊý¾Ý¿â                                                       	**/
-/***TableName:ÐèÒªÐÞ¸ÄÊôÐÔµÄ±íµ¥Ãû                                     	        **/
-/** ÈÕ  ÆÚ   2021Äê1ÔÂ6ÈÕ                                                    **/
+/** ï¿½ï¿½ ï¿½ï¿½		ModifyModbusTransTable(sqlite3 *db, char *TableName)                   **/
+/** ï¿½ï¿½ ï¿½ï¿½ 	                                                          	**/
+/***1ï¿½ï¿½ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½                                                         	**/
+/** ï¿½ï¿½ ï¿½ï¿½                                                       		  	**/
+/***db:ï¿½ï¿½Òªï¿½ò¿ªµï¿½ï¿½ï¿½ï¿½Ý¿ï¿½                                                       	**/
+/***TableName:ï¿½ï¿½Òªï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ÔµÄ±ï¿½ï¿½ï¿½ï¿½ï¿½                                     	        **/
+/** ï¿½ï¿½  ï¿½ï¿½   2021ï¿½ï¿½1ï¿½ï¿½6ï¿½ï¿½                                                    **/
 /******************************************************************************/
 void ModifyModbusTransTable(sqlite3 *db, char *TableName){
 	char *sql;
@@ -244,16 +244,16 @@ void ModifyModbusTransTable(sqlite3 *db, char *TableName){
 }
 
 /*******************************************************************  
-*Ãû³Æ£º      		ModifyTableProperty  
-*¹¦ÄÜ£º			ÉèÖÃIDÎªÖ÷¼ü£¬ÆäËü³ÉÔ±ÉèÖÃÎªÏàÓ¦Êý¾ÝÀàÐÍ  
-*Èë¿Ú²ÎÊý£º         
-*³ö¿Ú²ÎÊý£º 
-*ÐÞ¸ÄÈÕÆÚ£º2020-6-2
+*ï¿½ï¿½ï¿½Æ£ï¿½      		ModifyTableProperty  
+*ï¿½ï¿½ï¿½Ü£ï¿½			ï¿½ï¿½ï¿½ï¿½IDÎªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
+*ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½         
+*ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ 
+*ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ú£ï¿½2020-6-2
 *******************************************************************/ 
 
 void ModifyTableProperty(void){
 	sqlite3 *db = NULL;
-	db = DBase_Open("IEC104_data.db");
+	db = DBase_Open("/mnt/internal_storage/dcu/IEC104_data.db");
 	ModifyTransTable(db, "TransYxTable");
 	ModifyTransTable(db, "TransYcTable");
 	ModifyTransTable(db, "TransYkTable");
@@ -266,27 +266,27 @@ void ModifyTableProperty(void){
 }
 
 //======================================================
-//	³õÊ¼»¯Êý¾Ý¿â
+//	ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
 //======================================================
 void InitDbase(void)
 {
 	ModifyTableProperty();
    	InitOtherDbase();
-	Init_Reffer();			//³õÊ¼»¯Êµ¼Ê¿âµÄÒýÓÃµã
-	InitReffer();	//5512³õÊ¼»¯Êµ¼Ê¿âµÄÒýÓÃµã
+	Init_Reffer();			//ï¿½ï¿½Ê¼ï¿½ï¿½Êµï¿½Ê¿ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½
+	InitReffer();	//5512ï¿½ï¿½Ê¼ï¿½ï¿½Êµï¿½Ê¿ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½
 	Init_ModbusRegAddr();
 }
 /*******************************************************************  
-*Ãû³Æ£º      		InitTransTable  
-*¹¦ÄÜ£º			³õÊ¼»¯×ª·¢±íµ¥  
-*Èë¿Ú²ÎÊý£º         
-*³ö¿Ú²ÎÊý£º 
-*ÐÞ¸ÄÈÕÆÚ£º2020-6-2
+*ï¿½ï¿½ï¿½Æ£ï¿½      		InitTransTable  
+*ï¿½ï¿½ï¿½Ü£ï¿½			ï¿½ï¿½Ê¼ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
+*ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½         
+*ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ 
+*ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ú£ï¿½2020-6-2
 *******************************************************************/ 
 void InitTransTable(void)
 {
 	sqlite3 *db = NULL;
-	db = DBase_Open("IEC104_data.db");
+	db = DBase_Open("/mnt/internal_storage/dcu/IEC104_data.db");
 	TransYXTable = InitTransTab("TransYxTable", &gVars.TransYXTableNum, db);
 	TransYCTable = InitTransTab("TransYcTable", &gVars.TransYCTableNum, db);
 	TransYKTable = InitTransTab("TransYkTable", &gVars.TransYKTableNum, db);
@@ -306,11 +306,11 @@ void InitTransTable(void)
 }
 
 /*******************************************************************  
-*Ãû³Æ£º      		setip  
-*¹¦ÄÜ£º			ÉèÖÃ±¾µØIPµØÖ·  
-*Èë¿Ú²ÎÊý£º         
-*³ö¿Ú²ÎÊý£ºÕýÈ··µ»ØÎª0£¬´íÎó·µ»ØÎª-1 
-*ÐÞ¸ÄÈÕÆÚ£º2020-6-17
+*ï¿½ï¿½ï¿½Æ£ï¿½      		setip  
+*ï¿½ï¿½ï¿½Ü£ï¿½			ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½IPï¿½ï¿½Ö·  
+*ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½         
+*ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½ï¿½ï¿½ï¿½ó·µ»ï¿½Îª-1 
+*ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ú£ï¿½2020-6-17
 *******************************************************************/ 
 int setip(char *ComName, char* ip)
 {
@@ -350,12 +350,12 @@ void InitOtherDbase(void)
 
 
 /*******************************************************************  
-*Ãû³Æ£º      		InitPortsTab  
-*¹¦ÄÜ£º			³õÊ¼»¯Éè±¸±íµ¥  
-*Èë¿Ú²ÎÊý£º         
-*³ö¿Ú²ÎÊý£ºÕýÈ··µ»ØÎª0£¬´íÎó·µ»ØÎª-1 
-*ÐÞ¸ÄÈÕÆÚ£º2020-6-17
-*	Ôö¼Ó¶ÁÈ¡NetComTbale£¬¶ÁÈ¡IP²¢ÉèÖÃ±¾µØIPµØÖ·
+*ï¿½ï¿½ï¿½Æ£ï¿½      		InitPortsTab  
+*ï¿½ï¿½ï¿½Ü£ï¿½			ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½ï¿½  
+*ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½         
+*ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½ï¿½ï¿½ï¿½ó·µ»ï¿½Îª-1 
+*ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ú£ï¿½2020-6-17
+*	ï¿½ï¿½ï¿½Ó¶ï¿½È¡NetComTbaleï¿½ï¿½ï¿½ï¿½È¡IPï¿½ï¿½ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½IPï¿½ï¿½Ö·
 *******************************************************************/ 
 int InitPortsTab(void)
 {
@@ -366,10 +366,10 @@ int InitPortsTab(void)
 	int i=0;
 	char ComName[32];
 	char ComIP[32];
-	db = DBase_Open("IEC104_data.db");
+	db = DBase_Open("/mnt/internal_storage/dcu/IEC104_data.db");
 
 	int32_t nrow=0,ncolumn=0;
-	char **azResult;//¶þÎ¬Êý×é´æ·Å½á¹û
+	char **azResult;//ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½ï¿½Å½ï¿½ï¿½
 	
 	sqlite3_exec(db,sql,0,0,&zErrMsg);	
 
@@ -431,10 +431,10 @@ void InitWQ900Parameter()
 	char *sql;
 	int i=0;
 	PTDevie pDevice;
-	db = DBase_Open("IEC104_data.db");
+	db = DBase_Open("/mnt/internal_storage/dcu/IEC104_data.db");
 
 	int32_t nrow=0,ncolumn=0;
-	char **azResult;//¶þÎ¬Êý×é´æ·Å½á¹û
+	char **azResult;//ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½ï¿½Å½ï¿½ï¿½
 	sqlite3_exec(db,sql,0,0,&zErrMsg);	
 	//READ DeviceTable
 	sql = "SELECT * FROM WQ900Table;";
@@ -456,7 +456,7 @@ void InitWQ900Parameter()
 		WQ900Parameter.AINum = 	atoi(azResult[(i+1)*ncolumn + WQ900_AINum]);
 		WQ900Parameter.BINum = 		atoi(azResult[(i+1)*ncolumn + WQ900_BINum]);
 		WQ900Parameter.BONum = 	atoi(azResult[(i+1)*ncolumn + WQ900_BONum]);
-		WQ900Parameter.DZNum = 		atoi(azResult[(i+1)*ncolumn + WQ900_DZNum]);//YM»»³É¶¨Öµ
+		WQ900Parameter.DZNum = 		atoi(azResult[(i+1)*ncolumn + WQ900_DZNum]);//YMï¿½ï¿½ï¿½É¶ï¿½Öµ
 		
 		int ParentID = WQ900Parameter.ParentID;
 		int DevNo;
@@ -497,10 +497,10 @@ void InitPLCParameter()
 	char *sql;
 	int i=0;
 	PTDevie pDevice;
-	db = DBase_Open("IEC104_data.db");
+	db = DBase_Open("/mnt/internal_storage/dcu/IEC104_data.db");
 
 	int32_t nrow=0,ncolumn=0;
-	char **azResult;//¶þÎ¬Êý×é´æ·Å½á¹û
+	char **azResult;//ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½ï¿½Å½ï¿½ï¿½
 	
 	sqlite3_exec(db,sql,0,0,&zErrMsg);	
 	//READ DeviceTable
@@ -574,11 +574,11 @@ void InitPLCParameter()
 
 
 /*******************************************************************  
-*Ãû³Æ£º      		InitDeviceParamter  
-*¹¦ÄÜ£º			³õÊ¼»¯Éè±¸²ÎÊý  
-*Èë¿Ú²ÎÊý£º         
-*³ö¿Ú²ÎÊý£ºÕýÈ··µ»ØÎª0£¬´íÎó·µ»ØÎª-1 
-*ÐÞ¸ÄÈÕÆÚ£º2020-11-19
+*ï¿½ï¿½ï¿½Æ£ï¿½      		InitDeviceParamter  
+*ï¿½ï¿½ï¿½Ü£ï¿½			ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½ï¿½  
+*ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½         
+*ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½ï¿½ï¿½ï¿½ó·µ»ï¿½Îª-1 
+*ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ú£ï¿½2020-11-19
 *******************************************************************/ 
 int InitDeviceParamter(void)
 {
@@ -587,17 +587,17 @@ int InitDeviceParamter(void)
 }
 
 /*******************************************************************  
-*Ãû³Æ£º      		ReadColumnFromDB  
-*¹¦ÄÜ£º			¶ÁÈ¡±íµ¥ÖÐÁÐÔªËØ£¬ÌîÈë×ª·¢±íÖÐ  
-*Èë¿Ú²ÎÊý£º         
-*	@db 			Êý¾Ý¿âÎÄ¼þÃèÊö·û
-*	@RowNum 		¶ÁÈ¡ÁÐÔªËØ×ÜÊýÁ¿
-*	@TransTable_tmp	ÁÙÊ±´æ´¢¿Õ¼ä
-*	@ColumnName		ÁÐÃû³Æ
-*	@TableName		±íµ¥Ãû³Æ
-*³ö¿Ú²ÎÊý£ºÕýÈ··µ»ØÎª0£¬´íÎó·µ»ØÎª-1 
-*ËµÃ÷£º	
-*	±íµ¥ÖÐµÄIDÐòºÅ±ØÐë´Ó0¿ªÊ¼ÅÅÐò£¬ÇÒÁ¬Ðø£¬·ñÔò»á¶ÁÈ¡´íÎó
+*ï¿½ï¿½ï¿½Æ£ï¿½      		ReadColumnFromDB  
+*ï¿½ï¿½ï¿½Ü£ï¿½			ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½Ø£ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
+*ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½         
+*	@db 			ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+*	@RowNum 		ï¿½ï¿½È¡ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+*	@TransTable_tmp	ï¿½ï¿½Ê±ï¿½æ´¢ï¿½Õ¼ï¿½
+*	@ColumnName		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+*	@TableName		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+*ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½ï¿½ï¿½ï¿½ó·µ»ï¿½Îª-1 
+*Ëµï¿½ï¿½ï¿½ï¿½	
+*	ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½IDï¿½ï¿½Å±ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
 *******************************************************************/ 
 
 int ReadColumnFromDB(sqlite3 *db,uint32_t RowNum, PTransTable_T TransTable, char *ColumnName, char *TableName)
@@ -608,9 +608,9 @@ int ReadColumnFromDB(sqlite3 *db,uint32_t RowNum, PTransTable_T TransTable, char
 	char *zErrMsg = 0;
 	uint32_t RowTemp;
 	int32_t nrow=0,ncolumn=0;
-	char **azResult;//¶þÎ¬Êý×é´æ·Å½á¹û
+	char **azResult;//ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½ï¿½Å½ï¿½ï¿½
 	char *sql;
-	uint32_t j = 0;//Ñ­»·´ÎÊý
+	uint32_t j = 0;//Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	int MaxIDNum;
 	RowTemp = RowNum;
 	sql = malloc(100);
@@ -686,9 +686,9 @@ int ReadModbusColumnFromDB(sqlite3 *db,uint32_t RowNum, PModbus_TransTable_T Tra
 	char *zErrMsg = 0;
 	uint32_t RowTemp;
 	int32_t nrow=0,ncolumn=0;
-	char **azResult;//¶þÎ¬Êý×é´æ·Å½á¹û
+	char **azResult;//ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½ï¿½Å½ï¿½ï¿½
 	char *sql;
-	uint32_t j = 0;//Ñ­»·´ÎÊý
+	uint32_t j = 0;//Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	int MaxIDNum;
 	RowTemp = RowNum;
 	sql = malloc(100);
@@ -778,17 +778,17 @@ int ReadModbusColumnFromDB(sqlite3 *db,uint32_t RowNum, PModbus_TransTable_T Tra
 
 
 /*******************************************************************  
-*Ãû³Æ£º      		ReadColumn  
-*¹¦ÄÜ£º			¶ÁÈ¡±íµ¥ÖÐÁÐÔªËØ£¬ÌîÈë×ª·¢±íÖÐ  
-*Èë¿Ú²ÎÊý£º         
-*	@db 			Êý¾Ý¿âÎÄ¼þÃèÊö·û
-*	@RowNum 		¶ÁÈ¡ÁÐÔªËØ×ÜÊýÁ¿
-*	@TransTable_tmp	±íµ¥´æ´¢Ö¸Õë
-*	@ColumnName		ÁÐÃû³Æ
-*	@TableName		±íµ¥Ãû³Æ
-*³ö¿Ú²ÎÊý£ºÕýÈ··µ»ØÎª0£¬´íÎó·µ»ØÎª-1 
-*ËµÃ÷£º	
-*	±íµ¥ÖÐµÄIDÐòºÅ±ØÐë´Ó0¿ªÊ¼ÅÅÐò£¬ÇÒÁ¬Ðø£¬·ñÔò»á¶ÁÈ¡´íÎó
+*ï¿½ï¿½ï¿½Æ£ï¿½      		ReadColumn  
+*ï¿½ï¿½ï¿½Ü£ï¿½			ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½Ø£ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
+*ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½         
+*	@db 			ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+*	@RowNum 		ï¿½ï¿½È¡ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+*	@TransTable_tmp	ï¿½ï¿½ï¿½ï¿½ï¿½æ´¢Ö¸ï¿½ï¿½
+*	@ColumnName		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+*	@TableName		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+*ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½ï¿½ï¿½ï¿½ó·µ»ï¿½Îª-1 
+*Ëµï¿½ï¿½ï¿½ï¿½	
+*	ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½IDï¿½ï¿½Å±ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
 *******************************************************************/ 
 int ReadColumn(sqlite3 *db,uint32_t RowNum, PTransTable_T TransTable, char *TableName)
 {
@@ -811,18 +811,18 @@ int ReadModbusColumn(sqlite3 *db,uint32_t RowNum, PModbus_TransTable_T TransTabl
 }
 
 /*******************************************************************  
-*Ãû³Æ£º				InitPortsTab  
-*¹¦ÄÜ£º			³õÊ¼»¯×ª·¢±íµ¥  
-*Èë¿Ú²ÎÊý£º		
-*	TableName:	±íµ¥Ãû
-*	tablenum:	±íµ¥×î´óindexÊý
-*	db:			Êý¾Ý¿âÃû
-*³ö¿Ú²ÎÊý£º
-*	PTableName:	·µ»Ø±íµ¥Ö¸Õë
-*ÐÞ¸ÄÈÕÆÚ£º2020-5-2
-*	×ª·¢±íµÄÐÐÊý<·¢ËÍµã±íµÄ×ÜÊý£¬¸ù¾Ý×î´ó·¢ËÍµã±íºÅÉêÇë×ª·¢±í¿Õ¼ä 
-*ÐÞ¸ÄÈÕÆÚ£º2020-6-2
-* 	Ôö¼Ó²ÎÊý PTableNameÖ¸Õë£¬´æ´¢±íµ¥Ö¸Õë
+*ï¿½ï¿½ï¿½Æ£ï¿½				InitPortsTab  
+*ï¿½ï¿½ï¿½Ü£ï¿½			ï¿½ï¿½Ê¼ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
+*ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½		
+*	TableName:	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+*	tablenum:	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½indexï¿½ï¿½
+*	db:			ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½
+*ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½
+*	PTableName:	ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
+*ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ú£ï¿½2020-5-2
+*	×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½<ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½ 
+*ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ú£ï¿½2020-6-2
+* 	ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ PTableNameÖ¸ï¿½ë£¬ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
 *******************************************************************/ 
 TransTable_T* InitTransTab(char *TableName, uint32_t *tablenum, sqlite3 *db)
 {
@@ -830,13 +830,13 @@ TransTable_T* InitTransTab(char *TableName, uint32_t *tablenum, sqlite3 *db)
 	int32_t rc;
 	char *sql;
 	uint32_t i=0;
-	uint32_t ret_rownum = 0;//×ª·¢±íÐÐÊýÁ¿
-	uint32_t ret_tablenum = 0;//×ª·¢±íindexÊýÁ¿
+	uint32_t ret_rownum = 0;//×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	uint32_t ret_tablenum = 0;//×ªï¿½ï¿½ï¿½ï¿½indexï¿½ï¿½ï¿½ï¿½
 	int ret = 0;
 	TransTable_T *PTableName;
 	
 	int32_t nrow=0,ncolumn=0;
-	char **azResult;//¶þÎ¬Êý×é´æ·Å½á¹û
+	char **azResult;//ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½ï¿½Å½ï¿½ï¿½
 	
 	sql = malloc(100);
 //	log("TableName %s____ \n",TableName);
@@ -861,7 +861,7 @@ TransTable_T* InitTransTab(char *TableName, uint32_t *tablenum, sqlite3 *db)
 
 	
 	if(ret_tablenum < ret_rownum){
-		perror("%s cannot found primary key ,please go to function (ModifyTransTable)\n",TableName);//±íµ¥È±ÉÙÖ÷¼ü£¬ÐèÒªÈ¥º¯Êý£¨ModifyTransTable£©ÖÐÌí¼ÓÐÂ¼ÓÈëµÄ±íµ¥
+		perror("%s cannot found primary key ,please go to function (ModifyTransTable)\n",TableName);//ï¿½ï¿½ï¿½ï¿½È±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÈ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ModifyTransTableï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½
 		exit(-1);
 	}
 	TransTable_tmp = (TransTable_T *)malloc(sizeof(TransTable_T)*ret_rownum);
@@ -891,14 +891,14 @@ TransTable_T* InitTransTab(char *TableName, uint32_t *tablenum, sqlite3 *db)
 }
 
 /*******************************************************************  
-*Ãû³Æ£º				InitModbusTransTab  
-*¹¦ÄÜ£º			³õÊ¼»¯×ª·¢±íµ¥  
-*Èë¿Ú²ÎÊý£º		
-*	TableName:	±íµ¥Ãû
-*	tablenum:	±íµ¥×î´óindexÊý
-*	db:			Êý¾Ý¿âÃû
-*³ö¿Ú²ÎÊý£º
-*	PTableName:	·µ»Ø±íµ¥Ö¸Õë
+*ï¿½ï¿½ï¿½Æ£ï¿½				InitModbusTransTab  
+*ï¿½ï¿½ï¿½Ü£ï¿½			ï¿½ï¿½Ê¼ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
+*ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½		
+*	TableName:	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+*	tablenum:	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½indexï¿½ï¿½
+*	db:			ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½
+*ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½
+*	PTableName:	ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
 *******************************************************************/ 
 Modbus_TransTable_T* InitModbusTransTab(char *TableName, uint32_t *tablenum, sqlite3 *db)
 {
@@ -906,13 +906,13 @@ Modbus_TransTable_T* InitModbusTransTab(char *TableName, uint32_t *tablenum, sql
 	int32_t rc;
 	char *sql;
 	uint32_t i=0;
-	uint32_t ret_rownum = 0;//×ª·¢±íÐÐÊýÁ¿
-	uint32_t ret_tablenum = 0;//×ª·¢±íindexÊýÁ¿
+	uint32_t ret_rownum = 0;//×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	uint32_t ret_tablenum = 0;//×ªï¿½ï¿½ï¿½ï¿½indexï¿½ï¿½ï¿½ï¿½
 	int ret = 0;
 	Modbus_TransTable_T *PTableName;
 	
 	int32_t nrow=0,ncolumn=0;
-	char **azResult;//¶þÎ¬Êý×é´æ·Å½á¹û
+	char **azResult;//ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½ï¿½Å½ï¿½ï¿½
 	
 	sql = malloc(100);
 //	log("TableName %s____ \n",TableName);
@@ -937,7 +937,7 @@ Modbus_TransTable_T* InitModbusTransTab(char *TableName, uint32_t *tablenum, sql
 
 	
 	if(ret_tablenum < ret_rownum){
-		perror("%s cannot found primary key ,please go to function (ModifyTransTable)\n",TableName);//±íµ¥È±ÉÙÖ÷¼ü£¬ÐèÒªÈ¥º¯Êý£¨ModifyTransTable£©ÖÐÌí¼ÓÐÂ¼ÓÈëµÄ±íµ¥
+		perror("%s cannot found primary key ,please go to function (ModifyTransTable)\n",TableName);//ï¿½ï¿½ï¿½ï¿½È±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÈ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ModifyTransTableï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½
 		exit(-1);
 	}
 	TransModbusTable_tmp = (Modbus_TransTable_T *)malloc(sizeof(Modbus_TransTable_T)*ret_rownum);
@@ -978,7 +978,7 @@ int InitDeviceTab(void)
 
 void Init_ModbusMemery(int DevNo)
 {
-	//¼Ä´æÆ÷×´Ì¬Öµ
+	//ï¿½Ä´ï¿½ï¿½ï¿½×´Ì¬Öµ
 	gpDevice[DevNo].ModbusData.pCoilStatus = (bool*)malloc(gpDevice[DevNo].ModbusData._CoilStatusNum);
 	gpDevice[DevNo].ModbusData.pInputStatus = (bool*)malloc(gpDevice[DevNo].ModbusData._InputStatusNum);
 	gpDevice[DevNo].ModbusData.pHoldingRegister = (uint16_t*)malloc(gpDevice[DevNo].ModbusData._HoldingRegNum*sizeof(uint16_t));
@@ -987,7 +987,7 @@ void Init_ModbusMemery(int DevNo)
 	memset(gpDevice[DevNo].ModbusData.pInputStatus, 0, gpDevice[DevNo].ModbusData._InputStatusNum*sizeof(bool));
 	memset(gpDevice[DevNo].ModbusData.pHoldingRegister, 0, gpDevice[DevNo].ModbusData._HoldingRegNum*sizeof(uint16_t));
 	memset(gpDevice[DevNo].ModbusData.pInputResgister, 0, gpDevice[DevNo].ModbusData._InputRegNum*sizeof(uint16_t));
-	//ÕÙ»½±êÖ¾
+	//ï¿½Ù»ï¿½ï¿½ï¿½Ö¾
 	gpDevice[DevNo].ModbusData.pFlag_AskCoilStatus = (bool*)malloc(gpDevice[DevNo].ModbusData._CoilStatusNum);
 	gpDevice[DevNo].ModbusData.pFlag_AskInputStatus = (bool*)malloc(gpDevice[DevNo].ModbusData._InputStatusNum);
 	gpDevice[DevNo].ModbusData.pFlag_AskHoldingRegister = (bool*)malloc(gpDevice[DevNo].ModbusData._HoldingRegNum);
@@ -996,7 +996,7 @@ void Init_ModbusMemery(int DevNo)
 	memset(gpDevice[DevNo].ModbusData.pFlag_AskInputStatus, 0, gpDevice[DevNo].ModbusData._InputStatusNum*sizeof(bool));
 	memset(gpDevice[DevNo].ModbusData.pFlag_AskHoldingRegister, 0, gpDevice[DevNo].ModbusData._HoldingRegNum*sizeof(bool));
 	memset(gpDevice[DevNo].ModbusData.pFlag_AskInputResgister, 0, gpDevice[DevNo].ModbusData._InputRegNum*sizeof(bool));
-	//¼Ä´æÆ÷µØÖ·
+	//ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
 	gpDevice[DevNo].ModbusData.pCoiStatus_T = (MODBUSDEVICEDATA_T*)malloc(gpDevice[DevNo].ModbusData._CoilStatusNum*sizeof(MODBUSDEVICEDATA_T));
 	gpDevice[DevNo].ModbusData.pInputStatus_T = (MODBUSDEVICEDATA_T*)malloc(gpDevice[DevNo].ModbusData._InputStatusNum*sizeof(MODBUSDEVICEDATA_T));
 	gpDevice[DevNo].ModbusData.pHoldingRegister_T = (MODBUSDEVICEDATA_T*)malloc(gpDevice[DevNo].ModbusData._HoldingRegNum*sizeof(MODBUSDEVICEDATA_T));
@@ -1009,15 +1009,15 @@ void Init_ModbusMemery(int DevNo)
 
 
 /***************
-¹¦ÄÜ£º
-	ÉêÇëÄÚ´æ¿Õ¼ä
-²ÎÊý£º
-·µ»ØÖµ£º
-	0:³É¹¦,ÆäËû:´íÎó
-ÐÞ¸ÄÈÕÆÚ£º
+ï¿½ï¿½ï¿½Ü£ï¿½
+	ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½Õ¼ï¿½
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½
+	0:ï¿½É¹ï¿½,ï¿½ï¿½ï¿½ï¿½:ï¿½ï¿½ï¿½ï¿½
+ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ú£ï¿½
 2020/02/10
-	¼Æ»®Ö÷Õ¾Éè±¸Ò£ÐÅÒ£²âÊýÉèÖÃÎª0£¬ÓÉÓÚÉêÇëÄÚ´æÊ±£¬¾É°æ³ÌÐò¶ÁÈ¡µ½ËùÓÐÉè±¸¾ùÉêÇëÄÚ´æ£¬ÈôÖ÷Õ¾Éè±¸Ò£ÐÅÊýÎª0Ê±£¬³õÊ¼»¯×ª·¢µã±íÊ±
-Ö÷Õ¾µÄÉè±¸¾Í±¨´í£¬´ýÐÞ¸Ä£¬Ó¦¸ÄÎªÖ»ÎªÖÕ¶ËÉè±¸ÉêÇëÄÚ´æ
+	ï¿½Æ»ï¿½ï¿½ï¿½Õ¾ï¿½è±¸Ò£ï¿½ï¿½Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½Ê±ï¿½ï¿½ï¿½É°ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´æ£¬ï¿½ï¿½ï¿½ï¿½Õ¾ï¿½è±¸Ò£ï¿½ï¿½ï¿½ï¿½Îª0Ê±ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½Ê±
+ï¿½ï¿½Õ¾ï¿½ï¿½ï¿½è±¸ï¿½Í±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸Ä£ï¿½Ó¦ï¿½ï¿½ÎªÖ»Îªï¿½Õ¶ï¿½ï¿½è±¸ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½
 ***************/
 int InitDevices(void)
 {
@@ -1065,9 +1065,9 @@ int InitDevices(void)
 		
 		if(gpDevice[dwDevNo].AINum)
 		{
-			gpDevice[dwDevNo].pBurstAI=(TBurstAI*)malloc(gpDevice[dwDevNo].AINum * sizeof(TBurstAI));//Ò£²â
+			gpDevice[dwDevNo].pBurstAI=(TBurstAI*)malloc(gpDevice[dwDevNo].AINum * sizeof(TBurstAI));//Ò£ï¿½ï¿½
 			memset(gpDevice[dwDevNo].pBurstAI,0,gpDevice[dwDevNo].AINum * sizeof(TBurstAI));
-			gpDevice[dwDevNo].pAI=(DWORD*)malloc(gpDevice[dwDevNo].AINum * sizeof(DWORD));//Ò£²â
+			gpDevice[dwDevNo].pAI=(DWORD*)malloc(gpDevice[dwDevNo].AINum * sizeof(DWORD));//Ò£ï¿½ï¿½
 			memset(gpDevice[dwDevNo].pAI,0,gpDevice[dwDevNo].AINum * sizeof(int32_t));
 			gpDevice[dwDevNo].pAIStatus=(uint16_t*)malloc(gpDevice[dwDevNo].AINum * sizeof(uint16_t));
 			memset(gpDevice[dwDevNo].pAIStatus,0,gpDevice[dwDevNo].AINum * sizeof(uint16_t));
@@ -1130,17 +1130,18 @@ void InitRegulaBurstBIPtr(uint32_t dwDevID, TBurstBIWrap *pBurstBIWrap)
 	}
 }
 
-//³õÊ¼»¯×ª·¢µã±í
+//ï¿½ï¿½Ê¼ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½
 void Init_Reffer(void)
 {
 	int i;
-	int DevIDNum;
+	int DevIDNum;
+
 	PTDevie pDevice;
 	
 //	for(i=0;i<gVars.TransYXTableNum;i++){//
-//		gpDevice[TransYXTable[i].wRealID].pBurstBI[TransYXTable[i].nPoint].nNo = TransYXTable[i].nIndex;//ÍâµãºÅÓëÄÚµãºÅ¹ØÁª
+//		gpDevice[TransYXTable[i].wRealID].pBurstBI[TransYXTable[i].nPoint].nNo = TransYXTable[i].nIndex;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½Å¹ï¿½ï¿½ï¿½
 //		gpDevice[TransYXTable[i].wRealID].pBurstBI[TransYXTable[i].nPoint].ID = TransYXTable[i].ID;
-//		gpDevice[TransYXTable[i].wRealID].DeviceID= TransYXTable[i].wRealID;//Éè±¸ºÅ³õÊ¼»¯
+//		gpDevice[TransYXTable[i].wRealID].DeviceID= TransYXTable[i].wRealID;//ï¿½è±¸ï¿½Å³ï¿½Ê¼ï¿½ï¿½
 //		LOG("[%d].nflag(%d)nPoint(%d)nidex(%d)\n",i,TransYXTable[i].wRealID,TransYXTable[i].nPoint,\
 //			TransYXTable[i].nIndex);
 //	}
@@ -1165,8 +1166,8 @@ void Init_Reffer(void)
 			return;
 		}
 		
-		pDevice->pBurstAI[nPoint].nNo = TransYCTable[i].nIndex;//Éè±¸ÄÚµãºÅ¶ÔÓ¦µÄ×ª·¢µãºÅ
-		pDevice->pBurstAI[nPoint].nIndex= TransYCTable[i].ID;//ÍâµãºÅÓëÄÚµãºÅ¹ØÁª
+		pDevice->pBurstAI[nPoint].nNo = TransYCTable[i].nIndex;//ï¿½è±¸ï¿½Úµï¿½Å¶ï¿½Ó¦ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½
+		pDevice->pBurstAI[nPoint].nIndex= TransYCTable[i].ID;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½Å¹ï¿½ï¿½ï¿½
 
 	}
 	for(i=0;i<gVars.TransDZTableNum;i++){
@@ -1181,28 +1182,28 @@ void Init_Reffer(void)
 		}
 		
 		if(strcmp("WQ900", pDevice->Name) != 0) continue;
-		pDevice->pBurstDZ[nPoint].nNo = TransDZTable[i].nIndex;//Éè±¸ÄÚµãºÅ¶ÔÓ¦µÄ×ª·¢µãºÅ
+		pDevice->pBurstDZ[nPoint].nNo = TransDZTable[i].nIndex;//ï¿½è±¸ï¿½Úµï¿½Å¶ï¿½Ó¦ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½
 
 	}
-	//³õÊ¼»¯Ö÷Õ¾Ä£¿é×ª·¢±í
+	//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Õ¾Ä£ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½
 	for(DevIDNum=0;DevIDNum<gVars.dwDevNum;DevIDNum++){
 		if(strcmp("Logic", gpDevice[DevIDNum].Type) == 0){
 			if(strcmp("WQ900", gpDevice[DevIDNum].Name) != 0) continue;
 			
-			/*ÉêÇëÄÚ´æ*/
-			/*Âß¼­»ùµØÖ·*/
+			/*ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½*/
+			/*ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½Ö·*/
 			gpDevice[DevIDNum].pLogicBase=(TLogicBase*)malloc(sizeof(TLogicBase));
 			memset(gpDevice[DevIDNum].pLogicBase,0,sizeof(TLogicBase));
-			/*Ò£ÐÅ*/
+			/*Ò£ï¿½ï¿½*/
 			gpDevice[DevIDNum].pLogicBase->pLogicBI=(TLogicBI*)malloc(gVars.TransYXTableNum * sizeof(TLogicBI));
 			memset(gpDevice[DevIDNum].pLogicBase->pLogicBI, 0, gVars.TransYXTableNum * sizeof(TLogicBI));
-			//Ë«µãÒ£ÐÅ
+			//Ë«ï¿½ï¿½Ò£ï¿½ï¿½
 			gpDevice[DevIDNum].pLogicBase->pLogicDBI=(TLogicDBI*)malloc(gVars.TransYXTableNum * sizeof(TLogicDBI));
 			memset(gpDevice[DevIDNum].pLogicBase->pLogicDBI, 0, gVars.TransYXTableNum * sizeof(TLogicDBI));
-			/*Ò£²â*/
+			/*Ò£ï¿½ï¿½*/
 			gpDevice[DevIDNum].pLogicBase->pLogicAI=(TLogicAI*)malloc(gVars.TransYCTableNum * sizeof(TLogicAI));
 			memset(gpDevice[DevIDNum].pLogicBase->pLogicAI, 0, gVars.TransYCTableNum * sizeof(TLogicAI));
-			//µç¶ÈÁ¿
+			//ï¿½ï¿½ï¿½ï¿½ï¿½
 			gpDevice[DevIDNum].dwCINum = 100;
 			gpDevice[DevIDNum].pLogicBase->pLogicCI=(TLogicCI*)malloc(gpDevice[DevIDNum].dwCINum * sizeof(TLogicCI));
 			memset(gpDevice[DevIDNum].pLogicBase->pLogicCI, 0, gpDevice[DevIDNum].dwCINum * sizeof(TLogicCI));
@@ -1210,11 +1211,11 @@ void Init_Reffer(void)
 			gpDevice[DevIDNum].dwBCDNum = 100;
 			gpDevice[DevIDNum].pLogicBase->pLogicBCD=(TLogicBCD*)malloc(gpDevice[DevIDNum].dwBCDNum * sizeof(TLogicBCD));
 			memset(gpDevice[DevIDNum].pLogicBase->pLogicBCD, 0, gpDevice[DevIDNum].dwBCDNum * sizeof(TLogicBCD));
-			/*¶¨Öµ*/
+			/*ï¿½ï¿½Öµ*/
 			gpDevice[DevIDNum].pLogicBase->pLogicDZ=(TLogicDZ*)malloc(gVars.TransDZTableNum * sizeof(TLogicDZ));
 			memset(gpDevice[DevIDNum].pLogicBase->pLogicDZ, 0, gVars.TransDZTableNum * sizeof(TLogicDZ));
 			
-			/*Ö÷Õ¾Âß¼­Éè±¸³õÊ¼»¯ÒýÓÃÖÇÄÜÉè±¸µãºÅ*/
+			/*ï¿½ï¿½Õ¾ï¿½ß¼ï¿½ï¿½è±¸ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½*/
 			for(i=0;i<gVars.TransYCTableNum;i++){
 				int wRealID = TransYCTable[i].wRealID;
 				int nPoint = TransYCTable[i].nPoint;
@@ -1247,25 +1248,25 @@ void Init_Reffer(void)
 	
 }
 /***************
-¹¦ÄÜ£º
-	¼ì²éÉè±¸ID£¬µãºÅÊÇ·ñÔ½½ç
-²ÎÊý£º
-	DevID,ÖÕ¶ËID
-	nPoint,ÄÚµãºÅ
-	MaxDevNum ×î´óÉè±¸Êý
-	MaxPointNum	×î´óµãÊý
-·µ»ØÖµ£º
-	0:³É¹¦,ÆäËû:´íÎó
-ÐÞ¸ÄÈÕÆÚ£º
+ï¿½ï¿½ï¿½Ü£ï¿½
+	ï¿½ï¿½ï¿½ï¿½è±¸IDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Ô½ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	DevID,ï¿½Õ¶ï¿½ID
+	nPoint,ï¿½Úµï¿½ï¿½
+	MaxDevNum ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½
+	MaxPointNum	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½
+	0:ï¿½É¹ï¿½,ï¿½ï¿½ï¿½ï¿½:ï¿½ï¿½ï¿½ï¿½
+ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ú£ï¿½
 ***************/
 
 int CheckError(uint8_t DevID,uint32_t nPoint, uint8_t MaxDevNum, uint32_t MaxPointNum)
 {
-	if(DevID > MaxDevNum){//Éè±¸ºÅ´óÓÚ×î´óÉè±¸ÊýÔò±¨´í
+	if(DevID > MaxDevNum){//ï¿½è±¸ï¿½Å´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½ò±¨´ï¿½
 		perror("ERROR:-------> DevID > max DeviceNum");
 		return -1;
 	}
-	if(nPoint > MaxPointNum){//µãºÅ´óÓÚ×î´óµãºÅÔò±¨´í
+	if(nPoint > MaxPointNum){//ï¿½ï¿½Å´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ò±¨´ï¿½
 		perror("ERROR:-------> nPoint > max nPoint");
 		return -1;
 	}
@@ -1275,19 +1276,19 @@ int CheckError(uint8_t DevID,uint32_t nPoint, uint8_t MaxDevNum, uint32_t MaxPoi
 }
 
 /***************
-¹¦ÄÜ£º
-	Ð´1¸öÒ£ÐÅsoeµ½ÄÚ´æ¿â
-²ÎÊý£º
-	DevID,ÖÕ¶ËID
-	nPoint,ÄÚµãºÅ
-	bValue,Ò£²âÖµ
-·µ»ØÖµ£º
-	0:³É¹¦,ÆäËû:´íÎó
-ÐÞ¸ÄÈÕÆÚ£º
+ï¿½ï¿½ï¿½Ü£ï¿½
+	Ð´1ï¿½ï¿½Ò£ï¿½ï¿½soeï¿½ï¿½ï¿½Ú´ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	DevID,ï¿½Õ¶ï¿½ID
+	nPoint,ï¿½Úµï¿½ï¿½
+	bValue,Ò£ï¿½ï¿½Öµ
+ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½
+	0:ï¿½É¹ï¿½,ï¿½ï¿½ï¿½ï¿½:ï¿½ï¿½ï¿½ï¿½
+ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ú£ï¿½
 2019/09/24
-	timeµÄÀàÐÍ´ýÐÞ¸Ä,¸ÄÎª³¤ÕûÐÍ»òÕß½á¹¹Ìå
+	timeï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ï¿½Þ¸ï¿½,ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½ß½á¹¹ï¿½ï¿½
 2019/09/25
-	×ª·¢±í0ºÅµã´¦Àí£¬Éè±ðºÅ¡¢ÄÚµãºÅÓë×ª·¢±í0ºÅµãÒ»ÖÂµÄÊ±ºò£¬²Å¸³Öµ¡£
+	×ªï¿½ï¿½ï¿½ï¿½0ï¿½Åµã´¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¡ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½0ï¿½Åµï¿½Ò»ï¿½Âµï¿½Ê±ï¿½ò£¬²Å¸ï¿½Öµï¿½ï¿½
 ***************/
 
 int WriteYx(uint8_t DevNo,uint32_t nPoint,uint8_t bStatus)
@@ -1307,20 +1308,20 @@ int WriteYx(uint8_t DevNo,uint32_t nPoint,uint8_t bStatus)
 }
 
 /***************
-¹¦ÄÜ£º
-	Ð´1¸öÒ£ÐÅsoeµ½ÄÚ´æ¿â
-²ÎÊý£º
-	DevID,ÖÕ¶ËID
-	nPoint,ÄÚµãºÅ
-	bValue,Ò£²âÖµ
+ï¿½ï¿½ï¿½Ü£ï¿½
+	Ð´1ï¿½ï¿½Ò£ï¿½ï¿½soeï¿½ï¿½ï¿½Ú´ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	DevID,ï¿½Õ¶ï¿½ID
+	nPoint,ï¿½Úµï¿½ï¿½
+	bValue,Ò£ï¿½ï¿½Öµ
 	CP56Time2a_T,
-·µ»ØÖµ£º
-	0:³É¹¦,ÆäËû:´íÎó
-ÐÞ¸ÄÈÕÆÚ£º
+ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½
+	0:ï¿½É¹ï¿½,ï¿½ï¿½ï¿½ï¿½:ï¿½ï¿½ï¿½ï¿½
+ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ú£ï¿½
 2019/09/25
-	×ª·¢±í0ºÅµã´¦Àí£¬Éè±ðºÅ¡¢ÄÚµãºÅÓë×ª·¢±í0ºÅµãÒ»ÖÂµÄÊ±ºò£¬²Å¸³Öµ¡£
+	×ªï¿½ï¿½ï¿½ï¿½0ï¿½Åµã´¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¡ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½0ï¿½Åµï¿½Ò»ï¿½Âµï¿½Ê±ï¿½ò£¬²Å¸ï¿½Öµï¿½ï¿½
 2019/09/29
-	Ôö¼Ó²ÎÊý£¬Ê±¼ä½á¹¹Ìå
+	ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½á¹¹ï¿½ï¿½
 ***************/
 
 int WriteYxSoe(uint8_t DevID,uint32_t nPoint,uint8_t bStatus,PCP56Time2a_T _Time)
@@ -1341,23 +1342,23 @@ int WriteYxSoe(uint8_t DevID,uint32_t nPoint,uint8_t bStatus,PCP56Time2a_T _Time
 
 
 /***************
-¹¦ÄÜ£º
-	Ð´1¸öÒ£ÐÅsoeµ½Êý¾Ý¿â
-²ÎÊý£º
-	DevID,ÖÕ¶ËID
-	nPoint,ÄÚµãºÅ
+ï¿½ï¿½ï¿½Ü£ï¿½
+	Ð´1ï¿½ï¿½Ò£ï¿½ï¿½soeï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	DevID,ï¿½Õ¶ï¿½ID
+	nPoint,ï¿½Úµï¿½ï¿½
 	bStatus,×´Ì¬Öµ
-	bResdStatus,¶ÁÈ¡×´Ì¬,0ÒÑ¶Á,1Î´¶Á
-	time,Ò£ÐÅ·¢ÉúÊ±¼ä
-·µ»ØÖµ£º
-	0:³É¹¦,ÆäËû:´íÎó
-ÐÞ¸ÄÈÕÆÚ£º
+	bResdStatus,ï¿½ï¿½È¡×´Ì¬,0ï¿½Ñ¶ï¿½,1Î´ï¿½ï¿½
+	time,Ò£ï¿½Å·ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½
+	0:ï¿½É¹ï¿½,ï¿½ï¿½ï¿½ï¿½:ï¿½ï¿½ï¿½ï¿½
+ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ú£ï¿½
 2019/09/29
-	Ð´½øÊý¾Ý¿â
-	Êý¾Ý¿âÒ£²â±íµ¥´ýÐÞ¸Ä£¬´ýÔö¼ÓÁÐ£¬Äê¡¢ÔÂ¡¢ÈÕ¡¢Ê±¡¢·Ö¡¢ºÁÃë
+	Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
+	ï¿½ï¿½ï¿½Ý¿ï¿½Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ê¡¢ï¿½Â¡ï¿½ï¿½Õ¡ï¿½Ê±ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½ï¿½ï¿½
 ***************/
 
-int WriteYxSoeDB(uint8_t DevID,uint32_t nPoint,uint8_t bStatus,uint8_t bResdStatus,CP56Time2a_T *_Time)//timeµÄ¸ñÊ½Òª¸Ä£¬ÁÙÊ±²âÊÔÓÃuint16_t
+int WriteYxSoeDB(uint8_t DevID,uint32_t nPoint,uint8_t bStatus,uint8_t bResdStatus,CP56Time2a_T *_Time)//timeï¿½Ä¸ï¿½Ê½Òªï¿½Ä£ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uint16_t
 {
 	if(CheckError(DevID, nPoint, gVars.dwDevNum, gpDevice[DevID].BINum) < 0)
 		return -1;
@@ -1371,21 +1372,21 @@ int WriteYxSoeDB(uint8_t DevID,uint32_t nPoint,uint8_t bStatus,uint8_t bResdStat
 }
 
 /***************
-¹¦ÄÜ£º
-	Ð´1¸ö16Î»Ò£²âsoeµ½ÄÚ´æ¿â
-²ÎÊý£º
-	DevID,ÖÕ¶ËID
-	nPoint,ÄÚµãºÅ
-	bValue,Ò£²âÖµ
-·µ»ØÖµ£º
-	0:³É¹¦,ÆäËû:´íÎó
-ÐÞ¸ÄÈÕÆÚ£º
+ï¿½ï¿½ï¿½Ü£ï¿½
+	Ð´1ï¿½ï¿½16Î»Ò£ï¿½ï¿½soeï¿½ï¿½ï¿½Ú´ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	DevID,ï¿½Õ¶ï¿½ID
+	nPoint,ï¿½Úµï¿½ï¿½
+	bValue,Ò£ï¿½ï¿½Öµ
+ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½
+	0:ï¿½É¹ï¿½,ï¿½ï¿½ï¿½ï¿½:ï¿½ï¿½ï¿½ï¿½
+ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ú£ï¿½
 2019/09/24
-	timeµÄÀàÐÍ´ýÐÞ¸Ä,¸ÄÎª³¤ÕûÐÍ»òÕß½á¹¹Ìå
+	timeï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ï¿½Þ¸ï¿½,ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½ß½á¹¹ï¿½ï¿½
 2019/09/25
-	ÓÉÓÚ×ª·¢±íÖÐ²»°üº¬µÄµã±íÔÚ³õÊ¼»¯µÄÊ±ºò£¬ÍâµãºÅ¶¼ÎªÁã¡£µ±ÕâÐ©ÄÚµãºÅ²úÉúÊ±£¬¶¼»á¸øÍâµãºÅ½øÐÐ¸³Öµ¡£
+	ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½Ú³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Å¶ï¿½Îªï¿½ã¡£ï¿½ï¿½ï¿½ï¿½Ð©ï¿½Úµï¿½Å²ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å½ï¿½ï¿½Ð¸ï¿½Öµï¿½ï¿½
 
-	Òò´ËÍâµãºÅÎªÁã£¬ÔÝ²»´¦Àí£¬¶Ô×ª·¢±íÍâµãºÅÎª0µÄÄÚµãºÅÐèÒªÌØÊâ´¦Àí¡£
+	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ã£¬ï¿½Ý²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½â´¦ï¿½ï¿½ï¿½ï¿½
 ***************/
 
 int WriteYc16(uint8_t DevID,uint32_t nPoint, uint16_t bValue)
@@ -1405,21 +1406,21 @@ int WriteYc16(uint8_t DevID,uint32_t nPoint, uint16_t bValue)
 }
 
 /***************
-¹¦ÄÜ£º
-	Ð´1¸ö32Î»Ò£²âsoeµ½ÄÚ´æ¿â
-²ÎÊý£º
-	DevID,ÖÕ¶ËID
-	nPoint,ÄÚµãºÅ
-	bValue,Ò£²âÖµ
-·µ»ØÖµ£º
-	0:³É¹¦,ÆäËû:´íÎó
-ÐÞ¸ÄÈÕÆÚ£º
+ï¿½ï¿½ï¿½Ü£ï¿½
+	Ð´1ï¿½ï¿½32Î»Ò£ï¿½ï¿½soeï¿½ï¿½ï¿½Ú´ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	DevID,ï¿½Õ¶ï¿½ID
+	nPoint,ï¿½Úµï¿½ï¿½
+	bValue,Ò£ï¿½ï¿½Öµ
+ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½
+	0:ï¿½É¹ï¿½,ï¿½ï¿½ï¿½ï¿½:ï¿½ï¿½ï¿½ï¿½
+ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ú£ï¿½
 2019/09/24
-	timeµÄÀàÐÍ´ýÐÞ¸Ä,¸ÄÎª³¤ÕûÐÍ»òÕß½á¹¹Ìå
+	timeï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ï¿½Þ¸ï¿½,ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½ß½á¹¹ï¿½ï¿½
 2019/09/25
-	ÓÉÓÚ×ª·¢±íÖÐ²»°üº¬µÄµã±íÔÚ³õÊ¼»¯µÄÊ±ºò£¬ÍâµãºÅ¶¼ÎªÁã¡£µ±ÕâÐ©ÄÚµãºÅ²úÉúÊ±£¬¶¼»á¸øÍâµãºÅ½øÐÐ¸³Öµ¡£
+	ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½Ú³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Å¶ï¿½Îªï¿½ã¡£ï¿½ï¿½ï¿½ï¿½Ð©ï¿½Úµï¿½Å²ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å½ï¿½ï¿½Ð¸ï¿½Öµï¿½ï¿½
 
-	Òò´ËÍâµãºÅÎªÁã£¬ÔÝ²»´¦Àí£¬¶Ô×ª·¢±íÍâµãºÅÎª0µÄÄÚµãºÅÐèÒªÌØÊâ´¦Àí¡£
+	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ã£¬ï¿½Ý²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½â´¦ï¿½ï¿½ï¿½ï¿½
 ***************/
 
 int WriteYc32(uint8_t DevID,uint32_t nPoint, uint32_t bValue)
@@ -1484,23 +1485,23 @@ int WriteDzYz(int DevID,uint32_t nIndex, uint32_t bValue)
 
 
 /***************
-¹¦ÄÜ£º
-	Ð´1¸öÒ£²âsoeµ½ÄÚ´æ¿â
-²ÎÊý£º
-	DevID,ÖÕ¶ËID
-	nPoint,ÄÚµãºÅ
-	bValue,Ò£²âÖµ
-·µ»ØÖµ£º
-	0:³É¹¦,ÆäËû:´íÎó
-ÐÞ¸ÄÈÕÆÚ£º
+ï¿½ï¿½ï¿½Ü£ï¿½
+	Ð´1ï¿½ï¿½Ò£ï¿½ï¿½soeï¿½ï¿½ï¿½Ú´ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	DevID,ï¿½Õ¶ï¿½ID
+	nPoint,ï¿½Úµï¿½ï¿½
+	bValue,Ò£ï¿½ï¿½Öµ
+ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½
+	0:ï¿½É¹ï¿½,ï¿½ï¿½ï¿½ï¿½:ï¿½ï¿½ï¿½ï¿½
+ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ú£ï¿½
 2019/09/24
-	timeµÄÀàÐÍ´ýÐÞ¸Ä,¸ÄÎª³¤ÕûÐÍ»òÕß½á¹¹Ìå
+	timeï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ï¿½Þ¸ï¿½,ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½ß½á¹¹ï¿½ï¿½
 2019/09/25
-	ÓÉÓÚ×ª·¢±íÖÐ²»°üº¬µÄµã±íÔÚ³õÊ¼»¯µÄÊ±ºò£¬ÍâµãºÅ¶¼ÎªÁã¡£µ±ÕâÐ©ÄÚµãºÅ²úÉúÊ±£¬¶¼»á¸øÍâµãºÅ½øÐÐ¸³Öµ¡£
+	ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½Ú³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Å¶ï¿½Îªï¿½ã¡£ï¿½ï¿½ï¿½ï¿½Ð©ï¿½Úµï¿½Å²ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å½ï¿½ï¿½Ð¸ï¿½Öµï¿½ï¿½
 
-	Òò´ËÍâµãºÅÎªÁã£¬ÔÝ²»´¦Àí£¬¶Ô×ª·¢±íÍâµãºÅÎª0µÄÄÚµãºÅÐèÒªÌØÊâ´¦Àí¡£
+	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ã£¬ï¿½Ý²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½â´¦ï¿½ï¿½ï¿½ï¿½
 2019/11-01
-	Êý¾Ý²»´æÔÚYC×ª·¢±íÀï£¬È«²¿´æÔÚgpDevice£¬¸ù¾Ý×ª·¢±íÔÚgpDeviceÖÐÑ°ÕÒÊý¾Ý
+	ï¿½ï¿½ï¿½Ý²ï¿½ï¿½ï¿½ï¿½ï¿½YC×ªï¿½ï¿½ï¿½ï¿½ï¿½ï£¬È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½gpDeviceï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½gpDeviceï¿½ï¿½Ñ°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ***************/
 
 int WriteYcSoe(uint8_t DevID,uint32_t nPoint,uint16_t bValue,CP56Time2a_T *_time)
@@ -1514,22 +1515,22 @@ int WriteYcSoe(uint8_t DevID,uint32_t nPoint,uint16_t bValue,CP56Time2a_T *_time
 }
 
 /***************
-¹¦ÄÜ£º
-	Ð´1¸öÒ£²âsoeµ½Êý¾Ý¿â
-²ÎÊý£º
-	DevID,ÖÕ¶ËID
-	nPoint,ÄÚµãºÅ
+ï¿½ï¿½ï¿½Ü£ï¿½
+	Ð´1ï¿½ï¿½Ò£ï¿½ï¿½soeï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	DevID,ï¿½Õ¶ï¿½ID
+	nPoint,ï¿½Úµï¿½ï¿½
 	bStatus,×´Ì¬Öµ
-	bResdStatus,¶ÁÈ¡×´Ì¬,0ÒÑ¶Á,1Î´¶Á
-	bValue,Ò£²âÖµ
-	time,Ò£ÐÅ·¢ÉúÊ±¼ä
-·µ»ØÖµ£º
-	0:³É¹¦,ÆäËû:´íÎó
-ÐÞ¸ÄÈÕÆÚ£º
+	bResdStatus,ï¿½ï¿½È¡×´Ì¬,0ï¿½Ñ¶ï¿½,1Î´ï¿½ï¿½
+	bValue,Ò£ï¿½ï¿½Öµ
+	time,Ò£ï¿½Å·ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½
+	0:ï¿½É¹ï¿½,ï¿½ï¿½ï¿½ï¿½:ï¿½ï¿½ï¿½ï¿½
+ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ú£ï¿½
 2019/09/24
-	timeµÄÀàÐÍ´ýÐÞ¸Ä,¸ÄÎª³¤ÕûÐÍ»òÕß½á¹¹Ìå
+	timeï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ï¿½Þ¸ï¿½,ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½ß½á¹¹ï¿½ï¿½
 2019/09/29
-	Ê±¼äÐÞ¸ÄÎª½á¹¹ÌåCP56Time2a_T
+	Ê±ï¿½ï¿½ï¿½Þ¸ï¿½Îªï¿½á¹¹ï¿½ï¿½CP56Time2a_T
 ***************/
 
 int WriteYcSoeDB(uint8_t DevID,uint32_t nPoint,uint8_t bStatus,uint8_t bResdStatus,uint16_t bValue,CP56Time2a_T *_time)
@@ -1544,7 +1545,7 @@ int WriteYcSoeDB(uint8_t DevID,uint32_t nPoint,uint8_t bStatus,uint8_t bResdStat
 //	
 //	TableName = "TransYcSoeTable";
 //	
-//	rc = sqlite3_open("IEC104_data.db",&db);//´ò¿ªÊý¾Ý¿â£¬Èç¹û²»´æÔÚ¾Í´´½¨Ò»¸ö
+//	rc = sqlite3_open("/mnt/internal_storage/dcu/IEC104_data.db",&db);//ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿â£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¾Í´ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
 //	if(rc){
 //		fprintf(stderr,"can't open database:%s \n",sqlite3_errmsg(db));
 //		log("can't open database: \n");
@@ -1552,13 +1553,13 @@ int WriteYcSoeDB(uint8_t DevID,uint32_t nPoint,uint8_t bStatus,uint8_t bResdStat
 //		return -1;
 //	}
 //	else 
-//		log("You have open a sqliet3 database named IEC104_data.db successful!\n");
+//		log("You have open a sqliet3 database named /mnt/internal_storage/dcu/IEC104_data.db successful!\n");
 //
 //	int32_t nrow=0,ncolumn=0;
-//	char **azResult;//¶þÎ¬Êý×é´æ·Å½á¹û
+//	char **azResult;//ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½ï¿½Å½ï¿½ï¿½
 //
 //
-//	//´´½¨±í£¬Èç¹û¸Ã±í´æÔÚÔò²»´´½¨£¬²¢¸ø³öÌáÊ¾ÐÅÏ¢£¬´æ´¢ÔÚzErrMsgÖÐ
+//	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ò²»´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½æ´¢ï¿½ï¿½zErrMsgï¿½ï¿½
 //	sql = "CREATE TABLE TransYcSoeTable(\
 //			ID INTEGER PRIMARY KEY,\
 //			nFlag TEXT,\
@@ -1571,7 +1572,7 @@ int WriteYcSoeDB(uint8_t DevID,uint32_t nPoint,uint8_t bStatus,uint8_t bResdStat
 //			);";
 //	sqlite3_exec(db,sql,0,0,&zErrMsg);
 //	
-//	//²åÈëÊý¾Ý
+//	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //	sql = malloc(strlen("INSERT INTO ")+strlen(TableName)+strlen("VALUES(%d,%d,%d,%d,%d,%d,%d,%d)")+sizeof(TBurstBISoe));
 //	sprintf(sql,"INSERT INTO %s VALUES(null,%d,%d,%d,%d,%d,%d,%d);",TableName,gpDevice[DevID].DeviceID,bStatus,\
 //		bResdStatus,bValue,nPoint,gpDevice[DevID].pBurstBI[nPoint].nNo,_time->_year._year);
@@ -1771,22 +1772,22 @@ uint32_t ReadDzYZData32(uint32_t nIndex)
 
 
 /***************
-¹¦ÄÜ£º
-	¶ÁYXSOEÊý¾Ý¿âÖÐµÄSOE
-²ÎÊý£º
-	DevID,ÖÕ¶ËID
-	nPoint,ÄÚµãºÅ
+ï¿½ï¿½ï¿½Ü£ï¿½
+	ï¿½ï¿½YXSOEï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ðµï¿½SOE
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	DevID,ï¿½Õ¶ï¿½ID
+	nPoint,ï¿½Úµï¿½ï¿½
 	bStatus,×´Ì¬Öµ
-	bResdStatus,¶ÁÈ¡×´Ì¬,0ÒÑ¶Á,1Î´¶Á
-	time,Ò£ÐÅ·¢ÉúÊ±¼ä
-·µ»ØÖµ£º
-	0:³É¹¦,ÆäËû:´íÎó
-ÐÞ¸ÄÈÕÆÚ£º
+	bResdStatus,ï¿½ï¿½È¡×´Ì¬,0ï¿½Ñ¶ï¿½,1Î´ï¿½ï¿½
+	time,Ò£ï¿½Å·ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½
+	0:ï¿½É¹ï¿½,ï¿½ï¿½ï¿½ï¿½:ï¿½ï¿½ï¿½ï¿½
+ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ú£ï¿½
 2019/09/24
-	timeµÄÀàÐÍ´ýÐÞ¸Ä,¸ÄÎª³¤ÕûÐÍ»òÕß½á¹¹Ìå
+	timeï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ï¿½Þ¸ï¿½,ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½ß½á¹¹ï¿½ï¿½
 2019/09/25
-	sqlite3_get_tableºÍsqlite3_free_tableÐèÒªÅäÌ×Ê¹ÓÃ,·ñÔò»á±¨ÄÚ´æ´íÎó¡£
-	sqlite3_execÓï¾äÄÚµÄsql×Ö·û´®ÐèÒª¼Ó¡®;¡¯ºÅ¡£
+	sqlite3_get_tableï¿½ï¿½sqlite3_free_tableï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½á±¨ï¿½Ú´ï¿½ï¿½ï¿½ï¿½
+	sqlite3_execï¿½ï¿½ï¿½ï¿½Úµï¿½sqlï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½Ó¡ï¿½;ï¿½ï¿½ï¿½Å¡ï¿½
 ***************/
 
 PTBurstBI ReadYxSoe(uint16_t nIndex)
@@ -2119,7 +2120,7 @@ void SetCallDZAllFlag(void)
 int WriteBrustYXRecord(uint16_t Point, uint8_t *Value)
 {
 
-    IEC10X->GetTime(&YXBrustRecord[gVars.YxWritePtr%MAXYXRECORD].stTime);//»ñÈ¡ÏµÍ³Ê±¼ä
+    IEC10X->GetTime(&YXBrustRecord[gVars.YxWritePtr%MAXYXRECORD].stTime);//ï¿½ï¿½È¡ÏµÍ³Ê±ï¿½ï¿½
 	YXBrustRecord[gVars.YxWritePtr%MAXYXRECORD].bStatus = *Value;
 	YXBrustRecord[gVars.YxWritePtr%MAXYXRECORD].point = Point;
 	gVars.YxWritePtr++;
@@ -2137,7 +2138,7 @@ int WriteBrustYXSoeRecord(uint16_t Point, PTBurstBI SOE_T)
 int WriteBrustDZRecord(uint16_t Point, uint32_t *Value)
 {
 
-    IEC10X->GetTime(&DZBrustRecord[gVars.DZWritePtr%MAXYXRECORD].stTime);//»ñÈ¡ÏµÍ³Ê±¼ä
+    IEC10X->GetTime(&DZBrustRecord[gVars.DZWritePtr%MAXYXRECORD].stTime);//ï¿½ï¿½È¡ÏµÍ³Ê±ï¿½ï¿½
 	DZBrustRecord[gVars.DZWritePtr%MAXYXRECORD].Value32 = *Value;
 	DZBrustRecord[gVars.DZWritePtr%MAXYXRECORD].point = Point;
 	gVars.DZWritePtr++;
@@ -2145,10 +2146,10 @@ int WriteBrustDZRecord(uint16_t Point, uint32_t *Value)
 
 
 /*******************************************************************  
-*Ãû³Æ£º      		CheckBrustYx  
-*¹¦ÄÜ£º			¼ì²âÍ»·¢Ò£ÐÅ  
-*Èë¿Ú²ÎÊý£º 
-*³ö¿Ú²ÎÊý£ºÕýÈ··µ»ØÎª0£¬´íÎó·µ»ØÎª-1 
+*ï¿½ï¿½ï¿½Æ£ï¿½      		CheckBrustYx  
+*ï¿½ï¿½ï¿½Ü£ï¿½			ï¿½ï¿½ï¿½Í»ï¿½ï¿½Ò£ï¿½ï¿½  
+*ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ 
+*ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½ï¿½ï¿½ï¿½ó·µ»ï¿½Îª-1 
 *******************************************************************/ 
 int CheckBrustYx(void)
 {
@@ -2166,10 +2167,10 @@ int CheckBrustYx(void)
 	}
 }
 /*******************************************************************  
-*Ãû³Æ£º      		CheckBrustYxSoe  
-*¹¦ÄÜ£º			¼ì²âÍ»·¢Ò£ÐÅ  
-*Èë¿Ú²ÎÊý£º 
-*³ö¿Ú²ÎÊý£ºÕýÈ··µ»ØÎª0£¬´íÎó·µ»ØÎª-1 
+*ï¿½ï¿½ï¿½Æ£ï¿½      		CheckBrustYxSoe  
+*ï¿½ï¿½ï¿½Ü£ï¿½			ï¿½ï¿½ï¿½Í»ï¿½ï¿½Ò£ï¿½ï¿½  
+*ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ 
+*ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½ï¿½ï¿½ï¿½ó·µ»ï¿½Îª-1 
 *******************************************************************/ 
 int CheckBrustYxSoe(void)
 {
@@ -2187,10 +2188,10 @@ int CheckBrustYxSoe(void)
 }
 
 /*******************************************************************  
-*Ãû³Æ£º      		CheckBrustYx  
-*¹¦ÄÜ£º			¼ì²âÍ»·¢Ò£ÐÅ  
-*Èë¿Ú²ÎÊý£º 
-*³ö¿Ú²ÎÊý£ºÕýÈ··µ»ØÎª0£¬´íÎó·µ»ØÎª-1 
+*ï¿½ï¿½ï¿½Æ£ï¿½      		CheckBrustYx  
+*ï¿½ï¿½ï¿½Ü£ï¿½			ï¿½ï¿½ï¿½Í»ï¿½ï¿½Ò£ï¿½ï¿½  
+*ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ 
+*ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½ï¿½ï¿½ï¿½ó·µ»ï¿½Îª-1 
 *******************************************************************/ 
 int CheckBrustDZ(void)
 {
@@ -2209,12 +2210,12 @@ int CheckBrustDZ(void)
 }
 
 /*******************************************************************  
-*Ãû³Æ£º      		ScanBrustYx  
-*¹¦ÄÜ£º			±éÀúÍ»·¢Ò£ÐÅ  
-*Èë¿Ú²ÎÊý£º         
-*	@ReadPtr 	¶ÁÖ¸Õë
+*ï¿½ï¿½ï¿½Æ£ï¿½      		ScanBrustYx  
+*ï¿½ï¿½ï¿½Ü£ï¿½			ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½Ò£ï¿½ï¿½  
+*ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½         
+*	@ReadPtr 	ï¿½ï¿½Ö¸ï¿½ï¿½
 
-*³ö¿Ú²ÎÊý£º0:ÎÞÍ»·¢Ò£ÐÅ 1:ÓÐÍ»·¢Ò£ÐÅ 
+*ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½0:ï¿½ï¿½Í»ï¿½ï¿½Ò£ï¿½ï¿½ 1:ï¿½ï¿½Í»ï¿½ï¿½Ò£ï¿½ï¿½ 
 *******************************************************************/ 
 int ScanBrustYx(int DevID, uint32_t *ReadPtr, uint16_t *StartAddr, uint16_t *BrustYXNum)
 {
@@ -2240,12 +2241,12 @@ int ScanBrustYx(int DevID, uint32_t *ReadPtr, uint16_t *StartAddr, uint16_t *Bru
 }
 
 /*******************************************************************  
-*Ãû³Æ£º      		ScanBrustYxSoe  
-*¹¦ÄÜ£º			±éÀúÍ»·¢Ò£ÐÅÊÂ¼þ 
-*Èë¿Ú²ÎÊý£º         
-*	@ReadPtr 	¶ÁÖ¸Õë
+*ï¿½ï¿½ï¿½Æ£ï¿½      		ScanBrustYxSoe  
+*ï¿½ï¿½ï¿½Ü£ï¿½			ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½Ò£ï¿½ï¿½ï¿½Â¼ï¿½ 
+*ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½         
+*	@ReadPtr 	ï¿½ï¿½Ö¸ï¿½ï¿½
 
-*³ö¿Ú²ÎÊý£º0:ÎÞÍ»·¢Ò£ÐÅ 1:ÓÐÍ»·¢Ò£ÐÅ 
+*ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½0:ï¿½ï¿½Í»ï¿½ï¿½Ò£ï¿½ï¿½ 1:ï¿½ï¿½Í»ï¿½ï¿½Ò£ï¿½ï¿½ 
 *******************************************************************/ 
 int ScanBrustYxSoe(int DevID, uint32_t *ReadPtr, uint16_t *StartAddr, uint16_t *BrustYXNum)
 {
@@ -2293,7 +2294,7 @@ int ScanBrustDZ(int DevID, uint32_t *ReadPtr, uint16_t *StartAddr, uint16_t *Bru
 int WriteBrustYCRecord(uint16_t Point, uint32_t *Value)
 {
 
-    IEC10X->GetTime(&YCBrustRecord[gVars.YcWritePtr%MAXYCRECORD].stTime);//»ñÈ¡ÏµÍ³Ê±¼ä
+    IEC10X->GetTime(&YCBrustRecord[gVars.YcWritePtr%MAXYCRECORD].stTime);//ï¿½ï¿½È¡ÏµÍ³Ê±ï¿½ï¿½
 	YCBrustRecord[gVars.YcWritePtr%MAXYCRECORD].Value32 = *Value;
 	YCBrustRecord[gVars.YcWritePtr%MAXYCRECORD].point = Point;
 	gVars.YcWritePtr++;
@@ -2301,10 +2302,10 @@ int WriteBrustYCRecord(uint16_t Point, uint32_t *Value)
 }
 
 /*******************************************************************  
-*Ãû³Æ£º      		CheckBrustYc  
-*¹¦ÄÜ£º			¼ì²âÍ»·¢Ò£ÐÅ  
-*Èë¿Ú²ÎÊý£º 
-*³ö¿Ú²ÎÊý£ºÕýÈ··µ»ØÎª0£¬´íÎó·µ»ØÎª-1 
+*ï¿½ï¿½ï¿½Æ£ï¿½      		CheckBrustYc  
+*ï¿½ï¿½ï¿½Ü£ï¿½			ï¿½ï¿½ï¿½Í»ï¿½ï¿½Ò£ï¿½ï¿½  
+*ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ 
+*ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½ï¿½ï¿½ï¿½ó·µ»ï¿½Îª-1 
 *******************************************************************/ 
 int CheckBrustYc(void)
 {
@@ -2323,12 +2324,12 @@ int CheckBrustYc(void)
 	}
 }
 /*******************************************************************  
-*Ãû³Æ£º      		ScanBrustYc  
-*¹¦ÄÜ£º			±éÀúÍ»·¢Ò£ÐÅ  
-*Èë¿Ú²ÎÊý£º         
-*	@ReadPtr 	¶ÁÖ¸Õë
+*ï¿½ï¿½ï¿½Æ£ï¿½      		ScanBrustYc  
+*ï¿½ï¿½ï¿½Ü£ï¿½			ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½Ò£ï¿½ï¿½  
+*ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½         
+*	@ReadPtr 	ï¿½ï¿½Ö¸ï¿½ï¿½
 
-*³ö¿Ú²ÎÊý£º0:ÎÞÍ»·¢Ò£ÐÅ 1:ÓÐÍ»·¢Ò£ÐÅ 
+*ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½0:ï¿½ï¿½Í»ï¿½ï¿½Ò£ï¿½ï¿½ 1:ï¿½ï¿½Í»ï¿½ï¿½Ò£ï¿½ï¿½ 
 *******************************************************************/ 
 int ScanBrustYc(int fd, int DevID, uint16_t *ReadPtr, uint16_t *StartAddr, uint16_t *BrustYCNum)
 {
@@ -2354,25 +2355,25 @@ int ScanBrustYc(int fd, int DevID, uint16_t *ReadPtr, uint16_t *StartAddr, uint1
 
 }
 
-//»ñÈ¡Êµ¼Ê¿âÖ¸Õë
+//ï¿½ï¿½È¡Êµï¿½Ê¿ï¿½Ö¸ï¿½ï¿½
 TRealBase * pGetRealBase( DWORD dwDevNO)
 {
 	TDevie *pDevice;
 	pDevice = pGetDevice(dwDevNO);
-    if( pDevice==NULL ) // ¼ì²éÉè±¸ºÅÊÇ·ñºÏ·¨
+    if( pDevice==NULL ) // ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½Ç·ï¿½Ï·ï¿½
 		return NULL;
     
     return pDevice->pRealBase;
 }
 /***************
-º¯Êý£º	
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	
 	void InitLogicAitReffer(DWORD dwDevID)
-¹¦ÄÜ£º
-	³õÊ¼»¯×ª·¢±í£¬³õÊ¼»¯ÖÇÄÜÉè±¸Êý¾ÝµãºÅÔÚÂß¼­Éè±¸¿âÖÐµÄÆ«ÒÆÁ¿
-²ÎÊý£º
-	dwDevID£ºÂß¼­Ä£¿éIDºÅ
-·µ»ØÖµ£º
-ÐÞ¸ÄÈÕÆÚ£º
+ï¿½ï¿½ï¿½Ü£ï¿½
+	ï¿½ï¿½Ê¼ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½è±¸ï¿½ï¿½ï¿½Ðµï¿½Æ«ï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	dwDevIDï¿½ï¿½ï¿½ß¼ï¿½Ä£ï¿½ï¿½IDï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½
+ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ú£ï¿½
 ***************/
 void InitLogicAitReffer(DWORD dwDevNo)
 {
@@ -2383,9 +2384,9 @@ void InitLogicAitReffer(DWORD dwDevNo)
 	TRealBase *pRealBase;
 
 	DWORD dwAINo;
-	DWORD dwRealID;   	//¸ÃAIËùÊôÖÇÄÜÉè±¸µÄID
-	DWORD dwRealAINum;  //¸ÃAIËùÊôÖÇÄÜÉè±¸µÄID
-	DWORD dwOffset;    	//¸ÃAIÔÚËùÊôÖÇÄÜÉè±¸ÊµÊ±¿âÖÐµÄÆ«ÒÆÁ¿
+	DWORD dwRealID;   	//ï¿½ï¿½AIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ID
+	DWORD dwRealAINum;  //ï¿½ï¿½AIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ID
+	DWORD dwOffset;    	//ï¿½ï¿½AIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ÊµÊ±ï¿½ï¿½ï¿½Ðµï¿½Æ«ï¿½ï¿½ï¿½ï¿½
 
 	TReflex *pReflex;
 	uint16_t DevNo;
@@ -2402,7 +2403,7 @@ void InitLogicAitReffer(DWORD dwDevNo)
 
       pLogicAI = pLogicBase->pLogicAI; 
 
-      if(pLogicAI == NULL){ //new  ·À´í
+      if(pLogicAI == NULL){ //new  ï¿½ï¿½ï¿½ï¿½
 		  perror("pLogicAI == NULL");
       		return;
       	}
@@ -2414,7 +2415,7 @@ void InitLogicAitReffer(DWORD dwDevNo)
 		dwOffset = TransYCTable[dwAINo].nPoint;
 		DevNo = GetDevNo(dwRealID);
 		
-       	pRealBase = pGetRealBase( DevNo );//dwRealIDºÏ·¨ÐÔ¼ì²é
+       	pRealBase = pGetRealBase( DevNo );//dwRealIDï¿½Ï·ï¿½ï¿½Ô¼ï¿½ï¿½
 
        	if(!pRealBase)
        		continue;
@@ -2422,7 +2423,7 @@ void InitLogicAitReffer(DWORD dwDevNo)
        	dwRealAINum = gpDevice[DevNo].AINum;
 
        	if(dwOffset >= dwRealAINum)
-       		continue; //dwOffsetºÏ·¨ÐÔ¼ì²é
+       		continue; //dwOffsetï¿½Ï·ï¿½ï¿½Ô¼ï¿½ï¿½
 
        	pRealAI = &pRealBase->pRealAI[dwOffset];
        	pReflex = (TReflex *)malloc(sizeof(TReflex));
@@ -2434,7 +2435,7 @@ void InitLogicAitReffer(DWORD dwDevNo)
        	pReflex->dwNo = dwAINo;
        	pReflex->pNext = 0;
 
-//½¨Á¢Ë÷Òý±í
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		TReflex *pRef;
 		   	
 		if(pRealAI->pReflex == 0)
@@ -2445,14 +2446,14 @@ void InitLogicAitReffer(DWORD dwDevNo)
 		{
 			pRef = pRealAI->pReflex;
 
-			while(pRef->pNext != 0)//ÕÒµ½×îºóÒ»¸ö
+			while(pRef->pNext != 0)//ï¿½Òµï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
 				pRef = pRef->pNext;
 
 	       	pRef->pNext = pReflex;
 		}
 	}
 }
-//³õÊ¼»¯×ª·¢µã±í
+//ï¿½ï¿½Ê¼ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½
 void InitReffer(void)//5512
 {
 	DWORD dwDevNo;

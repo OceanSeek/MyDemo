@@ -15,8 +15,8 @@ int write_log(char* fmt, int type, const char *file, const char *func, uint32_t 
 	p = localtime(&timep);
 	sprintf(timebuf, "%d/%02d/%02d %02d:%02d:%02d", (1900 + p->tm_year), (p->tm_mon+1), p->tm_mday, p->tm_hour, p->tm_min, p->tm_sec);
 //	log("timebuf is %s \n",timebuf);
-	filename1 = "log1.txt";
-	filename2 = "log2.txt";
+	filename1 = "/mnt/internal_storage/log1.txt";
+	filename2 = "/mnt/internal_storage/log2.txt";
 	FILE *fp = fopen(filename1, "a");//����a����׷��
 	if(!fp) return -1;
 	fseek(fp, 0L, SEEK_END);

@@ -1119,7 +1119,7 @@ int main()
 	gettimeofday(&lasttime,NULL);
 	Stm32f103RegisterIec10x();
 	InitDevice();
-//	wd_fd = IntWatchDog();
+	wd_fd = IntWatchDog();
 	pthread_mutex_init(&mutex,NULL);
 	pthread_mutex_init(&mutex2,NULL);
 	CreatePthread();
@@ -1148,7 +1148,7 @@ int main()
 			if(sys_time_cnt %5 == 0)Mqtt_Reconnect();
 			
 			lasttime = nowtime;
-//			FeedWatchDog(wd_fd);
+			FeedWatchDog(wd_fd);
 		}
 		CheckBrustYx();
 		CheckBrustYxSoe();

@@ -1,0 +1,11 @@
+[Unit]
+Description=WQ-T9001 service test
+
+[Service]
+ExecStart=/mnt/internal_storage/dcu/WQ-T9001.bin
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

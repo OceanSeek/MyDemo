@@ -11,8 +11,8 @@
 #define QOS         1 	//0:至多一次，1：至少一次，2：确保一次
 #define TIMEOUT     10000L
 
-char *username= "E939DB405D8B44248B13C41C4A67AA1E"; 
-char *password = "dece03aaaaaaaaaaaaaa"; 
+char *username= "b784300a8310c7d5"; 
+char *password = "9af083b5aee31a37"; 
 
 // 订阅主题
 char *topic_sub_command, *topic_sub_updataApp;
@@ -168,20 +168,27 @@ int8_t Deal_topic_updataApp(char* string)
     if(strcmp(updata_app, "yes") == 0){
         log("start updata\n");
         char *updata_App_url;
+        char *app_chmod;
         updata_App_url = (char *)malloc(strlen("curl ") + strlen(url_app) + strlen(" -o " ) + strlen(app_file_name));
         strcpy(updata_App_url, "curl ");
         strcat(updata_App_url, url_app);
         strcat(updata_App_url, " -o ");
         strcat(updata_App_url, app_file_name);
         system(updata_App_url);
-        free(updata_App_url);
+        
         //升级前要释放文件描述符，否则重启时，不能打开
         int i = 0;
         for(i = 0; i < gVars.dwDevNum; i++){
             close(gpDevice[i].fd);
         }
         
-        system("/home/weitao/remote_update.sh");
+        strcpy(app_chmod, "chmod a+x ");
+        strcat(app_chmod, app_file_name);
+        system(app_chmod);//设置可执行权限
+        system("/mnt/internal_storage/remote_update.sh");
+
+        free(updata_App_url);
+        free(app_chmod);
     } 
     cJSON_Delete(json);
     return RET_SUCESS;
@@ -232,6 +239,10 @@ int Mqtt_Connect(void)
 		Mqtt_Client_Create_Thread(NULL);
 		MQTTConnectStatus = MQTT_CONNECT;
 	}
+    else {
+        MQTTConnectStatus = MQTT_DISCONNECT;
+    }
+    
 }
 
 int Mqtt_Reconnect(void)

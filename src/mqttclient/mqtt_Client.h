@@ -2,7 +2,7 @@
 #define _mqtt_Client_H
 
 // #define CLIENTID    "D3491110407lzFpy" //华为云生成的ID
-#define CLIENTID    "device_04" //自定义ID
+#define CLIENTID    "1000001" //自定义ID
 extern char *username; 
 extern char *password; 
 
