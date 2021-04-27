@@ -452,9 +452,9 @@ int ModbusRtuMaster_OnTimeOut(int DevNo)
 		ModbusSendAsk(DevNo);
 	}
 
-	if(gpDevice[DevNo].TimeCnt%5 == 0){
-		Modbus_TestData(DevNo, gpDevice[DevNo].TimeCnt);
-	}
+	// if(gpDevice[DevNo].TimeCnt%5 == 0){
+	// 	Modbus_TestData(DevNo, gpDevice[DevNo].TimeCnt);
+	// }
 
 	return RET_SUCESS;
 }

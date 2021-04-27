@@ -96,18 +96,15 @@ void InitProtocol()
 		else if(strcmp(gpDevice[i].Protocol, "ModbusRtuMaster") == 0){
 			Init_ModbusRtuMaster(i);
 		}
-		
-		
-
+		else if(strcmp(gpDevice[i].Protocol, "ModbusTcpMaster") == 0){
+			Init_ModbusTcpMaster(i);
+		}	
+		else if(strcmp(gpDevice[i].Protocol, "ModbusTcpSlaver") == 0){
+			Init_ModbusTcpSlaver(i);
+		}	
 	}
 }
 
-/*******************************************************************  
-*���ƣ�      		Empty_Task  
-*���ܣ�			ռλ����������Լ��ѭ��������ռλ  
-*��ڲ�������        
-*���ڲ�������ȷ����0�����󷵻�-1
-*******************************************************************/ 
 int Empty_Task(int DevNo)
 {
 	if(gpDevice[DevNo].flag_enpty_task == 0){
@@ -117,12 +114,6 @@ int Empty_Task(int DevNo)
 	return 0;
 }
 
-/*******************************************************************  
-*���ƣ�      		Empty_OnTimeOut  
-*���ܣ�			ռλ����������Լ�޶�ʱ������ռλ  
-*��ڲ�������        
-*���ڲ�������ȷ����0�����󷵻�-1
-*******************************************************************/ 
 int Empty_OnTimeOut(int DevNo)
 {
 	if(gpDevice[DevNo].flag_enpty_timeout == 0){
@@ -132,12 +123,6 @@ int Empty_OnTimeOut(int DevNo)
 	return 0;
 }
 
-/*******************************************************************  
-*���ƣ�      		Empty_Receive  
-*���ܣ�			ռλ����������Լ�޽���������ռλ  
-*��ڲ�������        
-*���ڲ�������ȷ����0�����󷵻�-1
-*******************************************************************/
 int Empty_Receive(int DevNo, uint8_t *buf, uint16_t len)
 {
 	if(gpDevice[DevNo].flag_enpty_receive == 0){
@@ -147,13 +132,6 @@ int Empty_Receive(int DevNo, uint8_t *buf, uint16_t len)
 	return 0;
 }
 
-/*******************************************************************  
-*���ƣ�      		CreatePthread  
-*���ܣ�			�����߳�  
-*��ڲ�������        
- 
-*���ڲ�������ȷ����0�����󷵻�-1
-*******************************************************************/ 
 static int threadID[MAXDEVNUM];
 int CreatePthread(void){
 	pthread_t tid1; 
@@ -192,21 +170,7 @@ int ClearDevicParamater(int DevNo)
 	gpDevice[DevNo].ReadYCPtr = 0;
 }
 
-/*******************************************************************  
-*���ƣ�			Pthread_Task  
-*���ܣ�			�����߳�  
-*��ڲ�����		
-*	arg:	�豸ID
-*���ڲ�����
-*	PTableName: ���ر���ָ��
-*�޸����ڣ�2020-3-19
-*	����ģʽ�£�"Pthread_Task_ID++"���ܷ��ں��棬���������������̵߳ĳ���᲻�������Ƿ񷵻ض��ᴴ�������
-*	��Pthread_Task_ID++�����ں�������ִ�У�Pthread_Task_ID��ֵ�ͻ�һֱ��0��
-*�޸����ڣ�2020-6-8
-*	��Pthread_Task_IDɾ�������ô��η�ʽ����DevNo
-*�޸����ڣ�2020-7-9
-*	��fd���ӽ�gpdevice�ṹ����
-*******************************************************************/ 
+
 void *Pthread_Task(void *arg)
 {	
 	int i;
@@ -219,8 +183,7 @@ void *Pthread_Task(void *arg)
 	ret = ComConfig((int *)arg);
 	ClearDevicParamater(DevNo);
 	if(ret == -1){
-		perror("error:ComConfig  ");
-		log("DevNo(%d)\n",DevNo);
+		perror("error:ComConfig DevNo(%d)\n",DevNo);
 		return NULL;
 	}else if(ret >= 0){
 		log("DevNo is (%d),fd (%d)\n",DevNo, gpDevice[DevNo].fd);
@@ -232,16 +195,7 @@ void *Pthread_Task(void *arg)
 	}
 	
 }
-/*******************************************************
-*
-* Function name ComConfig
-* Description        : com config
-* Parameter         ��
-*        @arg            device id 
 
-* Return          ��-1 error  ,  fd
-* Others		:
-**********************************************************/
 int ComConfig(int *arg)
 {
 	int DevNo;
@@ -275,10 +229,9 @@ int ComConfig(int *arg)
 			}
 			gpDevice[DevNo].Flag_Link_Ready = LinkReady;
 			return RET_SUCESS;
-		}
-
-		
-	}else if(strcmp("Serial", gpDevice[DevNo].Com) == 0){
+		}	
+	}
+	else if(strcmp("Serial", gpDevice[DevNo].Com) == 0){
 
 		ret = ComConfigCK(DevNo);
 		if(ret == RET_ERROR){
@@ -289,20 +242,7 @@ int ComConfig(int *arg)
 	}
 
 }
-/*******************************************************************  
-*���ƣ�			ComConfigTCPClient  
-*���ܣ�			����TCP�ͻ���  
-*��ڲ�����		
-*	arg:	�豸ID
-*���ڲ�����
-*	
-*�޸����ڣ�2020-3-19
-*	����ģʽ�£�"Pthread_Task_ID++"���ܷ��ں��棬���������������̵߳ĳ���᲻�������Ƿ񷵻ض��ᴴ�������
-*	��Pthread_Task_ID++�����ں�������ִ�У�Pthread_Task_ID��ֵ�ͻ�һֱ��0��
-*�޸����ڣ�2020-6-8
-*	��Pthread_Task_IDɾ�������ô��η�ʽ����DevNo
-*	logbuf����ʹ��ȫ�־�̬���������߳�ͬʱ��ֵ���г�ͻ,����ʹ��ȫ�ֱ�����ÿ���豸����һ��logbuf
-*******************************************************************/ 
+
 int ComConfigTCPClient(int *arg)
 {
 	int OverTime = 1;
@@ -324,12 +264,12 @@ int ComConfigTCPClient(int *arg)
 
 /*******************************************************
 *
-* Function name 	��ComConfigTCPServer
+* Function name 	ComConfigTCPServer
 * Description    	: tcp secver config. 
-* Parameter         ��
+* Parameter         :
 * 		@DevNo		:device id 
 
-* Return        	��fd
+* Return        	:fd
 * Others			:
 * 	
 **********************************************************/
@@ -378,7 +318,7 @@ int ComConfigUDP(int *arg)
 **********************************************************/
 int ComConfigCK(int DevNo)
 {
-	int err;			   //���ص��ú�����״̬	
+	int err;			  	
 	int len;							
 	int i;
 	char rcv_buf[256];			   
@@ -413,7 +353,7 @@ int ComConfigCK(int DevNo)
 			break;
 		default:
 			perror("no such port");
-			return -1;
+			return RET_ERROR;
 	}
 #endif
 	
@@ -421,7 +361,7 @@ int ComConfigCK(int DevNo)
 	if(ttyfd < 0)
 	{
 		perror("Open %s fail!\n",ttyPort);
-		return -1;
+		return RET_ERROR;
 	}
 	else{
 		
@@ -429,8 +369,7 @@ int ComConfigCK(int DevNo)
 		if(err == FALSE)
 		{
 			perror("set port error!\n");
-			
-			return -1;
+			return RET_ERROR;
 		}
 		else 
 		{
@@ -440,7 +379,7 @@ int ComConfigCK(int DevNo)
 
 	gpDevice[DevNo].fd = ttyfd;
 	log("____________gpDevice[%d].fd is %d \n", DevNo, gpDevice[DevNo].fd);
-	return 0;
+	return RET_SUCESS;
 
 }
 
@@ -476,7 +415,6 @@ int nonblockingClient(const char* ip, short port, int timeout, int DevNo)
 	int FlagLog = 1;
 	int fd;
 	if((fd = socket(AF_INET, SOCK_STREAM, 0)) < 0){
-		log("_______LINE(%d)_______\n",__LINE__);
   	    log("create socket error: %s(errno: %d)\n", strerror(errno),errno);  
 		exit(0);  
 	}	
@@ -549,10 +487,6 @@ int nonblockingClient(const char* ip, short port, int timeout, int DevNo)
 			return -1;
 		}
  
-        /**
-        * ��linux�£�select����fd��д�������������1.���ӳɹ���2.��������
-        * getsockopt����errorΪ0���ų���������������ѽ���
-        */
  		log("DevNo(%d) connect successfully  fd(%d) ip(%s) port(%d) ",DevNo,fd, ip, port);
 		LogSysLocalTime();
 		gpDevice[DevNo].fd = fd;
@@ -668,18 +602,7 @@ void *AppTask(void *arg)
 	}
 }
 
-/*******************************************************************  
-*���ƣ�      		ReAcceptServer  
-*���ܣ�			��ȡ�ַ������쳣ʱ��Զ���ͻ��˶Ͽ����ӣ���������  
-*��ڲ�����         
-*	@DevNo		�豸ID��
-*	@len		��ȡ�����ַ�����
-                    port    ���ں�(ttyS0,ttyS1,ttyS2)  
-*���ڲ�������ȷ����Ϊ0�����󷵻�Ϊ-1 
-*�޸����ڣ�2020-7-9
-*	tcp�������˿��ļ����������Ϊsfd�������gpdevice��
-*	tcp�����������˿��ļ����������Ϊfd�������gpdevice��
-*******************************************************************/ 
+
 int ReAcceptServer(int DevNo, int len)
 {
 	struct sockaddr_in c_add;
@@ -688,14 +611,14 @@ int ReAcceptServer(int DevNo, int len)
 	
 	sin_size = sizeof(struct sockaddr_in);
 	
-	if(len	<= 0 || len > 1500){//Զ���ر�����
+	if(len	<= 0 || len > 1500){
 		perror("tcpserver: the other side has been closed (%d)\n",len);
 		sprintf(gpDevice[DevNo].logbuf, "tcpserver: the other side has been closed (%d)\n",len);
 		write_log(gpDevice[DevNo].logbuf, LOGMARNING, __FILE__, __FUNCTION__, __LINE__);
 		gpDevice[DevNo].Flag_Link_Ready = LinkDisconect;
 		gpDevice[DevNo].Flag_Brust_Send_Enable = DISABLE;
 		Monitor_Disable(DevNo);
-		close(gpDevice[DevNo].fd);//�ͷ�socket
+		close(gpDevice[DevNo].fd);
 		
 		while(1){
 			nfd = accept(gpDevice[DevNo].sfd, (struct sockaddr *)(&c_add), &sin_size);
@@ -718,9 +641,7 @@ int ReAcceptServer(int DevNo, int len)
 		}
 	}
 
-
 }
-
 
 int OverTimeReConnectServer(int DevNo, uint32_t OverTime)
 {
@@ -806,7 +727,6 @@ int TcpServerTask(int DevNo)
 			}
 			gpDevice[DevNo].OnTimeOut(DevNo);
 		}
-		//��ʱ��Ӧ����ر�fd����������
 		OverTimeReConnectServer(DevNo, Timer_60s);
 
 		fd_set rfds,wfds;	
@@ -814,7 +734,6 @@ int TcpServerTask(int DevNo)
 		FD_SET(gpDevice[DevNo].fd, &rfds);  
 		FD_ZERO(&wfds); 		   
 		FD_SET(gpDevice[DevNo].fd, &wfds); 
-		
 		
 		tv.tv_sec = 1;	
 		tv.tv_usec = 0; 
@@ -929,7 +848,7 @@ int UDPTask(int DevNo)
 			gpDevice[DevNo].ReConnectOldTime = sys_time_cnt;
 			MonitorRx(monitorData._RX_ID, DevNo, monitorData._fd, buff, len);
 //			DumpHEX(buff, 5);
-//			log("ip:%s  port:%d\n",inet_ntoa(src_addr.sin_addr),ntohs(src_addr.sin_port));
+			log("source ip:%s  port:%d\n",inet_ntoa(src_addr.sin_addr),ntohs(src_addr.sin_port));
 			if(gpDevice[DevNo].Receive == NULL){
 				gpDevice[DevNo].Receive = Empty_Receive;
 			}
@@ -945,9 +864,7 @@ int UDPTask(int DevNo)
 	close(gpDevice[DevNo].fd);
 	pthread_exit(NULL);
 	exit(0); 
-
 }
-
 
 int CKTask(int DevNo)
 {
@@ -958,7 +875,6 @@ int CKTask(int DevNo)
 	struct timeval lasttime;
 	long long nowtime_ms,lasttime_ms;
 	gettimeofday(&lasttime,NULL);
-	
 	
 	while(1){
 		if(OnTimeOut(&lasttime, Timer_1000ms, &nowtime_ms, &lasttime_ms) == RET_SUCESS){
@@ -996,22 +912,6 @@ int CKTask(int DevNo)
 
 }
 
-
-//char* sysLocalTime()  
-//{  
-//    time_t             timesec;  
-//    struct tm         *p;  
-//	char *timestamp;
-//
-//    time(&timesec);
-//    p = localtime(&timesec);  
-//
-//	timestamp = malloc(21);
-//	sprintf(timestamp, "%d:%02d:%02dT%02d:%02d:%02dZ\n", 1900+p->tm_year, p->tm_mon + 1, p->tm_mday, p->tm_hour, p->tm_min, p->tm_sec);
-////	log(timestamp);
-//	return timestamp;
-//
-//}  
 void sysUsecTime()  
 {  
     struct timeval    tv;  
@@ -1028,13 +928,7 @@ void sysUsecTime()
     p = localtime(&tv.tv_sec);  
     log("time_now:%d /%d /%d %d :%d :%d.%3ld\n", 1900+p->tm_year, 1+p->tm_mon, p->tm_mday, p->tm_hour, p->tm_min, p->tm_sec, tv.tv_usec);  
 } 
-/*******************************************************************  
-*���ƣ�      		led_run_switch  
-*���ܣ�			led���  
-*��ڲ�����         
-*	@gpioID 	LED�ı��
-*	@status 	״̬��0���ƣ�1���
-*******************************************************************/ 
+
 void led_run_switch(int gpioID, int status)
 {
 	FILE *p=NULL;
@@ -1053,13 +947,7 @@ void led_run_switch(int gpioID, int status)
 	fprintf(p,"%d",status);
 	fclose(p);
 }
-/*******************************************************************  
-*���ƣ�      		IntWatchDog  
-*���ܣ�			��ʼ�����Ź�  
-*��ڲ�����         
-*����ֵ��
-*	���ؿ��Ź��ļ�������
-*******************************************************************/ 
+
 int IntWatchDog()
 {
 	int fd_watchdog = open("/dev/watchdog", O_WRONLY);  
@@ -1077,15 +965,9 @@ int IntWatchDog()
 	return fd_watchdog;
 
 }
-/*******************************************************************  
-*���ƣ�      		FeedWatchDog  
-*���ܣ�			ι��  
-*��ڲ�����
-*	wd_fd ���Ź��ļ�������
-*******************************************************************/ 
+
 void FeedWatchDog(int wd_fd){
 	static unsigned char food = 0;	
-	// ÿ��һ��ʱ����/dev/watchdog �豸д�����ݣ�������ι������  
 	if(wd_fd >= 0)  
 	{  
 		ssize_t eaten = write(wd_fd, &food, 1);  
@@ -1099,7 +981,6 @@ void FeedWatchDog(int wd_fd){
 		}  
 	}  
 }
-
 
 int main()
 {
@@ -1119,7 +1000,11 @@ int main()
 	gettimeofday(&lasttime,NULL);
 	Stm32f103RegisterIec10x();
 	InitDevice();
+
+	#ifndef HUAWEI
 	wd_fd = IntWatchDog();
+	#endif
+	
 	pthread_mutex_init(&mutex,NULL);
 	pthread_mutex_init(&mutex2,NULL);
 	CreatePthread();
@@ -1148,7 +1033,9 @@ int main()
 			if(sys_time_cnt %5 == 0)Mqtt_Reconnect();
 			
 			lasttime = nowtime;
+			#ifndef HUAWEI
 			FeedWatchDog(wd_fd);
+			#endif
 		}
 		CheckBrustYx();
 		CheckBrustYxSoe();

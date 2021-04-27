@@ -240,6 +240,7 @@ int Mqtt_Connect(void)
 		MQTTConnectStatus = MQTT_CONNECT;
 	}
     else {
+        perror("mqtt connect error\n");
         MQTTConnectStatus = MQTT_DISCONNECT;
     }
     
@@ -285,6 +286,7 @@ int Mqtt_Client_subscribe()
     	printf("Failed to subscribe, return code %d\n", rc);
     	rc = EXIT_FAILURE;
 		MQTTClient_destroy(&client);
+        MQTTConnectStatus = MQTT_DISCONNECT;
 		return rc;
     }
 

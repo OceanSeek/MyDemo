@@ -1,59 +1,60 @@
 /******************************************************************************/
-/** Ä£¿éÃû³Æ£ºModbusÍ¨Ñ¶                                                     **/
-/** ÎÄ¼şÃû³Æ£ºmodbusrtumaster.c                                              **/
-/** °æ    ±¾£ºV1.0.0                                                         **/
-/** ¼ò    ½é£ºÓÃÓÚÉùÃ÷Modbus RTUÖ÷Õ¾Ïà¹ØÊôĞÔ¼°·½·¨                           **/
-/**           1¡¢·¢ËÍ·ÃÎÊÇëÇó                                                **/
-/**           2¡¢½âÎö·µ»ØĞÅÏ¢                                                **/
-/**           3¡¢¸ù¾İ·µ»ØĞÅÏ¢ĞŞ¸ÄÊı¾İ                                        **/
+/** æ¨¡å—åç§°ï¼šModbusé€šè®¯                                                     **/
+/** æ–‡ä»¶åç§°ï¼šmbtcpserver.c                                                  **/
+/** ç‰ˆ    æœ¬ï¼šV1.0.0                                                         **/
+/** ç®€    ä»‹ï¼šç”¨äºå®ç°Modbus TCPæœåŠ¡å™¨ç«¯çš„ç›¸å…³å±æ€§åŠæ–¹æ³•                     **/
+/**           1ã€åˆå§‹åŒ–ä½œä¸ºServerçš„ç›¸å…³å‚æ•°ï¼Œå¦‚å­˜å‚¨åŸŸç­‰                      **/
+/**           2ã€è§£ææ¥æ”¶åˆ°çš„æ¶ˆæ¯ï¼Œå¹¶å¯¹æ•°æ®å¯¹è±¡è¿›è¡Œç›¸åº”æ“ä½œï¼Œè¿”å›å“åº”æ¶ˆæ¯    **/
 /**--------------------------------------------------------------------------**/
-/** ĞŞ¸Ä¼ÇÂ¼£º                                                               **/
-/**     °æ±¾      ÈÕÆÚ              ×÷Õß              ËµÃ÷                   **/
-/**     V1.0.0  2016-04-17          Ä¾ÄÏ              ´´½¨ÎÄ¼ş               **/
-/**     V1.5.0  2018-01-16          Ä¾ÄÏ              ĞŞ¸ÄÖ¸Áî´æ´¢¼°¼ìË÷     **/
+/** ä¿®æ”¹è®°å½•ï¼š                                                               **/
+/**     ç‰ˆæœ¬      æ—¥æœŸ              ä½œè€…              è¯´æ˜                   **/
+/**     V1.0.0  2016-04-17          æœ¨å—              åˆ›å»ºæ–‡ä»¶               **/
 /**                                                                          **/
-/******************************************************************************/
+/******************************************************************************/ 
 
 #include "sys.h"
 
-/*´¦Àí¶Á´ÓÕ¾×´Ì¬Á¿·µ»ØĞÅÏ¢£¬¶ÁÏßÈ¦×´Ì¬Î»0x01¹¦ÄÜÂë*/
+/*å¤„ç†è¯»ä»ç«™çŠ¶æ€é‡è¿”å›ä¿¡æ¯ï¼Œè¯»çº¿åœˆçŠ¶æ€ä½0x01åŠŸèƒ½ç */
 static void HandleReadCoilStatusRespond(int DevNo, RTULocalMasterType *master,uint8_t *receivedMesasage,uint16_t startAddress,uint16_t quantity);
-/*´¦Àí¶Á´ÓÕ¾×´Ì¬Á¿·µ»ØĞÅÏ¢£¬¶ÁÊäÈë×´Ì¬Î»0x02¹¦ÄÜÂë*/
+/*å¤„ç†è¯»ä»ç«™çŠ¶æ€é‡è¿”å›ä¿¡æ¯ï¼Œè¯»è¾“å…¥çŠ¶æ€ä½0x02åŠŸèƒ½ç */
 static void HandleReadInputStatusRespond(int DevNo, RTULocalMasterType *master,uint8_t *receivedMesasage,uint16_t startAddress,uint16_t quantity);
-/*´¦Àí¶Á´ÓÕ¾¼Ä´æÆ÷ÖµµÄ·µ»ØĞÅÏ¢£¬¶Á±£³Ö¼Ä´æÆ÷0x03¹¦ÄÜÂë£©*/
+/*å¤„ç†è¯»ä»ç«™å¯„å­˜å™¨å€¼çš„è¿”å›ä¿¡æ¯ï¼Œè¯»ä¿æŒå¯„å­˜å™¨0x03åŠŸèƒ½ç ï¼‰*/
 static void HandleReadHoldingRegisterRespond(int DevNo, RTULocalMasterType *master,uint8_t *receivedMesasage,uint16_t startAddress,uint16_t quantity);
-/*´¦Àí¶Á´ÓÕ¾¼Ä´æÆ÷ÖµµÄ·µ»ØĞÅÏ¢£¬¶ÁÊäÈë¼Ä´æÆ÷0x04¹¦ÄÜÂë*/
+/*å¤„ç†è¯»ä»ç«™å¯„å­˜å™¨å€¼çš„è¿”å›ä¿¡æ¯ï¼Œè¯»è¾“å…¥å¯„å­˜å™¨0x04åŠŸèƒ½ç */
 static void HandleReadInputRegisterRespond(int DevNo, RTULocalMasterType *master,uint8_t *receivedMesasage,uint16_t startAddress,uint16_t quantity);
-/*ÅĞ¶Ï½ÓÊÕµ½µÄĞÅÏ¢ÊÇ·ñÊÇ·¢ËÍÃüÁîµÄ·µ»ØĞÅÏ¢*/
+/*åˆ¤æ–­æ¥æ”¶åˆ°çš„ä¿¡æ¯æ˜¯å¦æ˜¯å‘é€å‘½ä»¤çš„è¿”å›ä¿¡æ¯*/
 static bool CheckMessageAgreeWithCommand(int DevNo, uint8_t *recievedMessage,uint8_t *command);
+
+static int FindCommandForRecievedMessage(int DevNo, uint8_t *recievedMessage,uint8_t (*commandList)[8],uint16_t commandNumber);
+
 
 void (*HandleSlaveRespond[])(int, RTULocalMasterType *,uint8_t *,uint16_t,uint16_t)={HandleReadCoilStatusRespond,
 HandleReadInputStatusRespond,
 HandleReadHoldingRegisterRespond,
 HandleReadInputRegisterRespond};
 
-/*º¯ÊıÃû£ºCreateAccessSlaveCommand£¬Éú³É·ÃÎÊ·şÎñÆ÷µÄÃüÁî*/
-/*²ÎÊı£ºObjAccessInfo objInfo,ÒªÉú³É·ÃÎÊÃüÁîµÄ¶ÔÏóĞÅÏ¢*/
-/*      void *dataList,Ğ´µÄÊı¾İÁĞ±í£¬¼Ä´æÆ÷Îªuint16_tÀàĞÍ£¬×´Ì¬Á¿ÎªboolÀàĞÍ*/
-/*      uint8_t *commandBytes,Éú³ÉµÄÃüÁîÁĞ±í*/
-/*·µ»ØÖµ£ºuint16_t£¬Éú³ÉµÄÃüÁîµÄ³¤¶È*/
+/*å‡½æ•°åï¼šCreateAccessSlaveCommandï¼Œç”Ÿæˆè®¿é—®æœåŠ¡å™¨çš„å‘½ä»¤*/
+/*å‚æ•°ï¼šObjAccessInfo objInfo,è¦ç”Ÿæˆè®¿é—®å‘½ä»¤çš„å¯¹è±¡ä¿¡æ¯*/
+/*      void *dataList,å†™çš„æ•°æ®åˆ—è¡¨ï¼Œå¯„å­˜å™¨ä¸ºuint16_tç±»å‹ï¼ŒçŠ¶æ€é‡ä¸ºboolç±»å‹*/
+/*      uint8_t *commandBytes,ç”Ÿæˆçš„å‘½ä»¤åˆ—è¡¨*/
+/*è¿”å›å€¼ï¼šuint16_tï¼Œç”Ÿæˆçš„å‘½ä»¤çš„é•¿åº¦*/
 uint16_t CreateAccessSlaveCommand(int DevNo, ObjAccessInfo objInfo,void *dataList,uint8_t *commandBytes)
 {
   uint16_t commandLength=0;
-  /*Éú³É¶Á·şÎñÆ÷¶ÔÏóµÄÃüÁî£¬¹¦ÄÜÂë0x01¡¢0x02¡¢0x03¡¢0x04,ÃüÁî³¤¶È8¸ö×Ö½Ú*/
+  /*ç”Ÿæˆè¯»æœåŠ¡å™¨å¯¹è±¡çš„å‘½ä»¤ï¼ŒåŠŸèƒ½ç 0x01ã€0x02ã€0x03ã€0x04,å‘½ä»¤é•¿åº¦8ä¸ªå­—èŠ‚*/
   if((objInfo.functionCode>=ReadCoilStatus)&&(objInfo.functionCode <= ReadInputRegister))
   {
     commandLength=SyntheticReadWriteSlaveCommand(DevNo, objInfo,NULL,NULL,commandBytes);
   }
   
-  /*Éú³ÉÔ¤ÖÃ·şÎñÆ÷¶ÔÏóµÄÃüÁî£¬¹¦ÄÜÂë0x05,0x0F,ÃüÁî³¤¶ÈËæ·¢ËÍÊı¾İ¶ø±ä*/
+  /*ç”Ÿæˆé¢„ç½®æœåŠ¡å™¨å¯¹è±¡çš„å‘½ä»¤ï¼ŒåŠŸèƒ½ç 0x05,0x0F,å‘½ä»¤é•¿åº¦éšå‘é€æ•°æ®è€Œå˜*/
   if((objInfo.functionCode==WriteSingleCoil)||(objInfo.functionCode==WriteMultipleCoil))
   {
     bool *statusList=(bool*)dataList;
     commandLength=SyntheticReadWriteSlaveCommand(DevNo, objInfo,statusList,NULL,commandBytes);
   }
   
-  /*Éú³ÉÔ¤ÖÃ·şÎñÆ÷¶ÔÏóµÄÃüÁî£¬¹¦ÄÜÂë0x06,0x10,ÃüÁî³¤¶ÈËæ·¢ËÍÊı¾İ¶ø±ä*/
+  /*ç”Ÿæˆé¢„ç½®æœåŠ¡å™¨å¯¹è±¡çš„å‘½ä»¤ï¼ŒåŠŸèƒ½ç 0x06,0x10,å‘½ä»¤é•¿åº¦éšå‘é€æ•°æ®è€Œå˜*/
   if((objInfo.functionCode==WriteSingleRegister)||(objInfo.functionCode==WriteMultipleRegister))
   {
     uint16_t *registerList=(uint16_t*)dataList;
@@ -63,9 +64,9 @@ uint16_t CreateAccessSlaveCommand(int DevNo, ObjAccessInfo objInfo,void *dataLis
   return commandLength;
 }
 
-/*½âÎöÊÕµ½µÄ·şÎñÆ÷ÏàÓ¦ĞÅÏ¢*/
-/*uint8_t *recievedMessage,½ÓÊÕµ½µÄÏûÏ¢ÁĞ±í*/
-/*uint8_t *command,·¢ËÍµÄ¶Á²Ù×÷ÃüÁî£¬ÈôÎªNULLÔòÔÚÃüÁîÁĞ±íÖĞ²éÕÒ*/
+/*è§£ææ”¶åˆ°çš„æœåŠ¡å™¨ç›¸åº”ä¿¡æ¯*/
+/*uint8_t *recievedMessage,æ¥æ”¶åˆ°çš„æ¶ˆæ¯åˆ—è¡¨*/
+/*uint8_t *command,å‘é€çš„è¯»æ“ä½œå‘½ä»¤ï¼Œè‹¥ä¸ºNULLåˆ™åœ¨å‘½ä»¤åˆ—è¡¨ä¸­æŸ¥æ‰¾*/
 void ParsingSlaveRespondMessage(int DevNo, RTULocalMasterType *master,uint8_t *recievedMessage,uint8_t *command)
 {
   int i=0;
@@ -74,20 +75,20 @@ void ParsingSlaveRespondMessage(int DevNo, RTULocalMasterType *master,uint8_t *r
   uint16_t quantity;
   uint8_t *cmd=NULL;
   
-  /*Èç¹û²»ÊÇ¶Á²Ù×÷µÄ·´»ØĞÅÏ¢²»ĞèÒª´¦Àí*/
+  /*å¦‚æœä¸æ˜¯è¯»æ“ä½œçš„åå›ä¿¡æ¯ä¸éœ€è¦å¤„ç†*/
   if(recievedMessage[1]>0x04)
   {
     return;
   }
   
-  /*ÅĞ¶Ï¹¦ÄÜÂëÊÇ·ñÓĞÎó*/
+  /*åˆ¤æ–­åŠŸèƒ½ç æ˜¯å¦æœ‰è¯¯*/
   FunctionCode fuctionCode=(FunctionCode)recievedMessage[1];
   if (CheckFunctionCode(fuctionCode) != Modbus_OK)
   {
     return;
   }
   
-  /*Ğ£Ñé½ÓÊÕµ½µÄĞÅÏ¢ÊÇ·ñÓĞ´í*/
+  /*æ ¡éªŒæ¥æ”¶åˆ°çš„ä¿¡æ¯æ˜¯å¦æœ‰é”™*/
   uint16_t byteCount=recievedMessage[2];
   bool chechMessageNoError=CheckRTUMessageIntegrity(recievedMessage,byteCount+5);
   if(!chechMessageNoError)
@@ -138,9 +139,9 @@ void ParsingSlaveRespondMessage(int DevNo, RTULocalMasterType *master,uint8_t *r
   }
 }
 
-/*½ÓÊÕµ½·µ»ØĞÅÏ¢ºó£¬ÅĞ¶ÏÊÇ·ñÊÇ·¢ËÍÃüÁîÁĞ±íÖĞÃüÁîµÄ·µ»ØĞÅÏ¢£¬*/
-/*ÈôÊÇÔò´ÓÒÑ·¢ËÍÃüÁîÁĞ±íÖĞÉ¾³ıÃüÁî£¬Èô²»ÊÇÔò¶ªÆú¸ÃÌõ·µ»ØĞÅÏ¢*/
-int FindCommandForRecievedMessage(int DevNo, uint8_t *recievedMessage,uint8_t (*commandList)[8],uint16_t commandNumber)
+/*æ¥æ”¶åˆ°è¿”å›ä¿¡æ¯åï¼Œåˆ¤æ–­æ˜¯å¦æ˜¯å‘é€å‘½ä»¤åˆ—è¡¨ä¸­å‘½ä»¤çš„è¿”å›ä¿¡æ¯ï¼Œ*/
+/*è‹¥æ˜¯åˆ™ä»å·²å‘é€å‘½ä»¤åˆ—è¡¨ä¸­åˆ é™¤å‘½ä»¤ï¼Œè‹¥ä¸æ˜¯åˆ™ä¸¢å¼ƒè¯¥æ¡è¿”å›ä¿¡æ¯*/
+static int FindCommandForRecievedMessage(int DevNo, uint8_t *recievedMessage,uint8_t (*commandList)[8],uint16_t commandNumber)
 {
   int cmdIndex=-1;
   int i;
@@ -155,7 +156,7 @@ int FindCommandForRecievedMessage(int DevNo, uint8_t *recievedMessage,uint8_t (*
   return cmdIndex;
 }
 
-/*ÅĞ¶Ï½ÓÊÕµ½µÄĞÅÏ¢ÊÇ·ñÊÇ·¢ËÍÃüÁîµÄ·µ»ØĞÅÏ¢*/
+/*åˆ¤æ–­æ¥æ”¶åˆ°çš„ä¿¡æ¯æ˜¯å¦æ˜¯å‘é€å‘½ä»¤çš„è¿”å›ä¿¡æ¯*/
 static bool CheckMessageAgreeWithCommand(int DevNo, uint8_t *recievedMessage,uint8_t *command)
 {
   bool aw=false;
@@ -183,7 +184,7 @@ static bool CheckMessageAgreeWithCommand(int DevNo, uint8_t *recievedMessage,uin
   
   return aw;
 }
-/*´¦Àí¶Á´ÓÕ¾×´Ì¬Á¿·µ»ØĞÅÏ¢£¬¶ÁÏßÈ¦×´Ì¬Î»0x012¹¦ÄÜÂë*/
+/*å¤„ç†è¯»ä»ç«™çŠ¶æ€é‡è¿”å›ä¿¡æ¯ï¼Œè¯»çº¿åœˆçŠ¶æ€ä½0x012åŠŸèƒ½ç */
 static void HandleReadCoilStatusRespond(int DevNo, RTULocalMasterType *master,uint8_t *receivedMessage,uint16_t startAddress,uint16_t quantity)
 {
   bool coilStatus[256];
@@ -196,7 +197,7 @@ static void HandleReadCoilStatusRespond(int DevNo, RTULocalMasterType *master,ui
   
 }
 
-/*´¦Àí¶Á´ÓÕ¾×´Ì¬Á¿·µ»ØĞÅÏ¢£¬¶ÁÊäÈë×´Ì¬Î»0x02¹¦ÄÜÂë*/
+/*å¤„ç†è¯»ä»ç«™çŠ¶æ€é‡è¿”å›ä¿¡æ¯ï¼Œè¯»è¾“å…¥çŠ¶æ€ä½0x02åŠŸèƒ½ç */
 static void HandleReadInputStatusRespond(int DevNo, RTULocalMasterType *master,uint8_t *receivedMessage,uint16_t startAddress,uint16_t quantity)
 {
   bool inputStatus[256];
@@ -208,7 +209,7 @@ static void HandleReadInputStatusRespond(int DevNo, RTULocalMasterType *master,u
   master->pUpdateInputStatus(DevNo, slaveAddress,startAddress,quantity,inputStatus);
 }
 
-/*´¦Àí¶Á´ÓÕ¾¼Ä´æÆ÷ÖµµÄ·µ»ØĞÅÏ¢£¬¶Á±£³Ö¼Ä´æÆ÷0x03¹¦ÄÜÂë£©*/
+/*å¤„ç†è¯»ä»ç«™å¯„å­˜å™¨å€¼çš„è¿”å›ä¿¡æ¯ï¼Œè¯»ä¿æŒå¯„å­˜å™¨0x03åŠŸèƒ½ç ï¼‰*/
 static void HandleReadHoldingRegisterRespond(int DevNo, RTULocalMasterType *master,uint8_t *receivedMessage,uint16_t startAddress,uint16_t quantity)
 {
 	
@@ -218,7 +219,7 @@ static void HandleReadHoldingRegisterRespond(int DevNo, RTULocalMasterType *mast
   master->pUpdateHoldingRegister(DevNo, slaveAddress,startAddress,quantity,holdingRegister);
 }
 
-/*´¦Àí¶Á´ÓÕ¾¼Ä´æÆ÷ÖµµÄ·µ»ØĞÅÏ¢£¬¶ÁÊäÈë¼Ä´æÆ÷0x04¹¦ÄÜÂë*/
+/*å¤„ç†è¯»ä»ç«™å¯„å­˜å™¨å€¼çš„è¿”å›ä¿¡æ¯ï¼Œè¯»è¾“å…¥å¯„å­˜å™¨0x04åŠŸèƒ½ç */
 static void HandleReadInputRegisterRespond(int DevNo, RTULocalMasterType *master,uint8_t *receivedMessage,uint16_t startAddress,uint16_t quantity)
 {
   uint16_t inputRegister[256];
@@ -227,7 +228,7 @@ static void HandleReadInputRegisterRespond(int DevNo, RTULocalMasterType *master
   master->pUpdateInputResgister(DevNo, slaveAddress,startAddress,quantity,inputRegister);
 }
 
-/*³õÊ¼»¯RTUÖ÷Õ¾¶ÔÏó*/
+/*åˆå§‹åŒ–RTUä¸»ç«™å¯¹è±¡*/
 void InitializeRTUMasterObject(RTULocalMasterType *master,uint16_t slaveNumber,
                                RTUAccessedSlaveType *pSlave,
                                UpdateCoilStatusType pUpdateCoilStatus,
@@ -258,7 +259,7 @@ void InitializeRTUMasterObject(RTULocalMasterType *master,uint16_t slaveNumber,
   master->pUpdateInputResgister=(pUpdateInputResgister!=NULL)?pUpdateInputResgister:UpdateInputResgister;
 }
 
-/* Ê¹ÄÜ»òÕßÊ§ÄÜĞ´´ÓÕ¾²Ù×÷±êÖ¾Î»£¨ĞŞ¸Ä´ÓÕ¾µÄĞ´Ê¹ÄÜ±êÖ¾Î»£© */
+/* ä½¿èƒ½æˆ–è€…å¤±èƒ½å†™ä»ç«™æ“ä½œæ ‡å¿—ä½ï¼ˆä¿®æ”¹ä»ç«™çš„å†™ä½¿èƒ½æ ‡å¿—ä½ï¼‰ */
 void ModifyWriteRTUSlaveEnableFlag(RTULocalMasterType *master,uint8_t slaveAddress,bool en)
 {
   uint8_t row=0;
@@ -277,7 +278,7 @@ void ModifyWriteRTUSlaveEnableFlag(RTULocalMasterType *master,uint8_t slaveAddre
   }
 }
 
-/* »ñµÃ´ÓÕ¾µÄĞ´Ê¹ÄÜ±êÖ¾Î»µÄ×´Ì¬ */
+/* è·å¾—ä»ç«™çš„å†™ä½¿èƒ½æ ‡å¿—ä½çš„çŠ¶æ€ */
 bool GetWriteRTUSlaveEnableFlag(RTULocalMasterType *master,uint8_t slaveAddress)
 {
   bool status=false;
@@ -295,7 +296,7 @@ bool GetWriteRTUSlaveEnableFlag(RTULocalMasterType *master,uint8_t slaveAddress)
   return status;
 }
 
-/* ÅĞ¶Ïµ±Ç°ÊÇ·ñÓĞĞ´²Ù×÷Ê¹ÄÜ */
+/* åˆ¤æ–­å½“å‰æ˜¯å¦æœ‰å†™æ“ä½œä½¿èƒ½ */
 bool CheckWriteRTUSlaveNone(RTULocalMasterType *master)
 {
   bool status=true;

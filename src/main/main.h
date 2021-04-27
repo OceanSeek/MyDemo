@@ -3,7 +3,7 @@
 
 #define MAXCONNECT  10
 #define MAXLINE     1500
-#define MAXDEVNUM   100
+#define MAXDEVNUM   255
 #define MAXNUM      10000
 #define SERV_PORT   10000
 
@@ -46,8 +46,8 @@
 
 extern int listenfd,connfd;
 
-extern uint8_t TCP_STATE;//tcp Á¬½Ó×´Ì¬,0:Î´Á¬½Ó£»1:ÒÑÁ¬½Ó
-extern YK_INFO_T Device_Yk_Info[MAX_SLAVE_DEVICE_NUM];//Ò£¿ØÐÅÏ¢
+extern uint8_t TCP_STATE;//tcp ï¿½ï¿½ï¿½ï¿½×´Ì¬,0:Î´ï¿½ï¿½ï¿½Ó£ï¿½1:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+extern YK_INFO_T Device_Yk_Info[MAX_SLAVE_DEVICE_NUM];//Ò£ï¿½ï¿½ï¿½ï¿½Ï¢
 
 
 extern pthread_mutex_t mutex;

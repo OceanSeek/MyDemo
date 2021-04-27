@@ -3,7 +3,9 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "G:/linux/code/tcp/swq-linux-protocol-conver-huawei/src/modbus",
+                "G:/linux/code/tcp/swq-linux-protocol-conver-huawei/src/include"
             ],
             "defines": [
                 "_DEBUG",

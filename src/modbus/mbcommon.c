@@ -113,7 +113,16 @@ void ReadCoilStatusData(uint16_t startAddress,uint16_t quantity,bool *statusList
 			perror("RET_ERROR == DevNo");
 			return;
 		}
-		statusDataSrc[i] = gpDevice[DevNo].ModbusData.pCoilStatus[nPoint];
+
+		if(strcmp("PLC", gpDevice[DevNo].Name) == 0){
+			statusDataSrc[i] = gpDevice[DevNo].ModbusData.pCoilStatus[nPoint];
+		}
+		if(strcmp("WQ900", gpDevice[DevNo].Name) == 0){
+			bool value;
+			value = gpDevice[DevNo].pBurstBI[nPoint].bStatus == 1?true:false;
+			statusDataSrc[i] = value;
+		}
+		
 		// log("qunatity is %d npoint is %d value is %d\n",quantity,nPoint,statusDataSrc[i]);
 	}
 	
@@ -162,7 +171,19 @@ void ReadHoldingRegData(uint16_t startAddress,uint16_t quantity,uint16_t *regist
 			perror("RET_ERROR == DevNo");
 			return;
 		}
-		RegDataSrc[i] = gpDevice[DevNo].ModbusData.pHoldingRegister[nPoint];
+
+		if(strcmp("PLC", gpDevice[DevNo].Name) == 0){
+			RegDataSrc[i] = gpDevice[DevNo].ModbusData.pHoldingRegister[nPoint];
+		}
+		if(strcmp("WQ900", gpDevice[DevNo].Name) == 0){
+			log("bType is [%d]\n", gpDevice[DevNo].pBurstAI[nPoint].bType);
+			if(gpDevice[DevNo].pBurstAI[nPoint].bType == 2){
+				RegDataSrc[i] = gpDevice[DevNo].pBurstAI[nPoint].detect16._detect;
+			}
+			else if(gpDevice[DevNo].pBurstAI[nPoint].bType == 4){
+				
+			}
+		}
 	}
 	
 	memcpy(registerValue, RegDataSrc, quantity*sizeof(uint16_t));
@@ -319,7 +340,6 @@ void UpdateInputStatus(int DevNo, uint8_t salveAddress,uint16_t startAddress,uin
 	log("\n");
 }
 
-/*���¶������ı��ּĴ���,������03*/
 void UpdateHoldingRegister(int DevNo, uint8_t salveAddress,uint16_t startAddress,uint16_t quantity,uint16_t *registerValue)
 {
 	int startRegister = -1, i;
@@ -348,7 +368,7 @@ void UpdateHoldingRegister(int DevNo, uint8_t salveAddress,uint16_t startAddress
 	}
 	
 	memcpy(&gpDevice[DevNo].ModbusData.pHoldingRegister[startRegister], registerValue, quantity*sizeof(uint16_t));
-	log("startRegister(%d) quantity(%d)\n", startAddress, quantity);
+	log("startRegister(%d) quantity(%d)\n", startRegister, quantity);
 	for(i=0;i<quantity;i++)
 	{
 		log("data[%d] ",gpDevice[DevNo].ModbusData.pHoldingRegister[startRegister + i]);

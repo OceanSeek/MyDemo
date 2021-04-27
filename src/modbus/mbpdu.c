@@ -1,75 +1,75 @@
 /******************************************************************************/
-/** Ä£¿éÃû³Æ£ºModbusÍ¨Ñ¶                                                     **/
-/** ÎÄ¼şÃû³Æ£ºmbpdu.c                                                        **/
-/** °æ    ±¾£ºV1.0.0                                                         **/
-/** ¼ò    ½é£ºÓÃÓÚÊµÏÖmodbus×ÜÏßĞ­ÒéÕ»PDU²¿·Ö·â×°                            **/
+/** Ä£ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ModbusÍ¨Ñ¶                                                     **/
+/** ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Æ£ï¿½mbpdu.c                                                        **/
+/** ï¿½ï¿½    ï¿½ï¿½ï¿½ï¿½V1.0.0                                                         **/
+/** ï¿½ï¿½    ï¿½é£ºï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½modbusï¿½ï¿½ï¿½ï¿½Ğ­ï¿½ï¿½Õ»PDUï¿½ï¿½ï¿½Ö·ï¿½×°                            **/
 /**--------------------------------------------------------------------------**/
-/* Ò»¸öµäĞÍµÄModbusÊı¾İÖ¡ÓĞÈçÏÂ²¿·Ö×é³É£º                                     */
-/* <------------------- MODBUS´®ĞĞÁ´Â·Ó¦ÓÃÊı¾İµ¥Ôª£¨ADU£© ----------------->  */
-/*              <------ MODBUS¼òµ¥Ğ­ÒéÊı¾İµ¥Ôª£¨PDU£© ------->                */
+/* Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½Modbusï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½ï¿½ï¿½Â²ï¿½ï¿½ï¿½ï¿½ï¿½É£ï¿½                                     */
+/* <------------------- MODBUSï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½İµï¿½Ôªï¿½ï¿½ADUï¿½ï¿½ ----------------->  */
+/*              <------ MODBUSï¿½ï¿½Ğ­ï¿½ï¿½ï¿½ï¿½ï¿½İµï¿½Ôªï¿½ï¿½PDUï¿½ï¿½ ------->                */
 /*  +-----------+---------------+----------------------------+-------------+  */
-/*  |  µØÖ·Óò   |    ¹¦ÄÜÂë     | Êı¾İÓò                     | CRC/LRC     |  */
+/*  |  ï¿½ï¿½Ö·ï¿½ï¿½   |    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½     | ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½                     | CRC/LRC     |  */
 /*  +-----------+---------------+----------------------------+-------------+  */
 /*                                                                            */
-/* Ò»¸öTCP/IP ModbusÊı¾İÖ¡ÓÉÈçÏÂ²¿·Ö×é³É£º                                    */
-/* <------------------- MODBUS TCP/IPÓ¦ÓÃÊı¾İµ¥Ôª£¨ADU£© ------------------>  */
-/*                       <-------- MODBUS¼òµ¥Ğ­ÒéÊı¾İµ¥Ôª£¨PDU£© ---------->  */
+/* Ò»ï¿½ï¿½TCP/IP Modbusï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½ï¿½ï¿½Â²ï¿½ï¿½ï¿½ï¿½ï¿½É£ï¿½                                    */
+/* <------------------- MODBUS TCP/IPÓ¦ï¿½ï¿½ï¿½ï¿½ï¿½İµï¿½Ôªï¿½ï¿½ADUï¿½ï¿½ ------------------>  */
+/*                       <-------- MODBUSï¿½ï¿½Ğ­ï¿½ï¿½ï¿½ï¿½ï¿½İµï¿½Ôªï¿½ï¿½PDUï¿½ï¿½ ---------->  */
 /*  +--------------------+---------------+---------------------------------+  */
-/*  |  MBAPÍ·²¿          |    ¹¦ÄÜÂë     | Êı¾İÓò                          |  */
+/*  |  MBAPÍ·ï¿½ï¿½          |    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½     | ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½                          |  */
 /*  +--------------------+---------------+---------------------------------+  */
 /**--------------------------------------------------------------------------**/
-/** ĞŞ¸Ä¼ÇÂ¼£º                                                               **/
-/**     °æ±¾      ÈÕÆÚ              ×÷Õß              ËµÃ÷                   **/
-/**     V1.0.0  2015-06-17          Ä¾ÄÏ              ´´½¨ÎÄ¼ş               **/
+/** ï¿½Ş¸Ä¼ï¿½Â¼ï¿½ï¿½                                                               **/
+/**     ï¿½æ±¾      ï¿½ï¿½ï¿½ï¿½              ï¿½ï¿½ï¿½ï¿½              Ëµï¿½ï¿½                   **/
+/**     V1.0.0  2015-06-17          Ä¾ï¿½ï¿½              ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½               **/
 /**                                                                          **/
 /******************************************************************************/ 
 #include "sys.h"
 #include "mbpdu.h"
 
-/*½«²¼¶ûÁ¿£¨ÏßÈ¦ºÍÊäÈë×´Ì¬£©Êı×é×ª»¯ÎªMB×Ö½ÚÊı×é,·µ»Ø×îÖÕÊı×éµÄ³¤¶È*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ÎªMBï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½*/
 static uint16_t ConvertBoolArrayToMBByteArray(bool *sData,uint16_t length,uint8_t * oData);
-/*½«¼Ä´æÆ÷£¨ÊäÈë¼Ä´æÆ÷ºÍ±£³Ö¼Ä´æÆ÷£©Êı×é×ª»¯ÎªMB×Ö½ÚÊı×é,·µ»Ø×îÖÕÊı×éµÄ³¤¶È*/
+/*ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½Í±ï¿½ï¿½Ö¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ÎªMBï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½*/
 static uint16_t ConvertRegisterArrayToMBByteArray(uint16_t *sData,uint16_t length,uint8_t * oData);
-/*½«½ÓÊÕµ½µÄĞ´Coil×Ö½ÚÊı×é×ª»¯Îª²¼¶ûÊı×é*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½Ğ´Coilï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 static void ConvertMBByteArrayTotBoolArray(uint8_t * sData,bool *oData);
-/*½«½ÓÊÕµ½µÄĞ´±£³Ö¼Ä´æÆ÷µÄ×Ö½ÚÊı×é×¨Îª¼Ä´æÆ÷Êı×é*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½Ğ´ï¿½ï¿½ï¿½Ö¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½×¨Îªï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 static void ConvertMBByteArrayToRegisterArray(uint8_t * sData,uint16_t *oData);
-/*¼ì²é¹¦ÄÜÂëÊÇ·ñÕıÈ·*/
+/*ï¿½ï¿½é¹¦ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½È·*/
 ModbusStatus CheckFunctionCode(FunctionCode fc);
 
 
-/*×÷ÎªRTUÖ÷Õ¾£¨TCP¿Í»§¶Ë£©Ê±£¬Éú³É¶ÁĞ´RTU´ÓÕ¾£¨TCP·şÎñÆ÷£©¶ÔÏóµÄÃüÁî*/
+/*ï¿½ï¿½ÎªRTUï¿½ï¿½Õ¾ï¿½ï¿½TCPï¿½Í»ï¿½ï¿½Ë£ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½É¶ï¿½Ğ´RTUï¿½ï¿½Õ¾ï¿½ï¿½TCPï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 uint16_t GenerateReadWriteCommand(int DevID, ObjAccessInfo objInfo,bool *statusList,uint16_t *registerList,uint8_t *commandBytes)
 {
   uint16_t index=0;
   int i=0;
-  commandBytes[index++]=objInfo.unitID;                 //´ÓÕ¾µØÖ·
-  commandBytes[index++]=objInfo.functionCode;           //¹¦ÄÜÂë
-  commandBytes[index++]=objInfo.startingAddress>>8;     //ÆğÊ¼µØÖ·¸ß×Ö½Ú
-  commandBytes[index++]=objInfo.startingAddress;        //ÆğÊ¼µØÖ·µÍ×Ö½Ú
+  commandBytes[index++]=objInfo.unitID;                 //ï¿½ï¿½Õ¾ï¿½ï¿½Ö·
+  commandBytes[index++]=objInfo.functionCode;           //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  commandBytes[index++]=objInfo.startingAddress>>8;     //ï¿½ï¿½Ê¼ï¿½ï¿½Ö·ï¿½ï¿½ï¿½Ö½ï¿½
+  commandBytes[index++]=objInfo.startingAddress;        //ï¿½ï¿½Ê¼ï¿½ï¿½Ö·ï¿½ï¿½ï¿½Ö½ï¿½
   
-  /*¶Á´ÓÕ¾¶ÔÏó*/
+  /*ï¿½ï¿½ï¿½ï¿½Õ¾ï¿½ï¿½ï¿½ï¿½*/
   if((objInfo.functionCode>=ReadCoilStatus)&&(objInfo.functionCode <= ReadInputRegister))
   {
     commandBytes[index++]=objInfo.quantity>>8;
     commandBytes[index++]=objInfo.quantity;
   }
   
-  /*Ğ´µ¥¸öÏßÈ¦Êı¾İ¶ÔÏó*/
+  /*Ğ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¦ï¿½ï¿½ï¿½İ¶ï¿½ï¿½ï¿½*/
   if((WriteSingleCoil==objInfo.functionCode)&&(statusList!=NULL))
   {
     commandBytes[index++]=(*statusList)?0xFF:0x00;
     commandBytes[index++]=0x00;
   }
   
-  /*Ğ´µ¥¸ö¼Ä´æÆ÷Êı¾İ¶ÔÏó*/
+  /*Ğ´ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ¶ï¿½ï¿½ï¿½*/
   if((objInfo.functionCode==WriteSingleRegister)&&(registerList!=NULL))
   {
     commandBytes[index++]=(*registerList)>>8;
     commandBytes[index++]=(*registerList);
   }
   
-  /*Ğ´¶à¸öÏßÈ¦*/
+  /*Ğ´ï¿½ï¿½ï¿½ï¿½ï¿½È¦*/
   if((objInfo.functionCode==WriteMultipleCoil)&&(statusList!=NULL))
   {
     commandBytes[index++]=objInfo.quantity>>8;
@@ -83,14 +83,14 @@ uint16_t GenerateReadWriteCommand(int DevID, ObjAccessInfo objInfo,bool *statusL
     }
   }
   
-  /*Ğ´¶à¸ö¼Ä´æÆ÷*/
+  /*Ğ´ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½*/
   if((objInfo.functionCode==WriteMultipleRegister)&&(registerList!=NULL))
   {
-    commandBytes[index++]=objInfo.quantity>>8;		//ÊıÁ¿¸ß×Ö½Ú
-    commandBytes[index++]=objInfo.quantity;             //ÊıÁ¿µÍ×Ö½Ú
+    commandBytes[index++]=objInfo.quantity>>8;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½
+    commandBytes[index++]=objInfo.quantity;             //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½
     uint8_t byteArray[250];
     uint16_t bytesCount=ConvertRegisterArrayToMBByteArray(registerList,objInfo.quantity,byteArray);
-    commandBytes[index++]=bytesCount;		//×Ö½ÚÊıÁ¿
+    commandBytes[index++]=bytesCount;		//ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½
     for(i=0;i<bytesCount;i++)
     {
       commandBytes[index++]=byteArray[i];
@@ -99,14 +99,14 @@ uint16_t GenerateReadWriteCommand(int DevID, ObjAccessInfo objInfo,bool *statusL
   return index;
 }
 
-/*½âÎöÖ÷Õ¾£¨¿Í»§¶Ë£©´Ó·şÎñÆ÷¶ÁÈ¡µÄÊı¾İ*/
+/*è§£æä¸»ç«™ï¼ˆå®¢æˆ·ç«¯ï¼‰ä»æœåŠ¡å™¨è¯»å–çš„æ•°æ®*/
 void TransformClientReceivedData(int DevID, uint8_t * receivedMessage,uint16_t quantity,bool *statusList,uint16_t *registerLister)
 {
   FunctionCode fc=(FunctionCode)receivedMessage[1];
   uint16_t bytesCount=(uint16_t)receivedMessage[2];
   int i,j;
   
-  /*×ª»¯ÏßÈ¦×´Ì¬ºÍÊäÈë×´Ì¬Êı¾İ*/
+  /*è½¬åŒ–çº¿åœˆçŠ¶æ€å’Œè¾“å…¥çŠ¶æ€æ•°æ®*/
   if(((fc==ReadInputStatus)||(fc==ReadCoilStatus))&&(statusList!=NULL))
   {
     for(i=0;i<bytesCount;i++)
@@ -121,7 +121,7 @@ void TransformClientReceivedData(int DevID, uint8_t * receivedMessage,uint16_t q
     }
   }
   
-  /*×ª»¯±£³Ö¼Ä´æÆ÷ºÍÊäÈë¼Ä´æÆ÷Êı¾İ*/
+  /*è½¬åŒ–ä¿æŒå¯„å­˜å™¨å’Œè¾“å…¥å¯„å­˜å™¨æ•°æ®*/
   if(((fc==ReadHoldingRegister)||(fc==ReadInputRegister))&&(registerLister!=NULL))
   {
     if(bytesCount==quantity*2)
@@ -135,12 +135,12 @@ void TransformClientReceivedData(int DevID, uint8_t * receivedMessage,uint16_t q
   }
 }
 
-/*Éú³ÉÖ÷Õ¾¶Á·ÃÎÊµÄÏìÓ¦£¬°üÀ¨0x01¡¢0x02¡¢0x03¡¢0x04¹¦ÄÜÂë,·µ»ØÏàÓ¦ĞÅÏ¢µÄ³¤¶È*/
+/*ç”Ÿæˆä¸»ç«™è¯»è®¿é—®çš„å“åº”ï¼ŒåŒ…æ‹¬0x01ã€0x02ã€0x03ã€0x04åŠŸèƒ½ç ,è¿”å›ç›¸åº”ä¿¡æ¯çš„é•¿åº¦*/
 /*
-receivedMessage	:½ÓÊÕÊı¾İ»º³åÇø
-statusList:	×´Ì¬¼Ä´æÆ÷ÁĞ±í
-registerList:¼Ä´æÆ÷ÁĞ±í
-respondBytes:Êı¾İ·¢ËÍ»º³åÇø
+receivedMessage	:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ»ï¿½ï¿½ï¿½ï¿½ï¿½
+statusList:	×´Ì¬ï¿½Ä´ï¿½ï¿½ï¿½ï¿½Ğ±ï¿½
+registerList:ï¿½Ä´ï¿½ï¿½ï¿½ï¿½Ğ±ï¿½
+respondBytes:ï¿½ï¿½ï¿½İ·ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½
 */
 uint16_t GenerateMasterAccessRespond(int DevID, uint8_t *receivedMessage,bool *statusList,uint16_t *registerList,uint8_t *respondBytes)
 {
@@ -151,10 +151,10 @@ uint16_t GenerateMasterAccessRespond(int DevID, uint8_t *receivedMessage,bool *s
     return 0;
   }
   
-  respondBytes[index++]=*receivedMessage;			//´ÓÕ¾µØÖ·
-  respondBytes[index++]=*(receivedMessage+1);			//¹¦ÄÜÂë
+  respondBytes[index++]=*receivedMessage;			//ä»ç«™åœ°å€
+  respondBytes[index++]=*(receivedMessage+1);			//åŠŸèƒ½ç 
   
-  /*¶ÁÏßÈ¦»ò×´Ì¬Á¿*/
+  /*è¯»çº¿åœˆæˆ–çŠ¶æ€é‡*/
   if(((functionCode==ReadCoilStatus)||(functionCode==ReadInputStatus))&&(statusList!=NULL))
   {
 	int i;
@@ -163,14 +163,14 @@ uint16_t GenerateMasterAccessRespond(int DevID, uint8_t *receivedMessage,bool *s
     uint8_t byteArray[250];
     memset(byteArray,0,sizeof(byteArray));
     uint16_t bytesCount=ConvertBoolArrayToMBByteArray(statusList,bitsQuantity,byteArray);
-    respondBytes[index++]=bytesCount;//×Ö½ÚÊı
+    respondBytes[index++]=bytesCount;//å­—èŠ‚æ•°
     for(i=0;i<bytesCount;i++)
     {
-      respondBytes[index++]=byteArray[i];	//ËùĞ´µÄÎ»µÄ×Ö½Ú
+      respondBytes[index++]=byteArray[i];	//æ‰€å†™çš„ä½çš„å­—èŠ‚
     }
   }
   
-  /*¶Á¼Ä´æÆ÷Êı¾İ*/
+  /*è¯»å¯„å­˜å™¨æ•°æ®*/
   if(((functionCode==ReadHoldingRegister)||(functionCode==ReadInputRegister))&&(registerList!=NULL))
   {
 	int i;
@@ -178,14 +178,14 @@ uint16_t GenerateMasterAccessRespond(int DevID, uint8_t *receivedMessage,bool *s
     registerCount=(registerCount<<8)+*(receivedMessage+5);
     uint8_t byteArray[250];
     uint16_t bytesCount=ConvertRegisterArrayToMBByteArray(registerList,registerCount,byteArray);
-    respondBytes[index++]=bytesCount;		//×Ö½ÚÊıÁ¿
+    respondBytes[index++]=bytesCount;		//å­—èŠ‚æ•°é‡
     for(i=0;i<bytesCount;i++)
     {
-      respondBytes[index++]=byteArray[i];	//ËùĞ´Êı¾İ
+      respondBytes[index++]=byteArray[i];	//æ‰€å†™æ•°æ®
     }
   }
   
-  /*Ğ´¶ÔÏó²Ù×÷*/
+  /*å†™å¯¹è±¡æ“ä½œ*/
   if(functionCode>ReadInputRegister)
   {
     respondBytes[index++]=*(receivedMessage+2);
@@ -193,13 +193,13 @@ uint16_t GenerateMasterAccessRespond(int DevID, uint8_t *receivedMessage,bool *s
     respondBytes[index++]=*(receivedMessage+4);
     respondBytes[index++]=*(receivedMessage+5);
     
-    /*Ğ´¶à¸öÏßÈ¦²Ù×÷*/
+    /*å†™å¤šä¸ªçº¿åœˆæ“ä½œ*/
     if((functionCode==WriteMultipleCoil)&&(statusList!=NULL))
     {
       ConvertMBByteArrayTotBoolArray(receivedMessage,statusList);
     }
     
-    /*Ğ´¶à¸ö¼Ä´æÆ÷*/
+    /*å†™å¤šä¸ªå¯„å­˜å™¨*/
     if((functionCode==WriteMultipleRegister)&&(registerList!=NULL))
     {
       ConvertMBByteArrayToRegisterArray(receivedMessage,registerList);
@@ -209,7 +209,7 @@ uint16_t GenerateMasterAccessRespond(int DevID, uint8_t *receivedMessage,bool *s
   return index;
 }
 
-/*½«²¼¶ûÁ¿£¨ÏßÈ¦ºÍÊäÈë×´Ì¬£©Êı×é×ª»¯ÎªMB×Ö½ÚÊı×é,·µ»Ø×îÖÕÊı×éµÄ³¤¶È*/
+/*å°†å¸ƒå°”é‡ï¼ˆçº¿åœˆå’Œè¾“å…¥çŠ¶æ€ï¼‰æ•°ç»„è½¬åŒ–ä¸ºMBå­—èŠ‚æ•°ç»„,è¿”å›æœ€ç»ˆæ•°ç»„çš„é•¿åº¦*/
 static uint16_t ConvertBoolArrayToMBByteArray(bool *sData,uint16_t length,uint8_t * oData)
 {
   uint16_t returnLength=0;
@@ -232,7 +232,7 @@ static uint16_t ConvertBoolArrayToMBByteArray(bool *sData,uint16_t length,uint8_
   return returnLength;
 }
 
-/*½«¼Ä´æÆ÷£¨ÊäÈë¼Ä´æÆ÷ºÍ±£³Ö¼Ä´æÆ÷£©Êı×é×ª»¯ÎªMB×Ö½ÚÊı×é,·µ»Ø×îÖÕÊı×éµÄ³¤¶È*/
+/*å°†å¯„å­˜å™¨ï¼ˆè¾“å…¥å¯„å­˜å™¨å’Œä¿æŒå¯„å­˜å™¨ï¼‰æ•°ç»„è½¬åŒ–ä¸ºMBå­—èŠ‚æ•°ç»„,è¿”å›æœ€ç»ˆæ•°ç»„çš„é•¿åº¦*/
 static uint16_t ConvertRegisterArrayToMBByteArray(uint16_t *sData,uint16_t length,uint8_t * oData)
 {
   uint16_t returnLength=0;
@@ -248,7 +248,7 @@ static uint16_t ConvertRegisterArrayToMBByteArray(uint16_t *sData,uint16_t lengt
   return returnLength;
 }
 
-/*¼ì²é¹¦ÄÜÂëÊÇ·ñÕıÈ·*/
+/*æ£€æŸ¥åŠŸèƒ½ç æ˜¯å¦æ­£ç¡®*/
 ModbusStatus CheckFunctionCode(FunctionCode fc)
 {
   ModbusStatus status=Modbus_OK;
@@ -259,7 +259,7 @@ ModbusStatus CheckFunctionCode(FunctionCode fc)
   return status;
 }
 
-/*½«½ÓÊÕµ½µÄĞ´Coil×Ö½ÚÊı×é×ª»¯Îª²¼¶ûÊı×é*/
+/*å°†æ¥æ”¶åˆ°çš„å†™Coilå­—èŠ‚æ•°ç»„è½¬åŒ–ä¸ºå¸ƒå°”æ•°ç»„*/
 static void ConvertMBByteArrayTotBoolArray(uint8_t * sData,bool *oData)
 {
   int i,j;
@@ -279,7 +279,7 @@ static void ConvertMBByteArrayTotBoolArray(uint8_t * sData,bool *oData)
   }
 }
 
-/*½«½ÓÊÕµ½µÄĞ´±£³Ö¼Ä´æÆ÷µÄ×Ö½ÚÊı×é×¨Îª¼Ä´æÆ÷Êı×é*/
+/*å°†æ¥æ”¶åˆ°çš„å†™ä¿æŒå¯„å­˜å™¨çš„å­—èŠ‚æ•°ç»„ä¸“ä¸ºå¯„å­˜å™¨æ•°ç»„*/
 static void ConvertMBByteArrayToRegisterArray(uint8_t * sData,uint16_t *oData)
 {
   int i;

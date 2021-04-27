@@ -317,7 +317,7 @@ uint8_t GX104Slaver_BuildBrustYX(int DevNo, uint16_t asdu_num,uint16_t StartAddr
 
 
     /*build info*/
-	if(asdu->_num._sq == 1){//Á¬Ðø
+	if(asdu->_num._sq == 1){//ï¿½ï¿½ï¿½ï¿½
 		/*info addr*/
 	    ptr = info->_addr;
 	    Temp32 = asdu_data[StartAddr%MAXYXRECORD].point + STARTSYX;;
@@ -330,7 +330,7 @@ uint8_t GX104Slaver_BuildBrustYX(int DevNo, uint16_t asdu_num,uint16_t StartAddr
 		    ptr++;
 		}
 	}
-	else if(asdu->_num._sq == 0){//²»Á¬Ðø
+	else if(asdu->_num._sq == 0){//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		ptr = info->_addr;
 		for(i=0; i<asdu_num; i++){
 			/*info addr*/
@@ -338,7 +338,7 @@ uint8_t GX104Slaver_BuildBrustYX(int DevNo, uint16_t asdu_num,uint16_t StartAddr
 			Temp32 = asdu_data[(StartAddr+i)%MAXYXRECORD].point + STARTSYX;
 			memcpy(info_8->_addr, &Temp32, 3);
 			/*info value*/
-			info_8->_Data8 = asdu_data[(StartAddr+i)%MAXYXRECORD].bStatus;//Ò£ÐÅ×´Ì¬
+			info_8->_Data8 = asdu_data[(StartAddr+i)%MAXYXRECORD].bStatus;//Ò£ï¿½ï¿½×´Ì¬
 			ptr += sizeof(ASDU_104INFO_8T);
 		}
 	
@@ -392,7 +392,7 @@ uint8_t GX104Slaver_BuildBrustYXSoe(int DevNo, uint16_t asdu_num,uint8_t reason,
 		Temp32 = asdu_data[(StartAddr+i)%MAXYXRECORD].point + STARTSYX;
 		memcpy(info_8->_addr, &Temp32, 3);
 		/*info value*/
-		info_8->_value = asdu_data[(StartAddr+i)%MAXYXRECORD].bStatus;//Ò£ÐÅ×´Ì¬
+		info_8->_value = asdu_data[(StartAddr+i)%MAXYXRECORD].bStatus;//Ò£ï¿½ï¿½×´Ì¬
 		/*time*/
 		time = (PCP56Time2a_T)info_8->_element;
 		*time = asdu_data[(StartAddr+i)%MAXYXRECORD].stTime;
@@ -451,7 +451,7 @@ uint8_t GX104Slaver_BuildBrustDZ(int DevNo, uint16_t asdu_num, uint16_t StartAdd
 
 
     /*Detect value*/
-	if(asdu->_num._sq == 1){//Á¬Ðø
+	if(asdu->_num._sq == 1){//ï¿½ï¿½ï¿½ï¿½
 		PRINT_FUNLINE;
 		/*info addr*/
 		temp32 = asdu_data[StartAddr%MAXYCRECORD].point + STARTSDZ;
@@ -463,7 +463,7 @@ uint8_t GX104Slaver_BuildBrustDZ(int DevNo, uint16_t asdu_num, uint16_t StartAdd
 		    ptr += 4;
 		}
 	}
-	else if(asdu->_num._sq == 0){//²»Á¬Ðø
+	else if(asdu->_num._sq == 0){//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		PRINT_FUNLINE;
 		ptr = info->_addr;
 		for(i=0; i<asdu_num; i++){
@@ -475,7 +475,7 @@ uint8_t GX104Slaver_BuildBrustDZ(int DevNo, uint16_t asdu_num, uint16_t StartAdd
 		}
 	
 	}	
-	*ptr = 6;//¶¨ÖµÃèÊö·û
+	*ptr = 6;//ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	ptr++;
 
     /*len*/
@@ -507,7 +507,7 @@ int GX104Slaver_BuildOldYXSoe(int DevNo, PTBurstYXRecord OldYXSoe){
 	}else if((readptr/100) == 0){
 		sendgroup = readptr/20;
 		for(i=0;i<sendgroup+1;i++){
-			if(i == sendgroup){//×îºóÒ»×é
+			if(i == sendgroup){//ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
 				GX104Slaver_BuildBrustYXSoe(DevNo, readptr%20, IEC10X_COT_GROUP16, i*20, OldYXSoe);
 				return RET_SUCESS;
 			}
@@ -558,7 +558,7 @@ uint8_t GX104Slaver_BuildBrustYC(int DevNo, uint16_t asdu_num,uint16_t StartAddr
 
 
     /*build info*/
-	if(asdu->_num._sq == 1){//Á¬Ðø
+	if(asdu->_num._sq == 1){//ï¿½ï¿½ï¿½ï¿½
 		/*info addr*/
 	    ptr = info->_addr;
 	    Temp32 = asdu_data[StartAddr%MAXYCRECORD].point + STARTSYC;;
@@ -572,7 +572,7 @@ uint8_t GX104Slaver_BuildBrustYC(int DevNo, uint16_t asdu_num,uint16_t StartAddr
 			ptr +=sizeof(IEC10X_DETECT_DW_T);
 		}
 	}
-	else if(asdu->_num._sq == 0){//²»Á¬Ðø
+	else if(asdu->_num._sq == 0){//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		ptr = info->_addr;
 		for(i=0; i<asdu_num; i++){
 			/*info addr*/
@@ -732,7 +732,7 @@ int GX104Slaver_BuildDetectF_Spont(int DevNo,uint8_t TimeFlag, float detectV, ui
 
     return RET_SUCESS;
 }
-//Ò£ÐÅ
+//Ò£ï¿½ï¿½
 uint8_t GX104Slaver_BuildSignal(int DevNo,uint8_t reason, uint8_t DevType){
 
     uint8_t len = 0, asdu_num = 0;
@@ -802,7 +802,7 @@ uint8_t GX104Slaver_BuildSignal(int DevNo,uint8_t reason, uint8_t DevType){
 
     return RET_SUCESS;
 }
-//Ò£²â
+//Ò£ï¿½ï¿½
 uint8_t GX104Slaver_BuildDetect(int DevNo,uint8_t reason,uint8_t ValueType, uint8_t DevType){
 
     uint8_t len = 0, asdu_num = 0;
@@ -854,8 +854,6 @@ uint8_t GX104Slaver_BuildDetect(int DevNo,uint8_t reason,uint8_t ValueType, uint
 //		LOG("ASDU_NUM IS (%d)\n",asdu_num);
 	    for(i=0; i<asdu_num; i++){
 			YCNum--;
-			if(YCNum == 0)
-				break;
 	        if(ValueType == IEC10X_M_ME_NA_1){
 	            detect = (PIEC10X_DETECT_T)ptr;
 	            detect->_detect = ReadYcData16(i + offset);
@@ -883,7 +881,7 @@ uint8_t GX104Slaver_BuildDetect(int DevNo,uint8_t reason,uint8_t ValueType, uint
     return RET_SUCESS;
 }
 
-//ÏìÓ¦¶¨ÖµÕÙ»½
+//ï¿½ï¿½Ó¦ï¿½ï¿½Öµï¿½Ù»ï¿½
 uint8_t GX104Slaver_BuildDZ(int DevNo,uint8_t reason,uint8_t ValueType){
 
     uint8_t len = 0, asdu_num = 0;
@@ -1083,8 +1081,8 @@ uint8_t GX104Slaver_BuildAskClock(int DevNo, uint16_t rec_ms){
 	
     /*clock value*/
     ptr = info->_element;
-    IEC10X->GetTime(time);//»ñÈ¡ÏµÍ³Ê±¼ä£¬ÓÐ´ýÍêÉÆ
-	time->_milliseconds = rec_ms;//½ÓÊÕºÁÃë
+    IEC10X->GetTime(time);//ï¿½ï¿½È¡ÏµÍ³Ê±ï¿½ä£¬ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½
+	time->_milliseconds = rec_ms;//ï¿½ï¿½ï¿½Õºï¿½ï¿½ï¿½
 
     ptr+=sizeof(CP56Time2a_T);
 
@@ -1178,7 +1176,7 @@ uint8_t GX104Slaver_Build_DZ_Return(int DevNo)
     asdu->_reason._reason = IEC10X_COT_ACTCON;
     asdu->_addr = Iec10x_Sta_Addr;
 
-	if(sq){//Á¬Ðø
+	if(sq){//ï¿½ï¿½ï¿½ï¿½
 		for(i = 0; i < gVars.TransDZTableNum; i++){
 			if(ReadDzFlag(i) == Flag_DZ_RET){
 				break;
@@ -1197,7 +1195,7 @@ uint8_t GX104Slaver_Build_DZ_Return(int DevNo)
 			ptr += 4;
 		}
 		
-	}else{//²»Á¬Ðø
+	}else{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		ptr = info->_addr;
 		
 		for(i = 0; i < gVars.TransDZTableNum; i++){
@@ -1348,7 +1346,7 @@ int GX104Slaver_Deal_DZ_YZ(int DevNo, PIEC10X_ASDU_T GX104Slaver_Asdu)
 	num = GX104Slaver_Asdu->_num._num;
 	pData = GX104Slaver_Asdu->_info;
 
-	if(sq){//Á¬Ðø
+	if(sq){//ï¿½ï¿½ï¿½ï¿½
 		info_addr = MAKEWORD(pData[0], pData[1]) - IEC10X_DZ_ADDR;
 		pData += BINFOADDR;
 		for(i = 0; i < num ; i++){
@@ -1360,7 +1358,7 @@ int GX104Slaver_Deal_DZ_YZ(int DevNo, PIEC10X_ASDU_T GX104Slaver_Asdu)
 //			DataValue._int32 = value;
 //			log("dz(%d) value is %f\n", info_addr + i, DataValue._float);
 		}
-	}else{//²»Á¬Ðø
+	}else{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		for(i = 0; i < num ; i++){
 			info_addr = MAKEWORD(pData[0], pData[1]) - IEC10X_DZ_ADDR;
 			pData += BINFOADDR;
@@ -1380,7 +1378,7 @@ int GX104Slaver_ASDU_DZ_JH(int DevNo, PIEC10X_ASDU_T Iec10x_Asdu){
 
     PASDU_INFO_T asdu_info = (PASDU_INFO_T)(Iec10x_Asdu->_info);
     uint8_t qoi = asdu_info->_element[0];
-	int Dest_DevNo;//Ô¤ÖÃ¶ÔÏóIDºÅ
+	int Dest_DevNo;//Ô¤ï¿½Ã¶ï¿½ï¿½ï¿½IDï¿½ï¿½
 	
     switch(Iec10x_Asdu->_reason._reason){
         case IEC10X_ASDU_REASON_ACT:
@@ -1659,7 +1657,7 @@ int GX104Slaver_Deal_SN(uint16_t SendSn, uint16_t RecvSn){
 }
 int GX104Slaver_Deal_YK(int DevNo, PGX104Slaver_DATA_T GX104SlaverData){
 
-	uint32_t YKDevNo = 0;//Ò£¿ØÄ¿±êÉè±¸
+	uint32_t YKDevNo = 0;//Ò£ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½è±¸
 	uint32_t YKIndex = 0;
 
     PIEC10X_ASDU_T asdu = (PIEC10X_ASDU_T)(GX104SlaverData->Asdu);
@@ -1668,7 +1666,7 @@ int GX104Slaver_Deal_YK(int DevNo, PGX104Slaver_DATA_T GX104SlaverData){
 
 
 	YKIndex = MAKEDWORD(info->_addr[0], info->_addr[1], info->_addr[2], 0)-STARTSYK;
-	//±¾µØÒ£¿ØµØÖ·
+	//ï¿½ï¿½ï¿½ï¿½Ò£ï¿½Øµï¿½Ö·
 	gpDevice[DevNo].YKInfo._addr = YKIndex;
 	gpDevice[DevNo].YKInfo._YKData = *(YK_DATA_T *)info->_element;
 	
@@ -1823,40 +1821,40 @@ int GX104Slaver_Deal_I(int DevNo, PGX104Slaver_DATA_T GX104SlaverData, uint16_t 
 	
 	switch(Type){
 
-		case IEC10X_C_IC_NA_1://×ÜÕÙ»½
+		case IEC10X_C_IC_NA_1://ï¿½ï¿½ï¿½Ù»ï¿½
 			LOG("++++Asdu Type Call cmd... \n");
 			GX104Slaver_ASDU_Call(DevNo, asdu);
 			break;
-		case IEC10X_TYPE_DZ_CALL://¶¨ÖµÕÙ»½
+		case IEC10X_TYPE_DZ_CALL://ï¿½ï¿½Öµï¿½Ù»ï¿½
 			LOG("++++asdu type DZ call cmd... \n");
 			GX104Slaver_ASDU_DZCall(DevNo, asdu);
 			break;
-		case IEC10X_TYPE_DZ_YZ://¶¨ÖµÔ¤ÖÃ
+		case IEC10X_TYPE_DZ_YZ://ï¿½ï¿½ÖµÔ¤ï¿½ï¿½
 			LOG("++++asdu type DZ yuzhi cmd... \n");
 			GX104Slaver_ASDU_DZ_YZ(DevNo, GX104SlaverData);
 			break;
-		case IEC10X_TYPE_DZ_JH://¶¨Öµ¼¤»î
+		case IEC10X_TYPE_DZ_JH://ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½
 			LOG("++++asdu type DZ jihuo cmd... \n");
 			GX104Slaver_ASDU_DZ_JH(DevNo, asdu);
 			gpDevice[DevNo].Flag_Select_DZ ==  Flag_Clear;
 			break;
 			
-		case IEC10X_C_CS_NA_1://¶ÔÊ±
+		case IEC10X_C_CS_NA_1://ï¿½ï¿½Ê±
 			LOG("++++Asdu Type Clock syc cmd... \n");
 			GX104Slaver_Aadu_Clock(DevNo, asdu);
 			break;
-		case IEC10X_C_RP_NA_1://¸´Î»½ø³Ì
+		case IEC10X_C_RP_NA_1://ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½
 			LOG("++++Asdu Reset Process cmd... \n");
 			GX104Slaver_BuildResetProcess(DevNo, 1);
 			GX104Slaver_ResetFlag(DevNo);
 			break;
 			
-		case IEC10X_C_SC_NA_1://µ¥µãÒ£¿Ø
+		case IEC10X_C_SC_NA_1://ï¿½ï¿½ï¿½ï¿½Ò£ï¿½ï¿½
 			LOG("++++Asdu YK... \n");
 			GX104Slaver_Deal_YK(DevNo, GX104SlaverData);
 		
 			break;
-		case IEC10X_C_SE_NA_1://Ë«µãÒ£¿Ø
+		case IEC10X_C_SE_NA_1://Ë«ï¿½ï¿½Ò£ï¿½ï¿½
 //				GX104Slaver_Deal_YK_return(GX104SlaverData, &Client_info->YK_Return, IEC10X_C_SE_NA_1);
 			break;
 
@@ -2037,10 +2035,10 @@ int GX104ScanBrustData(int DevNo)
 
 static int GX104Slaver_Task(int DevNo)
 {
-	/*Í»·¢ÐÅÏ¢*/
+	/*Í»ï¿½ï¿½ï¿½ï¿½Ï¢*/
 	GX104ScanBrustData(DevNo);
 
-	/* Ò£¿Ø */
+	/* Ò£ï¿½ï¿½ */
 	CheckYKReturn104(DevNo);
 
 	return 0;

@@ -1,15 +1,15 @@
 /******************************************************************************/
-/** Ä£¿éÃû³Æ£ºModbusÍ¨Ñ¶                                                     **/
-/** ÎÄ¼þÃû³Æ£ºmodbusrtumaster.h                                              **/
-/** °æ    ±¾£ºV1.0.0                                                         **/
-/** ¼ò    ½é£ºÓÃÓÚÉùÃ÷Modbus RTUÖ÷Õ¾Ïà¹ØÊôÐÔ¼°·½·¨                           **/
-/**           1¡¢·¢ËÍ·ÃÎÊÇëÇó                                                **/
-/**           2¡¢½âÎö·µ»ØÐÅÏ¢                                                **/
-/**           3¡¢¸ù¾Ý·µ»ØÐÅÏ¢ÐÞ¸ÄÊý¾Ý                                        **/
+/** Ä£ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ModbusÍ¨Ñ¶                                                     **/
+/** ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Æ£ï¿½modbusrtumaster.h                                              **/
+/** ï¿½ï¿½    ï¿½ï¿½ï¿½ï¿½V1.0.0                                                         **/
+/** ï¿½ï¿½    ï¿½é£ºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Modbus RTUï¿½ï¿½Õ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½                           **/
+/**           1ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½                                                **/
+/**           2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢                                                **/
+/**           3ï¿½ï¿½ï¿½ï¿½ï¿½Ý·ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½                                        **/
 /**--------------------------------------------------------------------------**/
-/** ÐÞ¸Ä¼ÇÂ¼£º                                                               **/
-/**     °æ±¾      ÈÕÆÚ              ×÷Õß              ËµÃ÷                   **/
-/**     V1.0.0  2016-04-17          Ä¾ÄÏ              ´´½¨ÎÄ¼þ               **/
+/** ï¿½Þ¸Ä¼ï¿½Â¼ï¿½ï¿½                                                               **/
+/**     ï¿½æ±¾      ï¿½ï¿½ï¿½ï¿½              ï¿½ï¿½ï¿½ï¿½              Ëµï¿½ï¿½                   **/
+/**     V1.0.0  2016-04-17          Ä¾ï¿½ï¿½              ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½               **/
 /**                                                                          **/
 /******************************************************************************/
 
@@ -19,50 +19,53 @@
 #include "mbrtu.h"
 #include "mbcommon.h"
 
-/* ¶¨Òå±»·ÃÎÊRTU´ÓÕ¾¶ÔÏóÀàÐÍ */
+/* ï¿½ï¿½ï¿½å±»ï¿½ï¿½ï¿½ï¿½RTUï¿½ï¿½Õ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 typedef struct AccessedRTUSlaveType{
-  uint8_t stationAddress;       //Õ¾µØÖ·
-  uint8_t cmdOrder;             //µ±Ç°ÃüÁîÔÚÃüÁîÁÐ±íÖÐµÄÎ»ÖÃ
-  uint16_t commandNumber;       //ÃüÁîÁÐ±íÖÐÃüÁîµÄ×ÜÊý
-  uint8_t (*pReadCommand)[8];   //¶ÁÃüÁîÁÐ±í
-  uint8_t *pLastCommand;        //ÉÏÒ»´Î·¢ËÍµÄÃüÁî
-  uint32_t flagPresetCoil;      //Ô¤ÖÃÏßÈ¦¿ØÖÆ±êÖ¾Î»
-  uint32_t flagPresetReg;       //Ô¤ÖÃ¼Ä´æÆ÷¿ØÖÆ±êÖ¾Î»
+  uint8_t stationAddress;       //Õ¾ï¿½ï¿½Ö·
+  uint8_t cmdOrder;             //ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½Ðµï¿½Î»ï¿½ï¿½
+  uint16_t commandNumber;       //ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  uint8_t (*pReadCommand)[8];   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
+  uint8_t *pLastCommand;        //ï¿½ï¿½Ò»ï¿½Î·ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½
+  uint32_t flagPresetCoil;      //Ô¤ï¿½ï¿½ï¿½ï¿½È¦ï¿½ï¿½ï¿½Æ±ï¿½Ö¾Î»
+  uint32_t flagPresetReg;       //Ô¤ï¿½Ã¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ±ï¿½Ö¾Î»
 }RTUAccessedSlaveType;
 
-/* ¶¨Òå±¾µØRTUÖ÷Õ¾¶ÔÏóÀàÐÍ */
+/* ï¿½ï¿½ï¿½å±¾ï¿½ï¿½RTUï¿½ï¿½Õ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 typedef struct LocalRTUMasterType{
-  uint32_t flagWriteSlave[8];   //Ð´Ò»¸öÕ¾¿ØÖÆ±êÖ¾Î»£¬×î¶à256¸öÕ¾£¬ÓëÕ¾µØÖ·¶ÔÓ¦¡£
-  uint16_t slaveNumber;         //´ÓÕ¾ÁÐ±íÖÐ´ÓÕ¾µÄÊýÁ¿
-  uint16_t readOrder;           //µ±Ç°´ÓÕ¾ÔÚ´ÓÕ¾ÁÐ±íÖÐµÄÎ»ÖÃ
-  RTUAccessedSlaveType *pSlave;         //´ÓÕ¾ÁÐ±í
-  UpdateCoilStatusType pUpdateCoilStatus;       //¸üÐÂÏßÈ¦Á¿º¯Êý
-  UpdateInputStatusType pUpdateInputStatus;     //¸üÐÂÊäÈë×´Ì¬Á¿º¯Êý
-  UpdateHoldingRegisterType pUpdateHoldingRegister;     //¸üÐÂ±£³Ö¼Ä´æÆ÷Á¿º¯Êý
-  UpdateInputResgisterType pUpdateInputResgister;       //¸üÐÂÊäÈë¼Ä´æÆ÷Á¿º¯Êý
+  uint32_t flagWriteSlave[8];   //Ð´Ò»ï¿½ï¿½Õ¾ï¿½ï¿½ï¿½Æ±ï¿½Ö¾Î»ï¿½ï¿½ï¿½ï¿½ï¿½256ï¿½ï¿½Õ¾ï¿½ï¿½ï¿½ï¿½Õ¾ï¿½ï¿½Ö·ï¿½ï¿½Ó¦ï¿½ï¿½
+  uint16_t slaveNumber;         //ï¿½ï¿½Õ¾ï¿½Ð±ï¿½ï¿½Ð´ï¿½Õ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  uint16_t readOrder;           //ï¿½ï¿½Ç°ï¿½ï¿½Õ¾ï¿½Ú´ï¿½Õ¾ï¿½Ð±ï¿½ï¿½Ðµï¿½Î»ï¿½ï¿½
+  RTUAccessedSlaveType *pSlave;         //ï¿½ï¿½Õ¾ï¿½Ð±ï¿½
+  UpdateCoilStatusType pUpdateCoilStatus;       //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  UpdateInputStatusType pUpdateInputStatus;     //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  UpdateHoldingRegisterType pUpdateHoldingRegister;     //ï¿½ï¿½ï¿½Â±ï¿½ï¿½Ö¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  UpdateInputResgisterType pUpdateInputResgister;       //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }RTULocalMasterType;
 
 typedef struct{
-  uint16_t _RegAddr;//¼Ä´æÆ÷µØÖ·
-  uint16_t _SlaverAddr;//´Ó»úµØÖ·
+  uint16_t _RegAddr;//
+  uint16_t _SlaverAddr;//
+  uint8_t _DataType;
+  uint8_t _DataOffset;
 }MODBUSDEVICEDATA_T,*PMODBUSDEVICEDATA_T;
 
 
-/* ¶¨ÒåÊý¾ÝÀàÐÍ */
+/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 typedef struct{
-  bool *pCoilStatus;   //ÏßÈ¦×´Ì¬
-  bool *pInputStatus;	//ÊäÈë×´Ì¬
-  uint16_t *pHoldingRegister;         //±£³Ö¼Ä´æÆ÷
-  uint16_t *pInputResgister;           //ÊäÈë¼Ä´æÆ÷
-  uint8_t _CoilStatusNum;//ÏßÈ¦ÊýÁ¿
-  uint8_t _InputStatusNum;//ÏßÈ¦ÊýÁ¿
-  uint8_t _HoldingRegNum;//±£³Ö¼Ä´æÆ÷ÊýÁ¿
-  uint8_t _InputRegNum;//ÊäÈë¼Ä´æÆ÷ÊýÁ¿
+  bool *pCoilStatus;   //ï¿½ï¿½È¦×´Ì¬
+  bool *pInputStatus;	//ï¿½ï¿½ï¿½ï¿½×´Ì¬
+  uint16_t *pHoldingRegister;         //ï¿½ï¿½ï¿½Ö¼Ä´ï¿½ï¿½ï¿½
+  uint16_t *pInputResgister;           //ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½
+  uint8_t _CoilStatusNum;//ï¿½ï¿½È¦ï¿½ï¿½ï¿½ï¿½
+  uint8_t _InputStatusNum;//ï¿½ï¿½È¦ï¿½ï¿½ï¿½ï¿½
+  uint8_t _HoldingRegNum;//ï¿½ï¿½ï¿½Ö¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  uint8_t _InputRegNum;//ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   uint16_t _CoiStatusStart;
   uint16_t _InputStatusStart;
   uint16_t _HoldingRegStart;
   uint16_t _InputRegStart;
-  bool *pFlag_AskCoilStatus;//ÕÙ»½Êý¾Ý±êÖ¾
+  uint16_t _tcpTranslate;//tcpäº‹åŠ¡æ ‡å¿—
+  bool *pFlag_AskCoilStatus;//ï¿½Ù»ï¿½ï¿½ï¿½ï¿½Ý±ï¿½Ö¾
   bool *pFlag_AskInputStatus;
   bool *pFlag_AskHoldingRegister;
   bool *pFlag_AskInputResgister;
@@ -70,27 +73,28 @@ typedef struct{
   MODBUSDEVICEDATA_T *pInputStatus_T;
   MODBUSDEVICEDATA_T *pHoldingRegister_T;
   MODBUSDEVICEDATA_T *pInputResgister_T;
+
   
   
   
 }ModbusData_T,*PModbusData_T;
 
-/*Éú³É·ÃÎÊ·þÎñÆ÷µÄÃüÁî*/
+/*ï¿½ï¿½ï¿½É·ï¿½ï¿½Ê·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 uint16_t CreateAccessSlaveCommand(int DevID, ObjAccessInfo objInfo,void *dataList,uint8_t *commandBytes);
 
-/*½âÎöÊÕµ½µÄ·þÎñÆ÷ÏàÓ¦ÐÅÏ¢*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ï¢*/
 void ParsingSlaveRespondMessage(int DevID, RTULocalMasterType *master,uint8_t *recievedMessage,uint8_t *command);
 
-/*½ÓÊÕµ½·µ»ØÐÅÏ¢ºó£¬ÅÐ¶ÏÊÇ·ñÊÇ·¢ËÍÃüÁîÁÐ±íÖÐÃüÁîµÄ·µ»ØÐÅÏ¢*/
-int FindCommandForRecievedMessage(int DevID, uint8_t *recievedMessage,uint8_t (*commandList)[8],uint16_t commandNumber);
+/*ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢*/
+// static int FindCommandForRecievedMessage(int DevID, uint8_t *recievedMessage,uint8_t (*commandList)[8],uint16_t commandNumber);
 
-/* Ê¹ÄÜ»òÕßÊ§ÄÜÐ´´ÓÕ¾²Ù×÷±êÖ¾Î»£¨ÐÞ¸Ä´ÓÕ¾µÄÐ´Ê¹ÄÜ±êÖ¾Î»£© */
+/* Ê¹ï¿½Ü»ï¿½ï¿½ï¿½Ê§ï¿½ï¿½Ð´ï¿½ï¿½Õ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾Î»ï¿½ï¿½ï¿½Þ¸Ä´ï¿½Õ¾ï¿½ï¿½Ð´Ê¹ï¿½Ü±ï¿½Ö¾Î»ï¿½ï¿½ */
 void ModifyWriteRTUSlaveEnableFlag(RTULocalMasterType *master,uint8_t slaveAddress,bool en);
 
-/* »ñµÃ´ÓÕ¾µÄÐ´Ê¹ÄÜ±êÖ¾Î»µÄ×´Ì¬ */
+/* ï¿½ï¿½Ã´ï¿½Õ¾ï¿½ï¿½Ð´Ê¹ï¿½Ü±ï¿½Ö¾Î»ï¿½ï¿½×´Ì¬ */
 bool GetWriteRTUSlaveEnableFlag(RTULocalMasterType *master,uint8_t slaveAddress);
 
-/*³õÊ¼»¯RTUÖ÷Õ¾¶ÔÏó*/
+/*ï¿½ï¿½Ê¼ï¿½ï¿½RTUï¿½ï¿½Õ¾ï¿½ï¿½ï¿½ï¿½*/
 void InitializeRTUMasterObject(RTULocalMasterType *master,uint16_t slaveNumber,
                             RTUAccessedSlaveType *pSlave,
                             UpdateCoilStatusType pUpdateCoilStatus,
@@ -99,7 +103,7 @@ void InitializeRTUMasterObject(RTULocalMasterType *master,uint16_t slaveNumber,
                             UpdateInputResgisterType pUpdateInputResgister
                             );
 
-/* ÅÐ¶Ïµ±Ç°ÊÇ·ñÓÐÐ´²Ù×÷Ê¹ÄÜ */
+/* ï¿½Ð¶Ïµï¿½Ç°ï¿½Ç·ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ */
 bool CheckWriteRTUSlaveNone(RTULocalMasterType *master);
 
 

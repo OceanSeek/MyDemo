@@ -42,6 +42,7 @@ INCLUDE_DIRS =	sqlite3/include \
 				src/protocol/master/miec104gx \
 				src/protocol/master/MXJ103 \
 				src/protocol/master/ModbusRtuMaster \
+				src/protocol/master/ModbusTcpMaster \
 				src/protocol/slaver/GX101Slaver \
 				src/protocol/slaver/GX104Slaver \
 				src/protocol/slaver/siec101gx_2002 \
@@ -49,6 +50,7 @@ INCLUDE_DIRS =	sqlite3/include \
 				src/protocol/slaver/SXJ103 \
 				src/protocol/slaver/SIEC101_2002 \
 				src/protocol/slaver/ModbusRtuSlaver \
+				src/protocol/slaver/ModbusTcpSlaver \
 				
 				
 #INCLUDE_DIRS =-L./sqlite3/lib -I./sqlite3/include -I./include  -I./src/DBase -I./src/IEC10X -I./src/queue -I./src/sqlite -I./src/usart -I./  #arm

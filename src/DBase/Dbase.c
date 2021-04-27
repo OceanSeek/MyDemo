@@ -187,7 +187,7 @@ void ModifyTransTable(sqlite3 *db, char *TableName){
 				
 	sqlite3_exec(db,sql,0,0,&zErrMsg);
 
-	sprintf(sql,"INSERT INTO %s(ID,wRealID,nPoint,nIndex) select ID,wRealID,nPoint,nIndex FROM %s_old",TableName,TableName);
+	sprintf(sql,"INSERT INTO %s select * FROM %s_old",TableName,TableName);
 	sqlite3_exec(db,sql,0,0,&zErrMsg);
 	
 	sprintf(sql,"drop table %s_old",TableName);
@@ -212,6 +212,18 @@ void ModifyModbusTransTable(sqlite3 *db, char *TableName){
 	char *sql;
 	char *zErrMsg = 0;
 	sql = malloc(200);
+
+	// if(strcmp(TableName, "TransModbusHoldingRegTable") == 0){
+	// 	int nrow,ncolumn;
+	// 	char **azResult;
+
+	// 	sprintf(sql,"SELECT COUNT(*) FROM %s;", TableName);
+	// 	log("____sql:%s\n", sql);
+	// 	sqlite3_get_table(db,sql,&azResult,&nrow,&ncolumn,&zErrMsg);
+	// 	log("nrow %d \n",nrow);
+	// 	return;	
+	// }
+
 	
 	sprintf(sql,"begin");
 	sqlite3_exec(db,sql,0,0,&zErrMsg);
@@ -224,14 +236,15 @@ void ModifyModbusTransTable(sqlite3 *db, char *TableName){
 				nPoint INTEGER,\
 				nIndex INTEGER,\
 				RegAddr INTEGER,\
-				SlaverAddr INTEGER\
+				SlaverAddr INTEGER,\
+				DataType INTEGER,\
+				DataOffset INTEGER\
 				);",TableName);
 	
 				
 	sqlite3_exec(db,sql,0,0,&zErrMsg);
 
 	sprintf(sql,"INSERT INTO %s select * FROM %s_old",TableName,TableName);
-//	sprintf(sql,"INSERT INTO %s(ID,wRealID,nPoint,nIndex,RegAddr,SlaverAddr) select ID,wRealID,nPoint,nIndex,RegAddr,SlaverAddr FROM %s_old",TableName,TableName);
 	sqlite3_exec(db,sql,0,0,&zErrMsg);
 	
 	sprintf(sql,"drop table %s_old",TableName);
@@ -253,7 +266,8 @@ void ModifyModbusTransTable(sqlite3 *db, char *TableName){
 
 void ModifyTableProperty(void){
 	sqlite3 *db = NULL;
-	db = DBase_Open("/mnt/internal_storage/dcu/IEC104_data.db");
+	// db = DBase_Open("/mnt/internal_storage/dcu/IEC104_data.db");
+	db = DBase_Open("IEC104_data.db");
 	ModifyTransTable(db, "TransYxTable");
 	ModifyTransTable(db, "TransYcTable");
 	ModifyTransTable(db, "TransYkTable");
@@ -272,9 +286,12 @@ void InitDbase(void)
 {
 	ModifyTableProperty();
    	InitOtherDbase();
-	Init_Reffer();			//��ʼ��ʵ�ʿ�����õ�
-	InitReffer();	//5512��ʼ��ʵ�ʿ�����õ�
+	PRINT_FUNLINE;
+	Init_Reffer();
+	InitReffer();
+	PRINT_FUNLINE;
 	Init_ModbusRegAddr();
+	PRINT_FUNLINE;
 }
 /*******************************************************************  
 *���ƣ�      		InitTransTable  
@@ -286,7 +303,8 @@ void InitDbase(void)
 void InitTransTable(void)
 {
 	sqlite3 *db = NULL;
-	db = DBase_Open("/mnt/internal_storage/dcu/IEC104_data.db");
+	// db = DBase_Open("/mnt/internal_storage/dcu/IEC104_data.db");
+	db = DBase_Open("IEC104_data.db");
 	TransYXTable = InitTransTab("TransYxTable", &gVars.TransYXTableNum, db);
 	TransYCTable = InitTransTab("TransYcTable", &gVars.TransYCTableNum, db);
 	TransYKTable = InitTransTab("TransYkTable", &gVars.TransYKTableNum, db);
@@ -295,7 +313,7 @@ void InitTransTable(void)
 	TransModbusInputStatusTable = InitModbusTransTab("TransModbusInputStatusTable", &gVars.TransModbusInputStatusTableNum, db);
 	TransModbusHoldingRegTable = InitModbusTransTab("TransModbusHoldingRegTable", &gVars.TransModbusHoldingRegTableNum, db);
 	TransModbusInputRegTable = InitModbusTransTab("TransModbusInputRegTable", &gVars.TransModbusInputRegTableNum, db);
-	
+	PRINT_FUNLINE;
 	sqlite3_close(db);
 	
 //	int i;
@@ -321,7 +339,8 @@ int setip(char *ComName, char* ip)
 
 	if(strcmp(ComName, "NET1") == 0){
 		strcpy(temp.ifr_name, "eth0:1");
-	}else{
+	}
+	else{
 		strcpy(temp.ifr_name, "eth1:1");
 	}
     if((fd=socket(AF_INET, SOCK_STREAM, 0))<0)
@@ -366,7 +385,8 @@ int InitPortsTab(void)
 	int i=0;
 	char ComName[32];
 	char ComIP[32];
-	db = DBase_Open("/mnt/internal_storage/dcu/IEC104_data.db");
+	// db = DBase_Open("/mnt/internal_storage/dcu/IEC104_data.db");
+	db = DBase_Open("IEC104_data.db");
 
 	int32_t nrow=0,ncolumn=0;
 	char **azResult;//��ά�����Ž��
@@ -408,15 +428,15 @@ int InitPortsTab(void)
 		strcpy(gpDevice[i].TcpType,azResult[(i+1)*ncolumn + DB_TcpType]);
 	}
 	
-//	for(i=0;i<gVars.dwDevNum;i++){
-//		LOG("gpDevice[%d].ID is (%d)\n", i, gpDevice[i].ID);
-//		LOG("gpDevice[%d].Address is (%d)\n", i, gpDevice[i].Address);
-//		LOG("gpDevice[%d].ip is (%s)\n", i, gpDevice[i].IP);
-//		LOG("gpDevice[%d].Type is (%s)\n", i, gpDevice[i].Type);
-//		LOG("gpDevice[%d].Protocol is (%s)\n", i, gpDevice[i].Protocol);
-//		LOG("gpDevice[%d].Com is (%s)\n", i, gpDevice[i].Com);
-//		LOG("gpDevice[%d].MaxSoeBuffer is (%d)\n", i, gpDevice[i].MaxSoeBuffer);
-//	}
+	// for(i=0;i<gVars.dwDevNum;i++){
+	// 	LOG("gpDevice[%d].ID is (%d)\n", i, gpDevice[i].ID);
+	// 	LOG("gpDevice[%d].Address is (%d)\n", i, gpDevice[i].Address);
+	// 	LOG("gpDevice[%d].ip is (%s)\n", i, gpDevice[i].IP);
+	// 	LOG("gpDevice[%d].Type is (%s)\n", i, gpDevice[i].Type);
+	// 	LOG("gpDevice[%d].Protocol is (%s)\n", i, gpDevice[i].Protocol);
+	// 	LOG("gpDevice[%d].Com is (%s)\n", i, gpDevice[i].Com);
+	// 	LOG("gpDevice[%d].MaxSoeBuffer is (%d)\n", i, gpDevice[i].MaxSoeBuffer);
+	// }
 	
 	sqlite3_free_table(azResult);
 
@@ -431,8 +451,8 @@ void InitWQ900Parameter()
 	char *sql;
 	int i=0;
 	PTDevie pDevice;
-	db = DBase_Open("/mnt/internal_storage/dcu/IEC104_data.db");
-
+	// db = DBase_Open("/mnt/internal_storage/dcu/IEC104_data.db");
+	db = DBase_Open("IEC104_data.db");
 	int32_t nrow=0,ncolumn=0;
 	char **azResult;//��ά�����Ž��
 	sqlite3_exec(db,sql,0,0,&zErrMsg);	
@@ -497,8 +517,8 @@ void InitPLCParameter()
 	char *sql;
 	int i=0;
 	PTDevie pDevice;
-	db = DBase_Open("/mnt/internal_storage/dcu/IEC104_data.db");
-
+	// db = DBase_Open("/mnt/internal_storage/dcu/IEC104_data.db");
+	db = DBase_Open("IEC104_data.db");
 	int32_t nrow=0,ncolumn=0;
 	char **azResult;//��ά�����Ž��
 	
@@ -725,8 +745,14 @@ int ReadModbusColumnFromDB(sqlite3 *db,uint32_t RowNum, PModbus_TransTable_T Tra
 				else if(strcmp("SlaverAddr", ColumnName) == 0){
 					TransTable[i+Len].SlaverAddr = atoi(azResult[i+1]);
 				}
+				else if(strcmp("DataType", ColumnName) == 0){
+					TransTable[i+Len].DataType = atoi(azResult[i+1]);
+				}
+				else if(strcmp("DataOffset", ColumnName) == 0){
+					TransTable[i+Len].DataOffset = atoi(azResult[i+1]);
+				}				
 				else{
-					PERROR("ERROR___________FUNCTION(%s)LINE(%d)\n",__FUNCTION__,__LINE__);
+					perror("ColumnName is %s\n",ColumnName);
 					return -1;
 				}
 			}
@@ -763,9 +789,14 @@ int ReadModbusColumnFromDB(sqlite3 *db,uint32_t RowNum, PModbus_TransTable_T Tra
 		else if(strcmp("SlaverAddr", ColumnName) == 0){
 			TransTable[i+Len].SlaverAddr = atoi(azResult[i+1]);
 		}
-		
+		else if(strcmp("DataType", ColumnName) == 0){
+			TransTable[i+Len].DataType = atoi(azResult[i+1]);
+		}
+		else if(strcmp("DataOffset", ColumnName) == 0){
+			TransTable[i+Len].DataOffset = atoi(azResult[i+1]);
+		}				
 		else{
-			PERROR("ERROR___________FUNCTION(%s)LINE(%d)\n",__FUNCTION__,__LINE__);
+			perror("ColumnName is %s\n",ColumnName);
 			return -1;
 		}
 	}
@@ -807,6 +838,8 @@ int ReadModbusColumn(sqlite3 *db,uint32_t RowNum, PModbus_TransTable_T TransTabl
 	ret = ReadModbusColumnFromDB(db, RowNum, TransTable, "nIndex", TableName);
 	ret = ReadModbusColumnFromDB(db, RowNum, TransTable, "RegAddr", TableName);
 	ret = ReadModbusColumnFromDB(db, RowNum, TransTable, "SlaverAddr", TableName);
+	ret = ReadModbusColumnFromDB(db, RowNum, TransTable, "DataType", TableName);
+	ret = ReadModbusColumnFromDB(db, RowNum, TransTable, "DataOffset", TableName);
 	return ret;
 }
 
@@ -859,7 +892,6 @@ TransTable_T* InitTransTab(char *TableName, uint32_t *tablenum, sqlite3 *db)
 	ret_tablenum = atoi(azResult[(1)*ncolumn+0]) + 1;
 //	log("ret_tablenum is %d ret_rownum is %d\n",ret_tablenum, ret_rownum);
 
-	
 	if(ret_tablenum < ret_rownum){
 		perror("%s cannot found primary key ,please go to function (ModifyTransTable)\n",TableName);//����ȱ����������Ҫȥ������ModifyTransTable���������¼���ı���
 		exit(-1);
@@ -906,25 +938,24 @@ Modbus_TransTable_T* InitModbusTransTab(char *TableName, uint32_t *tablenum, sql
 	int32_t rc;
 	char *sql;
 	uint32_t i=0;
-	uint32_t ret_rownum = 0;//ת����������
-	uint32_t ret_tablenum = 0;//ת����index����
+	uint32_t ret_rownum = 0;
+	uint32_t ret_tablenum = 0;
 	int ret = 0;
 	Modbus_TransTable_T *PTableName;
 	
 	int32_t nrow=0,ncolumn=0;
-	char **azResult;//��ά�����Ž��
+	char **azResult;
 	
 	sql = malloc(100);
 //	log("TableName %s____ \n",TableName);
 	sprintf(sql,"SELECT COUNT(*) FROM %s;", TableName);
 	sqlite3_get_table(db,sql,&azResult,&nrow,&ncolumn,&zErrMsg);
-//	log("nrow %d \n",nrow);
 	if(nrow == 0){
 		perror("%s is null ,please check DB file path\n", TableName);
 		exit(-1);
 	}
 	ret_rownum = atoi(azResult[(1)*ncolumn+0]);
-//	log("ret_rownum %d \n",ret_rownum);
+	// log("ret_rownum %d \n",ret_rownum);
 	if(ret_rownum == 0){
 		perror("%s is null ,please check Table \n", TableName);
 		exit(-1);
@@ -933,11 +964,10 @@ Modbus_TransTable_T* InitModbusTransTab(char *TableName, uint32_t *tablenum, sql
 	sprintf(sql,"SELECT MAX(nIndex) FROM %s;", TableName);
 	sqlite3_get_table(db,sql,&azResult,&nrow,&ncolumn,&zErrMsg);
 	ret_tablenum = atoi(azResult[(1)*ncolumn+0]) + 1;
-//	log("ret_tablenum is %d ret_rownum is %d\n",ret_tablenum, ret_rownum);
+	log("ret_tablenum is %d ret_rownum is %d\n",ret_tablenum, ret_rownum);
 
-	
 	if(ret_tablenum < ret_rownum){
-		perror("%s cannot found primary key ,please go to function (ModifyTransTable)\n",TableName);//����ȱ����������Ҫȥ������ModifyTransTable���������¼���ı���
+		perror("%s cannot found primary key ,please go to function (ModifyTransTable)\n",TableName);
 		exit(-1);
 	}
 	TransModbusTable_tmp = (Modbus_TransTable_T *)malloc(sizeof(Modbus_TransTable_T)*ret_rownum);
@@ -955,6 +985,10 @@ Modbus_TransTable_T* InitModbusTransTab(char *TableName, uint32_t *tablenum, sql
 		PTableName[TransModbusTable_tmp[i].nIndex].nIndex = TransModbusTable_tmp[i].nIndex;
 		PTableName[TransModbusTable_tmp[i].nIndex].RegAddr = TransModbusTable_tmp[i].RegAddr;
 		PTableName[TransModbusTable_tmp[i].nIndex].SlaverAddr = TransModbusTable_tmp[i].SlaverAddr;
+		PTableName[TransModbusTable_tmp[i].nIndex].DataType = TransModbusTable_tmp[i].DataType;
+		PTableName[TransModbusTable_tmp[i].nIndex].DataOffset = TransModbusTable_tmp[i].DataOffset;
+		// log("TableName[%s] i[%d] datatype[%d],offset[%d]\n", TableName, i, TransModbusTable_tmp[i].DataType, TransModbusTable_tmp[i].DataOffset);
+		
 	}
 	
 	for(i=0;i<ret_tablenum;i++){
@@ -1400,6 +1434,8 @@ int WriteYc16(uint8_t DevID,uint32_t nPoint, uint16_t bValue)
 	}
 
 	gpDevice[DevID].pBurstAI[nPoint].detect16._detect = bValue;
+	gpDevice[DevID].pBurstAI[nPoint].bType = 2;
+	
 	
 	return 0;
 
@@ -1433,7 +1469,7 @@ int WriteYc32(uint8_t DevID,uint32_t nPoint, uint32_t bValue)
 		return -1;
 	}
 	gpDevice[DevID].pBurstAI[nPoint].detect32._detect = bValue;
-	
+	gpDevice[DevID].pBurstAI[nPoint].bType = 4;
 	return 0;
 
 }
@@ -1448,7 +1484,7 @@ int WriteYcFloat(uint8_t DevID,uint32_t nPoint, float bValue)
 		return -1;
 	}
 	gpDevice[DevID].pBurstAI[nPoint].detect32_F._detect = bValue;
-	
+	gpDevice[DevID].pBurstAI[nPoint].bType = 4;
 	return 0;
 
 }
@@ -2472,54 +2508,56 @@ void InitReffer(void)//5512
 	}
 }
 
+void Read_ModbusTable_Value(Modbus_TransTable_T *tableName, uint16_t *wRealID, uint16_t *nPoint, uint16_t *RegAddr, uint16_t *SlaverAddr, uint8_t *DataType, uint8_t *DataOffset)
+{
+	*wRealID = tableName->wRealID;
+	*nPoint = tableName->nPoint;
+	*RegAddr = tableName->RegAddr;
+	*SlaverAddr = tableName->SlaverAddr;
+	*DataType = tableName->DataType;
+	*DataOffset = tableName->DataOffset;
+}
+
+void Set_ModbusTable_Value(MODBUSDEVICEDATA_T *ModbusData, uint16_t wRealID, uint16_t RegAddr, uint16_t SlaverAddr, uint16_t DataType, uint16_t DataOffset)
+{
+	ModbusData->_RegAddr = RegAddr;
+	ModbusData->_SlaverAddr = SlaverAddr;
+	ModbusData->_DataType = DataType;
+	ModbusData->_DataOffset = DataOffset;
+}
+
 void Init_ModbusRegAddr(void)
 {
-	int i, wRealID, nPoint, RegAddr, DevNo, SlaverAddr;
-	
+	uint16_t i, wRealID, nPoint, RegAddr, DevNo, SlaverAddr;
+	uint8_t DataType, DataOffset;
 	for( i = 0 ; i < gVars.TransModbusCoidStatusTableNum ; i++){
-		wRealID = TransModbusCoidStatusTable[i].wRealID;
-		nPoint = TransModbusCoidStatusTable[i].nPoint;
-		RegAddr = TransModbusCoidStatusTable[i].RegAddr;
-		SlaverAddr = TransModbusCoidStatusTable[i].SlaverAddr;
+		Read_ModbusTable_Value(&TransModbusCoidStatusTable[i], &wRealID, &nPoint, &RegAddr, &SlaverAddr, &DataType, &DataOffset);
 		DevNo = GetDevNo(wRealID);
 		if(DevNo == -1) return;
-		gpDevice[DevNo].ModbusData.pCoiStatus_T[nPoint]._RegAddr = RegAddr;
-		gpDevice[DevNo].ModbusData.pCoiStatus_T[nPoint]._SlaverAddr = SlaverAddr;
-		
+		if(strcmp(gpDevice[DevNo].Name, "PLC") != 0)return;
+		Set_ModbusTable_Value(&gpDevice[DevNo].ModbusData.pCoiStatus_T[nPoint], wRealID, RegAddr, SlaverAddr, DataType, DataOffset);
 	}
 	for( i = 0 ; i < gVars.TransModbusInputStatusTableNum ; i++){
-		wRealID = TransModbusInputStatusTable[i].wRealID;
-		nPoint = TransModbusInputStatusTable[i].nPoint;
-		RegAddr = TransModbusInputStatusTable[i].RegAddr;
-		SlaverAddr = TransModbusInputStatusTable[i].SlaverAddr;
+		Read_ModbusTable_Value(&TransModbusInputStatusTable[i], &wRealID, &nPoint, &RegAddr, &SlaverAddr, &DataType, &DataOffset);
 		DevNo = GetDevNo(wRealID);
 		if(DevNo == -1) return;
-		gpDevice[DevNo].ModbusData.pInputStatus_T[nPoint]._RegAddr = RegAddr;
-		gpDevice[DevNo].ModbusData.pInputStatus_T[nPoint]._SlaverAddr = SlaverAddr;
+		if(strcmp(gpDevice[DevNo].Name, "PLC") != 0)return;
+		Set_ModbusTable_Value(&gpDevice[DevNo].ModbusData.pInputStatus_T[nPoint], wRealID, RegAddr, SlaverAddr, DataType, DataOffset);
 	}
 	for( i = 0 ; i < gVars.TransModbusHoldingRegTableNum ; i++){
-		wRealID = TransModbusHoldingRegTable[i].wRealID;
-		nPoint = TransModbusHoldingRegTable[i].nPoint;
-		RegAddr = TransModbusHoldingRegTable[i].RegAddr;
-		SlaverAddr = TransModbusHoldingRegTable[i].SlaverAddr;
+		Read_ModbusTable_Value(&TransModbusHoldingRegTable[i], &wRealID, &nPoint, &RegAddr, &SlaverAddr, &DataType, &DataOffset);
 		DevNo = GetDevNo(wRealID);
 		if(DevNo == -1) return;
-		gpDevice[DevNo].ModbusData.pHoldingRegister_T[nPoint]._RegAddr = RegAddr;
-		gpDevice[DevNo].ModbusData.pHoldingRegister_T[nPoint]._SlaverAddr = SlaverAddr;
-//		log("DevNo is %d RegAddr is %d SlaverAddr is %d  i is %d\n", DevNo, RegAddr, SlaverAddr, i);
+		if(strcmp(gpDevice[DevNo].Name, "PLC") != 0)return;
+		Set_ModbusTable_Value(&gpDevice[DevNo].ModbusData.pHoldingRegister_T[nPoint], wRealID, RegAddr, SlaverAddr, DataType, DataOffset);
 	}
 	for( i = 0 ; i < gVars.TransModbusInputRegTableNum ; i++){
-		wRealID = TransModbusInputRegTable[i].wRealID;
-		nPoint = TransModbusInputRegTable[i].nPoint;
-		RegAddr = TransModbusInputRegTable[i].RegAddr;
-		SlaverAddr = TransModbusInputRegTable[i].SlaverAddr;
+		Read_ModbusTable_Value(&TransModbusInputRegTable[i], &wRealID, &nPoint, &RegAddr, &SlaverAddr, &DataType, &DataOffset);
 		DevNo = GetDevNo(wRealID);
 		if(DevNo == -1) return;
-		gpDevice[DevNo].ModbusData.pInputResgister_T[nPoint]._RegAddr = RegAddr;
-		gpDevice[DevNo].ModbusData.pInputResgister_T[nPoint]._SlaverAddr = SlaverAddr;
+		if(strcmp(gpDevice[DevNo].Name, "PLC") != 0)return;
+		Set_ModbusTable_Value(&gpDevice[DevNo].ModbusData.pInputResgister_T[nPoint], wRealID, RegAddr, SlaverAddr, DataType, DataOffset);
 	}
-	
-	
 }
 
 

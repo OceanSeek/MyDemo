@@ -6,3 +6,8 @@ swq-linux-protocol-conver-huawei-2021-01-22
 
 swq-linux-protocol-conver-huawei-2021-02-23
 1、添加modbus一主多从功能，UDP方式可正常使用，但是串口方式存在问题：多个子设备用同一个串口可能存在问题
+
+
+swq-linux-protocol-conver-huawei-2021-04-27
+1、添加modbus-tcp功能
+2、准备修改底层框架，每个logic设备根据使用协议生成自己的转发表

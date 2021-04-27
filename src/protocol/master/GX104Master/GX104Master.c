@@ -57,7 +57,6 @@ int Init_GX104Master(int DevNO)
 	gpDevice[DevNO].Task = GX104Master_Task;
 	gpDevice[DevNO].OnTimeOut = GX104Master_On_Time_Out;
 	
-	
 }
 
 
@@ -94,20 +93,21 @@ uint8_t GX104Master_send(int DevNO,char *buf, int len){
         return RET_ERROR;
     }
     gpDevice[DevNO].ReSendNum++;
-
+	log("send buf:");
+    DumpHEX((char *)GX104Master_Sendbuf, len);
 	MonitorTx(monitorData._TX_ID, DevNO, monitorData._fd, buf, len);
     return RET_SUCESS;
 }
 
 /*****************************************************************
-∫Ø ˝√˚≥∆: GX104Master_Deal_RecvSYx
-∫Ø ˝π¶ƒ‹: ¥¶¿Ìµ•µ„“£–≈»Îø‚ 
- ‰»Î≤Œ ˝: 
-∑µªÿ÷µ£∫  Œﬁ
-–ﬁ∏ƒ»’∆⁄£∫2019-11-22
-1°¢Œ¥∂®“Âµƒµ„≤ª∑¢ÀÕ£¨º¥nIndex=0«“ID=0µƒÕª∑¢“£–≈ª·∑¢ÀÕ£¨∆‰À˚µƒ≤ª∑¢ÀÕ  
+ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ: GX104Master_Deal_RecvSYx
+ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ: ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ“£ÔøΩÔøΩÔøΩÔøΩÔøΩ 
+ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ: 
+ÔøΩÔøΩÔøΩÔøΩ÷µÔøΩÔøΩ  ÔøΩÔøΩ
+ÔøΩﬁ∏ÔøΩÔøΩÔøΩÔøΩ⁄£ÔøΩ2019-11-22
+1ÔøΩÔøΩŒ¥ÔøΩÔøΩÔøΩÔøΩƒµ„≤ªÔøΩÔøΩÔøΩÕ£ÔøΩÔøΩÔøΩnIndex=0ÔøΩÔøΩID=0ÔøΩÔøΩÕªÔøΩÔøΩ“£ÔøΩ≈ª·∑¢ÔøΩÕ£ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩƒ≤ÔøΩÔøΩÔøΩÔøΩÔøΩ  
 *****************************************************************/
-void GX104Master_Deal_RecvSYx(int m_dwDevID,PGX104Master_DATA_T GX104MasterData)
+void GX104Master_Deal_RecvSYx(int DevNO,PGX104Master_DATA_T GX104MasterData)
 {
 	uint16_t wBINo;
 	uint16_t i;	
@@ -139,50 +139,46 @@ void GX104Master_Deal_RecvSYx(int m_dwDevID,PGX104Master_DATA_T GX104MasterData)
 //    /* Start tester timer */
 //    GX104Master_Tester_Timer();
 
-
-
-
 	
 //	if ( ((asdu->_reason<0x14) || (asdu->_reason>=0x14+bGroupYx))
 //		&&(asdu->_reason!=3) && (asdu->_reason!=0x0b) )
 //		return;
 		
-	BINum = asdu->_num._num; //ø…±‰Ω·ππœﬁ∂®¥ 
+	BINum = asdu->_num._num; 
 	pData = asdu->_info;
 	Type = asdu->_type;
 	COT = asdu->_reason._reason;
-	if ( asdu->_num._sq )//¡¨–¯
+	if ( asdu->_num._sq )//ËøûÁª≠
 	{	
 		asdu->_num._sq ^= 1;
 		
-		wBINo = MAKEWORD(pData[DEALSTATRT], pData[DEALSTATRT+1])-STARTSYX;
-		pData += DEALSTATRT+BINFOADDR;
+		wBINo = MAKEWORD(pData[0], pData[1])-STARTSYX;
+		pData += BINFOADDR;
 		for(i=0; i<BINum; i++)
 		{
-			if (wBINo+i > wAllSYxNum){
-				perror("wBINo+i > wAllSYxNum");
+			if (wBINo+i >= gpDevice[DevNO].AINum){
+				perror("wBINo+i(%d) > wAllSYxNum(%d)\n", wBINo+i, gpDevice[DevNO].AINum);
 				return;
 			}
 			if ( pData[i]&1 )
-				WriteYx(m_dwDevID,i+wBINo,PBI_ON);
+				WriteYx(DevNO,i+wBINo,PBI_ON);
 			else 
-				WriteYx(m_dwDevID,i+wBINo,PBI_OFF);
+				WriteYx(DevNO,i+wBINo,PBI_OFF);
 
-			if(COT == IEC10X_COT_SPONT){//Õª∑¢“£–≈–¥Ω¯∂”¡–
-				gpDevice[m_dwDevID].pBurstBI[i+wBINo].flag = Flag_Spon;
+			if(COT == IEC10X_COT_SPONT){
+				gpDevice[DevNO].pBurstBI[i+wBINo].flag = Flag_Spon;
 			}
 
 		}
 		
 //		for(i=0; i<BINum;i++){
-//			log("yx npoint is (%d) value is (%d)\n",i,ReadYx(m_dwDevID,i));;
+//			log("yx npoint is (%d) value is (%d)\n",i,ReadYx(DevNO,i));;
 //		}
 //		
 		return;
 	}
 	
-	//≤ª¡¨–¯
-	pData += DEALSTATRT;
+	//‰∏çËøûÁª≠
 	for(i=0; i<BINum; i++,pData+=BINFOADDR+1)
 	{
 	
@@ -192,11 +188,11 @@ void GX104Master_Deal_RecvSYx(int m_dwDevID,PGX104Master_DATA_T GX104MasterData)
 			return;
 //		log("____pData[BINFOADDR](%d)\n",pData[BINFOADDR]);
 		if ( pData[BINFOADDR]&1 )
-			WriteYx(m_dwDevID,wBINo,PBI_ON);
+			WriteYx(DevNO,wBINo,PBI_ON);
 		else 
-			WriteYx(m_dwDevID,wBINo,PBI_OFF);
+			WriteYx(DevNO,wBINo,PBI_OFF);
 		if(COT == IEC10X_COT_SPONT){
-			gpDevice[m_dwDevID].pBurstBI[wBINo].flag = Flag_Spon;
+			gpDevice[DevNO].pBurstBI[wBINo].flag = Flag_Spon;
 		}
 	}
 //	log("queue len is (%d)\n",LengthQueue(&YxQueue));
@@ -205,16 +201,16 @@ void GX104Master_Deal_RecvSYx(int m_dwDevID,PGX104Master_DATA_T GX104MasterData)
 }
 
 /*****************************************************************
-∫Ø ˝√˚≥∆: CM104gx::GX104Master_Deal_RecvSSoe
-∫Ø ˝π¶ƒ‹: ¥¶¿Ìµ•µ„SOE»Îø‚ 
- ‰»Î≤Œ ˝: 
-∑µªÿ÷µ£∫  
-–ﬁ∏ƒ»’∆⁄£∫2019/09/29
-	¥˝‘ˆº”–¥“£–≈±Í÷æŒª£¨µ•∂¿ø™“ª∏ˆœﬂ≥Ã”√¿¥–¥“£–≈soe»Î ˝æ›ø‚£¨∑Ω±„ π”√ ¬ŒÒ∑Ω Ω–¥ ˝æ›ø‚
-	“£–≈¥Ê¥¢µΩ“£–≈◊™∑¢±Ì÷–£®RAM£©£¨‘ŸµΩœﬂ≥Ã÷–∂¡»°“£–≈◊™∑¢±Ìµƒ∂¡◊¥Ã¨£¨Œ¥∂¡µƒ–¥Ω¯
-	 ˝æ›ø‚£¨≤¢«Â≥˝Œ¥∂¡◊¥Ã¨°£
+ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ: CM104gx::GX104Master_Deal_RecvSSoe
+ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ: ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩSOEÔøΩÔøΩÔøΩ 
+ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ: 
+ÔøΩÔøΩÔøΩÔøΩ÷µÔøΩÔøΩ  
+ÔøΩﬁ∏ÔøΩÔøΩÔøΩÔøΩ⁄£ÔøΩ2019/09/29
+	ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ–¥“£ÔøΩ≈±ÔøΩ÷æŒªÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ“ªÔøΩÔøΩÔøΩﬂ≥ÔøΩÔøΩÔøΩÔøΩÔøΩ–¥“£ÔøΩÔøΩsoeÔøΩÔøΩÔøΩÔøΩÔøΩ›ø‚£¨ÔøΩÔøΩÔøΩÔøΩ πÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ Ω–¥ÔøΩÔøΩÔøΩ›øÔøΩ
+	“£ÔøΩ≈¥Ê¥¢ÔøΩÔøΩ“£ÔøΩÔøΩ◊™ÔøΩÔøΩÔøΩÔøΩÔøΩ–£ÔøΩRAMÔøΩÔøΩÔøΩÔøΩÔøΩŸµÔøΩÔøΩﬂ≥ÔøΩÔøΩ–∂ÔøΩ»°“£ÔøΩÔøΩ◊™ÔøΩÔøΩÔøΩÔøΩÔøΩƒ∂ÔøΩ◊¥Ã¨ÔøΩÔøΩŒ¥ÔøΩÔøΩÔøΩÔøΩ–¥ÔøΩÔøΩ
+	ÔøΩÔøΩÔøΩ›ø‚£¨ÔøΩÔøΩÔøΩÔøΩÔøΩŒ¥ÔøΩÔøΩ◊¥Ã¨ÔøΩÔøΩ
 *****************************************************************/
-void GX104Master_Deal_RecvSSoe(uint16_t m_dwDevID,PGX104Master_DATA_T GX104MasterData)
+void GX104Master_Deal_RecvSSoe(uint16_t DevNO,PGX104Master_DATA_T GX104MasterData)
 {
 	uint16_t i,val;	
 	uint16_t wSoeNo;
@@ -249,13 +245,13 @@ void GX104Master_Deal_RecvSSoe(uint16_t m_dwDevID,PGX104Master_DATA_T GX104Maste
 			return;
 		}
 		time = (PCP56Time2a_T)(&pData[TimeStartAddr]);
-		WriteYxSoe(m_dwDevID, wSoeNo, pData[ValueStartAddr], time);
+		WriteYxSoe(DevNO, wSoeNo, pData[ValueStartAddr], time);
     }
 	return;
 
 }
 
-void GX104Master_Deal_RecvSSoe_TEST(uint16_t m_dwDevID,PGX104Master_DATA_T GX104MasterData)
+void GX104Master_Deal_RecvSSoe_TEST(uint16_t DevNO,PGX104Master_DATA_T GX104MasterData)
 {
 	uint16_t i,val;	
 	uint16_t wSoeNo;
@@ -293,7 +289,7 @@ void GX104Master_Deal_RecvSSoe_TEST(uint16_t m_dwDevID,PGX104Master_DATA_T GX104
 		}
 		log("wSoeNo(%d)\n",wSoeNo);
 		time = (PCP56Time2a_T)(&pData[TimeStartAddr]);
-		WriteYxSoe(m_dwDevID, wSoeNo, pData[ValueStartAddr], time);
+		WriteYxSoe(DevNO, wSoeNo, pData[ValueStartAddr], time);
 		PRINT_FUNLINE;
     }
 	return;
@@ -301,12 +297,12 @@ void GX104Master_Deal_RecvSSoe_TEST(uint16_t m_dwDevID,PGX104Master_DATA_T GX104
 
 
 /*****************************************************************
-∫Ø ˝√˚≥∆: GX104Master_Deal_RecvSYc
-∫Ø ˝π¶ƒ‹: ¥¶¿Ì“£≤‚»Îø‚
- ‰»Î≤Œ ˝: 
-∑µªÿ÷µ£∫  Œﬁ
-–ﬁ∏ƒ»’∆⁄£∫2019-11-22
-	1°¢Œ¥∂®“Âµƒµ„≤ª∑¢ÀÕ£¨º¥nIndex=0«“ID=0µƒÕª∑¢“£–≈ª·∑¢ÀÕ£¨∆‰À˚µƒ≤ª∑¢ÀÕ  
+ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ: GX104Master_Deal_RecvSYc
+ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ: ÔøΩÔøΩÔøΩÔøΩ“£ÔøΩÔøΩÔøΩÔøΩÔøΩ
+ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ: 
+ÔøΩÔøΩÔøΩÔøΩ÷µÔøΩÔøΩ  ÔøΩÔøΩ
+ÔøΩﬁ∏ÔøΩÔøΩÔøΩÔøΩ⁄£ÔøΩ2019-11-22
+	1ÔøΩÔøΩŒ¥ÔøΩÔøΩÔøΩÔøΩƒµ„≤ªÔøΩÔøΩÔøΩÕ£ÔøΩÔøΩÔøΩnIndex=0ÔøΩÔøΩID=0ÔøΩÔøΩÕªÔøΩÔøΩ“£ÔøΩ≈ª·∑¢ÔøΩÕ£ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩƒ≤ÔøΩÔøΩÔøΩÔøΩÔøΩ  
 
 *****************************************************************/
 void GX104Master_Deal_RecvSYc(uint16_t DevNO,PGX104Master_DATA_T GX104MasterData)
@@ -339,20 +335,20 @@ void GX104Master_Deal_RecvSYc(uint16_t DevNO,PGX104Master_DATA_T GX104MasterData
 //		&&(asdu->_reason!=3) && (asdu->_reason!=0x0b) )
 //		return;
 		
-	AINum = asdu->_num._num; //ø…±‰Ω·ππœﬁ∂®¥ 
+	AINum = asdu->_num._num; //ÔøΩ…±ÔøΩ·ππÔøΩﬁ∂ÔøΩÔøΩÔøΩ
 	pData = asdu->_info;
 	Type = asdu->_type;
 	COT = asdu->_reason._reason;
 	
 	switch (Type){
-		case IEC10X_M_ME_NA_1://πÈ“ªªØ“£≤‚
-			if ( asdu->_num._sq )//¡¨–¯
+		case IEC10X_M_ME_NA_1://0x09ÔºåÂΩí‰∏ÄÂåñ
+			if ( asdu->_num._sq )//ËøûÁª≠
 			{	
 				PRINT_FUNLINE;
 				asdu->_num._sq ^= 1;
 				
-				wBINo = MAKEWORD(pData[DEALSTATRT], pData[DEALSTATRT+1])-STARTSYC;
-				pData += DEALSTATRT+BINFOADDR;
+				wBINo = MAKEWORD(pData[0], pData[1])-STARTSYC;
+				pData += BINFOADDR;
 				for(i=0; i<AINum; i++)
 				{
 					if (wBINo+i > wAllSYcNum)
@@ -361,23 +357,16 @@ void GX104Master_Deal_RecvSYc(uint16_t DevNO,PGX104Master_DATA_T GX104MasterData
 					value16 =  *(uint16_t *)&pData[0];
 					WriteYc16(DevNO,wBINo+i,value16);
 					
-					if(COT == IEC10X_COT_SPONT){//Õª∑¢“£≤‚–¥Ω¯∂”¡–
+					if(COT == IEC10X_COT_SPONT){
 //						gpDevice[DevNO].pBurstAI[i+wBINo].flag = Flag_Spon;
 						WriteOneLogicBurstAI(gpDevice[DevNO].pRealBase->pRealAI[wBINo+i].pReflex, OVDEAD_BIT, value16);
 					}
-					pData+=3;//–≈œ¢ÃÂ≥§∂»3,2∏ˆ◊÷Ω⁄“£≤‚,1∏ˆ∆∑÷ √Ë ˆ
-		
+					pData+=3;
 				}
-				
-		//		for(i=0; i<BINum;i++){
-		//			log("yx npoint is (%d) value is (%d)\n",i,ReadYx(DevNO,i));;
-		//		}
-		//		
 				return;
 			}
 			
-			//≤ª¡¨–¯
-			pData += DEALSTATRT;
+			//ÈùûËøûÁª≠
 			for(i=0; i<AINum; i++,pData+=BINFOADDR+3)
 			{
 				PRINT_FUNLINE;
@@ -389,20 +378,20 @@ void GX104Master_Deal_RecvSYc(uint16_t DevNO,PGX104Master_DATA_T GX104MasterData
 				value16 =  *(uint16_t *)&pData[BINFOADDR];
 				WriteYc16(DevNO,wBINo,value16);
 				
-				if(COT == IEC10X_COT_SPONT){//Õª∑¢“£≤‚–¥Ω¯∂”¡–
+				if(COT == IEC10X_COT_SPONT){
 //					gpDevice[DevNO].pBurstAI[wBINo].flag = Flag_Spon;
 					WriteOneLogicBurstAI(gpDevice[DevNO].pRealBase->pRealAI[wBINo].pReflex, OVDEAD_BIT, value16);
 				}
 			}
 			break;
-		case IEC10X_M_TI_BD_1://±Í∂»ªØ“£≤‚
-			if ( asdu->_num._sq )//¡¨–¯
+		case IEC10X_M_TI_BD_1://0x0B,Ê†áÂ∫¶Âåñ
+			if ( asdu->_num._sq )//ËøûÁª≠
 			{	
 				PRINT_FUNLINE;
 				asdu->_num._sq ^= 1;
 				
-				wBINo = MAKEWORD(pData[DEALSTATRT], pData[DEALSTATRT+1])-STARTSYC;
-				pData += DEALSTATRT+BINFOADDR;
+				wBINo = MAKEWORD(pData[0], pData[1])-STARTSYC;
+				pData += BINFOADDR;
 				
 				for(i=0; i<AINum; i++)
 				{
@@ -411,19 +400,18 @@ void GX104Master_Deal_RecvSYc(uint16_t DevNO,PGX104Master_DATA_T GX104MasterData
 					value32 =  *(uint32_t *)&pData[0];
 					WriteYc32(DevNO,wBINo+i,value32);
 					
-					if(COT == IEC10X_COT_SPONT){//Õª∑¢“£≤‚–¥Ω¯∂”¡–
+					if(COT == IEC10X_COT_SPONT){//ÕªÔøΩÔøΩ“£ÔøΩÔøΩ–¥ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
 //						gpDevice[DevNO].pBurstAI[wBINo+i].flag = Flag_Spon;
 						WriteOneLogicBurstAI(gpDevice[DevNO].pRealBase->pRealAI[wBINo+i].pReflex, OVDEAD_BIT, value32);
 					}
-					pData+=5;//–≈œ¢ÃÂ≥§∂»5,4∏ˆ◊÷Ω⁄“£≤‚,1∏ˆ∆∑÷ √Ë ˆ
+					pData+=5;//ÔøΩÔøΩœ¢ÔøΩÂ≥§ÔøΩÔøΩ5,4ÔøΩÔøΩÔøΩ÷ΩÔøΩ“£ÔøΩÔøΩ,1ÔøΩÔøΩ∆∑ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
 		
 				}
 				
 		//		
 				return;
 			}
-//			//≤ª¡¨–¯
-//			pData += DEALSTATRT;
+//			//ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
 //			for(i=0; i<gVars.TransYCTableNum; i++){
 //				log("___i[%d]nindex(%d)\n",i,gpDevice[DevNO].pBurstAI[i].nNo);
 //			}
@@ -435,55 +423,54 @@ void GX104Master_Deal_RecvSYc(uint16_t DevNO,PGX104Master_DATA_T GX104MasterData
 					return;
 				value32 =  *(uint32_t *)&pData[BINFOADDR];
 				WriteYc32(DevNO,wBINo,value32);
-				if(COT == IEC10X_COT_SPONT){//Õª∑¢“£≤‚–¥Ω¯∂”¡–
+				if(COT == IEC10X_COT_SPONT){
 //					gpDevice[DevNO].pBurstAI[wBINo].flag = Flag_Spon;
 					WriteOneLogicBurstAI(gpDevice[DevNO].pRealBase->pRealAI[wBINo].pReflex, OVDEAD_BIT, value32);
 				}
 			}
 		
 			break;
-		case IEC10X_M_ME_NC_1://∏°µ„–Õ“£≤‚
-			if ( asdu->_num._sq )//¡¨–¯
+		case IEC10X_M_ME_NC_1://0x0DÁü≠ÊµÆÁÇπ
+			if ( asdu->_num._sq )//ËøûÁª≠
 			{	
 				asdu->_num._sq ^= 1;
 				
-				wBINo = MAKEWORD(pData[DEALSTATRT], pData[DEALSTATRT+1])-STARTSYC;
-				pData += DEALSTATRT+BINFOADDR;
+				wBINo = MAKEWORD(pData[0], pData[1])-STARTSYC;
+				pData += BINFOADDR;
 				for(i=0; i<AINum; i++)
 				{
-					if (wBINo+i > wAllSYcNum)
+					if (wBINo+i >= gpDevice[DevNO].BINum)
 						return;
 					
 					value32 =  *(uint32_t *)&pData[0];
-
+					// log("data[%d][%x]\n",i, value32);
 //					DataValue._int32 = value32;
 //					log("pdata[%d](%f)\n",i,DataValue._float);
 					WriteYc32(DevNO,wBINo+i,value32);
 					
-					if(COT == IEC10X_COT_SPONT){//Õª∑¢“£≤‚–¥Ω¯∂”¡–
+					if(COT == IEC10X_COT_SPONT){//ÕªÔøΩÔøΩ“£ÔøΩÔøΩ–¥ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
 //						gpDevice[DevNO].pBurstAI[wBINo+i].flag = Flag_Spon;
 						WriteOneLogicBurstAI(gpDevice[DevNO].pRealBase->pRealAI[wBINo+i].pReflex, OVDEAD_BIT, value32);
 					}
-					pData+=5;//–≈œ¢ÃÂ≥§∂»5,4∏ˆ◊÷Ω⁄“£≤‚,1∏ˆ∆∑÷ √Ë ˆ
+					pData+=5;
 		
 				}
 				
 				return;
 			}
 			
-			//≤ª¡¨–¯
-			pData += DEALSTATRT;
+			//‰∏çËøûÁª≠
 			for(i=0; i<AINum; i++,pData+=BINFOADDR+5)
 			{
 				wBINo = MAKEWORD(pData[0], pData[1])-STARTSYC;
 				
-				if ( wBINo > wAllSYcNum )
+				if ( wBINo > gpDevice[DevNO].BINum )
 					return;
 
 				value32 =  *(uint32_t *)&pData[BINFOADDR];
 				WriteYc32(DevNO,wBINo,value32);
 		
-				if(COT == IEC10X_COT_SPONT){//Õª∑¢“£≤‚–¥Ω¯∂”¡–
+				if(COT == IEC10X_COT_SPONT){//ÕªÔøΩÔøΩ“£ÔøΩÔøΩ–¥ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
 //					gpDevice[DevNO].pBurstAI[wBINo].flag = Flag_Spon;
 					WriteOneLogicBurstAI(gpDevice[DevNO].pRealBase->pRealAI[wBINo].pReflex, OVDEAD_BIT, value32);
 				}
@@ -517,7 +504,7 @@ void GX104Master_Deal_DZ_YZ(uint16_t DevNO,PGX104Master_DATA_T GX104MasterData)
 	/*info addr*/
 	pData = asdu->_info;
 	
-	if ( asdu->_num._sq )//¡¨–¯
+	if ( asdu->_num._sq )//ÔøΩÔøΩÔøΩÔøΩ
 	{	
 		asdu->_num._sq ^= 1;
 		
@@ -532,14 +519,14 @@ void GX104Master_Deal_DZ_YZ(uint16_t DevNO,PGX104Master_DATA_T GX104MasterData)
 			
 			gpDevice[DevNO].pBurstDZ[wBINo+i].YZ_value = value32;
 			gpDevice[DevNO].pBurstDZ[wBINo+i].flag = flag;
-			pData+=4;//–≈œ¢ÃÂ≥§∂»4
+			pData+=4;//ÔøΩÔøΩœ¢ÔøΩÂ≥§ÔøΩÔøΩ4
 			DataValue._int32 = value32;
 			log("receive dz(%d) value is %f flag(%d)\n", wBINo+i, DataValue._float, flag);
 		}
 		return;
 	}
 	
-	//≤ª¡¨–¯
+	//ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
 	pData = asdu->_info;
 	for(i=0; i<asdu->_num._num; i++)
 	{
@@ -574,7 +561,7 @@ void GX104Master_Deal_DZ_Call(uint16_t DevNO,PGX104Master_DATA_T GX104MasterData
 	
 	/*info addr*/
 	pData = asdu->_info;
-	if ( asdu->_num._sq )//¡¨–¯
+	if ( asdu->_num._sq )//ÔøΩÔøΩÔøΩÔøΩ
 	{	
 		asdu->_num._sq ^= 1;
 		
@@ -591,16 +578,16 @@ void GX104Master_Deal_DZ_Call(uint16_t DevNO,PGX104Master_DATA_T GX104MasterData
 //				DataValue._int32 = value32;
 //				log("dz(%d) value is %f\n", wBINo+i, DataValue._float);
 //			}
-			if(COT == IEC10X_COT_SPONT){//Õª∑¢∂®÷µ–¥Ω¯∂”¡–
+			if(COT == IEC10X_COT_SPONT){//ÕªÔøΩÔøΩÔøΩÔøΩ÷µ–¥ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
 				SetRealDZFlag(DevNO, wBINo+i, Flag_Spon);
 			}
-			pData+=4;//–≈œ¢ÃÂ≥§∂»4
+			pData+=4;//ÔøΩÔøΩœ¢ÔøΩÂ≥§ÔøΩÔøΩ4
 		}
 		
 		return;
 	}
 	
-	//≤ª¡¨–¯
+	//ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
 	pData = asdu->_info;
 	for(i=0; i<DZNum; i++)
 	{
@@ -611,7 +598,7 @@ void GX104Master_Deal_DZ_Call(uint16_t DevNO,PGX104Master_DATA_T GX104MasterData
 		value32 = *(uint32_t *)&pData[BINFOADDR];
 		WriteRealDz(DevNO,wBINo,value32);
 		
-		if(COT == IEC10X_COT_SPONT){//Õª∑¢∂®÷µ–¥Ω¯∂”¡–
+		if(COT == IEC10X_COT_SPONT){//ÕªÔøΩÔøΩÔøΩÔøΩ÷µ–¥ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
 			SetRealDZFlag(DevNO, wBINo, Flag_Spon);
 		}
 		pData += BINFOADDR + 4;
@@ -621,11 +608,11 @@ void GX104Master_Deal_DZ_Call(uint16_t DevNO,PGX104Master_DATA_T GX104MasterData
 }
 
 /*******************************************************************  
-*√˚≥∆£∫      		check_DZ_YZ  
-*π¶ƒ‹£∫			ºÏ≤È∂®÷µ‘§÷√±Í÷æ£¨≤¢∑¢ÀÕ∂®÷µ‘§÷√≤Œ ˝  
-*»Îø⁄≤Œ ˝£∫
-*	DevNO 				…Ë±∏ID∫≈
-*	GX104MasterData		 ‰»Îª∫≥Â«¯ 
+*ÔøΩÔøΩÔøΩ∆£ÔøΩ      		check_DZ_YZ  
+*ÔøΩÔøΩÔøΩ‹£ÔøΩ			ÔøΩÔøΩÈ∂®÷µ‘§ÔøΩ√±ÔøΩ÷æÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÕ∂ÔøΩ÷µ‘§ÔøΩ√≤ÔøΩÔøΩÔøΩ  
+*ÔøΩÔøΩ⁄≤ÔøΩÔøΩÔøΩÔøΩÔøΩ
+*	DevNO 				ÔøΩË±∏IDÔøΩÔøΩ
+*	GX104MasterData		ÔøΩÔøΩÔøΩÎª∫ÔøΩÔøΩÔøΩÔøΩ 
 *******************************************************************/ 
 void GX104Master_Deal_RecvDZ(uint16_t DevNO,PGX104Master_DATA_T GX104MasterData)
 {
@@ -636,12 +623,12 @@ void GX104Master_Deal_RecvDZ(uint16_t DevNO,PGX104Master_DATA_T GX104MasterData)
 	COT = asdu->_reason._reason;
 	
 	switch (COT){
-		case IEC10X_CALL_QOI_TOTAL://œÏ”¶∂®÷µ’ŸªΩ
-		case IEC10X_COT_SPONT://∂®÷µÕª∑¢
+		case IEC10X_CALL_QOI_TOTAL://ÔøΩÔøΩ”¶ÔøΩÔøΩ÷µÔøΩŸªÔøΩ
+		case IEC10X_COT_SPONT://ÔøΩÔøΩ÷µÕªÔøΩÔøΩ
 			GX104Master_Deal_DZ_Call(DevNO, GX104MasterData);
 			break;
-		case IEC10X_COT_ACTCON://∂®÷µ‘§÷√∑µªÿ
-		case IEC10X_COT_REFUSE://∂®÷µ‘§÷√æ‹æ¯
+		case IEC10X_COT_ACTCON://ÔøΩÔøΩ÷µ‘§ÔøΩ√∑ÔøΩÔøΩÔøΩ
+		case IEC10X_COT_REFUSE://ÔøΩÔøΩ÷µ‘§ÔøΩ√æ‹æÔøΩ
 			GX104Master_Deal_DZ_YZ(DevNO, GX104MasterData);
 			break;
 	}
@@ -685,20 +672,20 @@ uint8_t GX104Master_BuildCall(int DevNO, uint8_t type, uint8_t qoi){
     /*len*/
     len = ptr - GX104Master_Sendbuf;
     GX104MasterData->Len = len - 2;
-    
+	
 	GX104Master_send(DevNO,(char *)GX104Master_Sendbuf,len);
     return RET_SUCESS;
 }
 
 /*******************************************************************  
-*√˚≥∆£∫      		GX104Master_BuildYk  
-*π¶ƒ‹£∫			¥¶¿Ì“£øÿ»ŒŒÒ  
-*»Îø⁄≤Œ ˝£∫         
-*	@DevNO		…Ë±∏±‡∫≈
-*	@Type 		“£øÿ¿‡–Õ
-*	@reason 	¥´ ‰‘≠“Ú
-*	@YKData 	“£øÿ√¸¡Ó
-*≥ˆø⁄≤Œ ˝£∫’˝»∑∑µªÿŒ™0£¨¥ÌŒÛ∑µªÿŒ™-1 
+*ÔøΩÔøΩÔøΩ∆£ÔøΩ      		GX104Master_BuildYk  
+*ÔøΩÔøΩÔøΩ‹£ÔøΩ			ÔøΩÔøΩÔøΩÔøΩ“£ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ  
+*ÔøΩÔøΩ⁄≤ÔøΩÔøΩÔøΩÔøΩÔøΩ         
+*	@DevNO		ÔøΩË±∏ÔøΩÔøΩÔøΩ
+*	@Type 		“£ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
+*	@reason 	ÔøΩÔøΩÔøΩÔøΩ‘≠ÔøΩÔøΩ
+*	@YKData 	“£ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
+*ÔøΩÔøΩÔøΩ⁄≤ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ»∑ÔøΩÔøΩÔøΩÔøΩŒ™0ÔøΩÔøΩÔøΩÔøΩÔøΩÛ∑µªÔøΩŒ™-1 
 *******************************************************************/ 
 int GX104Master_BuildYk(int DevNO, uint8_t Type, uint16_t reason, uint8_t YKData){
 
@@ -717,6 +704,7 @@ int GX104Master_BuildYk(int DevNO, uint8_t Type, uint16_t reason, uint8_t YKData
     GX104MasterData->Ctrl.I.Type = 0;
     GX104MasterData->Ctrl.I.SendSn = SendRecvSn.BuildSendSn++;
     GX104MasterData->Ctrl.I.RecvSn = SendRecvSn.BuildRecvSn;
+	PRINT_FUNLINE;
     /*build ASDU , COT ,Addr*/
     asdu->_type = Type;
     asdu->_num._sq = 0;
@@ -740,14 +728,14 @@ int GX104Master_BuildYk(int DevNO, uint8_t Type, uint16_t reason, uint8_t YKData
 }
 
 /*******************************************************************  
-*√˚≥∆£∫      		GX104Master_BuildSetDZ  
-*π¶ƒ‹£∫			¥¶¿Ì“£øÿ»ŒŒÒ  
-*»Îø⁄≤Œ ˝£∫         
-*	@DevNO		…Ë±∏ID∫≈
-*	@Type 		“£øÿ¿‡–Õ
-*	@reason 	¥´ ‰‘≠“Ú
-*	@YKData 	“£øÿ√¸¡Ó
-*≥ˆø⁄≤Œ ˝£∫’˝»∑∑µªÿŒ™0£¨¥ÌŒÛ∑µªÿŒ™-1 
+*ÔøΩÔøΩÔøΩ∆£ÔøΩ      		GX104Master_BuildSetDZ  
+*ÔøΩÔøΩÔøΩ‹£ÔøΩ			ÔøΩÔøΩÔøΩÔøΩ“£ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ  
+*ÔøΩÔøΩ⁄≤ÔøΩÔøΩÔøΩÔøΩÔøΩ         
+*	@DevNO		ÔøΩË±∏IDÔøΩÔøΩ
+*	@Type 		“£ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
+*	@reason 	ÔøΩÔøΩÔøΩÔøΩ‘≠ÔøΩÔøΩ
+*	@YKData 	“£ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
+*ÔøΩÔøΩÔøΩ⁄≤ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ»∑ÔøΩÔøΩÔøΩÔøΩŒ™0ÔøΩÔøΩÔøΩÔøΩÔøΩÛ∑µªÔøΩŒ™-1 
 *******************************************************************/ 
 int GX104Master_BuildSetDZ(int DevNO){
 
@@ -765,6 +753,7 @@ int GX104Master_BuildSetDZ(int DevNO){
     GX104MasterData->Ctrl.I.Type = 0;
     GX104MasterData->Ctrl.I.SendSn = SendRecvSn.BuildSendSn++;
     GX104MasterData->Ctrl.I.RecvSn = SendRecvSn.BuildRecvSn;
+	PRINT_FUNLINE;
     /*build ASDU , COT ,Addr*/
     asdu->_type = IEC10X_TYPE_DZ_JH;
     asdu->_num._sq = 0;
@@ -790,13 +779,13 @@ int GX104Master_BuildSetDZ(int DevNO){
 
 
 /*******************************************************************  
-*√˚≥∆£∫      		GX104Master_BuildClock  
-*π¶ƒ‹£∫			∂‘ ±  
-*»Îø⁄≤Œ ˝£∫         
-*	@fd 		Œƒº˛√Ë ˆ∑˚
-*	@COT		¥´ ‰¿‡–Õ
-*	@Type 		“£øÿ¿‡–Õ
-*≥ˆø⁄≤Œ ˝£∫’˝»∑∑µªÿŒ™0£¨¥ÌŒÛ∑µªÿŒ™-1 
+*ÔøΩÔøΩÔøΩ∆£ÔøΩ      		GX104Master_BuildClock  
+*ÔøΩÔøΩÔøΩ‹£ÔøΩ			ÔøΩÔøΩ ±  
+*ÔøΩÔøΩ⁄≤ÔøΩÔøΩÔøΩÔøΩÔøΩ         
+*	@fd 		ÔøΩƒºÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
+*	@COT		ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
+*	@Type 		“£ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
+*ÔøΩÔøΩÔøΩ⁄≤ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ»∑ÔøΩÔøΩÔøΩÔøΩŒ™0ÔøΩÔøΩÔøΩÔøΩÔøΩÛ∑µªÔøΩŒ™-1 
 *******************************************************************/ 
 uint8_t GX104Master_BuildClock(int DevNO){
 
@@ -816,6 +805,7 @@ uint8_t GX104Master_BuildClock(int DevNO){
     GX104MasterData->Ctrl.I.Type = 0;
     GX104MasterData->Ctrl.I.SendSn = SendRecvSn.BuildSendSn++;
     GX104MasterData->Ctrl.I.RecvSn = SendRecvSn.BuildRecvSn;
+	PRINT_FUNLINE;
     /*build ASDU , COT ,Addr*/
     asdu->_type = IEC10X_C_CS_NA_1;
     asdu->_num._sq = 0;
@@ -1072,7 +1062,7 @@ uint8_t GX104Master_Deal_YK_return(int DevNO, PGX104Master_DATA_T GX104MasterDat
     uint8_t len = 0;
     uint8_t *ptr = NULL;
 	uint8_t reason;
-	int YK_From_ID;//“£øÿ¿¥‘¥ID∫≈
+	int YK_From_ID;//“£ÔøΩÔøΩÔøΩÔøΩ‘¥IDÔøΩÔøΩ
 
     PIEC10X_ASDU_T asdu = (PIEC10X_ASDU_T)(GX104MasterData->Asdu);
     PASDU_INFO_T info = (PASDU_INFO_T)(asdu->_info);
@@ -1122,7 +1112,7 @@ int GX104Master_Deal_I(int DevNO, PGX104Master_DATA_T GX104MasterData, uint16_t 
     
     /* deal the receive and send serial number */
 	
-//    if(GX104Master_Deal_SN(SendSn, RecvSn) == RET_ERROR){//≈–∂œΩ” ’–Ú¡–∫≈
+//    if(GX104Master_Deal_SN(SendSn, RecvSn) == RET_ERROR){//ÔøΩ–∂œΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ–∫ÔøΩ
 //        return RET_ERROR;
 //    }
 	
@@ -1130,53 +1120,53 @@ int GX104Master_Deal_I(int DevNO, PGX104Master_DATA_T GX104MasterData, uint16_t 
 	
 	switch(Type){
 		
-		case IEC10X_C_IC_NA_1:
+		case IEC10X_C_IC_NA_1://0x64
 //			LOG("++++Asdu Type Call cmd... \n");
 			gpDevice[DevNO].STATE_FLAG_CALLALL = GX104Master_FLAG_IDLE;
 			break;
 		
-		case IEC10X_TYPE_DZ_CALL:
+		case IEC10X_TYPE_DZ_CALL://0x6C
 //			LOG("++++Asdu Type DZ Call cmd... \n");
 			gpDevice[DevNO].STATE_FLAG_DZCALLALL = GX104Master_FLAG_IDLE;
 			break;
 			
-		case IEC10X_C_SC_NA_1://µ•µ„“£øÿ
+		case IEC10X_C_SC_NA_1://0x6C
 			GX104Master_Deal_YK_return(DevNO, GX104MasterData);
 			break;
 		
-		case IEC10X_C_SE_NA_1://À´µ„“£øÿ
+		case IEC10X_C_SE_NA_1://0x46
 //				GX104Master_Deal_YK_return(DevNO, GX104MasterData);
 			break;
 
-		case Iec10x_M_EI_NA_1:
+		case Iec10x_M_EI_NA_1://0x46
 //			gpDevice[DevNO].STATE_FLAG_INIT = GX104Master_FLAG_INIT_FIN;
 			LOG("++++Asdu Type Iint_Finishd... ip(%s)\n", gpDevice[DevNO].IP);
 			break;
 		
-		case IEC10X_M_ME_NA_1://πÈ“ªªØ“£≤‚
-		case IEC10X_M_TI_BD_1://±Í∂»ªØ“£≤‚
-		case IEC10X_M_ME_NC_1://∏°µ„–Õ“£≤‚
+		case IEC10X_M_ME_NA_1://0x09,ÂΩí‰∏ÄÂåñ
+		case IEC10X_M_TI_BD_1://0x0BÔºåÊ†áÂ∫¶Âåñ
+		case IEC10X_M_ME_NC_1://0x0DÔºåÊµÆÁÇπÊï∞
 			GX104Master_Deal_RecvSYc(DevNO,GX104MasterData);
 			break;
 
-		case IEC10X_M_SP_NA_1://µ•µ„–≈œ¢
+		case IEC10X_M_SP_NA_1://0x01ÔºåÂçïÁÇπÈÅ•‰ø°
 //			gpDevice[DevNO].STATE_FLAG_INIT = GX104Master_M_FLAG_REC_YX;
 			GX104Master_Deal_RecvSYx(DevNO,GX104MasterData);
 			break;
-		case IEC10X_M_SP_TB_1://¥¯CP56Time2a ±±Íµƒµ•µ„–≈œ¢
+		case IEC10X_M_SP_TB_1://ÔøΩÔøΩCP56Time2a ±ÔøΩÔøΩƒµÔøΩÔøΩÔøΩÔøΩÔøΩœ¢
 //			gpDevice[DevNO].STATE_FLAG_INIT = ;
 			GX104Master_Deal_RecvSSoe(DevNO,GX104MasterData);
 			LOG("++++Asdu IEC10X_M_SP_TB_1... \n");
 			break;
-		case IEC10X_C_CS_NA_1:// ±÷”Õ¨≤Ω»∑»œ
+		case IEC10X_C_CS_NA_1:// ±ÔøΩÔøΩÕ¨ÔøΩÔøΩ»∑ÔøΩÔøΩ
 			gpDevice[DevNO].STATE_FLAG_CLOCK = GX104Master_FLAG_IDLE;
 			break;
 
-		case IEC10X_TYPE_DZ_DATA://∂®÷µœÏ”¶’ŸªΩ
+		case IEC10X_TYPE_DZ_DATA://ÔøΩÔøΩ÷µÔøΩÔøΩ”¶ÔøΩŸªÔøΩ
 			GX104Master_Deal_RecvDZ(DevNO,GX104MasterData);
 			gpDevice[DevNO].STATE_FLAG_DZCALLALL = GX104Master_FLAG_IDLE;
 			break;
-		case IEC10X_TYPE_DZ_JH://∂®÷µº§ªÓ»∑»œ
+		case IEC10X_TYPE_DZ_JH://ÔøΩÔøΩ÷µÔøΩÔøΩÔøΩÔøΩ»∑ÔøΩÔøΩ
 			break;
 			
 		default:
@@ -1250,7 +1240,6 @@ int GX104Master_Receive(int DevNO, uint8_t *buf, uint16_t len){
 
     BufTemp = buf;
     LenRemain = len;
-
     while(BufTemp<buf+len){
 		gpDevice[DevNO].ReSendNum = 0;
         GX104MasterData = (PGX104Master_DATA_T)BufTemp;
@@ -1263,6 +1252,9 @@ int GX104Master_Receive(int DevNO, uint8_t *buf, uint16_t len){
                 Iec10x_UnLock();
                 return RET_ERROR;
             }
+			// log("reciver data:");
+			// DumpHEX((char *)GX104MasterData, LenTmp);
+
             if(GX104MasterData->Ctrl.Type.Type1 == 0){
 //                LOG("-%s-,Frame Type I \n",__FUNCTION__);
                 GX104Master_Deal_I(DevNO, GX104MasterData, LenTmp);
@@ -1302,8 +1294,6 @@ void GX104Master_ResetFlag(int DevNO){
     gpDevice[DevNO].STATE_FLAG_TESTER = GX104Master_FLAG_IDLE;
 	gpDevice[DevNO].STATE_FLAG_INIT = GX104Master_FLAG_IDLE;
 
-
-	
     SendRecvSn.BuildSendSn = 0;
     SendRecvSn.BuildRecvSn = 0;
     SendRecvSn.DealSendSn = -1;
@@ -1320,7 +1310,7 @@ void GX104Master_ResetFlag(int DevNO){
 
 uint32_t GX104Master_TestCount_Temp = 0;
 
-//Ω®¡¢¡¥¬∑
+//ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ¬∑
 uint8_t GX104Master_Build_Link(int DevNO)
 {
 	switch (gpDevice[DevNO].STATE_FLAG_INIT){
@@ -1360,7 +1350,7 @@ uint8_t GX104Master_Build_Link(int DevNO)
 	if(gpDevice[DevNO].Flag_start_link != LINK_SUCESS)
 		return 0;
 	
-	switch (gpDevice[DevNO].STATE_FLAG_CALLALL){//◊‹’ŸªΩ
+	switch (gpDevice[DevNO].STATE_FLAG_CALLALL){//ÔøΩÔøΩÔøΩŸªÔøΩ
 			
 			case GX104Master_FLAG_CLOSED:
 				break;
@@ -1375,13 +1365,13 @@ uint8_t GX104Master_Build_Link(int DevNO)
 				break;
 	}
 
-	switch (gpDevice[DevNO].STATE_FLAG_DZCALLALL){//∂®÷µ’ŸªΩ
+	switch (gpDevice[DevNO].STATE_FLAG_DZCALLALL){//ÔøΩÔøΩ÷µÔøΩŸªÔøΩ
 			
 			case GX104Master_FLAG_CLOSED:
 				break;
 		
 			case GX104Master_FLAG_CALL_ALLDATA:
-				GX104Master_BuildCall(DevNO, IEC10X_TYPE_DZ_CALL, IEC10X_CALL_QOI_TOTAL);
+				// GX104Master_BuildCall(DevNO, IEC10X_TYPE_DZ_CALL, IEC10X_CALL_QOI_TOTAL);
 				break;
 			
 			case GX104Master_FLAG_IDLE:
@@ -1391,13 +1381,13 @@ uint8_t GX104Master_Build_Link(int DevNO)
 				break;
 	}
 	
-	switch (gpDevice[DevNO].STATE_FLAG_CLOCK){// ±÷”Õ¨≤Ω
+	switch (gpDevice[DevNO].STATE_FLAG_CLOCK){//ÂØπÊó∂
 			
 			case GX104Master_FLAG_CLOSED:
 				break;
 			
 			case GX104Master_FLAG_CLOCK_SYS:
-				GX104Master_BuildClock(DevNO);
+				// GX104Master_BuildClock(DevNO);
 				break;
 			
 			case GX104Master_FLAG_IDLE:
@@ -1436,10 +1426,10 @@ uint8_t GX104Master_Build_Link(int DevNO)
 }
 
 /*******************************************************************  
-*√˚≥∆£∫      		check_DZ_YZ  
-*π¶ƒ‹£∫			ºÏ≤È∂®÷µ‘§÷√±Í÷æ£¨≤¢∑¢ÀÕ∂®÷µ‘§÷√≤Œ ˝  
-*»Îø⁄≤Œ ˝£∫
-*	DevNO 	…Ë±∏ID∫≈
+*ÔøΩÔøΩÔøΩ∆£ÔøΩ      		check_DZ_YZ  
+*ÔøΩÔøΩÔøΩ‹£ÔøΩ			ÔøΩÔøΩÈ∂®÷µ‘§ÔøΩ√±ÔøΩ÷æÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÕ∂ÔøΩ÷µ‘§ÔøΩ√≤ÔøΩÔøΩÔøΩ  
+*ÔøΩÔøΩ⁄≤ÔøΩÔøΩÔøΩÔøΩÔøΩ
+*	DevNO 	ÔøΩË±∏IDÔøΩÔøΩ
 *******************************************************************/ 
 void check_DZ_YZ(int DevNO)
 {
@@ -1457,19 +1447,6 @@ void check_DZ_YZ(int DevNO)
     PIEC10X_ASDU_T asdu = (PIEC10X_ASDU_T)(GX104MasterData->Asdu);
     PASDU_INFO_T info = (PASDU_INFO_T)(asdu->_info);
 	
-    /*build head*/
-    GX104MasterData->Head = GX104Master_HEAD;
-
-    /*build control code*/
-    GX104MasterData->Ctrl.I.Type = 0;
-    GX104MasterData->Ctrl.I.SendSn = SendRecvSn.BuildSendSn++;
-    GX104MasterData->Ctrl.I.RecvSn = SendRecvSn.BuildRecvSn;
-    /*build ASDU , COT ,Addr*/
-    asdu->_type = IEC10X_TYPE_DZ;
-	
-    asdu->_reason._reason = IEC10X_COT_ACT;
-    asdu->_addr = gpDevice[DevNO].Address;
-	
 	num = 0;
 	for(i = 0; i < gpDevice[DevNO].DZNum; i++){
 		if(gpDevice[DevNO].pBurstDZ[i].flag == Flag_DZ_YZ){
@@ -1484,7 +1461,23 @@ void check_DZ_YZ(int DevNO)
 	}
 	if(num == 0)
 		return;
-	if(sq){//¡¨–¯
+
+    /*build head*/
+    GX104MasterData->Head = GX104Master_HEAD;
+
+    /*build control code*/
+    GX104MasterData->Ctrl.I.Type = 0;
+    GX104MasterData->Ctrl.I.SendSn = SendRecvSn.BuildSendSn++;
+    GX104MasterData->Ctrl.I.RecvSn = SendRecvSn.BuildRecvSn;
+	PRINT_FUNLINE;
+    /*build ASDU , COT ,Addr*/
+    asdu->_type = IEC10X_TYPE_DZ;
+	
+    asdu->_reason._reason = IEC10X_COT_ACT;
+    asdu->_addr = gpDevice[DevNO].Address;
+	
+	
+	if(sq){//ÔøΩÔøΩÔøΩÔøΩ
 		for(i = 0; i < gpDevice[DevNO].DZNum; i++){
 			if(gpDevice[DevNO].pBurstDZ[i].flag == Flag_DZ_YZ){
 				break;
@@ -1501,7 +1494,7 @@ void check_DZ_YZ(int DevNO)
 			ptr += 4;
 		}
 		
-	}else{//≤ª¡¨–¯
+	}else{//ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
 		ptr = info->_addr;
 		for(i = 0; i < gpDevice[DevNO].DZNum; i++){
 			if(gpDevice[DevNO].pBurstDZ[i].flag == Flag_DZ_YZ){
@@ -1525,13 +1518,13 @@ void check_DZ_YZ(int DevNO)
 }
 
 /*****************************************************************
-∫Ø ˝√˚≥∆: GX104Master_Task
-∫Ø ˝π¶ƒ‹: øÏÀŸœÏ”¶»ŒŒÒ
- ‰»Î≤Œ ˝: 
-	fd:Œƒº˛√Ë ˆ∑˚
-	DevNO:…Ë±∏ID∫≈
-∑µªÿ÷µ£∫  Œﬁ
-–ﬁ∏ƒ»’∆⁄£∫2020-3-31
+ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ: GX104Master_Task
+ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ: ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ”¶ÔøΩÔøΩÔøΩÔøΩ
+ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ: 
+	fd:ÔøΩƒºÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
+	DevNO:ÔøΩË±∏IDÔøΩÔøΩ
+ÔøΩÔøΩÔøΩÔøΩ÷µÔøΩÔøΩ  ÔøΩÔøΩ
+ÔøΩﬁ∏ÔøΩÔøΩÔøΩÔøΩ⁄£ÔøΩ2020-3-31
 *****************************************************************/
 int GX104Master_Task(int DevNO)
 {
@@ -1544,13 +1537,13 @@ int GX104Master_Task(int DevNO)
 	return 0;
 }
 /*****************************************************************
-∫Ø ˝√˚≥∆: GX104Master_On_Time_Out
-∫Ø ˝π¶ƒ‹: ∂® ±œÏ”¶»ŒŒÒ,1√ÎœÏ”¶“ª¥Œ
- ‰»Î≤Œ ˝: 
-	DevNO:…Ë±∏ID∫≈
-∑µªÿ÷µ£∫  Œﬁ
-–ﬁ∏ƒ»’∆⁄£∫2020-6-17
-	»•µÙ≤Œ ˝fd£¨∏ƒŒ™1√ÎœÏ”¶“ª¥Œ£¨10√Î“ª¥Œ◊‹’Ÿ£¨30√Î“ª¥Œ∂‘ ±
+ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ: GX104Master_On_Time_Out
+ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ: ÔøΩÔøΩ ±ÔøΩÔøΩ”¶ÔøΩÔøΩÔøΩÔøΩ,1ÔøΩÔøΩÔøΩÔøΩ”¶“ªÔøΩÔøΩ
+ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ: 
+	DevNO:ÔøΩË±∏IDÔøΩÔøΩ
+ÔøΩÔøΩÔøΩÔøΩ÷µÔøΩÔøΩ  ÔøΩÔøΩ
+ÔøΩﬁ∏ÔøΩÔøΩÔøΩÔøΩ⁄£ÔøΩ2020-6-17
+	»•ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩfdÔøΩÔøΩÔøΩÔøΩŒ™1ÔøΩÔøΩÔøΩÔøΩ”¶“ªÔøΩŒ£ÔøΩ10ÔøΩÔøΩ“ªÔøΩÔøΩÔøΩÔøΩÔøΩŸ£ÔøΩ30ÔøΩÔøΩ“ªÔøΩŒ∂ÔøΩ ±
 *****************************************************************/
 int GX104Master_On_Time_Out(int DevNO){
 	gpDevice[DevNO].TimeCnt++;
@@ -1562,7 +1555,7 @@ int GX104Master_On_Time_Out(int DevNO){
 		gpDevice[DevNO].STATE_FLAG_CLOCK = GX104Master_FLAG_CLOCK_SYS;
 	}
 	if(gpDevice[DevNO].TimeCnt%20 == 0){
-		gpDevice[DevNO].STATE_FLAG_DZCALLALL = GX104Master_FLAG_CALL_ALLDATA;
+		// gpDevice[DevNO].STATE_FLAG_DZCALLALL = GX104Master_FLAG_CALL_ALLDATA;
 	}
 
 	GX104Master_Build_Link(DevNO);

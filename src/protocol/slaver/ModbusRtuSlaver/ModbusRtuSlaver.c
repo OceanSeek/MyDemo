@@ -69,6 +69,7 @@ int  ModbusRtuSlaver_Send(int DevNo,char *buf, int len)
 		dest_addr.sin_family = AF_INET;//ipv4
 		dest_addr.sin_port = htons(gpDevice[DevNo].UDP_Dest_PORT);
 		dest_addr.sin_addr.s_addr = inet_addr(gpDevice[DevNo].UDP_Dest_IP);
+		log("ip:%s  port:%d\n", gpDevice[DevNo].UDP_Dest_IP, gpDevice[DevNo].UDP_Dest_PORT);
 		sendto(gpDevice[DevNo].fd, buf, len, 0, (struct sockaddr *)&dest_addr,sizeof(dest_addr)); 
 	}
     else if(-1 == write(gpDevice[DevNo].fd, buf,len)){
@@ -144,7 +145,7 @@ int Modbus_Rtu_Slaver_Receive(int DevNo, uint8_t *buf, uint16_t len)
                 perror("len error(%d) \n",len);
                 return RET_ERROR;
             }
-			log("Dev %d:receive:", DevNo);
+			log("DevNo %d:receive:", DevNo);
 			DumpHEX(buf, len);
             Modbus_Deal(DevNo, BufTemp, LenTmp);
         }
@@ -172,7 +173,7 @@ int Modbus_Deal(int DevNo, uint8_t *pbuf, uint16_t len)
 	num = MAKEWORD(pbuf[4], pbuf[5]);
 	SendLen = ParsingMasterAccessCommand(DevNo, pbuf, gpDevice[DevNo].pSendBuf, len, gpDevice[DevNo].Address);
 	LogSysLocalTime();
-	log("Dev %d:slaver send:",DevNo);
+	log("DevNo %d:slaver send:",DevNo);
 	DumpHEX(gpDevice[DevNo].pSendBuf, SendLen);
 	ModbusRtuSlaver_Send(DevNo, gpDevice[DevNo].pSendBuf, SendLen);
 	switch(pFun)
@@ -195,7 +196,6 @@ int Modbus_Deal(int DevNo, uint8_t *pbuf, uint16_t len)
 		default:
 			return RET_ERROR;
 	}
-
 
 }
 

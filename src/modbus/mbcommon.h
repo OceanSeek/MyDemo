@@ -1,12 +1,12 @@
 /******************************************************************************/
-/** Ä£¿éÃû³Æ£ºModbusÍ¨Ñ¶                                                     **/
-/** ÎÄ¼şÃû³Æ£ºmbcommon.h                                                     **/
-/** °æ    ±¾£ºV1.0.0                                                         **/
-/** ¼ò    ½é£ºÓÃÓÚÊµÏÖModbus¸÷ÖÖÇé¿öÏÂµÄ¹«ÓÃ²¿·Ö                             **/
+/** æ¨¡å—åç§°ï¼šModbusé€šè®¯                                                     **/
+/** æ–‡ä»¶åç§°ï¼šmbcommon.h                                                     **/
+/** ç‰ˆ    æœ¬ï¼šV1.0.0                                                         **/
+/** ç®€    ä»‹ï¼šç”¨äºå®ç°Modbuså„ç§æƒ…å†µä¸‹çš„å…¬ç”¨éƒ¨åˆ†                             **/
 /**--------------------------------------------------------------------------**/
-/** ĞŞ¸Ä¼ÇÂ¼£º                                                               **/
-/**     °æ±¾      ÈÕÆÚ              ×÷Õß              ËµÃ÷                   **/
-/**     V1.0.0  2015-07-18          Ä¾ÄÏ              ´´½¨ÎÄ¼ş               **/
+/** ä¿®æ”¹è®°å½•ï¼š                                                               **/
+/**     ç‰ˆæœ¬      æ—¥æœŸ              ä½œè€…              è¯´æ˜                   **/
+/**     V1.0.0  2015-07-18          æœ¨å—              åˆ›å»ºæ–‡ä»¶               **/
 /**                                                                          **/
 /******************************************************************************/ 
 
@@ -16,68 +16,68 @@
 #include "stdbool.h"
 #include "stdint.h"
 
-/*¶¨Òå¸üĞÂ¶ÁÈ¡»ØÀ´µÄ¶ÔÏóÖµµÄº¯ÊıÖ¸ÕëÀàĞÍ*/
-/*¸üĞÂ¶Á»ØÀ´µÄÏßÈ¦×´Ì¬*/
+/*å®šä¹‰æ›´æ–°è¯»å–å›æ¥çš„å¯¹è±¡å€¼çš„å‡½æ•°æŒ‡é’ˆç±»å‹*/
+/*æ›´æ–°è¯»å›æ¥çš„çº¿åœˆçŠ¶æ€*/
 typedef void (*UpdateCoilStatusType)(int DevID, uint8_t salveAddress,uint16_t startAddress,uint16_t quantity,bool *stateValue);
 
-/*¸üĞÂ¶Á»ØÀ´µÄÊäÈë×´Ì¬Öµ*/
+/*æ›´æ–°è¯»å›æ¥çš„è¾“å…¥çŠ¶æ€å€¼*/
 typedef void (*UpdateInputStatusType)(int DevID, uint8_t salveAddress,uint16_t startAddress,uint16_t quantity,bool *stateValue);
 
-/*¸üĞÂ¶Á»ØÀ´µÄ±£³Ö¼Ä´æÆ÷*/
+/*æ›´æ–°è¯»å›æ¥çš„ä¿æŒå¯„å­˜å™¨*/
 typedef void (*UpdateHoldingRegisterType)(int DevID, uint8_t salveAddress,uint16_t startAddress,uint16_t quantity,uint16_t *registerValue);
 
-/*¸üĞÂ¶Á»ØÀ´µÄÊäÈë¼Ä´æÆ÷*/
+/*æ›´æ–°è¯»å›æ¥çš„è¾“å…¥å¯„å­˜å™¨*/
 typedef void (*UpdateInputResgisterType)(int DevID, uint8_t salveAddress,uint16_t startAddress,uint16_t quantity,uint16_t *registerValue);
 
-/*½«½ÓÊÕµ½µÄĞ´µ¥¸öCoilÖµ×ª»¯Îª²¼¶ûÁ¿£¬¶ÔÓ¦0x05¹¦ÄÜÂë*/
+/*å°†æ¥æ”¶åˆ°çš„å†™å•ä¸ªCoilå€¼è½¬åŒ–ä¸ºå¸ƒå°”é‡ï¼Œå¯¹åº”0x05åŠŸèƒ½ç */
 bool CovertSingleCommandCoilToBoolStatus(uint16_t coilValue,bool value);
 
-/*¼ìÑéËùĞ´Êı¾İÊÇ·ñ·ûºÏÎïÀíÁ¿ÒªÇó·¶Î§²¢´¦Àí(µ¥¾«¶È¸¡µãÊı)*/
+/*æ£€éªŒæ‰€å†™æ•°æ®æ˜¯å¦ç¬¦åˆç‰©ç†é‡è¦æ±‚èŒƒå›´å¹¶å¤„ç†(å•ç²¾åº¦æµ®ç‚¹æ•°)*/
 float CheckWriteFloatDataIsValid(float value,float range,float zero);
  
- /*¼ìÑéËùĞ´Êı¾İÊÇ·ñ·ûºÏÎïÀíÁ¿ÒªÇó·¶Î§²¢´¦Àí(Ë«¾«¶È¸¡µãÊı)*/
+/*æ£€éªŒæ‰€å†™æ•°æ®æ˜¯å¦ç¬¦åˆç‰©ç†é‡è¦æ±‚èŒƒå›´å¹¶å¤„ç†(åŒç²¾åº¦æµ®ç‚¹æ•°)*/
 double CheckWriteDoubleDataIsValid(double value,double range,double zero);
 
-/*¼ìÑéËùĞ´Êı¾İÊÇ·ñ·ûºÏÎïÀíÁ¿ÒªÇó·¶Î§²¢´¦Àí(16Î»ÕûÊı)*/
+/*æ£€éªŒæ‰€å†™æ•°æ®æ˜¯å¦ç¬¦åˆç‰©ç†é‡è¦æ±‚èŒƒå›´å¹¶å¤„ç†(16ä½æ•´æ•°)*/
 uint16_t CheckWriteInt16DataIsValid(uint16_t value,uint16_t range,uint16_t zero);
  
- /*¼ìÑéËùĞ´Êı¾İÊÇ·ñ·ûºÏÎïÀíÁ¿ÒªÇó·¶Î§²¢´¦Àí(32Î»ÕûÊı)*/
+ /*æ£€éªŒæ‰€å†™æ•°æ®æ˜¯å¦ç¬¦åˆç‰©ç†é‡è¦æ±‚èŒƒå›´å¹¶å¤„ç†(32ä½æ•´æ•°)*/
 uint32_t CheckWriteInt32DataIsValid(uint32_t value,uint32_t range,uint32_t zero);
 
-/*»ñÈ¡ÏëÒª¶ÁÈ¡µÄCoilÁ¿µÄÖµ*/
+/*è·å–æƒ³è¦è¯»å–çš„Coilé‡çš„å€¼*/
 void GetCoilStatus(int DevID, uint16_t startAddress,uint16_t quantity,bool *statusList);
 
-/*»ñÈ¡ÏëÒª¶ÁÈ¡µÄInputStatusÁ¿µÄÖµ*/
+/*è·å–æƒ³è¦è¯»å–çš„InputStatusé‡çš„å€¼*/
 void GetInputStatus(int DevID, uint16_t startAddress,uint16_t quantity,bool *statusValue);
 
-/*»ñÈ¡ÏëÒª¶ÁÈ¡µÄ±£³Ö¼Ä´æÆ÷µÄÖµ*/
+/*è·å–æƒ³è¦è¯»å–çš„ä¿æŒå¯„å­˜å™¨çš„å€¼*/
 void GetHoldingRegister(int DevID, uint16_t startAddress,uint16_t quantity,uint16_t *registerValue);
 
-/*»ñÈ¡ÏëÒª¶ÁÈ¡µÄÊäÈë¼Ä´æÆ÷µÄÖµ*/
+/*è·å–æƒ³è¦è¯»å–çš„è¾“å…¥å¯„å­˜å™¨çš„å€¼*/
 void GetInputRegister(int DevID, uint16_t startAddress,uint16_t quantity,uint16_t *registerValue);
 
-/*ÉèÖÃµ¥¸öÏßÈ¦µÄÖµ*/
+/*è®¾ç½®å•ä¸ªçº¿åœˆçš„å€¼*/
 void SetSingleCoil(int DevID, uint16_t coilAddress,bool coilValue);
 
-/*ÉèÖÃµ¥¸ö¼Ä´æÆ÷µÄÖµ*/
+/*è®¾ç½®å•ä¸ªå¯„å­˜å™¨çš„å€¼*/
 void SetSingleRegister(int DevID, uint16_t registerAddress,uint16_t registerValue);
 
-/*ÉèÖÃ¶à¸öÏßÈ¦µÄÖµ*/
+/*è®¾ç½®å¤šä¸ªçº¿åœˆçš„å€¼*/
 void SetMultipleCoil(int DevID, uint16_t startAddress,uint16_t quantity,bool *statusValue);
 
-/*ÉèÖÃ¶à¸ö¼Ä´æÆ÷µÄÖµ*/
+/*è®¾ç½®å¤šä¸ªå¯„å­˜å™¨çš„å€¼*/
 void SetMultipleRegister(int DevID, uint16_t startAddress,uint16_t quantity,uint16_t *registerValue);
 
-/*¸üĞÂ¶Á»ØÀ´µÄÏßÈ¦×´Ì¬*/
+/*æ›´æ–°è¯»å›æ¥çš„çº¿åœˆçŠ¶æ€*/
 void UpdateCoilStatus(int DevID, uint8_t salveAddress,uint16_t startAddress,uint16_t quantity,bool *stateValue);
 
-/*¸üĞÂ¶Á»ØÀ´µÄÊäÈë×´Ì¬Öµ*/
+/*æ›´æ–°è¯»å›æ¥çš„è¾“å…¥çŠ¶æ€å€¼*/
 void UpdateInputStatus(int DevID, uint8_t salveAddress,uint16_t startAddress,uint16_t quantity,bool *stateValue);
 
-/*¸üĞÂ¶Á»ØÀ´µÄ±£³Ö¼Ä´æÆ÷*/
+/*æ›´æ–°è¯»å›æ¥çš„ä¿æŒå¯„å­˜å™¨*/
 void UpdateHoldingRegister(int DevID, uint8_t salveAddress,uint16_t startAddress,uint16_t quantity,uint16_t *registerValue);
 
-/*¸üĞÂ¶Á»ØÀ´µÄÊäÈë¼Ä´æÆ÷*/
+/*æ›´æ–°è¯»å›æ¥çš„è¾“å…¥å¯„å­˜å™¨*/
 void UpdateInputResgister(int DevID, uint8_t salveAddress,uint16_t startAddress,uint16_t quantity,uint16_t *registerValue);
 
 #endif //__mbcommon_h

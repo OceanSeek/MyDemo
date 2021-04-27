@@ -388,7 +388,7 @@ PTDevie pGetDevice(DWORD dwDevID)
     return &gpDevice[dwDevID];
 }
 
-void WriteOneLogicBurstAI(TReflex *pReflex, WORD Flag_Old, DWORD value)//5512��valueҪ�ĳ�short
+void WriteOneLogicBurstAI(TReflex *pReflex, WORD Flag_Old, DWORD value)
 {
 //д���߼�����
 	DWORD dwDevID;

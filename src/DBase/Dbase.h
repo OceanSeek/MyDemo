@@ -2,50 +2,50 @@
 #define __DBASE_H__
 
 
-#define MAX_FILE_LEN			(256*1024)  //³¤¶È´óÓÚ¸ÃÊýµÄÎÄ¼þ½«²»ÄÜ±»¶Á³ö 
-#define MAX_DEVEICE_NUM			150			//ÏµÍ³¿ÉÒÔÅäÖÃµÄ×ÜÉè±¸¸öÊý£¬°üÀ¨Âß¼­Éè±¸ºÍÊµ¼ÊÉè±¸µÄ×ÜÊý 
-#define MAX_ROW 					200			//Ã¿´Î¶ÁÈ¡±íµ¥×î´óÊý¾ÝÁ¿
-#define MT_USER    0x26c   //Êµ¼Ê¿â
-#define MT_LOGIC   0x276   //Âß¼­¿â
-//=============  Í¨Ñ¶¼ì²âÎ»¶¨Òå  ===============
-#define FM_SHIELD   	0xFFFF0000      //ÆÁ±Î×Ö
-#define FM_OK       	0x00010000      //¼ì²âµ½Ò»¸öÍêÕûµÄÖ¡
-#define FM_ERR      	0x00020000      //¼ì²âµ½Ò»¸öÐ£Ñé´íÎóµÄÖ¡
-#define FM_LESS     	0x00030000      //¼ì²âµ½Ò»¸ö²»ÍêÕûµÄÖ¡£¨»¹Î´ÊÕÆë£©
-//Ò£¿ØÏûÏ¢
+#define MAX_FILE_LEN			(256*1024)  //ï¿½ï¿½ï¿½È´ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü±ï¿½ï¿½ï¿½ï¿½ï¿½ 
+#define MAX_DEVEICE_NUM			150			//ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½è±¸ï¿½ï¿½Êµï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+#define MAX_ROW 					200			//Ã¿ï¿½Î¶ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define MT_USER    0x26c   //Êµï¿½Ê¿ï¿½
+#define MT_LOGIC   0x276   //ï¿½ß¼ï¿½ï¿½ï¿½
+//=============  Í¨Ñ¶ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½  ===============
+#define FM_SHIELD   	0xFFFF0000      //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define FM_OK       	0x00010000      //ï¿½ï¿½âµ½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡
+#define FM_ERR      	0x00020000      //ï¿½ï¿½âµ½Ò»ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡
+#define FM_LESS     	0x00030000      //ï¿½ï¿½âµ½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ë£©
+//Ò£ï¿½ï¿½ï¿½ï¿½Ï¢
 #define PBOINFOSIZE  	8
-//Ò£µ÷ÏûÏ¢
+//Ò£ï¿½ï¿½ï¿½ï¿½Ï¢
 #define PAOINFOSIZE  	8
-//Í¬ÆÚÏûÏ¢
+//Í¬ï¿½ï¿½ï¿½ï¿½Ï¢
 #define PTQINFOSIZE  	8
 
-#define TP_AOSELECT    		1    //Ò£µ÷Ô¤ÖÃ
-#define TP_AOOPERATE   		2    //Ò£µ÷Ö´ÐÐ
-#define TP_AOCANCEL    		3    //Ò£µ÷³·Ïû
-#define TP_AODIRECT    		4    //Ò£µ÷Ö±½ÓÖ´ÐÐ
-#define MAX_FLAGNO    			256   	//Ã¿¸öÄ£¿é×î¶àµÄ±êÖ¾Î»Êý
-#define MAX_DWORDFLAGNO			32		//Ã¿¸öÄ£¿é×î¶àµÄDWORD±êÖ¾¸öÊý
+#define TP_AOSELECT    		1    //Ò£ï¿½ï¿½Ô¤ï¿½ï¿½
+#define TP_AOOPERATE   		2    //Ò£ï¿½ï¿½Ö´ï¿½ï¿½
+#define TP_AOCANCEL    		3    //Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define TP_AODIRECT    		4    //Ò£ï¿½ï¿½Ö±ï¿½ï¿½Ö´ï¿½ï¿½
+#define MAX_FLAGNO    			256   	//Ã¿ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½Ö¾Î»ï¿½ï¿½
+#define MAX_DWORDFLAGNO			32		//Ã¿ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½DWORDï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½
 
 #define SM_P(PVID) {}
 #define SM_V(PVID) {}
   //========================================/|
- //PV²Ù×÷								   /||
+ //PVï¿½ï¿½ï¿½ï¿½								   /||
 //========================================/ ||
-#define MPV_BIBURST  	0    //Ò£ÐÅ±äÎ»×¨ÓÃPV	||  ||
-#define MPV_SOE      	1    //SOE×¨ÓÃPV	||  ||
-#define MPV_GVARS    	2    //gVars×¨ÓÃPV	||  ||
-#define MPV_OPENCOMM 	3    //ÈÎÎñ×¨ÓÃPV	||  ||
-#define MPV_LOGERR   	4    //LOGERR×¨ÓÃPV	||  ||
-#define MPV_TIME     	5    //TIME×¨ÓÃPV	||  ||
-#define MPV_MEM      	6    //MEM×¨ÓÃPV		||  ||
-#define MPV_OI       	7    //OI×¨ÓÃPV		||  
-#define MPV_TASK    	8	 //ÈÎÎñ	
-#define MPV_DBIBURST  	9    //Ë«µãÒ£ÐÅ±äÎ»×¨ÓÃPV	||
-#define MPV_DBISOE      10   //Ë«µãSOE×¨ÓÃPV	||  ||
-#define MPV_MR 	     	11   //¼ò±¨×¨ÓÃPV	||
-#define MPV_AIT 	    12   //¼ò±¨×¨ÓÃPV	||
-#define MPV_NETDRV		13	//ÒÔÌ«ÍøÇý¶¯ÓÃ
-#define MPV_PROMPT		14	//ÏÔÊ¾ÐÅÏ¢ÓÃ
+#define MPV_BIBURST  	0    //Ò£ï¿½Å±ï¿½Î»×¨ï¿½ï¿½PV	||  ||
+#define MPV_SOE      	1    //SOE×¨ï¿½ï¿½PV	||  ||
+#define MPV_GVARS    	2    //gVars×¨ï¿½ï¿½PV	||  ||
+#define MPV_OPENCOMM 	3    //ï¿½ï¿½ï¿½ï¿½×¨ï¿½ï¿½PV	||  ||
+#define MPV_LOGERR   	4    //LOGERR×¨ï¿½ï¿½PV	||  ||
+#define MPV_TIME     	5    //TIME×¨ï¿½ï¿½PV	||  ||
+#define MPV_MEM      	6    //MEM×¨ï¿½ï¿½PV		||  ||
+#define MPV_OI       	7    //OI×¨ï¿½ï¿½PV		||  
+#define MPV_TASK    	8	 //ï¿½ï¿½ï¿½ï¿½	
+#define MPV_DBIBURST  	9    //Ë«ï¿½ï¿½Ò£ï¿½Å±ï¿½Î»×¨ï¿½ï¿½PV	||
+#define MPV_DBISOE      10   //Ë«ï¿½ï¿½SOE×¨ï¿½ï¿½PV	||  ||
+#define MPV_MR 	     	11   //ï¿½ï¿½×¨ï¿½ï¿½PV	||
+#define MPV_AIT 	    12   //ï¿½ï¿½×¨ï¿½ï¿½PV	||
+#define MPV_NETDRV		13	//ï¿½ï¿½Ì«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define MPV_PROMPT		14	//ï¿½ï¿½Ê¾ï¿½ï¿½Ï¢ï¿½ï¿½
 #define MPV_QSPI		15
 #define MPV_OPINFO		16
 
@@ -120,23 +120,23 @@ void InitDbase(void);
 
 
 
-//ÐèÒªÇå0µÄÈ«¾Ö±äÁ¿¶¨Òå
+//ï¿½ï¿½Òªï¿½ï¿½0ï¿½ï¿½È«ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-typedef struct	//I104S¹æÔ¼µÄ¿É±äÖ¡³¤½á¹¹  
+typedef struct	//I104Sï¿½ï¿½Ô¼ï¿½Ä¿É±ï¿½Ö¡ï¿½ï¿½ï¿½á¹¹  
 {
-    unsigned char Start; 		//Æô¶¯×Ö·û
-    unsigned char Length; 		//³¤¶È
-    unsigned char Control1;		 //¿ØÖÆÓò1
-    unsigned char Control2; 	//¿ØÖÆÓò2
-    unsigned char Control3; 	//¿ØÖÆÓò3
-    unsigned char Control4; 	//¿ØÖÆÓò4
-    unsigned char Style;   		//ÀàÐÍ±êÊ¶£¬7
-    unsigned char Definitive; 	//½á¹¹ÏÞ¶¨´Ê
-    unsigned char Reason_L; 	//´«ËÍÔ­Òò
-    unsigned char Reason_H; 	//´«ËÍÔ­Òò
-    unsigned char Address_L; 	//¹«¹²µØÖ·£¨×ÓÕ¾Õ¾Ö·£©
-    unsigned char Address_H; 	//¹«¹²µØÖ·£¨×ÓÕ¾Õ¾Ö·£©
-    unsigned char AddInfom1;  	//ÐÅÏ¢ÌåµØÖ·£¬µÚ13×Ö½Ú
+    unsigned char Start; 		//ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½
+    unsigned char Length; 		//ï¿½ï¿½ï¿½ï¿½
+    unsigned char Control1;		 //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+    unsigned char Control2; 	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
+    unsigned char Control3; 	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3
+    unsigned char Control4; 	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4
+    unsigned char Style;   		//ï¿½ï¿½ï¿½Í±ï¿½Ê¶ï¿½ï¿½7
+    unsigned char Definitive; 	//ï¿½á¹¹ï¿½Þ¶ï¿½ï¿½ï¿½
+    unsigned char Reason_L; 	//ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½
+    unsigned char Reason_H; 	//ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½
+    unsigned char Address_L; 	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Õ¾Õ¾Ö·ï¿½ï¿½
+    unsigned char Address_H; 	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Õ¾Õ¾Ö·ï¿½ï¿½
+    unsigned char AddInfom1;  	//ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½13ï¿½Ö½ï¿½
     unsigned char AddInfom2;
     unsigned char AddInfom3;
     unsigned char Data1;
@@ -146,16 +146,16 @@ typedef struct	//I104S¹æÔ¼µÄ¿É±äÖ¡³¤½á¹¹
 
 
 typedef struct{
-	uint32_t dwTaskNum; //ÈÎÎñ×ÜÊý
-	uint32_t dwDevNum; //ÏµÍ³Ëù½ÓÉè±¸×ÜÊý 
-	uint32_t dwPortNum; //ÏµÍ³Ëù½Ó¶Ë¿Ú×ÜÊý
+	uint32_t dwTaskNum; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	uint32_t dwDevNum; //ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½ï¿½ 
+	uint32_t dwPortNum; //ÏµÍ³ï¿½ï¿½ï¿½Ó¶Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½
 
-//	SEM_ID adwPVID[MAX_PVNUM+1]; //PV²Ù×÷ID
-	uint32_t dwVarNum; //»ò²é¿´±äÁ¿µÄ¸öÊý
+//	SEM_ID adwPVID[MAX_PVNUM+1]; //PVï¿½ï¿½ï¿½ï¿½ID
+	uint32_t dwVarNum; //ï¿½ï¿½é¿´ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½
 //	TVarInfo VarInfo[MAX_VAR_NUM+1];
-//ÓÃÓÚÅÐ¶ÏÈÎÎñÊÇ·ñÒÑ¼ÓÔØ
+//ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ñ¼ï¿½ï¿½ï¿½
 
-//ÓÃÓÚ±ÜÃâÖØ¸´´íÎó/¾¯¸æÐÅÏ¢	
+//ï¿½ï¿½ï¿½Ú±ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢	
 //	uint32_t adwLogged[MAX_LOGGED_NUM+1];
 	uint32_t dwTID_BI;
 	uint32_t dwTID_JC;
@@ -165,40 +165,40 @@ typedef struct{
 	uint32_t dwTID_BCD;
 	uint32_t dwTID_DCAI;
 	uint32_t dwTID_PRINT;
-	uint32_t dwAddress;//1725×ö²É¼¯Ä£¿éÊ±µÄµØÖ·
-	uint32_t dwBHType; //ÓÃÓÚÏµÍ³Ä£¿éµÄ±£»¤ÀàÐÍ±êÊ¶£¬ÈçÒº¾§ÏÔÊ¾¡£
-	int8_t bTimeSyn;//Ê±ÖÓÍ¬²½×´Ì¬¡£	
-//ÈÎÎñ
+	uint32_t dwAddress;//1725ï¿½ï¿½ï¿½É¼ï¿½Ä£ï¿½ï¿½Ê±ï¿½Äµï¿½Ö·
+	uint32_t dwBHType; //ï¿½ï¿½ï¿½ï¿½ÏµÍ³Ä£ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í±ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½Òºï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½
+	int8_t bTimeSyn;//Ê±ï¿½ï¿½Í¬ï¿½ï¿½×´Ì¬ï¿½ï¿½	
+//ï¿½ï¿½ï¿½ï¿½
 	
-	uint32_t dwTID_KEYBOARD;  //KEYBOARDÈÎÎñID
-	uint32_t dwTID_DISPLAY;   //DISPLAYÈÎÎñID
-	uint32_t dwTID_WatchBakPort;//Ö÷±¸¿Ú¼àÊÓÈÎÎñ
+	uint32_t dwTID_KEYBOARD;  //KEYBOARDï¿½ï¿½ï¿½ï¿½ID
+	uint32_t dwTID_DISPLAY;   //DISPLAYï¿½ï¿½ï¿½ï¿½ID
+	uint32_t dwTID_WatchBakPort;//ï¿½ï¿½ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
-	uint32_t dwTID_EtherNetDrv; //ÒÔÌ«ÍøÇý¶¯ÈÎÎñ
-	uint32_t dwTID_SerialDrv;   //´®¿ÚÇý¶¯ÈÎÎñ
-	uint32_t dwTID_MFdkBusDrv;  //FDKBUSÖ÷Õ¾¶ËÇý¶¯ÈÎÎñ
-	uint32_t dwTID_SFdkBusDrv;  //FDKBUS´ÓÕ¾¶ËÇý¶¯ÈÎÎñ
-	uint32_t dwTID_MCanBusDrv;  //CANBUSÖ÷Õ¾¶ËÇý¶¯ÈÎÎñ
-	uint32_t dwTID_SCanBusDrv;  //CANBUS´ÓÕ¾¶ËÇý¶¯ÈÎÎñ
+	uint32_t dwTID_EtherNetDrv; //ï¿½ï¿½Ì«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	uint32_t dwTID_SerialDrv;   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	uint32_t dwTID_MFdkBusDrv;  //FDKBUSï¿½ï¿½Õ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	uint32_t dwTID_SFdkBusDrv;  //FDKBUSï¿½ï¿½Õ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	uint32_t dwTID_MCanBusDrv;  //CANBUSï¿½ï¿½Õ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	uint32_t dwTID_SCanBusDrv;  //CANBUSï¿½ï¿½Õ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	void *pFirstMalloc; //¶¯Ì¬·ÖÅäÄÚ´æµÄÆðÊ¼Á´±í
-	void *pLastMalloc; //¶¯Ì¬·ÖÅäÄÚ´æµÄ½áÊøÁ´±í
+	void *pFirstMalloc; //ï¿½ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
+	void *pLastMalloc; //ï¿½ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	void *pMemFree;   //¶¯Ì¬ÊÍ·ÅÄÚ´æµÄÆðÊ¼Á´±í
+	void *pMemFree;   //ï¿½ï¿½Ì¬ï¿½Í·ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
 
-//Ð¡Æ¬ÄÚ´æ¶¯Ì¬·ÖÅä¿ØÖÆ¹ÜÀí
-	int8_t *pLittleRam; //Ð¡Æ¬ÄÚ´æÎ´·ÖÅäÆðÊ¼Æ«ÒÆÁ¿Î´·ÖÅäÆðÊ¼Æ«ÒÆÁ¿
-	uint32_t dwLittleRamSize; //Ð¡Æ¬ÄÚ´æÎ´·ÖÅäÆðÊ¼Æ«ÒÆÁ¿
+//Ð¡Æ¬ï¿½Ú´æ¶¯Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¹ï¿½ï¿½ï¿½
+	int8_t *pLittleRam; //Ð¡Æ¬ï¿½Ú´ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼Æ«ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼Æ«ï¿½ï¿½ï¿½ï¿½
+	uint32_t dwLittleRamSize; //Ð¡Æ¬ï¿½Ú´ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼Æ«ï¿½ï¿½ï¿½ï¿½
 
 //NVRAM
-	uint32_t dwNvRamPtr; //NVRamÎ´·ÖÅäÆðÊ¼Æ«ÒÆÁ¿
-	uint32_t dwNvRamID; //NVRam·ÖÅäÇøµÄID
+	uint32_t dwNvRamPtr; //NVRamÎ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼Æ«ï¿½ï¿½ï¿½ï¿½
+	uint32_t dwNvRamID; //NVRamï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID
 	
-//	TOIEWrap OIEWrap; //Í¸Ã÷Êý¾ÝÇø
-//	TCommBlock CommBlock; //Í¨Ñ¶±¨ÎÄ¼àÊÓ
-//	TBIEvent BIEventInfo;//¼ÇÂ¼ÐèÒª·¢Ò£ÐÅ±äÎ»ºÍSOEµÄÈÎÎñ
+//	TOIEWrap OIEWrap; //Í¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//	TCommBlock CommBlock; //Í¨Ñ¶ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
+//	TBIEvent BIEventInfo;//ï¿½ï¿½Â¼ï¿½ï¿½Òªï¿½ï¿½Ò£ï¿½Å±ï¿½Î»ï¿½ï¿½SOEï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //	TBOControl BOControlMsg; 
-//	TMREvent MREventInfo;	//¼ÇÂ¼ÐèÒª·¢ËÍÊÂ¹Ê¼ò±¨µÄÈÎÎñ
+//	TMREvent MREventInfo;	//ï¿½ï¿½Â¼ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Â¹Ê¼ò±¨µï¿½ï¿½ï¿½ï¿½ï¿½
 
 	uint32_t TransYXTableNum;
 	uint32_t TransYCTableNum;
@@ -211,208 +211,207 @@ typedef struct{
 	
 	uint32_t YxSoeNum;
 	uint32_t YcSoeNum;
-	uint32_t YxWritePtr;//Ò£ÐÅÐ´Ö¸Õë
-	uint32_t DYxWritePtr;//Ë«µãÒ£ÐÅÐ´Ö¸Õë
-	uint32_t DZWritePtr;//¶¨ÖµÐ´Ö¸Õë
-	uint32_t YxSoeWritePtr;//Ò£ÐÅÐ´Ö¸Õë
-	uint32_t YxDSoeWritePtr;//Ë«µãÒ£ÐÅÐ´Ö¸Õë
-	uint32_t AitWritePtr;//´øÊ±±êÒ£²âÐ´Ö¸Õë
+	uint32_t YxWritePtr;//Ò£ï¿½ï¿½Ð´Ö¸ï¿½ï¿½
+	uint32_t DYxWritePtr;//Ë«ï¿½ï¿½Ò£ï¿½ï¿½Ð´Ö¸ï¿½ï¿½
+	uint32_t DZWritePtr;//ï¿½ï¿½ÖµÐ´Ö¸ï¿½ï¿½
+	uint32_t YxSoeWritePtr;//Ò£ï¿½ï¿½Ð´Ö¸ï¿½ï¿½
+	uint32_t YxDSoeWritePtr;//Ë«ï¿½ï¿½Ò£ï¿½ï¿½Ð´Ö¸ï¿½ï¿½
+	uint32_t AitWritePtr;//ï¿½ï¿½Ê±ï¿½ï¿½Ò£ï¿½ï¿½Ð´Ö¸ï¿½ï¿½
 	uint32_t BCDWritePtr;
-	uint32_t MrWritePtr;//ÊÂ¹Ê¼ò±¨Ð´Ö¸Õë
-	uint32_t YcWritePtr;//Ò£²âÐ´Ö¸Õë
+	uint32_t MrWritePtr;//ï¿½Â¹Ê¼ï¿½Ð´Ö¸ï¿½ï¿½
+	uint32_t YcWritePtr;//Ò£ï¿½ï¿½Ð´Ö¸ï¿½ï¿½
 	uint8_t	Flag_ReSet;
 }TVars;
 
 
 typedef struct {
-	uint32_t	value;		//32Î»¶¨Öµ
-	uint16_t	nNo;		//×ª·¢µãºÅ
+	uint32_t	value;		//32Î»ï¿½ï¿½Öµ
+	uint16_t	nNo;		//×ªï¿½ï¿½ï¿½ï¿½ï¿½
 	uint8_t		flag;		//
-	uint8_t		flag_call;	//×ÜÕÙ»½±êÖ¾
-	uint32_t	YZ_value;	//Ô¤ÖÃÖµ
-	int			YZ_Caller;	//Ô¤ÖÃÀ´Ô´µÄÉè±¸IDºÅ
+	uint8_t		flag_call;	//ï¿½ï¿½ï¿½Ù»ï¿½ï¿½ï¿½Ö¾
+	uint32_t	YZ_value;	//Ô¤ï¿½ï¿½Öµ
+	int			YZ_Caller;	//Ô¤ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½è±¸IDï¿½ï¿½
 
 	/*5512-VXWORKS*/
-	DWORD dwNo;//×ª·¢µãºÅ
+	DWORD dwNo;//×ªï¿½ï¿½ï¿½ï¿½ï¿½
 	WORD  wStatus;
 	DWORD sValue; //
 	/*5512-VXWORKS*/
 }TBurstDZ;
 
 
-#pragma pack(1)	//°´1×Ö½Ú¶ÔÆë
+#pragma pack(1)	//ï¿½ï¿½1ï¿½Ö½Ú¶ï¿½ï¿½ï¿½
 
 
-//±ê×¼Ö¸Õë²Ù×÷½á¹¹
+//ï¿½ï¿½×¼Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½á¹¹
 typedef struct{
-	uint32_t dwWritePtr; //Ð´Ö¸Õë
-	uint32_t dwReadPtr;  //¶ÁÖ¸Õë
+	uint32_t dwWritePtr; //Ð´Ö¸ï¿½ï¿½
+	uint32_t dwReadPtr;  //ï¿½ï¿½Ö¸ï¿½ï¿½
 }TPtr;
 
-typedef struct{			//·ÖÅäÔÚ²»µôµçRAMÖÐ
+typedef struct{			//ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½RAMï¿½ï¿½
 	TPtr Ptr;
 }TSoeWrap;
 
 /*----------------------------------------------*/
-/* Âß¼­Éè±¸¶¨ÖµÃèÊö¿â¶¨Òå                                                                 */
+/* ï¿½ß¼ï¿½ï¿½è±¸ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½â¶¨ï¿½ï¿½                                                                 */
 /*----------------------------------------------*/
 typedef struct{                    //modify by lgh
-    WORD        wRealID;                /*ËùÔÚÉè±¸ID*/
-    WORD        wOffset;                /*¶¨ÖµÔÚÊµÊ±¿âÖÐµÄÆ«ÒÆÁ¿*/
-    short	a;			 //ÏµÊýA
-	short	b;			 //ÏµÊýB
+    WORD        wRealID;                /*ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ID*/
+    WORD        wOffset;                /*ï¿½ï¿½Öµï¿½ï¿½ÊµÊ±ï¿½ï¿½ï¿½Ðµï¿½Æ«ï¿½ï¿½ï¿½ï¿½*/
+    short	a;			 //Ïµï¿½ï¿½A
+	short	b;			 //Ïµï¿½ï¿½B
 	WORD	wFlag;
 }TLogicDZ;
 
 
 /*----------------------------------------------------------------------------------------*/
-/* ¶¨Òå»ù±¾Ê±¼ä¸ñÊ½                                                                          */
+/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ê½                                                                          */
 /*----------------------------------------------------------------------------------------*/
 typedef struct {
 
-	uint16_t MSecond;				 /*ºÁÃë*/
-	uint8_t Minute; 				/*·Ö*/
+	uint16_t MSecond;				 /*ï¿½ï¿½ï¿½ï¿½*/
+	uint8_t Minute; 				/*ï¿½ï¿½*/
 	uint8_t Hour;					/*Ê±*/
-	uint8_t Day;					/*ÈÕ*/
-	uint8_t Month;					/*ÔÂ*/
-	uint8_t Year;					/*Äê*/
+	uint8_t Day;					/*ï¿½ï¿½*/
+	uint8_t Month;					/*ï¿½ï¿½*/
+	uint8_t Year;					/*ï¿½ï¿½*/
 }TSysTime,*PTSysTime;
 
 
 typedef struct {
-	uint16_t  			nNo;			//µãºÅ
-	uint8_t  			bStatus;		//×´Ì¬ 0:ÓÉºÏÖÁ·Ö   ·Ç0£ºÓÉ·ÖÖÁºÏ
-	uint8_t  			bType;       	//0x0A-ÎÞ  0x0B-ÈýÏàµçÁ÷ 0x0C-µçÑ¹ 0x0D-ÆµÂÊ 0x0E-ÁãÐò
-	IEC10X_DETECT_T		detect16;//16Î»Ò£²âÖµ
-	IEC10X_DETECT_DW_T 	detect32;//32Î»Ò£²âÖµ
-  	CP56Time2a_T stTime;    	//Äê¡¢ÔÂ¡¢ÈÕ¡¢Ê±¡¢·Ö¡¢Ãë¡¢ºÁÃë
+	uint16_t  			nNo;			//ï¿½ï¿½ï¿½
+	uint8_t  			bStatus;		//×´Ì¬ 0:ï¿½Éºï¿½ï¿½ï¿½ï¿½ï¿½   ï¿½ï¿½0ï¿½ï¿½ï¿½É·ï¿½ï¿½ï¿½ï¿½ï¿½
+	uint8_t  			bType;       	//0x0A-ï¿½ï¿½  0x0B-ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0x0C-ï¿½ï¿½Ñ¹ 0x0D-Æµï¿½ï¿½ 0x0E-ï¿½ï¿½ï¿½ï¿½
+	IEC10X_DETECT_T		detect16;//16Î»Ò£ï¿½ï¿½Öµ
+	IEC10X_DETECT_DW_T 	detect32;//32Î»Ò£ï¿½ï¿½Öµ
+  	CP56Time2a_T stTime;    	//ï¿½ê¡¢ï¿½Â¡ï¿½ï¿½Õ¡ï¿½Ê±ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½ë¡¢ï¿½ï¿½ï¿½ï¿½
 }TSysTimeSoe,*PTSysTimeSoe;
 
 typedef struct {
-	WORD 	 nNo;			//µãºÅ
-	BYTE	 bStatus;		//×´Ì¬ 0x01:·Ö; 0x02:ºÏ; 0x00:»ú¹¹´íÎó;	0x03£º·Ç·¨
-	CP56Time2a_T stTime;    	//Äê¡¢ÔÂ¡¢ÈÕ¡¢Ê±¡¢·Ö¡¢Ãë¡¢ºÁÃë
+	WORD 	 nNo;			//ï¿½ï¿½ï¿½
+	BYTE	 bStatus;		//×´Ì¬ 0x01:ï¿½ï¿½; 0x02:ï¿½ï¿½; 0x00:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½;	0x03ï¿½ï¿½ï¿½Ç·ï¿½
+	CP56Time2a_T stTime;    	//ï¿½ê¡¢ï¿½Â¡ï¿½ï¿½Õ¡ï¿½Ê±ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½ë¡¢ï¿½ï¿½ï¿½ï¿½
 }TSysTimeDBISoe;
 
 typedef struct {
-	WORD 	 nNo;			//µãºÅ
-	BYTE	 bStatus;		//×´Ì¬ 0x01:·Ö; 0x02:ºÏ; 0x00:»ú¹¹´íÎó;	0x03£º·Ç·¨
-	TSysTime stTime;    	//Äê¡¢ÔÂ¡¢ÈÕ¡¢Ê±¡¢·Ö¡¢Ãë¡¢ºÁÃë
+	WORD 	 nNo;			//ï¿½ï¿½ï¿½
+	BYTE	 bStatus;		//×´Ì¬ 0x01:ï¿½ï¿½; 0x02:ï¿½ï¿½; 0x00:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½;	0x03ï¿½ï¿½ï¿½Ç·ï¿½
+	TSysTime stTime;    	//ï¿½ê¡¢ï¿½Â¡ï¿½ï¿½Õ¡ï¿½Ê±ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½ë¡¢ï¿½ï¿½ï¿½ï¿½
 }TAbsTimeDBISoe;
 
 
 
 typedef struct {
-    WORD       Lo;                     /*µÍÎ»ÏµÍ³Ê±¼ä*/                    
-    DWORD        Hi;                     /*¸ßÎ»ÏµÍ³Ê±¼ä*/
+    WORD       Lo;                     /*ï¿½ï¿½Î»ÏµÍ³Ê±ï¿½ï¿½*/                    
+    DWORD        Hi;                     /*ï¿½ï¿½Î»ÏµÍ³Ê±ï¿½ï¿½*/
 }TAbsTime;
 
 typedef struct {
-	WORD		nNo;		//µãºÅ
-	BYTE		bStatus;	//×´Ì¬ 0:ÓÉºÏÖÁ·Ö   ·Ç0£ºÓÉ·ÖÖÁºÏ
-	TAbsTime	stTime;		//¾ø¶ÔÊ±±ê
+	WORD		nNo;		//ï¿½ï¿½ï¿½
+	BYTE		bStatus;	//×´Ì¬ 0:ï¿½Éºï¿½ï¿½ï¿½ï¿½ï¿½   ï¿½ï¿½0ï¿½ï¿½ï¿½É·ï¿½ï¿½ï¿½ï¿½ï¿½
+	TAbsTime	stTime;		//ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 }TAbsTimeSoe;
 
 
 typedef struct {
-	WORD 	 	nNo;		//Ò£²âµãºÅ
-	short	 	sValue;		//Ô½ÏÞÒ£²âÖµ
-	TAbsTime	stTime;		//¾ø¶ÔÊ±±ê
+	WORD 	 	nNo;		//Ò£ï¿½ï¿½ï¿½ï¿½
+	short	 	sValue;		//Ô½ï¿½ï¿½Ò£ï¿½ï¿½Öµ
+	TAbsTime	stTime;		//ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 }TAbsTimeAit;
 
 
 typedef struct {
-//µ±Ç°´æµÄÊÇÃüÁîÐÅÏ¢
-	WORD wFlag;	  		//ÈÎÎñ×´Ì¬  PBO_NULL, PBO_BUSY, PBO_WAITOPERATE
-	DWORD dwAppID;    	//ÏÂ·¢Ò£¿ØµÄÈÎÎñID;
-	DWORD dwNo;       	//ÊµÊ±¿âÂ·ºÅ£¯µãºÅ
-	DWORD dwAttrib;   	//ÊôÐÔ //×´Ì¬£¨ºÏ·Ö£©TP_NULL TP_OPEN, TP_CLOSE,
-	DWORD dwCommand;  	//¶¯×÷ TP_YKSELECT TP_YKOPERATE  TP_YKCANCEL TP_YKDIRECT
-	DWORD dwResult;   	//±¨ÎÄ·µ»ØµÄÒ£¿Ø·µÐ£×´Ì¬ PBO_SUCESS  PBO_FAIL
-	DWORD dwRetNo;    	//ÏÂ·¢µÄÂ·ºÅ£¯µãºÅ
-	DWORD dwRetDevID;	//ÏÂ·¢Ò£¿ØµÄdevice ID
-	DWORD dwQualitier;	//¿ØÖÆÃüÁîµÄÏÞ¶¨ ¿¼ÂÇµ½¼æÈÝÐÔ£¬¶¯×÷ÀàÐÍ
-	DWORD dwExeCount;    	//Ò£¿ØÖ´ÐÐ´ÎÊý
-	DWORD dwCTime;		// ³·ÏúÊ±¼äs
-	DWORD dwTimeH;		//¼ÌµçÆ÷±ÕºÏÊ±¼ä£¬
-	DWORD dwTimeL;		//¼ÌµçÆ÷´ò¿ªÊ±¼ä£¬
+//ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+	WORD wFlag;	  		//ï¿½ï¿½ï¿½ï¿½×´Ì¬  PBO_NULL, PBO_BUSY, PBO_WAITOPERATE
+	DWORD dwAppID;    	//ï¿½Â·ï¿½Ò£ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ID;
+	DWORD dwNo;       	//ÊµÊ±ï¿½ï¿½Â·ï¿½Å£ï¿½ï¿½ï¿½ï¿½
+	DWORD dwAttrib;   	//ï¿½ï¿½ï¿½ï¿½ //×´Ì¬ï¿½ï¿½ï¿½Ï·Ö£ï¿½TP_NULL TP_OPEN, TP_CLOSE,
+	DWORD dwCommand;  	//ï¿½ï¿½ï¿½ï¿½ TP_YKSELECT TP_YKOPERATE  TP_YKCANCEL TP_YKDIRECT
+	DWORD dwResult;   	//ï¿½ï¿½ï¿½Ä·ï¿½ï¿½Øµï¿½Ò£ï¿½Ø·ï¿½Ð£×´Ì¬ PBO_SUCESS  PBO_FAIL
+	DWORD dwRetNo;    	//ï¿½Â·ï¿½ï¿½ï¿½Â·ï¿½Å£ï¿½ï¿½ï¿½ï¿½
+	DWORD dwRetDevID;	//ï¿½Â·ï¿½Ò£ï¿½Øµï¿½device ID
+	DWORD dwQualitier;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¶ï¿½ ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	DWORD dwExeCount;    	//Ò£ï¿½ï¿½Ö´ï¿½Ð´ï¿½ï¿½ï¿½
+	DWORD dwCTime;		// ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½s
+	DWORD dwTimeH;		//ï¿½Ìµï¿½ï¿½ï¿½ï¿½Õºï¿½Ê±ï¿½ä£¬
+	DWORD dwTimeL;		//ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£¬
 
 	BYTE  Info[8];
 }TBO;
 
 /*----------------------------------------------------------------------------------------*/
-/* Êµ¼ÊÉè±¸Ò£¿ØÃèÊö¿â¶¨Òå                                                                 */
+/* Êµï¿½ï¿½ï¿½è±¸Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â¶¨ï¿½ï¿½                                                                 */
 /*----------------------------------------------------------------------------------------*/
 typedef struct {
-	char	   szName[20];	/*Ò£¿Ø¶ÔÏóÃû³Æ*/
-    DWORD      dwBOID;      //¸ß16Î»ÎªÊôÐÔ  0:ÎÞ  1£ºCLOSE ºÏ 2£ºOpen·Ö
-    			        	//µÍ16Î»Îª¿ª¹ØºÅ/Â·ºÅ
-	BYTE		ucType;		//¿ØÖÆÀàÐÍ£¬ÏÖ¶¨ÒåÎªÈçÏÂ5ÖÖ£º
-							//0£ºNUL²Ù×÷¡£
-							//1£ºÂö³åON£¬°´ÖÜÆÚÑ­»·Êä³öON-OFF£¬×îºó±£³ÖÔÚOFFÌ¬¡£
-							//2£ºÂö³åOFF£¬°´ÖÜÆÚÑ­»·Êä³öOFF-ON£¬×îºó±£³ÖÔÚONÌ¬¡£
-							//3£ºË¨ËøON£¬³ÖÐøÊä³öONÌ¬¡£
-							//4£ºË¨ËøOFF£¬³ÖÐøÊä³öOFFÌ¬¡£
-							//5~255£º±£Áô
-							//×¢£ºÂö³åÊä³ö·½Ê½ÖÐµÄÖÜÆÚ£¬ÓÉÏÂÃæµÄwOnTime¼°wOffTime
-							//Ö¸¶¨¡£
-	BYTE		ucCount;	//Âö³åÊä³ö·½Ê½ÖÐµÄÊä³öÖÜÆÚÊý
-	WORD		wOffTime;	//Âö³åÊä³ö·½Ê½ÖÐµÄOFFÌ¬³ÖÐøÊ±³¤£¬ms¡£ÎªÓëÔ­²ÎÊý¼æÈÝ£¬
-							//ËùÒÔ°ÑwOffTime·ÅÔÚÁËÇ°Ãæ
-	BYTE 		ucAutoResetTime;	//×Ô¶¯³·ÏûÊ±¼ä(s)
-	WORD	   	wLastTime;	/*¼ÌµçÆ÷¶¯×÷³ÖÐøÊ±¼ä*/
+	char	   szName[20];	/*Ò£ï¿½Ø¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+    DWORD      dwBOID;      //ï¿½ï¿½16Î»Îªï¿½ï¿½ï¿½ï¿½  0:ï¿½ï¿½  1ï¿½ï¿½CLOSE ï¿½ï¿½ 2ï¿½ï¿½Openï¿½ï¿½
+    			        	//ï¿½ï¿½16Î»Îªï¿½ï¿½ï¿½Øºï¿½/Â·ï¿½ï¿½
+	BYTE		ucType;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½5ï¿½Ö£ï¿½
+							//0ï¿½ï¿½NULï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+							//1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ONï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ON-OFFï¿½ï¿½ï¿½ï¿½ó±£³ï¿½ï¿½ï¿½OFFÌ¬ï¿½ï¿½
+							//2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½OFFï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½OFF-ONï¿½ï¿½ï¿½ï¿½ó±£³ï¿½ï¿½ï¿½ONÌ¬ï¿½ï¿½
+							//3ï¿½ï¿½Ë¨ï¿½ï¿½ONï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ONÌ¬ï¿½ï¿½
+							//4ï¿½ï¿½Ë¨ï¿½ï¿½OFFï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½OFFÌ¬ï¿½ï¿½
+							//5~255ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+							//×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½Ðµï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½wOnTimeï¿½ï¿½wOffTime
+							//Ö¸ï¿½ï¿½ï¿½ï¿½
+	BYTE		ucCount;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	WORD		wOffTime;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½Ðµï¿½OFFÌ¬ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½msï¿½ï¿½Îªï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½
+							//ï¿½ï¿½ï¿½Ô°ï¿½wOffTimeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½
+	BYTE 		ucAutoResetTime;	//ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½(s)
+	WORD	   	wLastTime;	/*ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½*/
 }TRealBO;
 
 
-//ÊÂ¹Ê¼ò±¨
+//ï¿½Â¹Ê¼ï¿½
 typedef struct { //malfunction report
-	WORD 	 	wAddr;			//¹ÊÕÏÄ£¿éµØÖ·
-	DWORD 	 	dwBhType;		//±£»¤ÀàÐÍ
-	WORD 	 	wAttribute;		//¼ò±¨ÊôÐÔ£º²âÊÔ/Õý³£
-	WORD 	 	wMrNo;			//¼ò±¨ÐòºÅ
-	DWORD		dwTripType;		//ÌøÕ¢ÀàÐÍ
-								//bit0--I¶ÎÌø£»
-								//bit1--II¶ÎÌø£»
-								//bit2--III¶ÎÌø£»
-								//bit3--µÍÖÜÌø£»
-								//bit4--¹ý¸ººÉÌø£»
-								//bit5--ºó¼ÓËÙÌø£»
-								//bit6--ÖØºÏÕ¢£»
-								//bit7--ÖØÍßË¹Ìø£»
-								//bit8--380VÁãÐò±£»¤Ìø£»
-								//bit9--¹ýµçÑ¹Ìø£»
-								//bit10--µÍµçÑ¹Ìø£»
-								//bit11--²»Æ½ºâµçÑ¹Ìø£»
-								//bit12--²»Æ½ºâµçÁ÷Ìø£»
+	WORD 	 	wAddr;			//ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½Ö·
+	DWORD 	 	dwBhType;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	WORD 	 	wAttribute;		//ï¿½ï¿½ï¿½ï¿½ï¿½Ô£ï¿½ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½
+	WORD 	 	wMrNo;			//ï¿½ï¿½ï¿½ï¿½ï¿½
+	DWORD		dwTripType;		//ï¿½ï¿½Õ¢ï¿½ï¿½ï¿½ï¿½
+								//bit0--Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+								//bit1--IIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+								//bit2--IIIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+								//bit3--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+								//bit4--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+								//bit5--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+								//bit6--ï¿½Øºï¿½Õ¢ï¿½ï¿½
+								//bit7--ï¿½ï¿½ï¿½ï¿½Ë¹ï¿½ï¿½ï¿½ï¿½
+								//bit8--380Vï¿½ï¿½ï¿½ò±£»ï¿½ï¿½ï¿½ï¿½ï¿½
+								//bit9--ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½
+								//bit10--ï¿½Íµï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½
+								//bit11--ï¿½ï¿½Æ½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½
+								//bit12--ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	TSysTime 	stTime;     	//¹ÊÕÏÆðÊ¼Ê±¼ä Äê¡¢ÔÂ¡¢ÈÕ¡¢Ê±¡¢·Ö¡¢Ãë¡¢ºÁÃë
-	DWORD		dwTripTime;		//¶¯×÷Ê±¼ä Ïà¶ÔÏµÍ³Ê±¼äµÄºÁÃëÊý
-	DWORD		dwTwjTime;		//TWJÊ±¼ä Ïà¶ÔÏµÍ³Ê±¼äµÄºÁÃëÊý
-	DWORD		dwChzTime;		//ÖØºÏÕ¢Ê±¼ä Ïà¶ÔÏµÍ³Ê±¼äµÄºÁÃëÊý
-	DWORD		dwHwjTime;		//TWJÊ±¼ä Ïà¶ÔÏµÍ³Ê±¼äµÄºÁÃëÊý
-	WORD		wRsv[4];		//±£Áô£»
+	TSysTime 	stTime;     	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼Ê±ï¿½ï¿½ ï¿½ê¡¢ï¿½Â¡ï¿½ï¿½Õ¡ï¿½Ê±ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½ë¡¢ï¿½ï¿½ï¿½ï¿½
+	DWORD		dwTripTime;		//ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ ï¿½ï¿½ï¿½ÏµÍ³Ê±ï¿½ï¿½Äºï¿½ï¿½ï¿½ï¿½ï¿½
+	DWORD		dwTwjTime;		//TWJÊ±ï¿½ï¿½ ï¿½ï¿½ï¿½ÏµÍ³Ê±ï¿½ï¿½Äºï¿½ï¿½ï¿½ï¿½ï¿½
+	DWORD		dwChzTime;		//ï¿½Øºï¿½Õ¢Ê±ï¿½ï¿½ ï¿½ï¿½ï¿½ÏµÍ³Ê±ï¿½ï¿½Äºï¿½ï¿½ï¿½ï¿½ï¿½
+	DWORD		dwHwjTime;		//TWJÊ±ï¿½ï¿½ ï¿½ï¿½ï¿½ÏµÍ³Ê±ï¿½ï¿½Äºï¿½ï¿½ï¿½ï¿½ï¿½
+	WORD		wRsv[4];		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	WORD		wDataNum;		//²âÁ¿Öµ¸öÊý£»
-//	short		sData[16];		//²âÁ¿ÖµÄÚÈÝ£»
-	DWORD		dwData[16];		//²âÁ¿ÖµÄÚÈÝ£»
+	WORD		wDataNum;		//ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//	short		sData[16];		//ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½Ý£ï¿½
+	DWORD		dwData[16];		//ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½Ý£ï¿½
 }TSysTimeMr;
 
 
 //--------------------------------------
-// ±äÎ»Ò£²âÃèÊö¿â¶¨Òå						
+// ï¿½ï¿½Î»Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â¶¨ï¿½ï¿½						
 //--------------------------------------
 typedef struct {
-	IEC10X_DETECT_F_T	detect32_F;//32Î»¸¡µãÒ£²âÖµ
-	IEC10X_DETECT_DW_T	detect32;//32Î»Ò£²âÖµ
-	IEC10X_DETECT_T 	detect16;//16Î»Ò£²âÖµ	
-	uint16_t			nNo;			//µãºÅ
-	uint16_t			nIndex;				//Ë÷ÒýºÅ
-	uint8_t 			bType;			//0x0A-ÎÞ	0x0B-ÈýÏàµçÁ÷ 0x0C-µçÑ¹ 0x0D-ÆµÂÊ 0x0E-ÁãÐò
-	uint8_t			flag;			//0:ÎÞ 1:Í»·¢±êÖ¾ 2:×ÜÕÙ»½±êÖ¾
-//	TSysTime stTime;		//Äê¡¢ÔÂ¡¢ÈÕ¡¢Ê±¡¢·Ö¡¢Ãë¡¢ºÁÃë
-
+	IEC10X_DETECT_F_T	detect32_F;//32Î»ï¿½ï¿½ï¿½ï¿½Ò£ï¿½ï¿½Öµ
+	IEC10X_DETECT_DW_T	detect32;//32Î»Ò£ï¿½ï¿½Öµ
+	IEC10X_DETECT_T 	detect16;//16Î»Ò£ï¿½ï¿½Öµ	
+	uint16_t			nNo;			//ï¿½ï¿½ï¿½
+	uint16_t			nIndex;				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	uint8_t 			bType;			//2ä¸¤å­—èŠ‚ï¼Œ4å­—èŠ‚
+	uint8_t			flag;			//0:ï¿½ï¿½ 1:Í»ï¿½ï¿½ï¿½ï¿½Ö¾ 2:ï¿½ï¿½ï¿½Ù»ï¿½ï¿½ï¿½Ö¾
+//	TSysTime stTime;		//ï¿½ê¡¢ï¿½Â¡ï¿½ï¿½Õ¡ï¿½Ê±ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½ë¡¢ï¿½ï¿½ï¿½ï¿½
 	/*5512-VXWORKS*/
-	DWORD dwNo;//×ª·¢µãºÅ
+	DWORD dwNo;//×ªï¿½ï¿½ï¿½ï¿½ï¿½
 	WORD  wStatus;
 	DWORD sValue; //
 	TSysTime stTime;
@@ -421,24 +420,24 @@ typedef struct {
 
 
 //--------------------------------------
-// ±äÎ»Ò£ÐÅÃèÊö¿â¶¨Òå						
+// ï¿½ï¿½Î»Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â¶¨ï¿½ï¿½						
 //--------------------------------------
 typedef struct {
-	CP56Time2a_T 	stTime;        			//Êý¾Ý¿âÔÚ¼ì²âµ½±äÎ»ºó×Ô¶¯Éú³ÉµÄÏµÍ³Ê±¼ä
-	uint16_t		nNo;					//·¢ËÍºÅ
-	uint16_t		ID;						//Ë÷ÒýºÅ
+	CP56Time2a_T 	stTime;        			//ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ú¼ï¿½âµ½ï¿½ï¿½Î»ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Éµï¿½ÏµÍ³Ê±ï¿½ï¿½
+	uint16_t		nNo;					//ï¿½ï¿½ï¿½Íºï¿½
+	uint16_t		ID;						//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	uint8_t			bStatus;				//×´Ì¬
-	uint8_t		flag;					//0:ÎÞ 1:Í»·¢±êÖ¾ 2:×ÜÕÙ»½±êÖ¾
-	uint8_t			FlagSoe;				//0:ÎÞ 1:Ò£ÐÅÊÂ¼þÍ»·¢±êÖ¾
+	uint8_t		flag;					//0:ï¿½ï¿½ 1:Í»ï¿½ï¿½ï¿½ï¿½Ö¾ 2:ï¿½ï¿½ï¿½Ù»ï¿½ï¿½ï¿½Ö¾
+	uint8_t			FlagSoe;				//0:ï¿½ï¿½ 1:Ò£ï¿½ï¿½ï¿½Â¼ï¿½Í»ï¿½ï¿½ï¿½ï¿½Ö¾
 }TBurstBI,*PTBurstBI;
 
 //--------------------------------------
-// ±äÎ»Ò£ÐÅ¼ÇÂ¼						
+// ï¿½ï¿½Î»Ò£ï¿½Å¼ï¿½Â¼						
 //--------------------------------------
 typedef struct {
 	CP56Time2a_T stTime;
 	uint8_t		bStatus;			//×´Ì¬
-	uint16_t	point;				//·¢ËÍµãºÅ
+	uint16_t	point;				//ï¿½ï¿½ï¿½Íµï¿½ï¿½
 }TBurstYXRecord,*PTBurstYXRecord;
 
 typedef struct {
@@ -450,107 +449,110 @@ typedef struct {
 
 
 //--------------------------------------
-// ±äÎ»Ò£ÐÅ¼ÇÂ¼						
+// ï¿½ï¿½Î»Ò£ï¿½Å¼ï¿½Â¼						
 //--------------------------------------
 typedef struct {
 	CP56Time2a_T stTime;
-	uint32_t	Value32;//32Î»Ò£²âÖµ
-	uint16_t	point;				//·¢ËÍµãºÅ
+	uint32_t	Value32;//32Î»Ò£ï¿½ï¿½Öµ
+	uint16_t	point;				//ï¿½ï¿½ï¿½Íµï¿½ï¿½
 }TBurstYCRecord,*PTBurstYCRecord;
 
 //--------------------------------------
-// ±äÎ»Ò£ÐÅ»·ÐÍ»º³åÇø¶¨Òå													              */
+// ï¿½ï¿½Î»Ò£ï¿½Å»ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½													              */
 //--------------------------------------
 typedef struct {
-	TPtr        Ptr;						//Ð´Ö¸Õë
+	TPtr        Ptr;						//Ð´Ö¸ï¿½ï¿½
 }TBurstAIWrap;
 
 //--------------------------------------
-// ±äÎ»Ò£ÐÅ»·ÐÍ»º³åÇø¶¨Òå													              */
+// ï¿½ï¿½Î»Ò£ï¿½Å»ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½													              */
 //--------------------------------------
 typedef struct {
-	TPtr        Ptr;						//Ð´Ö¸Õë
+	TPtr        Ptr;						//Ð´Ö¸ï¿½ï¿½
 }TBurstBIWrap;
 
 //--------------------------------------
-// ±äÎ»Ò£ÐÅ»·ÐÍ»º³åÇø¶¨Òå													              */
+// ï¿½ï¿½Î»Ò£ï¿½Å»ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½													              */
 //--------------------------------------
 typedef struct {
-	TPtr        Ptr;						//Ð´Ö¸Õë
+	TPtr        Ptr;						//Ð´Ö¸ï¿½ï¿½
 }TBurstDBIWrap;
 
 //--------------------------------------
-// ±äÎ»Ò£ÐÅÃèÊö¿â¶¨Òå						
+// ï¿½ï¿½Î»Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â¶¨ï¿½ï¿½						
 //--------------------------------------
 typedef struct {
-	uint32_t		nNo;				//·¢ËÍºÅ
+	uint32_t		nNo;				//ï¿½ï¿½ï¿½Íºï¿½
 	uint8_t		bStatus;				//×´Ì¬
-	CP56Time2a_T 	stTime;        			//Êý¾Ý¿âÔÚ¼ì²âµ½±äÎ»ºó×Ô¶¯Éú³ÉµÄÏµÍ³Ê±¼ä
+	CP56Time2a_T 	stTime;        			//ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ú¼ï¿½âµ½ï¿½ï¿½Î»ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Éµï¿½ÏµÍ³Ê±ï¿½ï¿½
 }TBurstDBI;
 
 //--------------------------------------
-// ±äÎ»Ò£ÐÅSOEÃèÊö¿â¶¨Òå						
+// ï¿½ï¿½Î»Ò£ï¿½ï¿½SOEï¿½ï¿½ï¿½ï¿½ï¿½â¶¨ï¿½ï¿½						
 //--------------------------------------
 typedef struct {
-	uint8_t		nFlag;					//Éè±¸ºÅ
+	uint8_t		nFlag;					//ï¿½è±¸ï¿½ï¿½
 	uint8_t		bStatus;				//×´Ì¬
-	uint8_t		bResdStatus;			//¶ÁÈ¡×´Ì¬,0£ºÎ´¶Á£»1£ºÒÑ¶Á¡£
-	uint32_t	nPoint;					//Éè±¸ÄÚµãºÅ
-	uint32_t	nIndex;					//×ª·¢µãºÅ
-	TSysTime 	stTime;        			//´æ´¢±äÎ»Ê±¼ä
+	uint8_t		bResdStatus;			//ï¿½ï¿½È¡×´Ì¬,0ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½Ñ¶ï¿½ï¿½ï¿½
+	uint32_t	nPoint;					//ï¿½è±¸ï¿½Úµï¿½ï¿½
+	uint32_t	nIndex;					//×ªï¿½ï¿½ï¿½ï¿½ï¿½
+	TSysTime 	stTime;        			//ï¿½æ´¢ï¿½ï¿½Î»Ê±ï¿½ï¿½
 }TBurstBISoe;
 
 //--------------------------------------
-// ±äÎ»Ò£²âSOEÃèÊö¿â¶¨Òå						
+// ï¿½ï¿½Î»Ò£ï¿½ï¿½SOEï¿½ï¿½ï¿½ï¿½ï¿½â¶¨ï¿½ï¿½						
 //--------------------------------------
 typedef struct {
-	uint8_t		nFlag;					//Éè±¸ºÅ
+	uint8_t		nFlag;					//ï¿½è±¸ï¿½ï¿½
 	uint8_t		bStatus;				//×´Ì¬
-	uint8_t		bResdStatus;			//¶ÁÈ¡×´Ì¬,0£ºÎ´¶Á£»1£ºÒÑ¶Á¡£
-	uint16_t	bValue;					//Éè±¸ÄÚµãºÅ
-	uint32_t	nPoint;					//Éè±¸ÄÚµãºÅ
-	uint32_t	nIndex;					//×ª·¢µãºÅ
-	TSysTime 	stTime;        			//´æ´¢±äÎ»Ê±¼ä
+	uint8_t		bResdStatus;			//ï¿½ï¿½È¡×´Ì¬,0ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½Ñ¶ï¿½ï¿½ï¿½
+	uint16_t	bValue;					//ï¿½è±¸ï¿½Úµï¿½ï¿½
+	uint32_t	nPoint;					//ï¿½è±¸ï¿½Úµï¿½ï¿½
+	uint32_t	nIndex;					//×ªï¿½ï¿½ï¿½ï¿½ï¿½
+	TSysTime 	stTime;        			//ï¿½æ´¢ï¿½ï¿½Î»Ê±ï¿½ï¿½
 }TBurstAISoe;
 
 
 
 //--------------------------------------
-// ×ª·¢¿â¶¨Òå						
+// ×ªï¿½ï¿½ï¿½â¶¨ï¿½ï¿½						
 //--------------------------------------
 typedef struct {
-	uint16_t		ID;					//Ë÷ÒýºÅ	
-	uint16_t		wRealID;			//½ÓÈëÉè±¸IDºÅ
-	uint16_t		nPoint;				//Éè±¸ÄÚµãºÅ
-	uint16_t 		nIndex;        		//×ª·¢µãºÅ
+	uint16_t		ID;					//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	
+	uint16_t		wRealID;			//ï¿½ï¿½ï¿½ï¿½ï¿½è±¸IDï¿½ï¿½
+	uint16_t		nPoint;				//ï¿½è±¸ï¿½Úµï¿½ï¿½
+	uint16_t 		nIndex;        		//×ªï¿½ï¿½ï¿½ï¿½ï¿½
 	
 }TransTable_T,*PTransTable_T;
 
 typedef struct {
-	uint16_t		ID;					//Ë÷ÒýºÅ	
-	uint16_t		wRealID;			//½ÓÈëÉè±¸IDºÅ
-	uint16_t		nPoint;				//Éè±¸ÄÚµãºÅ
-	uint16_t 		nIndex;        		//×ª·¢µãºÅ
-	uint16_t 		RegAddr;        	//¼Ä´æÆ÷µØÖ·
-	uint16_t 		SlaverAddr;        	//¼Ä´æÆ÷µØÖ·
+	uint16_t		ID;					//ä¸»é”®	
+	uint16_t		wRealID;			//å®žé™…è®¾å¤‡-IDå·
+	uint16_t		nPoint;				//å®žé™…è®¾å¤‡-å†…ç‚¹å·
+	uint16_t 		nIndex;        		//é€»è¾‘è®¾å¤‡-å‘é€ç‚¹å·
+	uint16_t 		RegAddr;        	//å®žé™…è®¾å¤‡-å¯„å­˜å™¨åœ°å€
+	uint16_t 		SlaverAddr;        	//å®žé™…è®¾å¤‡-ä»Žæœºåœ°å€
+	uint8_t 		DataType;        	//å®žé™…è®¾å¤‡-æ•°æ®ç±»åž‹ï¼Œ2ã€4å­—èŠ‚
+	uint8_t			DataOffset;			//å®žé™…è®¾å¤‡-åç§»ä½æ•°
 }Modbus_TransTable_T,*PModbus_TransTable_T;
 
 
 /*----------------------------------------------------------------------------------------*/
-/* Âß¼­Éè±¸Ò£²âÃèÊö¿â¶¨Òå                                                                 */
+/* ï¿½ß¼ï¿½ï¿½è±¸Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â¶¨ï¿½ï¿½                                                                 */
 /*----------------------------------------------------------------------------------------*/
 typedef struct {
-    WORD        wConfig;            //¿ØÖÆ×Ö½Ú
-    WORD        wRealID;            //±»ÒýÓÃµÄAIËùÊôµÄÖÇÄÜÉè±¸µÄID
-    WORD        wOffset;            //±»ÒýÓÃµÄAIÔÚËùÊôÖÇÄÜÉè±¸µÄÊµ¼Ê¿âÖÐµÄÆ«ÒÆÁ¿
-    short       a;                  //Ò£²âÏµÊý
+    WORD        wConfig;            //ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½
+    WORD        wRealID;            //ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½AIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ID
+    WORD        wOffset;            //ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½AIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½Êµï¿½Ê¿ï¿½ï¿½Ðµï¿½Æ«ï¿½ï¿½ï¿½ï¿½
+    short       a;                  //Ò£ï¿½ï¿½Ïµï¿½ï¿½
     short       b;
     short       c;
-    WORD 		    wSQZ;		   			    //ËÀÇøÖµ ¸ßÎ»1±íÊ¾Ïà¶ÔËÀÇø£¬0,¾ø¶ÔËÀÇø
-    WORD		    wFlag;				      //Êý¾Ý·¢ËÍÊ±×ö±ê¼ÇÓÃµÄ
-    DWORD		    sOldValue;			    //ÓÃÓÚ±ä»¯Ò£²âµÄ¼ÇÂ¼
+    WORD 		    wSQZ;		   			    //ï¿½ï¿½ï¿½ï¿½Öµ ï¿½ï¿½Î»1ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    WORD		    wFlag;				      //ï¿½ï¿½ï¿½Ý·ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½
+    DWORD		    sOldValue;			    //ï¿½ï¿½ï¿½Ú±ä»¯Ò£ï¿½ï¿½Ä¼ï¿½Â¼
     WORD		    wOldFlag;
     TSysTime	  stTime;
+	short	type;//0x09,0x0B,0x0D;å½’ä¸€åŒ–ï¼Œæ ‡åº¦åŒ–ï¼ŒçŸ­æµ®ç‚¹
 //	short	sHigh;
 //	short	sLow;
 //	short	sHighBack;
@@ -569,110 +571,110 @@ typedef struct{
 }TFreezeCI;
 
 typedef struct{
-	DWORD dwBcdBurstReadPtr;//±ä»¯bcd¶ÁÖ¸Õë
-	DWORD dwBcdBurstWritePtr;//Ð´Ö¸Õë
+	DWORD dwBcdBurstReadPtr;//ï¿½ä»¯bcdï¿½ï¿½Ö¸ï¿½ï¿½
+	DWORD dwBcdBurstWritePtr;//Ð´Ö¸ï¿½ï¿½
 	TBurstBcd		*pBurstBcd;
 }TBurstBcdWrap;
 
 
 /*----------------------------------------------------------------------------------------*/
-/* Âß¼­Éè±¸Ò£ÐÅÃèÊö¿â¶¨Òå                                                                 */
+/* ï¿½ß¼ï¿½ï¿½è±¸Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â¶¨ï¿½ï¿½                                                                 */
 /*----------------------------------------------------------------------------------------*/
 typedef struct {
-    WORD        wRealID;            //±»ÒýÓÃµÄAIËùÊôµÄÖÇÄÜÉè±¸µÄID
-    WORD        wOffset;            //±»ÒýÓÃµÄAIÔÚËùÊôÖÇÄÜÉè±¸µÄÊµ¼Ê¿âÖÐµÄÆ«ÒÆÁ¿
+    WORD        wRealID;            //ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½AIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ID
+    WORD        wOffset;            //ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½AIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½Êµï¿½Ê¿ï¿½ï¿½Ðµï¿½Æ«ï¿½ï¿½ï¿½ï¿½
     TSysTime	  stTime;
-	WORD		wFlag;		/*¹æÔ¼·¢ËÍÊý¾ÝÊ±Ê¹ÓÃ*/
+	WORD		wFlag;		/*ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±Ê¹ï¿½ï¿½*/
 }TLogicBI;
 
 /*----------------------------------------------------------------------------------------*/
-/* Âß¼­Éè±¸Ò£ÐÅÃèÊö¿â¶¨Òå                                                                 */
+/* ï¿½ß¼ï¿½ï¿½è±¸Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â¶¨ï¿½ï¿½                                                                 */
 /*----------------------------------------------------------------------------------------*/
 typedef struct {
-    WORD        wRealID;                /*¸ÃBIËùÊôÖÇÄÜÉè±¸µÄID*/
-    WORD        wOffset;                /*¸ÃBIÔÚËùÊôÖÇÄÜÉè±¸ÊµÊ±¿âÖÐµÄÆ«ÒÆÁ¿*/
-    WORD        wConfig;                /*¿ØÖÆ×Ö½Ú*/
-										/*D0=1 ÒýÓÃ¹ÌÌ¬Êý¾Ý =0 ²»ÒýÓÃ¹ÌÌ¬Êý¾Ý*/
-										/*D1=1 ÒýÓÃÊÂ¼þÊý¾Ý =0 ²»ÒýÓÃÊÂ¼þÊý¾Ý*/
-										/*D2=1 ÒýÓÃÔ­Ê¼Êý¾Ý =0 ²»ÒýÓÃÔ­Ê¼Êý¾Ý*/
-										/*D3=1 ÒýÓÃ×ª»»ºóµÄÐéÄâÐÅÏ¢ =0 ²»ÒýÓÃÐéÄâÐÅÏ¢*/
-										/*D4=1 ÊÂ¹Ê×Ü±êÖ¾ÓÐÐ§ =0 ÎÞÐ§ */
-										/*D5~7±£Áô*/
-	WORD	wFlag;						/*¹æÔ¼·¢ËÍÊý¾ÝÊ±Ê¹ÓÃ*/
+    WORD        wRealID;                /*ï¿½ï¿½BIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ID*/
+    WORD        wOffset;                /*ï¿½ï¿½BIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ÊµÊ±ï¿½ï¿½ï¿½Ðµï¿½Æ«ï¿½ï¿½ï¿½ï¿½*/
+    WORD        wConfig;                /*ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½*/
+										/*D0=1 ï¿½ï¿½ï¿½Ã¹ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½ =0 ï¿½ï¿½ï¿½ï¿½ï¿½Ã¹ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½*/
+										/*D1=1 ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ =0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½*/
+										/*D2=1 ï¿½ï¿½ï¿½ï¿½Ô­Ê¼ï¿½ï¿½ï¿½ï¿½ =0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô­Ê¼ï¿½ï¿½ï¿½ï¿½*/
+										/*D3=1 ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ =0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢*/
+										/*D4=1 ï¿½Â¹ï¿½ï¿½Ü±ï¿½Ö¾ï¿½ï¿½Ð§ =0 ï¿½ï¿½Ð§ */
+										/*D5~7ï¿½ï¿½ï¿½ï¿½*/
+	WORD	wFlag;						/*ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±Ê¹ï¿½ï¿½*/
 }TLogicDBI;
 
 
 
 typedef struct{
-    WORD	wRealID;                /*¸ÃDDËùÊôÉè±¸µÄIDºÅ*/
-    WORD	wOffset;                /*¸ÃDDÔÚÉè±¸Êµ¼Ê¿âÖÐµÄÆ«ÒÆÁ¿*/
+    WORD	wRealID;                /*ï¿½ï¿½DDï¿½ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½IDï¿½ï¿½*/
+    WORD	wOffset;                /*ï¿½ï¿½DDï¿½ï¿½ï¿½è±¸Êµï¿½Ê¿ï¿½ï¿½Ðµï¿½Æ«ï¿½ï¿½ï¿½ï¿½*/
     WORD	wNo;
-    WORD	wConfig;                /*¿ØÖÆ×Ö½Ú*/
-										/*  D0=1 ÎªÕýÏòµç¶È =0 Îª¸ºÏòµç¶È*/
-										/*  D1~7±£Áô*/
+    WORD	wConfig;                /*ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½*/
+										/*  D0=1 Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ =0 Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+										/*  D1~7ï¿½ï¿½ï¿½ï¿½*/
     short   a;
     short   b;
     short   c;
-	BYTE	bFreezeFlag;			/*¶³½á±êÖ¾£¬Í¬Ê±·ÀÖ¹Êý¾ÝÃ»ÓÐ¶Á×ß¶ø¶ªÊý*/
-	BYTE	bReset;					/*bReset=1·¢ËÍ²îÖµ, bReset=0·¢ËÍ×ÜÊý*/
-    WORD    wFreezeTime;			/*¶³½áÊ±¼ä*/
+	BYTE	bFreezeFlag;			/*ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½Í¬Ê±ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ð¶ï¿½ï¿½ß¶ï¿½ï¿½ï¿½ï¿½ï¿½*/
+	BYTE	bReset;					/*bReset=1ï¿½ï¿½ï¿½Í²ï¿½Öµ, bReset=0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+    WORD    wFreezeTime;			/*ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½*/
 	WORD	wCountTime;
 	DWORD	dwTotalValue;			/**/
-	WORD	wStatus;				/*ÊôÐÔ*/
-	DWORD	dwFreezeValue;			/*¶³½áµÄÊý¾Ý*/
-	WORD	wFlag;					/*·¢ËÍ±êÖ¾*/
-	TSysTime stTime;				/*¶³½áµÄÊ±¼ä*/
+	WORD	wStatus;				/*ï¿½ï¿½ï¿½ï¿½*/
+	DWORD	dwFreezeValue;			/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+	WORD	wFlag;					/*ï¿½ï¿½ï¿½Í±ï¿½Ö¾*/
+	TSysTime stTime;				/*ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½*/
 }TLogicCI;
 
 
 
 typedef struct TREFLEX {
-    DWORD       dwDevNo;                 /*ÒýÓÃ¸ÃÊý¾ÝµÄÂß¼­¿âÉè±¸±àºÅ*/
-    DWORD       dwNo;                    /*¸ÃÊý¾ÝÔÚÂß¼­Éè±¸¿âÖÐµÄÆ«ÒÆÁ¿*/
+    DWORD       dwDevNo;                 /*ï¿½ï¿½ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½*/
+    DWORD       dwNo;                    /*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½è±¸ï¿½ï¿½ï¿½Ðµï¿½Æ«ï¿½ï¿½ï¿½ï¿½*/
     struct TREFLEX *pNext;
 }TReflex, *PTREFLEX;
 
 typedef struct{
-    WORD        wRealID;            /*¸ÃBCDËùÊôÖÇÄÜÉè±¸µÄID*/
-    WORD        wOffset;            /*¸ÃBCDÔÚËùÊôÖÇÄÜÉè±¸ÊµÊ±¿âÖÐµÄÆ«ÒÆÁ¿*/
-	WORD		wFlag;				/*¹æÔ¼·¢ËÍÊý¾ÝÊ±ÓÃ*/
+    WORD        wRealID;            /*ï¿½ï¿½BCDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ID*/
+    WORD        wOffset;            /*ï¿½ï¿½BCDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ÊµÊ±ï¿½ï¿½ï¿½Ðµï¿½Æ«ï¿½ï¿½ï¿½ï¿½*/
+	WORD		wFlag;				/*ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½*/
 }TLogicBCD;
 
 typedef struct {
-	WORD wFlag;	        //ÈÎÎñ×´Ì¬  PAO_NULL, PAO_BUSY, PAO_WAITOPERATE
-	WORD wNo;			//Ò£¿ØÂ·ºÅ
-	DWORD dwCommand;	//¶¯×÷ TP_AOSELECT TP_AOEXECUTE  TP_AOCANCEL TP_AODIRECT
+	WORD wFlag;	        //ï¿½ï¿½ï¿½ï¿½×´Ì¬  PAO_NULL, PAO_BUSY, PAO_WAITOPERATE
+	WORD wNo;			//Ò£ï¿½ï¿½Â·ï¿½ï¿½
+	DWORD dwCommand;	//ï¿½ï¿½ï¿½ï¿½ TP_AOSELECT TP_AOEXECUTE  TP_AOCANCEL TP_AODIRECT
 	DWORD dwResult;
-	DWORD dwDoValue;	//Êý×ÖÁ¿Êä³öÖµ
-	DWORD dwOnTime;		//on Ê±¼ä
-	DWORD dwOffTime;	//off Ê±¼ä
-	DWORD dwCount;	    //´ÎÊý
-	WORD wNeedRetFlag;      //ÊÇ·ñÐèÒªÊý×ÖÁ¿Êä³ö·µÐ£ÐÅÏ¢±êÖ¾1:need,0:NoNeed
-	BYTE bInfo[PAOINFOSIZE];//±£Áô£¬Ò£ÓÚ±£ÁôÌØÊâÐÅÏ¢
-//	TDOMsg DOMsg;           //Êý×ÖÁ¿Êä³öÔ­ÐÅÏ¢
+	DWORD dwDoValue;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+	DWORD dwOnTime;		//on Ê±ï¿½ï¿½
+	DWORD dwOffTime;	//off Ê±ï¿½ï¿½
+	DWORD dwCount;	    //ï¿½ï¿½ï¿½ï¿½
+	WORD wNeedRetFlag;      //ï¿½Ç·ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½Ï¢ï¿½ï¿½Ö¾1:need,0:NoNeed
+	BYTE bInfo[PAOINFOSIZE];//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò£ï¿½Ú±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+//	TDOMsg DOMsg;           //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½Ï¢
 	BYTE Info[8];
 }TDO;
 
 typedef struct {
-	WORD wFlag;	        //ÈÎÎñ×´Ì¬  PAO_NULL, PAO_BUSY, PAO_WAITOPERATE
-	WORD wNo;			//Ò£¿ØÂ·ºÅ
-	DWORD dwCommand;	//¶¯×÷ TP_AOSELECT TP_AOEXECUTE  TP_AOCANCEL TP_AODIRECT
+	WORD wFlag;	        //ï¿½ï¿½ï¿½ï¿½×´Ì¬  PAO_NULL, PAO_BUSY, PAO_WAITOPERATE
+	WORD wNo;			//Ò£ï¿½ï¿½Â·ï¿½ï¿½
+	DWORD dwCommand;	//ï¿½ï¿½ï¿½ï¿½ TP_AOSELECT TP_AOEXECUTE  TP_AOCANCEL TP_AODIRECT
 	DWORD dwResult;
-	short sAoValue;	        //Ò£µ÷Öµ
-	WORD wNeedRetFlag;      //ÊÇ·ñÐèÒªÒ£µ÷·µÐ£ÐÅÏ¢±êÖ¾1:need,0:NoNeed
-	BYTE bInfo[PAOINFOSIZE];//±£Áô£¬Ò£ÓÚ±£ÁôÌØÊâÐÅÏ¢
-//	TAOMsg AOMsg;           //Ò£µ÷Ô­ÐÅÏ¢
+	short sAoValue;	        //Ò£ï¿½ï¿½Öµ
+	WORD wNeedRetFlag;      //ï¿½Ç·ï¿½ï¿½ï¿½ÒªÒ£ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½Ï¢ï¿½ï¿½Ö¾1:need,0:NoNeed
+	BYTE bInfo[PAOINFOSIZE];//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò£ï¿½Ú±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+//	TAOMsg AOMsg;           //Ò£ï¿½ï¿½Ô­ï¿½ï¿½Ï¢
 	BYTE  Info[16];
 }TAO;
 
 /*----------------------------------------------------------------------------------------*/
-/* Êµ¼ÊÉè±¸Ò£µ÷ÃèÊö¿â¶¨Òå                                                                 */
+/* Êµï¿½ï¿½ï¿½è±¸Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â¶¨ï¿½ï¿½                                                                 */
 /*----------------------------------------------------------------------------------------*/
 typedef struct {
-	char		szName[20];		/*YT¶ÔÏóÃû³Æ*/
+	char		szName[20];		/*YTï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
     WORD        wControl;               /*rsv*/
-    WORD        nID;                    /*Ò£µ÷¶¯×÷ºÅ*/
-	WORD		wMaxValue;              /*ÂúÖµ*/		/*a,b,c ·Ö±ð¶ÔÓ¦ÏµÊýºÍÐÞÕýÖµ*/
+    WORD        nID;                    /*Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+	WORD		wMaxValue;              /*ï¿½ï¿½Öµ*/		/*a,b,c ï¿½Ö±ï¿½ï¿½Ó¦Ïµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ*/
 	BYTE		bResetTime;
 	BYTE		bRsv1;
 	WORD		rsv2;
@@ -680,193 +682,193 @@ typedef struct {
 
 
 /*----------------------------------------------------------------------------------------*/
-/* Êµ¼ÊÉè±¸Ò£²âÃèÊö¿â¶¨Òå                                                                     */
+/* Êµï¿½ï¿½ï¿½è±¸Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â¶¨ï¿½ï¿½                                                                     */
 /*----------------------------------------------------------------------------------------*/
 typedef struct {
-	char		szName[20];				/* Ò£²âÃû³Æ*/
-	DWORD		dwControl;				/*¿ØÖÆ×Ö½Ú*/
+	char		szName[20];				/* Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+	DWORD		dwControl;				/*ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½*/
 	WORD		wForceToZero;
-	short   a;            /*a,b,cÎªÏµÊý,Íê³ÉÔËËãy=x*a/b+c*/
+	short   a;            /*a,b,cÎªÏµï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½y=x*a/b+c*/
 	short   b;
 	short   c;
-	short   sHigh;        /* ÉÏÏÞ */
-	short   sLow;         /* ÏÂÏÞ */
-	short		sHighBack;				/* Ò£²â¹ÊÕÏ±¨¾¯Öµ*/
-	short		sLowBack;				  /*Ò£²â¹ÊÕÏÖµ*/
-	WORD		wDeadBand;				/* Ò£²âËÀÇøÖµ ,D15=1Ïà¶ÔËÀÇøÖµ,=0Îª¾ø¶ÔËÀÇøÖµ */
-	WORD		wSmoothFactor;		/*¹ÊÕÏ¶¯×÷Ê±ÑÓ*/
-	WORD	  wType;					/*Ö±Á÷ÊäÈëÀàÐÍ*/
-	TReflex *pReflex;   	/*Âß¼­¿âË÷Òý½»²æ±í*/
+	short   sHigh;        /* ï¿½ï¿½ï¿½ï¿½ */
+	short   sLow;         /* ï¿½ï¿½ï¿½ï¿½ */
+	short		sHighBack;				/* Ò£ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ï¿½ï¿½Öµ*/
+	short		sLowBack;				  /*Ò£ï¿½ï¿½ï¿½ï¿½ï¿½Öµ*/
+	WORD		wDeadBand;				/* Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ ,D15=1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ,=0Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ */
+	WORD		wSmoothFactor;		/*ï¿½ï¿½ï¿½Ï¶ï¿½ï¿½ï¿½Ê±ï¿½ï¿½*/
+	WORD	  wType;					/*Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+	TReflex *pReflex;   	/*ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 }TRealAI;
 
 
-typedef struct {			//´øÊ±±êÒ£²â¶ÓÁÐ;²»µôµçram
+typedef struct {			//ï¿½ï¿½Ê±ï¿½ï¿½Ò£ï¿½ï¿½ï¿½ï¿½ï¿½;ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ram
 	TPtr Ptr;
 }TAitWrap;
 
 //====================================
-//	´øÊ±±êÒ£²â£¨Ô½ÏÞÒ£²â£©Ïà¹Ø½á¹¹
+//	ï¿½ï¿½Ê±ï¿½ï¿½Ò£ï¿½â£¨Ô½ï¿½ï¿½Ò£ï¿½â£©ï¿½ï¿½Ø½á¹¹
 //====================================
 typedef struct {
-	uint16_t 	 	    nNo;		//×ª·¢µãºÅ
-	uint16_t 	 	    ID;		//Ë÷ÒýºÅ
-	uint8_t        bStatus;    //Ô½ÏÞ×´Ì¬0£ºÔ½ÉÏÏÞ1£ºÔ½ÏÂÏÞ2£ºÔ½ÉÏÏÞ»Ö¸´3£ºÔ½ÏÂÏÞ»Ö¸´
-	uint16_t	 	    sValue;		//Ô½ÏÞÒ£²âÖµ
-	uint32_t	 	    sValue32;		//Ô½ÏÞÒ£²âÖµ
-	TSysTime 	  stTime;    	//Äê¡¢ÔÂ¡¢ÈÕ¡¢Ê±¡¢·Ö¡¢Ãë¡¢ºÁÃë
+	uint16_t 	 	    nNo;		//×ªï¿½ï¿½ï¿½ï¿½ï¿½
+	uint16_t 	 	    ID;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	uint8_t        bStatus;    //Ô½ï¿½ï¿½×´Ì¬0ï¿½ï¿½Ô½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½Ô½ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½Ô½ï¿½ï¿½ï¿½Þ»Ö¸ï¿½3ï¿½ï¿½Ô½ï¿½ï¿½ï¿½Þ»Ö¸ï¿½
+	uint16_t	 	    sValue;		//Ô½ï¿½ï¿½Ò£ï¿½ï¿½Öµ
+	uint32_t	 	    sValue32;		//Ô½ï¿½ï¿½Ò£ï¿½ï¿½Öµ
+	TSysTime 	  stTime;    	//ï¿½ê¡¢ï¿½Â¡ï¿½ï¿½Õ¡ï¿½Ê±ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½ë¡¢ï¿½ï¿½ï¿½ï¿½
 }TSysTimeAit;
 
 //====================================
-//		Âß¼­¿âÏà¹Ø½á¹¹
+//		ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½Ø½á¹¹
 //====================================
 typedef struct{
-    DWORD 			    *pAddCI;			//µç¶ÈµÄÀÛ¼ÓÖµ,ÊÇ¼ÆËãÖµ£¬·ÅÓÚRAMÖÐ
-	DWORD			      *pLogicOldBcd;		/*±£´æµÄ¾ÉµÄbcdµÄÖµ*/
-    TLogicDZ        *pLogicDZ;          /*¶¨ÖµÂß¼­ÊôÐÔ¿âÍ·Ö¸Õë,·ÖÅäÔÚ¶¯Ì¬RAMÇø*/    
-    TLogicAI        *pLogicAI;          /*Ò£²âÂß¼­ÊôÐÔ¿âÖ¸Õë,·ÖÅäÔÚ¶¯Ì¬RAMÇø*/
-    TLogicBI        *pLogicBI;          /*Ò£²âÂß¼­ÊôÐÔ¿âÖ¸Õë,·ÖÅäÔÚ¶¯Ì¬RAMÇø*/
-    TLogicCI        *pLogicCI;          /*Ò£²âÂß¼­ÊôÐÔ¿âÖ¸Õë,·ÖÅäÔÚ¶¯Ì¬RAMÇø*/
-    TLogicBCD       *pLogicBCD;         /*BCDÂß¼­ÊôÐÔ¿âÖ¸Õë,·ÖÅäÔÚ¶¯Ì¬RAMÇø*/
-    TLogicDBI       *pLogicDBI;         /*Ò£ÐÅÂß¼­ÊôÐÔ¿âÖ¸Õë,·ÖÅäÔÚ¶¯Ì¬RAMÇø*/
-    TBurstAIWrap     BurstAIWrap;		/*±ä»¯Ò£²âÍ·Ö¸Õë,·ÖÅäÔÚ¶¯Ì¬RAMÇø*/
+    DWORD 			    *pAddCI;			//ï¿½ï¿½Èµï¿½ï¿½Û¼ï¿½Öµ,ï¿½Ç¼ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½RAMï¿½ï¿½
+	DWORD			      *pLogicOldBcd;		/*ï¿½ï¿½ï¿½ï¿½Ä¾Éµï¿½bcdï¿½ï¿½Öµ*/
+    TLogicDZ        *pLogicDZ;          /*ï¿½ï¿½Öµï¿½ß¼ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½Í·Ö¸ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½Ì¬RAMï¿½ï¿½*/    
+    TLogicAI        *pLogicAI;          /*Ò£ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½Ö¸ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½Ì¬RAMï¿½ï¿½*/
+    TLogicBI        *pLogicBI;          /*Ò£ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½Ö¸ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½Ì¬RAMï¿½ï¿½*/
+    TLogicCI        *pLogicCI;          /*Ò£ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½Ö¸ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½Ì¬RAMï¿½ï¿½*/
+    TLogicBCD       *pLogicBCD;         /*BCDï¿½ß¼ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½Ö¸ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½Ì¬RAMï¿½ï¿½*/
+    TLogicDBI       *pLogicDBI;         /*Ò£ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½Ö¸ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½Ì¬RAMï¿½ï¿½*/
+    TBurstAIWrap     BurstAIWrap;		/*ï¿½ä»¯Ò£ï¿½ï¿½Í·Ö¸ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½Ì¬RAMï¿½ï¿½*/
 	TBurstBcdWrap burstBcdWrap;
 }TLogicBase;
 
 //--------------------------------------
-// Êµ¼ÊÉè±¸Ò£ÐÅÃèÊö¿â¶¨Òå                                                                 */
+// Êµï¿½ï¿½ï¿½è±¸Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â¶¨ï¿½ï¿½                                                                 */
 //--------------------------------------
 typedef struct {
-	char	szName[20];	/*Ò£ÐÅ¶ÔÏóÃû³Æ*/
-	DWORD 	dwControl;	//D0~15 ÎªI/Oµ¥ÔªÊ¹ÓÃµÄ¿ØÖÆÎ»; ÓëÖ÷¿Ø°åÎÞ¹Ø
-						//D16~31ÎªÖ÷¿ØÊ¹ÓÃµÄ¿ØÖÆÎ»£»ÓëI/Oµ¥ÔªÎÞ¹Ø
-						//D0 = 1 ²úÉú²»´øÊ±±êµÄÊÂ¼þÊý¾Ý£» = 0 ²»²úÉú
-						//D1 = 1 ²úÉú´øÊ±±êµÄÊÂ¼þÊý¾Ý£» = 0²»²úÉú
-						//D2 = 1 µÚÒ»µãÈ¡·´£» = 0 µÚÒ»µã²»È¡·´
-						//D3 = 1 ·¢ËÍ   = 0 ²»·¢ËÍ
-						//D4 = 1 ÊÂ¹Ê×ÜÓÐÐ§  = 0 ÎÞÐ§
-						//D5 = 1 ÊÇÊÂ¹Ê×ÜÐÅºÅ
-						//D6 = 1 µÚ¶þµãÈ¡·´£» = 0 µÚ¶þµã²»È¡·´
-						//D7~ D8 ±£Áô
-						//D9~D15  chatter filter µÄ±ä»¯´ÎÊý£¬×î´óÎª127´Î
+	char	szName[20];	/*Ò£ï¿½Å¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+	DWORD 	dwControl;	//D0~15 ÎªI/Oï¿½ï¿½ÔªÊ¹ï¿½ÃµÄ¿ï¿½ï¿½ï¿½Î»; ï¿½ï¿½ï¿½ï¿½ï¿½Ø°ï¿½ï¿½Þ¹ï¿½
+						//D16~31Îªï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ÃµÄ¿ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½I/Oï¿½ï¿½Ôªï¿½Þ¹ï¿½
+						//D0 = 1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ = 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+						//D1 = 1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ = 0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+						//D2 = 1 ï¿½ï¿½Ò»ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ = 0 ï¿½ï¿½Ò»ï¿½ã²»È¡ï¿½ï¿½
+						//D3 = 1 ï¿½ï¿½ï¿½ï¿½   = 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+						//D4 = 1 ï¿½Â¹ï¿½ï¿½ï¿½ï¿½ï¿½Ð§  = 0 ï¿½ï¿½Ð§
+						//D5 = 1 ï¿½ï¿½ï¿½Â¹ï¿½ï¿½ï¿½ï¿½Åºï¿½
+						//D6 = 1 ï¿½Ú¶ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ = 0 ï¿½Ú¶ï¿½ï¿½ã²»È¡ï¿½ï¿½
+						//D7~ D8 ï¿½ï¿½ï¿½ï¿½
+						//D9~D15  chatter filter ï¿½Ä±ä»¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª127ï¿½ï¿½
 
-						//D16 = 1 ÓÉÖ÷¿Ø²úÉú²»´øÊ±±êµÄÊÂ¼þÊý¾Ý£» = 0 ²»²úÉú
-						//D17 = 1 ÓÉÖ÷¿Ø²úÉú´øÊ±±êµÄÊÂ¼þÊý¾Ý£» = 0²»²úÉú
-						//D18 = 1 ÓÉÖ÷¿Ø½øÐÐµÚÒ»µãÈ¡·´²Ù×÷£» = 0 ²»È¡·´
-						//D19 = 1 ÓÉÖ÷¿Ø½øÐÐµÚ¶þµãÈ¡·´²Ù×÷£» = 0 ²»È¡·´
-						//D20~31 ±£Áô
+						//D16 = 1 ï¿½ï¿½ï¿½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ = 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+						//D17 = 1 ï¿½ï¿½ï¿½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ = 0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+						//D18 = 1 ï¿½ï¿½ï¿½ï¿½ï¿½Ø½ï¿½ï¿½Ðµï¿½Ò»ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = 0 ï¿½ï¿½È¡ï¿½ï¿½
+						//D19 = 1 ï¿½ï¿½ï¿½ï¿½ï¿½Ø½ï¿½ï¿½ÐµÚ¶ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = 0 ï¿½ï¿½È¡ï¿½ï¿½
+						//D20~31 ï¿½ï¿½ï¿½ï¿½
 
-	WORD 	wFilterTime;	//Debounce·À¶¶Ê±¼ä£¬Ò²¾ÍÊÇ×îÐ¡µÄÓÐÐ§Âö¿í£¬ms
-	WORD 	wDINo;			//Ë«µãÖÐµÄµÚÒ»µãµÄ½ÓÏßÎ»ÖÃÐòºÅ£¬×Ô0¼ÆÆð£¬±ØÐëÎªÅ¼Êý
-							//¶ÔÓÚË«µãÖÐµÄµÚ¶þµã£¬Æä½ÓÏßÎ»ÖÃ±ØÐëÊÇÓëµÚÒ»µã½ôÁÚµÄ
-							//ÏÂÒ»µã£¬²»ÔÚÊôÐÔ²ÎÊýÖÐÃ÷Ê¾¡£
-	WORD 	wChatterFilterTime; 	//chatter filter µÄ¼à²âÊ±¼ä£¬ms£¬×î´óÎª60000ms
-	WORD 	wDPSynTime;				//Ë«µãÍ¬²½Ê±¼ä£¬ms
-	DWORD	dwChatterNum;			//ÔÊÐí±ä»¯¸öÊý
-	DWORD	dwLockoutNum;			//ÎÈ¶¨ÖÜÆÚ¸öÊý
-	WORD	wSoeEnable;  			//ÓÃÓÚµÚÒ»´ÎÊÕµ½BIÊ±½ûÖ¹²úÉúSOE
+	WORD 	wFilterTime;	//Debounceï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£¬Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ms
+	WORD 	wDINo;			//Ë«ï¿½ï¿½ï¿½ÐµÄµï¿½Ò»ï¿½ï¿½Ä½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½Å£ï¿½ï¿½ï¿½0ï¿½ï¿½ï¿½ð£¬±ï¿½ï¿½ï¿½ÎªÅ¼ï¿½ï¿½
+							//ï¿½ï¿½ï¿½ï¿½Ë«ï¿½ï¿½ï¿½ÐµÄµÚ¶ï¿½ï¿½ã£¬ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Úµï¿½
+							//ï¿½ï¿½Ò»ï¿½ã£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½
+	WORD 	wChatterFilterTime; 	//chatter filter ï¿½Ä¼ï¿½ï¿½Ê±ï¿½ä£¬msï¿½ï¿½ï¿½ï¿½ï¿½Îª60000ms
+	WORD 	wDPSynTime;				//Ë«ï¿½ï¿½Í¬ï¿½ï¿½Ê±ï¿½ä£¬ms
+	DWORD	dwChatterNum;			//ï¿½ï¿½ï¿½ï¿½ï¿½ä»¯ï¿½ï¿½ï¿½ï¿½
+	DWORD	dwLockoutNum;			//ï¿½È¶ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½
+	WORD	wSoeEnable;  			//ï¿½ï¿½ï¿½Úµï¿½Ò»ï¿½ï¿½ï¿½Õµï¿½BIÊ±ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½SOE
 	WORD	wCosEnable;
 	TReflex *pReflex;   
 }TRealDBI;
 //--------------------------------------
-// Êµ¼ÊÉè±¸Ò£ÐÅÃèÊö¿â¶¨Òå                                                                 */
+// Êµï¿½ï¿½ï¿½è±¸Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â¶¨ï¿½ï¿½                                                                 */
 //--------------------------------------
 typedef struct {
-	char	     szName[20];			/*Ò£ÐÅ¶ÔÏóÃû³Æ*/
-	DWORD        dwControl;             	/*D0=1 ÓÉÊý¾Ý¿â¹ÜÀíÆ÷²úÉú²»´øÊ±±êµÄÊÂ¼þÊý¾Ý£»=0 ²»²úÉú*/
-						/*D1=1 ÓÉÊý¾Ý¿â¹ÜÀíÆ÷²úÉú´øÊ±±êµÄÊÂ¼þÊý¾Ý£»=0²»²úÉú*/
-						/*D2=1 ½øÐÐÈ¡·´²Ù×÷£»=0 ²»È¡·´*/
-						/*D3=1 ÊÇÊÂ¹Ê×ÜÐÅºÅ*/
-						/*D4~7 Àà*/
-						/*  =0 µ¥µãÒ£ÐÅ*/
-						/*  =1 Ë«µãÒ£ÐÅ*/
-	WORD	    wDINo;	  			/*Ïà¶ÔÓ¦µÄÊý×Ö²É¼¯µãºÅ*/
-	WORD	    wFilterTime;  			/*Ïû²üÖÜÆÚ*/
-	WORD	    wChatterFilterTime;			//chatter filter µÄ¼à²âÊ±¼ä£¬10msµ¥Î»
-	DWORD	    dwChatterNum;			//ÔÊÐí±ä»¯¸öÊý
-	DWORD	    dwLockoutNum;			//ÎÈ¶¨ÖÜÆÚ¸öÊý
-	WORD		  wSoeEnable;  			//ÓÃÓÚµÚÒ»´ÎÊÕµ½BIÊ±½ûÖ¹²úÉúSOE 
+	char	     szName[20];			/*Ò£ï¿½Å¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+	DWORD        dwControl;             	/*D0=1 ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½Ý£ï¿½=0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+						/*D1=1 ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½Ý£ï¿½=0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+						/*D2=1 ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=0 ï¿½ï¿½È¡ï¿½ï¿½*/
+						/*D3=1 ï¿½ï¿½ï¿½Â¹ï¿½ï¿½ï¿½ï¿½Åºï¿½*/
+						/*D4~7 ï¿½ï¿½*/
+						/*  =0 ï¿½ï¿½ï¿½ï¿½Ò£ï¿½ï¿½*/
+						/*  =1 Ë«ï¿½ï¿½Ò£ï¿½ï¿½*/
+	WORD	    wDINo;	  			/*ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½Ö²É¼ï¿½ï¿½ï¿½ï¿½*/
+	WORD	    wFilterTime;  			/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+	WORD	    wChatterFilterTime;			//chatter filter ï¿½Ä¼ï¿½ï¿½Ê±ï¿½ä£¬10msï¿½ï¿½Î»
+	DWORD	    dwChatterNum;			//ï¿½ï¿½ï¿½ï¿½ï¿½ä»¯ï¿½ï¿½ï¿½ï¿½
+	DWORD	    dwLockoutNum;			//ï¿½È¶ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½
+	WORD		  wSoeEnable;  			//ï¿½ï¿½ï¿½Úµï¿½Ò»ï¿½ï¿½ï¿½Õµï¿½BIÊ±ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½SOE 
 	WORD		  wCosEnable;
 	TReflex   *pReflex;   
 }TRealBI;
 //--------------------------------------
-// Êµ¼ÊÉè±¸µç¶ÈÃèÊö¿â¶¨Òå
+// Êµï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â¶¨ï¿½ï¿½
 //--------------------------------------
 typedef struct {
-    char	szName[20];				/*µç¶ÈÃû³Æ*/
-    WORD    wControl;      	/*µç¶È¿ØÖÆ×Ö,D2=1:·¢ËÍ,D2=0:²»·¢ËÍ£¬D3=1:Âö³åÊäÈë,D3=0:»ý·Öµç¶È*/
-    WORD    a;              /*ÏµÊý*/
-    WORD    b;              /*ÏµÊý*/
-    DWORD   dwOrgValue;     /*³õÖµ*/
+    char	szName[20];				/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+    WORD    wControl;      	/*ï¿½ï¿½È¿ï¿½ï¿½ï¿½ï¿½ï¿½,D2=1:ï¿½ï¿½ï¿½ï¿½,D2=0:ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½D3=1:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,D3=0:ï¿½ï¿½ï¿½Öµï¿½ï¿½*/
+    WORD    a;              /*Ïµï¿½ï¿½*/
+    WORD    b;              /*Ïµï¿½ï¿½*/
+    DWORD   dwOrgValue;     /*ï¿½ï¿½Öµ*/
     WORD	  wDINo;
-    WORD	  wDPSynTime;		//Ë«µãÍ¬²½Ê±¼ä£¬ms£¬½ö¶ÔË«µãÂö³åÓÐÐ§
+    WORD	  wDPSynTime;		//Ë«ï¿½ï¿½Í¬ï¿½ï¿½Ê±ï¿½ä£¬msï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§
 }TRealCI;
 
 
 typedef struct{
-	DWORD					 wIOControl;	    	  /*new! I/Oµ¥ÔªÊ¹ÓÃµÄ¿ØÖÆ×Ö½Ú*/
-	DWORD					 wSControl;	    	    /*Ö÷´¦ÀíÆ÷Ê¹ÓÃµÄ¿ØÖÆ×Ö½Ú*/
-//	TRealDI	       *pRealDI;	          /*Ò£ÐÅÀàÐÍÍ·Ö¸Õë£¬·ÖÅäÔÚ¶¯Ì¬RAMÇø*/
-  	TRealAI        *pRealAI;            /*Ò£²âÊµ¼Ê¿âÊôÐÔÖ¸Õë,·ÖÅäÔÚ¶¯Ì¬RAMÇø*/
-	TRealBI        *pRealBI;            /*Ò£ÐÅÊµ¼Ê¿âÊôÐÔÍ·Ö¸Õë,·ÖÅäÔÚ¶¯Ì¬RAMÇø*/
-	TRealCI        *pRealCI;            /*µç¶ÈÊµ¼Ê¿âÊôÐÔÍ·Ö¸Õë,·ÖÅäÔÚ¶¯Ì¬RAMÇø*/
-// 	TRealBO        *pRealBO;            /*Ò£¿ØÊôÐÔ¿â,·ÖÅäÔÚ¶¯Ì¬RAMÇø*/
-//  	TRealAO        *pRealAO;            /*Ò£µ÷ÊôÐÔ¿â,·ÖÅäÔÚ¶¯Ì¬RAMÇø*/
-//	TRealSync      *pRealSync;          /*Í¬ÆÚÊôÐÔ¿â,·ÖÅäÔÚ¶¯Ì¬RAMÇø*/
-//  	TTransDataAttr *pTransAttr;         /*Í¸Ã÷Êý¾ÝÃèÊö¿â,·ÖÅäÔÚ¶¯Ì¬RAMÇø*/
-	TRealDBI       *pRealDBI;           /*Ë«µãÒ£ÐÅÊµ¼Ê¿âÊôÐÔÍ·Ö¸Õë,·ÖÅäÔÚ¶¯Ì¬RAMÇø*/
-//  TRealDO        *pRealDO;            /*Êý×ÖÁ¿Êä³öÊôÐÔ¿â,·ÖÅäÔÚ¶¯Ì¬RAMÇø*/
-//  TRealBCD       *pRealBCD;           /*BCDÊµ¼Ê¿âÊôÐÔÖ¸Õë,·ÖÅäÔÚ¶¯Ì¬RAMÇø*/
-//  TRealDZ        *pRealDZ;            /*¶¨ÖµÊôÐÔ¿â,·ÖÅäÔÚ²»µôµçRAMÇø*/
-//  TRealMR        *pRealMR;            /*ÊÂ¹Ê¼ò±¨ÊôÐÔ¿â,·ÖÅäÔÚ²»µôµçRAMÇø*/
-//  TRealSELF      *pRealSELF;          /*×Ô¼ìÐÅÏ¢ÊôÐÔ¿â,·ÖÅäÔÚ²»µôµçRAMÇø*/
+	DWORD					 wIOControl;	    	  /*new! I/Oï¿½ï¿½ÔªÊ¹ï¿½ÃµÄ¿ï¿½ï¿½ï¿½ï¿½Ö½ï¿½*/
+	DWORD					 wSControl;	    	    /*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ÃµÄ¿ï¿½ï¿½ï¿½ï¿½Ö½ï¿½*/
+//	TRealDI	       *pRealDI;	          /*Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·Ö¸ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½Ì¬RAMï¿½ï¿½*/
+  	TRealAI        *pRealAI;            /*Ò£ï¿½ï¿½Êµï¿½Ê¿ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½Ì¬RAMï¿½ï¿½*/
+	TRealBI        *pRealBI;            /*Ò£ï¿½ï¿½Êµï¿½Ê¿ï¿½ï¿½ï¿½ï¿½ï¿½Í·Ö¸ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½Ì¬RAMï¿½ï¿½*/
+	TRealCI        *pRealCI;            /*ï¿½ï¿½ï¿½Êµï¿½Ê¿ï¿½ï¿½ï¿½ï¿½ï¿½Í·Ö¸ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½Ì¬RAMï¿½ï¿½*/
+// 	TRealBO        *pRealBO;            /*Ò£ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½Ì¬RAMï¿½ï¿½*/
+//  	TRealAO        *pRealAO;            /*Ò£ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½Ì¬RAMï¿½ï¿½*/
+//	TRealSync      *pRealSync;          /*Í¬ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½Ì¬RAMï¿½ï¿½*/
+//  	TTransDataAttr *pTransAttr;         /*Í¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½Ì¬RAMï¿½ï¿½*/
+	TRealDBI       *pRealDBI;           /*Ë«ï¿½ï¿½Ò£ï¿½ï¿½Êµï¿½Ê¿ï¿½ï¿½ï¿½ï¿½ï¿½Í·Ö¸ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½Ì¬RAMï¿½ï¿½*/
+//  TRealDO        *pRealDO;            /*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½Ì¬RAMï¿½ï¿½*/
+//  TRealBCD       *pRealBCD;           /*BCDÊµï¿½Ê¿ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½Ì¬RAMï¿½ï¿½*/
+//  TRealDZ        *pRealDZ;            /*ï¿½ï¿½Öµï¿½ï¿½ï¿½Ô¿ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½RAMï¿½ï¿½*/
+//  TRealMR        *pRealMR;            /*ï¿½Â¹Ê¼ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½RAMï¿½ï¿½*/
+//  TRealSELF      *pRealSELF;          /*ï¿½Ô¼ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Ô¿ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½RAMï¿½ï¿½*/
 }TRealBase;
 
-typedef struct{			//·ÖÅäÔÚ²»µôµçRAMÖÐ
+typedef struct{			//ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½RAMï¿½ï¿½
 	TPtr Ptr;
 }TDBISoeWrap;
 
 typedef struct  
 {
-	WORD wStartAddr;//ÐÅÏ¢ÌåÆðÊ¼µØÖ·£»Ä¬ÈÏÖµÊÇ0
-	BYTE bStatus; //bit0, bit1 =1ÈÝÐí£¬=0²»ÈÝÐí·¢ËÍ
+	WORD wStartAddr;//ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·ï¿½ï¿½Ä¬ï¿½ï¿½Öµï¿½ï¿½0
+	BYTE bStatus; //bit0, bit1 =1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	BYTE bStatus1;//=1
-	BYTE bStatus2;//2¶ÌÊ±±ê£¬30³¤Ê±±ê
-	BYTE bClass;//ÓÅÏÈ¼¶
+	BYTE bStatus2;//2ï¿½ï¿½Ê±ï¿½ê£¬30ï¿½ï¿½Ê±ï¿½ï¿½
+	BYTE bClass;//ï¿½ï¿½ï¿½È¼ï¿½
 }TData_t;
 
-typedef struct   //¹æÔ¼io 
+typedef struct   //ï¿½ï¿½Ô¼io 
 {
-	unsigned short BufSize;		//»º³åÇø´óÐ¡
-	unsigned short ReadPtr;		//¶ÁÖ¸Õë
-	unsigned short OldReadPtr;  //¶ÁÖ¸Õë
-	unsigned short WritePtr;	//Ð´Ö¸Õë
-	WORD	Address;			//µØÖ·Âë(Ö÷ÒªÓÃÓÚ·¢ËÍ)
-	DWORD	Flag;				//¿ØÖÆÂë(Ö÷ÒªÓÃÓÚ·¢ËÍ)
-	unsigned char  *Buf;		//»º³åÇø
+	unsigned short BufSize;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡
+	unsigned short ReadPtr;		//ï¿½ï¿½Ö¸ï¿½ï¿½
+	unsigned short OldReadPtr;  //ï¿½ï¿½Ö¸ï¿½ï¿½
+	unsigned short WritePtr;	//Ð´Ö¸ï¿½ï¿½
+	WORD	Address;			//ï¿½ï¿½Ö·ï¿½ï¿½(ï¿½ï¿½Òªï¿½ï¿½ï¿½Ú·ï¿½ï¿½ï¿½)
+	DWORD	Flag;				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Òªï¿½ï¿½ï¿½Ú·ï¿½ï¿½ï¿½)
+	unsigned char  *Buf;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }TCommIO;
 
 typedef struct{
 
     uint16_t	ID;
-	uint16_t	ParentID;		//Ä£¿éID
-    uint16_t   	Address;		//×Ô¼ºµÄµØÖ·
-	uint16_t	AIStart;	//Ò£²âÆ«ÒÆµØÖ·
-	uint16_t	BIStart;	//Ò£ÐÅÆ«ÒÆµØÖ·
-	uint16_t	DZStart;	//¶¨ÖµÆ«ÒÆµØÖ·
+	uint16_t	ParentID;		//Ä£ï¿½ï¿½ID
+    uint16_t   	Address;		//ï¿½Ô¼ï¿½ï¿½Äµï¿½Ö·
+	uint16_t	AIStart;	//Ò£ï¿½ï¿½Æ«ï¿½Æµï¿½Ö·
+	uint16_t	BIStart;	//Ò£ï¿½ï¿½Æ«ï¿½Æµï¿½Ö·
+	uint16_t	DZStart;	//ï¿½ï¿½ÖµÆ«ï¿½Æµï¿½Ö·
 	uint16_t	DBIStart;	
 	uint16_t	BOStart;
 	uint16_t	YMStart;
-	uint16_t 	AINum;			//Ò£²â¸öÊý
-	uint16_t	BINum;			//Ò£ÐÅ¸öÊý
-	uint16_t 	dwCINum;		//µç¶È¸öÊý
-	uint16_t	BONum;			//Ò£¿Ø¸öÊý
-	uint16_t	AONum;			//Ò£µ÷¸öÊý
-	uint16_t	DZNum;			//¶¨Öµ¸öÊý
-	uint16_t	SyncNum;		//Í¬ÆÚ¸öÊý
-  	uint16_t 	TransNum;   	//Í¸Ã÷Êý¾Ý¹Ø¼ü×Ö¸öÊý
-	uint16_t 	DONum;			//Êý×ÖÁ¿Êä³ö¸öÊý
-	uint16_t 	dwBCDNum;			//BCD¸öÊý
-	uint16_t 	DBINum;			//Ë«µãÒ£ÐÅ¸öÊý
+	uint16_t 	AINum;			//Ò£ï¿½ï¿½ï¿½ï¿½ï¿½
+	uint16_t	BINum;			//Ò£ï¿½Å¸ï¿½ï¿½ï¿½
+	uint16_t 	dwCINum;		//ï¿½ï¿½È¸ï¿½ï¿½ï¿½
+	uint16_t	BONum;			//Ò£ï¿½Ø¸ï¿½ï¿½ï¿½
+	uint16_t	AONum;			//Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	uint16_t	DZNum;			//ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½
+	uint16_t	SyncNum;		//Í¬ï¿½Ú¸ï¿½ï¿½ï¿½
+  	uint16_t 	TransNum;   	//Í¸ï¿½ï¿½ï¿½ï¿½ï¿½Ý¹Ø¼ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½
+	uint16_t 	DONum;			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	uint16_t 	dwBCDNum;			//BCDï¿½ï¿½ï¿½ï¿½
+	uint16_t 	DBINum;			//Ë«ï¿½ï¿½Ò£ï¿½Å¸ï¿½ï¿½ï¿½
 
 //	/*MODBUS*/
 //	RTULocalMasterType *pModbusMaster;
@@ -876,8 +878,8 @@ typedef struct{
 typedef struct{
 
     uint16_t	ID;
-	uint16_t	ParentID;		//Ä£¿éID
-    uint16_t   	Address;		//×Ô¼ºµÄµØÖ·
+	uint16_t	ParentID;		//Ä£ï¿½ï¿½ID
+    uint16_t   	Address;		//ï¿½Ô¼ï¿½ï¿½Äµï¿½Ö·
 	uint16_t	CoiStatusStart;	
 	uint16_t	InputStatusStart;	
 	uint16_t	HoldingRegStart;	
@@ -899,15 +901,15 @@ typedef struct{
 typedef struct 
 {
 	WORD wProtocolID;
-	BYTE bBalance;//²»ÓÃ
-	BYTE bLinkAddr;//Á´Â·²ãµØÖ·
-	BYTE bAsduAddr;//¹«ÓÃµØÖ·
-	BYTE bInfoAddr;//ÐÅÏ¢ÌåµØÖ·
-	BYTE bCauseTrans;//´«ËÍÔ­Òò
-	BYTE bTestMode;//²âÊÔÄ£Ê½,bit7:1:²âÊÔÄ£Ê½£¬0£ºÕý³£Ä£Ê½
+	BYTE bBalance;//ï¿½ï¿½ï¿½ï¿½
+	BYTE bLinkAddr;//ï¿½ï¿½Â·ï¿½ï¿½ï¿½Ö·
+	BYTE bAsduAddr;//ï¿½ï¿½ï¿½Ãµï¿½Ö·
+	BYTE bInfoAddr;//ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Ö·
+	BYTE bCauseTrans;//ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½
+	BYTE bTestMode;//ï¿½ï¿½ï¿½ï¿½Ä£Ê½,bit7:1:ï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½
 	BYTE bCounterMode;// bit0,bit1 countermode, 0,1,2Modea, Modeb, modec
-	WORD wCylicDataNum;//ÖÜÆÚÊý¾Ý¸öÊý,Ä¬ÈÏÊÇ0,Ò£²âµÄÖÜÆÚÊý¾Ý
-	WORD wScanTime;//É¨ÃèÊ±¼ä
+	WORD wCylicDataNum;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¸ï¿½ï¿½ï¿½,Ä¬ï¿½ï¿½ï¿½ï¿½0,Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	WORD wScanTime;//É¨ï¿½ï¿½Ê±ï¿½ï¿½
 	WORD wMaxFrm;
 	WORD wRsv[9];
 	TData_t spi;
@@ -918,70 +920,70 @@ typedef struct
 	TData_t kwh;
 	TData_t yk;
 	TData_t yt;
-	TData_t bdo;//¶þ½øÖÆÊä³ö
+	TData_t bdo;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	TData_t tq;
-	TData_t mr;//±£»¤
-	TData_t file;//ÎÄ¼þ
+	TData_t mr;//ï¿½ï¿½ï¿½ï¿½
+	TData_t file;//ï¿½Ä¼ï¿½
 	TData_t rsv[8];
-	//	struct TData_t data [10];	//14¸öÊý¾Ý½á¹¹£¬ÆäÖÐ×îºó4¸öÎª±£Áô
-	WORD wCheckSum;	//ÀÛ¼ÓºÍ£¬Ê¹ÓÃµÍ16Î»£¬²»¿¼ÂÇ½øÎ»
+	//	struct TData_t data [10];	//14ï¿½ï¿½ï¿½ï¿½ï¿½Ý½á¹¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½
+	WORD wCheckSum;	//ï¿½Û¼ÓºÍ£ï¿½Ê¹ï¿½Ãµï¿½16Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç½ï¿½Î»
 }TIEC101Cfg;
 
 
 typedef struct{
 
-//============ ²Ù×÷ ============//
+//============ ï¿½ï¿½ï¿½ï¿½ ============//
 
-    int16_t (*ReadAI)(uint32_t dwDevID,uint32_t dwAINo, uint16_t* pStatus); 	//¶ÁÒ»¸öÒ£²â
-    int16_t (*ReadAI32)(uint32_t dwDevID,uint32_t dwAINo, IEC10X_DETECT_F_T* pValue); 	//¶ÁÒ»¸öÒ£²â
-    void  (*WriteAI)(uint32_t dwDevID,uint32_t dwAINo,int16_t sValue);       	//Ð´Ò»¸öÒ£²â
+    int16_t (*ReadAI)(uint32_t dwDevID,uint32_t dwAINo, uint16_t* pStatus); 	//ï¿½ï¿½Ò»ï¿½ï¿½Ò£ï¿½ï¿½
+    int16_t (*ReadAI32)(uint32_t dwDevID,uint32_t dwAINo, IEC10X_DETECT_F_T* pValue); 	//ï¿½ï¿½Ò»ï¿½ï¿½Ò£ï¿½ï¿½
+    void  (*WriteAI)(uint32_t dwDevID,uint32_t dwAINo,int16_t sValue);       	//Ð´Ò»ï¿½ï¿½Ò£ï¿½ï¿½
 
-    uint8_t  (*ReadDBI)(uint32_t dwDevID,uint32_t dwAINo, uint16_t* pStatus);	//¶ÁÒ»¸öË«µãÒ£ÐÅ
-    void  (*WriteDBI)(uint32_t dwDevID,uint32_t dwAINo,uint8_t bValue);        	//Ð´Ò»¸öË«µãÒ£ÐÅ
+    uint8_t  (*ReadDBI)(uint32_t dwDevID,uint32_t dwAINo, uint16_t* pStatus);	//ï¿½ï¿½Ò»ï¿½ï¿½Ë«ï¿½ï¿½Ò£ï¿½ï¿½
+    void  (*WriteDBI)(uint32_t dwDevID,uint32_t dwAINo,uint8_t bValue);        	//Ð´Ò»ï¿½ï¿½Ë«ï¿½ï¿½Ò£ï¿½ï¿½
 
-    uint8_t  (*ReadBI)(uint32_t dwDevID,uint32_t dwAINo, uint16_t* pStatus);	//¶ÁÒ»¸öÒ£ÐÅ
-    void  (*WriteBI)(uint32_t dwDevID,uint32_t dwAINo,uint8_t bValue,uint8_t bType,uint8_t bValue0,uint8_t bValue1,uint8_t bValue2,uint8_t bValue3);      //Ð´Ò»¸öÒ£ÐÅ	
+    uint8_t  (*ReadBI)(uint32_t dwDevID,uint32_t dwAINo, uint16_t* pStatus);	//ï¿½ï¿½Ò»ï¿½ï¿½Ò£ï¿½ï¿½
+    void  (*WriteBI)(uint32_t dwDevID,uint32_t dwAINo,uint8_t bValue,uint8_t bType,uint8_t bValue0,uint8_t bValue1,uint8_t bValue2,uint8_t bValue3);      //Ð´Ò»ï¿½ï¿½Ò£ï¿½ï¿½	
 
-    uint32_t (*ReadCI)(uint32_t dwDevID,uint32_t dwAINo, uint16_t* pStatus);    //¶ÁÒ»¸öµç¶È
-    void  (*WriteCI)(uint32_t dwDevID,uint32_t dwAINo,uint32_t dwValue);        //Ð´Ò»¸öµç¶È
+    uint32_t (*ReadCI)(uint32_t dwDevID,uint32_t dwAINo, uint16_t* pStatus);    //ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½
+    void  (*WriteCI)(uint32_t dwDevID,uint32_t dwAINo,uint32_t dwValue);        //Ð´Ò»ï¿½ï¿½ï¿½ï¿½ï¿½
 
-    uint32_t (*ReadBCD)(uint32_t dwDevID,uint32_t dwAINo, uint16_t* pStatus);	//¶ÁÒ»¸öBCD
-    void  (*WriteBCD)(uint32_t dwDevID,uint32_t dwAINo,uint32_t dwValue);       //Ð´Ò»¸öBCD
+    uint32_t (*ReadBCD)(uint32_t dwDevID,uint32_t dwAINo, uint16_t* pStatus);	//ï¿½ï¿½Ò»ï¿½ï¿½BCD
+    void  (*WriteBCD)(uint32_t dwDevID,uint32_t dwAINo,uint32_t dwValue);       //Ð´Ò»ï¿½ï¿½BCD
 
-    uint32_t (*ReadDZ)(uint32_t dwDevID,uint32_t dwDZINo, uint16_t* pStatus); 	//¶ÁÒ»¸ö¶¨Öµ
-    void  (*WriteDZ)(uint32_t dwDevID,uint32_t dwDZNo,uint32_t sValue,uint16_t pStatus); //Ð´Ò»¸ö¶¨Öµ
+    uint32_t (*ReadDZ)(uint32_t dwDevID,uint32_t dwDZINo, uint16_t* pStatus); 	//ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Öµ
+    void  (*WriteDZ)(uint32_t dwDevID,uint32_t dwDZNo,uint32_t sValue,uint16_t pStatus); //Ð´Ò»ï¿½ï¿½ï¿½ï¿½Öµ
 
-    int (*SetYK)(int DevID, uint8_t Type, uint16_t COT, uint8_t YKData); //·¢ËÍÒ£¿ØÐÅÏ¢
-    int (*Receive)(int DevID, uint8_t *buf, uint16_t len); //½ÓÊÕÊý¾Ý
-	int	(*Task)(int DevID);//Ñ­»·ÈÎÎñ
-	int	(*OnTimeOut)(int DevID);//¶¨Ê±ÈÎÎñ
-	int	(*SetDZ)(int DevID);//¶¨Öµ¼¤»î
+    int (*SetYK)(int DevID, uint8_t Type, uint16_t COT, uint8_t YKData); //ï¿½ï¿½ï¿½ï¿½Ò£ï¿½ï¿½ï¿½ï¿½Ï¢
+    int (*Receive)(int DevID, uint8_t *buf, uint16_t len); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int	(*Task)(int DevID);//Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int	(*OnTimeOut)(int DevID);//ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
+	int	(*SetDZ)(int DevID);//ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½
 	
     
     uint16_t	ID;
-	uint16_t	DeviceID;		//Ä£¿éID
-    char		Name[64];		//Ä£¿éÃû³Æ
-    uint16_t   	SAddress;		//×Ô¼ºµÄµØÖ·
-    uint16_t   	MAddress;		//¶Ô·½µÄµØÖ·
-	char*	    SelfIP;			//×Ô¼ºµÄIPµØÖ·
-	char*	    DirfIP;			//Éè±¸µÄIPµØÖ·
-	uint16_t 	AINum;			//Ò£²â¸öÊý
-	uint16_t	BINum;			//Ò£ÐÅ¸öÊý
-	uint16_t 	dwCINum;		//µç¶È¸öÊý
-	uint16_t	BONum;			//Ò£¿Ø¸öÊý
-//	uint16_t	AONum;			//Ò£µ÷¸öÊý
-	uint16_t	DZNum;			//¶¨Öµ¸öÊý
-	uint16_t	SyncNum;		//Í¬ÆÚ¸öÊý
-  	uint16_t 	TransNum;   	//Í¸Ã÷Êý¾Ý¹Ø¼ü×Ö¸öÊý
-	uint16_t 	DONum;			//Êý×ÖÁ¿Êä³ö¸öÊý
-	uint16_t 	dwBCDNum;			//BCD¸öÊý
-	uint16_t 	YBNum;			//¶¨Öµ¸öÊý
-    uint16_t 	MRDeviceNum;	//²úÉúÊÂ¹Ê¼ò±¨µÄÉè±¸Êý£ºÊµ¼Ê¿â¹Ì¶¨Îª1£»Âß¼­¿â¿ÉÑ¡
-	uint16_t 	DBINum;			//Ë«µãÒ£ÐÅ¸öÊý
-	uint16_t 	SELFNum;		//×Ô¼ìÐÅÏ¢Éè±¸¸öÊý
-	uint16_t 	MaxSoeBuffer;	// µ¥µãsoe/±ä»¯Ò£ÐÅÇø¸öÊý
-	uint16_t 	MaxDBISoeBuffer;// Ë«µãÒ£ÐÅsoe/±ä»¯Ò£ÐÅÇø¸öÊý
-	uint16_t 	MaxAitBuffer;	// µ¥µãsoe/±ä»¯Ò£ÐÅÇø¸öÊý
+	uint16_t	DeviceID;		//Ä£ï¿½ï¿½ID
+    char		Name[64];		//Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    uint16_t   	SAddress;		//ï¿½Ô¼ï¿½ï¿½Äµï¿½Ö·
+    uint16_t   	MAddress;		//ï¿½Ô·ï¿½ï¿½Äµï¿½Ö·
+	char*	    SelfIP;			//ï¿½Ô¼ï¿½ï¿½ï¿½IPï¿½ï¿½Ö·
+	char*	    DirfIP;			//ï¿½è±¸ï¿½ï¿½IPï¿½ï¿½Ö·
+	uint16_t 	AINum;			//Ò£ï¿½ï¿½ï¿½ï¿½ï¿½
+	uint16_t	BINum;			//Ò£ï¿½Å¸ï¿½ï¿½ï¿½
+	uint16_t 	dwCINum;		//ï¿½ï¿½È¸ï¿½ï¿½ï¿½
+	uint16_t	BONum;			//Ò£ï¿½Ø¸ï¿½ï¿½ï¿½
+//	uint16_t	AONum;			//Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	uint16_t	DZNum;			//ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½
+	uint16_t	SyncNum;		//Í¬ï¿½Ú¸ï¿½ï¿½ï¿½
+  	uint16_t 	TransNum;   	//Í¸ï¿½ï¿½ï¿½ï¿½ï¿½Ý¹Ø¼ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½
+	uint16_t 	DONum;			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	uint16_t 	dwBCDNum;			//BCDï¿½ï¿½ï¿½ï¿½
+	uint16_t 	YBNum;			//ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½
+    uint16_t 	MRDeviceNum;	//ï¿½ï¿½ï¿½ï¿½ï¿½Â¹Ê¼ò±¨µï¿½ï¿½è±¸ï¿½ï¿½ï¿½ï¿½Êµï¿½Ê¿ï¿½Ì¶ï¿½Îª1ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½Ñ¡
+	uint16_t 	DBINum;			//Ë«ï¿½ï¿½Ò£ï¿½Å¸ï¿½ï¿½ï¿½
+	uint16_t 	SELFNum;		//ï¿½Ô¼ï¿½ï¿½ï¿½Ï¢ï¿½è±¸ï¿½ï¿½ï¿½ï¿½
+	uint16_t 	MaxSoeBuffer;	// ï¿½ï¿½ï¿½ï¿½soe/ï¿½ä»¯Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	uint16_t 	MaxDBISoeBuffer;// Ë«ï¿½ï¿½Ò£ï¿½ï¿½soe/ï¿½ä»¯Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	uint16_t 	MaxAitBuffer;	// ï¿½ï¿½ï¿½ï¿½soe/ï¿½ä»¯Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	uint16_t 	bStarFlg;	// 
 	uint32_t 	TimeCnt;	// 
 	uint8_t 	Call_Time_cnt;	//
@@ -994,20 +996,20 @@ typedef struct{
     uint16_t	DZStart;
     uint16_t    BOStart;
     uint16_t    YMStart;
-	char 		Com[32];		//½Ó¿ÚÀàÐÍ:Íø¿Ú»ò´®¿Ú
-	uint32_t 	SerialID;		//´®¿Ú±àºÅ
-	uint32_t 	NetID;			//Íø¿Ú±àºÅ
-	char		TcpType[32];		//tcpÀàÐÍ:client or server
-	char 		Protocol[32];		//Ð­ÒéÀàÐÍ
-	char		Type[32];		//Éè±¸ÀàÐÍ:ÖÕ¶Ë»òÖ÷Õ¾
-	char 		dwType;//Éè±¸ÀàÐÍ:ÖÕ¶Ë»òÖ÷Õ¾5512
+	char 		Com[32];		//ï¿½Ó¿ï¿½ï¿½ï¿½ï¿½ï¿½:ï¿½ï¿½ï¿½Ú»ò´®¿ï¿½
+	uint32_t 	SerialID;		//ï¿½ï¿½ï¿½Ú±ï¿½ï¿½
+	uint32_t 	NetID;			//ï¿½ï¿½ï¿½Ú±ï¿½ï¿½
+	char		TcpType[32];		//tcpï¿½ï¿½ï¿½ï¿½:client or server
+	char 		Protocol[32];		//Ð­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	char		Type[32];		//ï¿½è±¸ï¿½ï¿½ï¿½ï¿½:ï¿½Õ¶Ë»ï¿½ï¿½ï¿½Õ¾
+	char 		dwType;//ï¿½è±¸ï¿½ï¿½ï¿½ï¿½:ï¿½Õ¶Ë»ï¿½ï¿½ï¿½Õ¾5512
 	uint32_t	dwControl;
-//    uint16_t    YCNum;			//Ò£²â¸öÊý
-//    uint16_t    YXNum;			//Ò£ÐÅ¸öÊý
-//    uint16_t    YKNum;			//Ò£¿Ø¸öÊý
-    uint16_t	YMNum;			//Ò£Âö¸öÊý
+//    uint16_t    YCNum;			//Ò£ï¿½ï¿½ï¿½ï¿½ï¿½
+//    uint16_t    YXNum;			//Ò£ï¿½Å¸ï¿½ï¿½ï¿½
+//    uint16_t    YKNum;			//Ò£ï¿½Ø¸ï¿½ï¿½ï¿½
+    uint16_t	YMNum;			//Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     char		IP[32];
-    uint16_t    PORT;			//IP¶Ë¿ÚºÅ
+    uint16_t    PORT;			//IPï¿½Ë¿Úºï¿½
     char		UDP_Dest_IP[32];
     uint16_t    UDP_Dest_PORT;			
 	uint32_t	SerialBault;
@@ -1015,65 +1017,65 @@ typedef struct{
 	uint32_t	SerialStopBit;
 	uint16_t	SerialParity;
 	YK_INFO_T 	YKInfo;
-	uint8_t 	*pSendBuf;//·¢ËÍÊý¾Ý»º³åÇø
-	uint8_t 	*pRecBuf;//½ÓÊÕÊý¾Ý»º³åÇø
+	uint8_t 	*pSendBuf;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½ï¿½ï¿½
+	uint8_t 	*pRecBuf;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½ï¿½ï¿½
 	
-	//Êµ¼Ê¿âÓëÂß¼­¿â¶¼ÓÐµÄÊý¾Ý
-	TSoeWrap		*pSoeWrap;			//SOEÖ¸Õë NVRAM
-	TSysTimeSoe 	*pSysTimeSoe;		//SOE¿â NVRAM
+	//Êµï¿½Ê¿ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½â¶¼ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½
+	TSoeWrap		*pSoeWrap;			//SOEÖ¸ï¿½ï¿½ NVRAM
+	TSysTimeSoe 	*pSysTimeSoe;		//SOEï¿½ï¿½ NVRAM
 	
 	TRealBase     	*pRealBase; 
-    TBurstAIWrap    *pBurstAIWrap;      /*Ò£ÐÅ±äÎ»Ö¸Õë,·ÖÅäÔÚ²»µôµçRAMÇø*/
-    TBurstAI    	*pBurstAI;       	/*Ò£²â±äÎ»¿â,·ÖÅäÔÚ²»µôµçRAMÇø*/
+    TBurstAIWrap    *pBurstAIWrap;      /*Ò£ï¿½Å±ï¿½Î»Ö¸ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½RAMï¿½ï¿½*/
+    TBurstAI    	*pBurstAI;       	/*Ò£ï¿½ï¿½ï¿½Î»ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½RAMï¿½ï¿½*/
 	
-    TBurstBIWrap    *pBurstBIWrap;      /*Ò£ÐÅ±äÎ»Ö¸Õë,·ÖÅäÔÚ²»µôµçRAMÇø*/
-    TBurstBI    	*pBurstBI;       	/*Ò£ÐÅ±äÎ»¿â,·ÖÅäÔÚ²»µôµçRAMÇø*/
+    TBurstBIWrap    *pBurstBIWrap;      /*Ò£ï¿½Å±ï¿½Î»Ö¸ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½RAMï¿½ï¿½*/
+    TBurstBI    	*pBurstBI;       	/*Ò£ï¿½Å±ï¿½Î»ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½RAMï¿½ï¿½*/
 
-    TBurstDBIWrap   *pBurstDBIWrap;     /*Ò£ÐÅ±äÎ»Ö¸Õë,·ÖÅäÔÚ²»µôµçRAMÇø*/
-    TBurstDBI    	*pBurstDBI;       	/*Ò£ÐÅ±äÎ»¿â,·ÖÅäÔÚ²»µôµçRAMÇø*/
+    TBurstDBIWrap   *pBurstDBIWrap;     /*Ò£ï¿½Å±ï¿½Î»Ö¸ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½RAMï¿½ï¿½*/
+    TBurstDBI    	*pBurstDBI;       	/*Ò£ï¿½Å±ï¿½Î»ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½RAMï¿½ï¿½*/
 
-    TBurstDZ    	*pBurstDZ;       	/*¶¨Öµ¿â,·ÖÅäÔÚ²»µôµçRAMÇø*/
+    TBurstDZ    	*pBurstDZ;       	/*ï¿½ï¿½Öµï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½RAMï¿½ï¿½*/
 
 
-    TAitWrap 		*pAitWrap;			//´øÊ±±êÒ£²âÖ¸Õë NVRAM
-    TSysTimeAit 	*pSysTimeAit;		//´øÊ±±êÒ£²â¿â NVRAM
+    TAitWrap 		*pAitWrap;			//ï¿½ï¿½Ê±ï¿½ï¿½Ò£ï¿½ï¿½Ö¸ï¿½ï¿½ NVRAM
+    TSysTimeAit 	*pSysTimeAit;		//ï¿½ï¿½Ê±ï¿½ï¿½Ò£ï¿½ï¿½ï¿½ NVRAM
 
-    TDBISoeWrap 	*pDBISoeWrap;		//DOUBLE POINT YX SOEÖ¸Õë NVRAM
-    TSysTimeDBISoe 	*pSysTimeDBISoe;	//DOUBLE POINT YX SOE¿â NVRAM
+    TDBISoeWrap 	*pDBISoeWrap;		//DOUBLE POINT YX SOEÖ¸ï¿½ï¿½ NVRAM
+    TSysTimeDBISoe 	*pSysTimeDBISoe;	//DOUBLE POINT YX SOEï¿½ï¿½ NVRAM
 
-    DWORD 		*pAI;               /*Ò£²âÊµÊ±¿âÖ¸Õë,·ÖÅäÔÚ²»µôµçRAMÖÐ,Âß¼­¿âÖ¸Õë·ÖÅäÔÚÆÕÍ¨RAM*/
-	uint16_t		*pAIStatus;			/*Ò£²âÖµµÄ×´Ì¬*/
-    uint16_t 		*pBI;               /*Ò£ÐÅÊµ¼ÊÊý¾Ý¿âÍ·Ö¸Õë,·ÖÅäÔÚ²»µôµçRAMÇø*/
-    uint16_t 		*pDBI;              /*Ò£ÐÅÊµ¼ÊÊý¾Ý¿âÍ·Ö¸Õë,·ÖÅäÔÚ²»µôµçRAMÇø*/
+    DWORD 		*pAI;               /*Ò£ï¿½ï¿½ÊµÊ±ï¿½ï¿½Ö¸ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½RAMï¿½ï¿½,ï¿½ß¼ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨RAM*/
+	uint16_t		*pAIStatus;			/*Ò£ï¿½ï¿½Öµï¿½ï¿½×´Ì¬*/
+    uint16_t 		*pBI;               /*Ò£ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½Í·Ö¸ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½RAMï¿½ï¿½*/
+    uint16_t 		*pDBI;              /*Ò£ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½Í·Ö¸ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½RAMï¿½ï¿½*/
 
-    uint32_t 		*pCI;               /*µç¶È¿âÍ·Ö¸Õë,·ÖÅäÔÚ²»µôµçRAMÇø*/
-	uint16_t		*pCIStatus;			/*µç¶ÈÊôÐÔ*/
+    uint32_t 		*pCI;               /*ï¿½ï¿½È¿ï¿½Í·Ö¸ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½RAMï¿½ï¿½*/
+	uint16_t		*pCIStatus;			/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 	
-    uint32_t 		*pBCD;              /*BCDÍ·Ö¸Õë,·ÖÅäÔÚ²»µôµçRAMÇø*/
+    uint32_t 		*pBCD;              /*BCDÍ·Ö¸ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½RAMï¿½ï¿½*/
 	uint16_t		*pBCDStatus;		/*bcd status ptr*/
 	
-	uint16_t		*pBO;				/*Ò£¿ØÖµ*/
-	uint16_t		*pBOStatus;			/*Ò£¿ØÊôÐÔ*/
-	uint16_t		*pAO;				/*Ò£µ÷Öµ*/
-	uint16_t		*pAOStatus;			/*Ò£µ÷ÊôÐÔ*/
-	uint32_t 		*pDZ;               /*¶¨Öµ±äÎ»¿â,·ÖÅäÔÚ²»µôµçRAMÇø*/
+	uint16_t		*pBO;				/*Ò£ï¿½ï¿½Öµ*/
+	uint16_t		*pBOStatus;			/*Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+	uint16_t		*pAO;				/*Ò£ï¿½ï¿½Öµ*/
+	uint16_t		*pAOStatus;			/*Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+	uint32_t 		*pDZ;               /*ï¿½ï¿½Öµï¿½ï¿½Î»ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½RAMï¿½ï¿½*/
 	uint16_t		*pDZStatus;   //lgh
-    uint8_t      	ErrorAll;//ÊÂ¹Ê×Ü
-	uint8_t   		WarmAll;//ÊÂ¹Ê×Ü
-	uint32_t		ReadYXPtr;//¶ÁÒ£ÐÅÖ¸Õë
-	uint32_t		ReadDYXPtr;//¶ÁË«µãÒ£ÐÅÖ¸Õë
-	uint32_t		ReadYXSoePtr;//¶ÁÒ£ÐÅÊÂ¼þÖ¸Õë
-	uint32_t		ReadDYXSoePtr;//¶ÁË«µãÒ£ÐÅÊÂ¼þÖ¸Õë
-	uint32_t		ReadYCPtr;//¶ÁÒ£ÐÅÖ¸Õë
-	uint32_t		ReadAitPtr;//¶Á´øÊ±±êÒ£²âÖ¸Õë
-	uint32_t		ReadBCDPtr;//¶Á´øÊ±±êÒ£²âÖ¸Õë
-	uint32_t		ReadDZPtr;//¶Á¶¨ÖµÖ¸Õë
-	uint32_t		ReadMrPtr;//¶ÁÊÂ¹Ê¼ò±¨Ö¸Õë
+    uint8_t      	ErrorAll;//ï¿½Â¹ï¿½ï¿½ï¿½
+	uint8_t   		WarmAll;//ï¿½Â¹ï¿½ï¿½ï¿½
+	uint32_t		ReadYXPtr;//ï¿½ï¿½Ò£ï¿½ï¿½Ö¸ï¿½ï¿½
+	uint32_t		ReadDYXPtr;//ï¿½ï¿½Ë«ï¿½ï¿½Ò£ï¿½ï¿½Ö¸ï¿½ï¿½
+	uint32_t		ReadYXSoePtr;//ï¿½ï¿½Ò£ï¿½ï¿½ï¿½Â¼ï¿½Ö¸ï¿½ï¿½
+	uint32_t		ReadDYXSoePtr;//ï¿½ï¿½Ë«ï¿½ï¿½Ò£ï¿½ï¿½ï¿½Â¼ï¿½Ö¸ï¿½ï¿½
+	uint32_t		ReadYCPtr;//ï¿½ï¿½Ò£ï¿½ï¿½Ö¸ï¿½ï¿½
+	uint32_t		ReadAitPtr;//ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ò£ï¿½ï¿½Ö¸ï¿½ï¿½
+	uint32_t		ReadBCDPtr;//ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ò£ï¿½ï¿½Ö¸ï¿½ï¿½
+	uint32_t		ReadDZPtr;//ï¿½ï¿½ï¿½ï¿½ÖµÖ¸ï¿½ï¿½
+	uint32_t		ReadMrPtr;//ï¿½ï¿½ï¿½Â¹Ê¼ï¿½Ö¸ï¿½ï¿½
 	
-	uint8_t			Flag_Link_Ready;//Á´Â·ÒÑÁ¬½Ó
-	uint8_t			Flag_Brust_Send_Enable;//ÔÊÐí·¢ËÍÍ»·¢ÐÅÏ¢
+	uint8_t			Flag_Link_Ready;//ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	uint8_t			Flag_Brust_Send_Enable;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½Ï¢
 	int 			fd;
-	int 			sfd;//tcp server°ó¶¨ÎÄ¼þÃèÊö·û£¬fd´æ·ÅÕìÌýÎÄ¼þÃèÊö·û
+	int 			sfd;//tcp serverï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½fdï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	TLogicBase    	*pLogicBase;
 	int 			SoeSendNum;
 	
@@ -1085,7 +1087,7 @@ typedef struct{
 	int				STATE_FLAG_TESTER;
 	int 			STATE_FLAG_DELAY;
 	int 			STATE_FLAG_YK;
-	int 			YK_FROM_ID;//Ò£¿ØÀ´Ô´µÄIDºÅ
+	int 			YK_FROM_ID;//Ò£ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½IDï¿½ï¿½
 	int 			ReSendNum;
 	
 	
@@ -1103,13 +1105,14 @@ typedef struct{
 	uint8_t 		flag_enpty_receive;
 	uint8_t 		flag_enpty_timeout;
 	uint8_t 		Flag_Set_DZ;	
-	uint8_t 		Flag_Select_DZ;//¶¨ÖµÔ¤ÖÃ±êÖ¾
-	int				DZ_YZ_DEVID;//¶¨ÖµÐÞ¸Ä¶ÔÏóID
+	uint8_t 		Flag_Select_DZ;//ï¿½ï¿½ÖµÔ¤ï¿½Ã±ï¿½Ö¾
+	int				DZ_YZ_DEVID;//ï¿½ï¿½Öµï¿½Þ¸Ä¶ï¿½ï¿½ï¿½ID
 	uint8_t Flag[MAX_FLAGNO];
 	uint32_t dwFlag[MAX_DWORDFLAGNO];
 
 	/*MODBUS*/
 	RTULocalMasterType *pModbusMaster;
+	TCPLocalClientType *pModbusTcpMaster;
 	ModbusData_T ModbusData;
 }TDevie,*PTDevie;
 
@@ -1127,11 +1130,11 @@ extern Modbus_TransTable_T *TransModbusInputRegTable;
 extern	PTDevie gpDevice;
 extern	TVars   gVars;
 
-#pragma pack() //½â³ý°´1×Ö½Ú¶ÔÆë
+#pragma pack() //ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½Ö½Ú¶ï¿½ï¿½ï¿½
 
 
 //======================================================
-//	Íâ²¿º¯ÊýÉùÃ÷Çø
+//	ï¿½â²¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //======================================================
 void InitDbase(void);
 int WriteYx(uint8_t DevID,uint32_t nPoint,uint8_t bStatus);

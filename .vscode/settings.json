@@ -1,5 +1,14 @@
 {
     "files.associations": {
-        "sys.h": "c"
+        "sys.h": "c",
+        "mbrtuslave.h": "c",
+        "mbtcpserver.h": "c",
+        "mbtcpclient.h": "c",
+        "modbusrtuslaver.h": "c",
+        "mbrtu.h": "c",
+        "modbusrtumaster.h": "c",
+        "mbtcp.h": "c",
+        "mbrtumaster.h": "c",
+        "dbase.h": "c"
     }
 }
