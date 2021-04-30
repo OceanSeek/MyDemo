@@ -186,7 +186,7 @@ void *Pthread_Task(void *arg)
 		perror("error:ComConfig DevNo(%d)\n",DevNo);
 		return NULL;
 	}else if(ret >= 0){
-		log("DevNo is (%d),fd (%d)\n",DevNo, gpDevice[DevNo].fd);
+		// log("DevNo is (%d),fd (%d)\n",DevNo, gpDevice[DevNo].fd);
 		err=pthread_create(&tid1,NULL,AppTask,arg);
 		if(err!=0)	{	
 			log("pthread_create error:\n");	
@@ -299,7 +299,9 @@ int ComConfigUDP(int *arg)
 	int FlagLog = 1;
 	int DevNo = *arg;
 	nonblockingUDP(gpDevice[DevNo].IP, gpDevice[DevNo].PORT, OverTime, DevNo);
-//	log("________________ desip(%s)udp fd is (%d)  DevNo:%d",gpDevice[DevNo].UDP_Dest_IP, gpDevice[DevNo].fd,DevNo);
+	if(gpDevice[DevNo].fd != RET_ERROR)log("DevID[%d] udp config succesful ip[%s] port[%d] fd[%d]\n", gpDevice[DevNo].ID, gpDevice[DevNo].IP, gpDevice[DevNo].PORT, gpDevice[DevNo].fd);
+		
+	// log("________________ desip(%s)udp fd is (%d)  DevNo:%d",gpDevice[DevNo].UDP_Dest_IP, gpDevice[DevNo].fd,DevNo);
 	return gpDevice[DevNo].fd;
 
 }
@@ -887,8 +889,8 @@ int CKTask(int DevNo)
 		if(len > 0)    
 		{	 
 			MonitorRx(monitorData._RX_ID, DevNo, monitorData._fd, buff, len);
-			log("DevID %d Serial receive:", gpDevice[DevNo].ID);
-			DumpHEX(buff, len);
+			// log("DevID %d Serial receive:", gpDevice[DevNo].ID);
+			// DumpHEX(buff, len);
 			if(gpDevice[DevNo].Receive == NULL){
 				gpDevice[DevNo].Receive = Empty_Receive;
 			}

@@ -26,10 +26,13 @@ TCPLocalClientType mbClient;
 uint8_t readCommand[10][12];
 WritedCoilListNode coilList[3]={{0,0,0,1},{1,0,0,1},{2,0,0,0}};
 WritedRegisterListNode registerList[3]={{0,0,0,1,1},{1,0,0,1,2},{2,0,0,0,0}};
+union {
+    uint32_t ipNumber;
+    uint8_t ipSegment[4];
+}ipAddress;
 
 int Init_ModbusTcpMaster(int DevNo)
 {
-
 	gpDevice[DevNo].Receive = ModbusTcpMaster_Receive;
 	gpDevice[DevNo].Task = ModbusTcpMaster_Task;
 	gpDevice[DevNo].OnTimeOut = ModbusTcpMaster_OnTimeOut;
@@ -37,14 +40,15 @@ int Init_ModbusTcpMaster(int DevNo)
 	gpDevice[DevNo].pSendBuf = malloc(300);
 	/*初始化TCP客户端对象*/
 	InitializeTCPClientObject(gpDevice[DevNo].pModbusTcpMaster, NULL, NULL, NULL, NULL);
+	ipAddress.ipNumber = ip2long(gpDevice[DevNo].IP);
 	/* 实例化TCP服务器对象 */
 	InstantiateTCPServerObject(&mbServer,          //要实例化的服务器对象
 			gpDevice[DevNo].pModbusTcpMaster,             //服务器所属本地客户端对象
-			192,                     //IP地址第1段
-			168,                     //IP地址第2段
-			1,                     //IP地址第3段
-			41,                     //IP地址第4段
-			2331,					 //端口号
+			ipAddress.ipSegment[0],                     //IP地址第1段
+			ipAddress.ipSegment[1],                     //IP地址第2段
+			ipAddress.ipSegment[2],                     //IP地址第3段
+			ipAddress.ipSegment[3],                     //IP地址第4段
+			gpDevice[DevNo].PORT,	//端口号
 			1,						//读命令数量
 			readCommand,					//读命令列表
 			0,              //可写线圈量节点的数量
@@ -185,8 +189,6 @@ int ModbusTcpMaster_Receive(int DevNo, uint8_t *buf, uint16_t len)
     BufTemp = buf;
     LenRemain = len;
     while(BufTemp<buf+len){
-		// log("recive data:");
-		// DumpHEX(buf, len);
 		ret = SearchOneFrame(buf, len);
 		
         if(ret != RET_ERROR){
@@ -211,7 +213,6 @@ int ModbusTcpMaster_Deal(int DevNo, uint8_t *pbuf, uint16_t len)
 		return 0;
 	}
 
-	log("---->ip is %d ; port is %d \n",gpDevice[DevNo].pModbusTcpMaster->pServerList->ipAddress, gpDevice[DevNo].pModbusTcpMaster->pServerList->port);
 	ParsingServerRespondMessage(DevNo, gpDevice[DevNo].pModbusTcpMaster, pbuf);
 }
 
@@ -371,8 +372,7 @@ int ModbusTcp_AskHoldingRegister(int DevNo)
 	}
 	if(quantity == 0) return false;
 	startAddr = addr[0];
-	if(DevNo == 1)
-		log("\nDevID is %d addrStart is %d quantity is %d  OldSlaverAddr is %d\n", gpDevice[DevNo].ID, startAddr, quantity, OldSlaverAddr);
+	log("\nModbusTcpMaster Ask Info:DevID is %d addrStart is %d quantity is %d  SlaverAddr is %d\n", gpDevice[DevNo].ID, startAddr, quantity, OldSlaverAddr);
 	
 	ModbusTcpMaster_ASK(DevNo, OldSlaverAddr, ReadHoldingRegister, startAddr, quantity);
 	return true;
@@ -451,13 +451,14 @@ int ModbusTcpMaster_OnTimeOut(int DevNo)
 	}
 
 	if(gpDevice[DevNo].TimeCnt%1 == 0){
+		// if(gpDevice[DevNo].ID == 4)usleep(1000000);
 		MModbusTcp_SendAsk(DevNo);
 	}
-
+	
 	// if(gpDevice[DevNo].TimeCnt%5 == 0){
 	// 	ModbusTcp_TestData(DevNo, gpDevice[DevNo].TimeCnt);
 	// }
-
+	usleep(50000);
 	return RET_SUCESS;
 }
 

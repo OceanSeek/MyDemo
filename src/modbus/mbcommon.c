@@ -61,99 +61,62 @@ double CheckWriteDoubleDataIsValid(double value,double range,double zero)
   }
 }
 
-/*������д�����Ƿ����������Ҫ��Χ������(16λ����)*/
-uint16_t CheckWriteInt16DataIsValid(uint16_t value,uint16_t range,uint16_t zero)
+void ReadCoilStatusData(int DevNo, uint16_t startAddress,uint16_t quantity,bool *statusList)
 {
-  if(value>=range)
-  {
-    return range;
-  }
-  else if(value<=zero)
-  {
-    return zero;
-  }
-  else
-  {
-    return value;
-  }
-}
-
-/*������д�����Ƿ����������Ҫ��Χ������(32λ����)*/
-uint32_t CheckWriteInt32DataIsValid(uint32_t value,uint32_t range,uint32_t zero)
-{
-  if(value>=range)
-  {
-    return range;
-  }
-  else if(value<=zero)
-  {
-    return zero;
-  }
-  else
-  {
-    return value;
-  }
-}
-
-void ReadCoilStatusData(uint16_t startAddress,uint16_t quantity,bool *statusList)
-{
-	uint16_t wRealID,nPoint,i,DevNo;
+	uint16_t wRealID,nPoint,i, realDevNo;
 	bool statusDataSrc[255];
-
+// 
 	memset(statusDataSrc,0,255*sizeof(bool));
-
-//	log("startAddress:%d;quantity:%d;\n", startAddress, quantity);
 	for(i=0;i<quantity;i++){
+		
 		if((startAddress + i) >= gVars.TransModbusCoidStatusTableNum)continue; 
-		wRealID = TransModbusCoidStatusTable[startAddress + i].wRealID;
-		nPoint = TransModbusCoidStatusTable[startAddress + i].nPoint;
-//		log("wRealID:%d;nPoint:%d;\n", wRealID, nPoint);
-		DevNo = GetDevNo(wRealID);
-		if(RET_ERROR == DevNo){
-			perror("RET_ERROR == DevNo");
+		wRealID = gpDevice[DevNo].pLogicBase->pLogicCoiStatus[startAddress + i].wRealID;
+		nPoint = gpDevice[DevNo].pLogicBase->pLogicCoiStatus[startAddress + i].nPoint;
+		
+		realDevNo = GetDevNo(wRealID);
+		if(RET_ERROR == realDevNo){
+			perror("RET_ERROR == realDevNo");
 			return;
 		}
-
-		if(strcmp("PLC", gpDevice[DevNo].Name) == 0){
+		if(strcmp("PLC", gpDevice[realDevNo].Name) == 0){
 			statusDataSrc[i] = gpDevice[DevNo].ModbusData.pCoilStatus[nPoint];
 		}
-		if(strcmp("WQ900", gpDevice[DevNo].Name) == 0){
+		if(strcmp("WQ900", gpDevice[realDevNo].Name) == 0){
 			bool value;
-			value = gpDevice[DevNo].pBurstBI[nPoint].bStatus == 1?true:false;
+			value = gpDevice[realDevNo].pBurstBI[nPoint].bStatus == 1?true:false;
 			statusDataSrc[i] = value;
 		}
-		
-		// log("qunatity is %d npoint is %d value is %d\n",quantity,nPoint,statusDataSrc[i]);
 	}
-	
 	memcpy(statusList, statusDataSrc, quantity);
 }
 
-void ReadInputStatusData(uint16_t startAddress,uint16_t quantity,bool *statusList)
+void ReadInputStatusData(int DevNo, uint16_t startAddress,uint16_t quantity,bool *statusList)
 {
-	uint16_t wRealID,nPoint,i,DevNo;
+	uint16_t wRealID,nPoint,i,realDevNo;
 	bool statusDataSrc[255];
 
 	memset(statusDataSrc,0,255*sizeof(bool));
 	
 	for(i=0;i<quantity;i++){
 		if((startAddress + i) >= gVars.TransModbusInputStatusTableNum)continue; 
-		wRealID = TransModbusInputStatusTable[startAddress + i].wRealID;
-		nPoint = TransModbusInputStatusTable[startAddress + i].nPoint;
-		DevNo = GetDevNo(wRealID);
-		if(RET_ERROR == DevNo){
-			perror("RET_ERROR == DevNo");
+		wRealID = gpDevice[DevNo].pLogicBase->pLogicInputStatus[startAddress + i].wRealID;
+		nPoint = gpDevice[DevNo].pLogicBase->pLogicInputStatus[startAddress + i].nPoint;
+		realDevNo = GetDevNo(wRealID);
+		if(RET_ERROR == realDevNo){
+			perror("RET_ERROR == realDevNo");
 			return;
 		}
-		statusDataSrc[i] = gpDevice[DevNo].ModbusData.pInputStatus[nPoint];
+		if(strcmp("PLC", gpDevice[realDevNo].Name) == 0){
+			statusDataSrc[i] = gpDevice[realDevNo].ModbusData.pInputStatus[nPoint];
+		}
 	}
 	
 	memcpy(statusList, statusDataSrc, quantity);
 }
 
-void ReadHoldingRegData(uint16_t startAddress,uint16_t quantity,uint16_t *registerValue)
+void ReadHoldingRegData(int DevNo, uint16_t startAddress,uint16_t quantity,uint16_t *registerValue)
 {
-	uint16_t wRealID,nPoint,i,DevNo;
+	uint16_t wRealID,nPoint,i,realDevNo;
 	uint16_t RegDataSrc[255];
 
 	memset(RegDataSrc,0,255*sizeof(uint16_t));
@@ -163,25 +126,24 @@ void ReadHoldingRegData(uint16_t startAddress,uint16_t quantity,uint16_t *regist
 		if((startAddress + i) >= gVars.TransModbusHoldingRegTableNum){
 			continue; 
 		}
-		wRealID = TransModbusHoldingRegTable[startAddress + i].wRealID;
-		nPoint = TransModbusHoldingRegTable[startAddress + i].nPoint;
+		wRealID = gpDevice[DevNo].pLogicBase->pLogicHoldingReg[startAddress + i].wRealID;
+		nPoint = gpDevice[DevNo].pLogicBase->pLogicHoldingReg[startAddress + i].nPoint;
 //		log("wRealID:%d;nPoint:%d;\n", wRealID, nPoint);
-		DevNo = GetDevNo(wRealID);
-		if(RET_ERROR == DevNo){
-			perror("RET_ERROR == DevNo");
+		realDevNo = GetDevNo(wRealID);
+		if(RET_ERROR == realDevNo){
+			perror("RET_ERROR == realDevNo");
 			return;
 		}
 
-		if(strcmp("PLC", gpDevice[DevNo].Name) == 0){
-			RegDataSrc[i] = gpDevice[DevNo].ModbusData.pHoldingRegister[nPoint];
+		if(strcmp("PLC", gpDevice[realDevNo].Name) == 0){
+			RegDataSrc[i] = gpDevice[realDevNo].ModbusData.pHoldingRegister[nPoint];
 		}
-		if(strcmp("WQ900", gpDevice[DevNo].Name) == 0){
-			log("bType is [%d]\n", gpDevice[DevNo].pBurstAI[nPoint].bType);
-			if(gpDevice[DevNo].pBurstAI[nPoint].bType == 2){
-				RegDataSrc[i] = gpDevice[DevNo].pBurstAI[nPoint].detect16._detect;
+		if(strcmp("WQ900", gpDevice[realDevNo].Name) == 0){
+			if(gpDevice[DevNo].pLogicBase->pLogicHoldingReg[startAddress + i].DataType == 2){
+				RegDataSrc[i] = gpDevice[realDevNo].pBurstAI[nPoint].detect16._detect;
 			}
-			else if(gpDevice[DevNo].pBurstAI[nPoint].bType == 4){
-				
+			else if(gpDevice[DevNo].pLogicBase->pLogicHoldingReg[startAddress + i].DataType == 4){
+				RegDataSrc[i] = gpDevice[realDevNo].pBurstAI[nPoint].detect32._detect >> gpDevice[DevNo].pLogicBase->pLogicHoldingReg[startAddress + i].DataOffset;
 			}
 		}
 	}
@@ -189,23 +151,33 @@ void ReadHoldingRegData(uint16_t startAddress,uint16_t quantity,uint16_t *regist
 	memcpy(registerValue, RegDataSrc, quantity*sizeof(uint16_t));
 }
 
-void ReadInputgRegData(uint16_t startAddress,uint16_t quantity,uint16_t *registerValue)
+void ReadInputgRegData(int DevNo, uint16_t startAddress,uint16_t quantity,uint16_t *registerValue)
 {
-	uint16_t wRealID,nPoint,i,DevNo;
+	uint16_t wRealID,nPoint,i,realDevNo;
 	uint16_t RegDataSrc[255];
 	
 	memset(RegDataSrc,0,255*sizeof(uint16_t));
 	for(i=0;i<quantity;i++){
 		if((startAddress + i) >= gVars.TransModbusInputRegTableNum)return; 
-		wRealID = TransModbusInputRegTable[startAddress + i].wRealID;
-		nPoint = TransModbusInputRegTable[startAddress + i].nPoint;
+		wRealID = gpDevice[DevNo].pLogicBase->pLogicInputReg[startAddress + i].wRealID;
+		nPoint = gpDevice[DevNo].pLogicBase->pLogicInputReg[startAddress + i].nPoint;
 		
-		DevNo = GetDevNo(wRealID);
-		if(RET_ERROR == DevNo){
-			perror("RET_ERROR == DevNo");
+		realDevNo = GetDevNo(wRealID);
+		if(RET_ERROR == realDevNo){
+			perror("RET_ERROR == realDevNo");
 			return;
 		}
-		RegDataSrc[i] = gpDevice[DevNo].ModbusData.pInputResgister[nPoint];
+		if(strcmp("PLC", gpDevice[realDevNo].Name) == 0){
+			RegDataSrc[i] = gpDevice[realDevNo].ModbusData.pInputResgister[nPoint];
+		}
+		if(strcmp("WQ900", gpDevice[realDevNo].Name) == 0){
+			if(gpDevice[DevNo].pLogicBase->pLogicInputReg[startAddress + i].DataType == 2){
+				RegDataSrc[i] = gpDevice[realDevNo].pBurstAI[nPoint].detect16._detect;
+			}
+			else if(gpDevice[DevNo].pLogicBase->pLogicInputReg[startAddress + i].DataType == 4){
+				RegDataSrc[i] = gpDevice[realDevNo].pBurstAI[nPoint].detect32._detect >> gpDevice[DevNo].pLogicBase->pLogicInputReg[startAddress + i].DataOffset;
+			}
+		}		
 	}
 	
 	memcpy(registerValue, RegDataSrc, quantity*sizeof(uint16_t));
@@ -217,28 +189,28 @@ void ReadInputgRegData(uint16_t startAddress,uint16_t quantity,uint16_t *registe
 /*��ȡ��Ҫ��ȡ��Coil����ֵ*/
 void GetCoilStatus(int DevNo, uint16_t startAddress,uint16_t quantity,bool *statusList)
 {
-  ReadCoilStatusData(startAddress, quantity, statusList);
+  ReadCoilStatusData(DevNo, startAddress, quantity, statusList);
 }
 
 /*��ȡ��Ҫ��ȡ��InputStatus����ֵ*/
 void GetInputStatus(int DevNo, uint16_t startAddress,uint16_t quantity,bool *statusValue)
 {
   //�����ҪModbus TCP Server/RTU SlaveӦ����ʵ�־�������
-	ReadInputStatusData(startAddress, quantity, statusValue);
+	ReadInputStatusData(DevNo, startAddress, quantity, statusValue);
 }
 
 /*��ȡ��Ҫ��ȡ�ı��ּĴ�����ֵ*/
 void GetHoldingRegister(int DevNo, uint16_t startAddress,uint16_t quantity,uint16_t *registerValue)
 {
  	//�����ҪModbus TCP Server/RTU SlaveӦ����ʵ�־�������
- 	ReadHoldingRegData(startAddress, quantity, registerValue);
+ 	ReadHoldingRegData(DevNo, startAddress, quantity, registerValue);
 }
 
 /*��ȡ��Ҫ��ȡ������Ĵ�����ֵ*/
 void GetInputRegister(int DevNo, uint16_t startAddress,uint16_t quantity,uint16_t *registerValue)
 {
  	//�����ҪModbus TCP Server/RTU SlaveӦ����ʵ�־�������
-	ReadInputgRegData(startAddress, quantity, registerValue);
+	ReadInputgRegData(DevNo, startAddress, quantity, registerValue);
 }
 
 /*���õ�����Ȧ��ֵ*/
@@ -368,10 +340,10 @@ void UpdateHoldingRegister(int DevNo, uint8_t salveAddress,uint16_t startAddress
 	}
 	
 	memcpy(&gpDevice[DevNo].ModbusData.pHoldingRegister[startRegister], registerValue, quantity*sizeof(uint16_t));
-	log("startRegister(%d) quantity(%d)\n", startRegister, quantity);
+	log("DevID[%d] startRegister(%d) quantity(%d)------->",gpDevice[DevNo].ID, startRegister, quantity);
 	for(i=0;i<quantity;i++)
 	{
-		log("data[%d] ",gpDevice[DevNo].ModbusData.pHoldingRegister[startRegister + i]);
+		log("data[%d]",gpDevice[DevNo].ModbusData.pHoldingRegister[startRegister + i]);
 	}
 	log("\n");
 

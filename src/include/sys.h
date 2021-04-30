@@ -75,6 +75,7 @@
 char* sysLocalTime();  
 void LogSysLocalTime(); 
 int HuaWei485Ctrl_Switch(int DevNo, int ctrlvalue);
+uint32_t ip2long(char* ip);
 
 
 #define WTP_SUPPORT_END_NUMBER  9

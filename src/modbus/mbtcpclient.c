@@ -118,12 +118,12 @@ void ParsingServerRespondMessage(int DevNo, TCPLocalClientType *client,uint8_t *
   quantity=(quantity<<8)+(uint16_t)currentServer->pReadCommand[cmdIndex][11];
   if(quantity*2!=dLength)       //请求的数据长度与返回的数据长度不一致
   {
-    perror("rec len is not equal to ask len\n");
+    perror("DevID[%d]rec len(%d) is not equal to ask len(%d)\n", gpDevice[DevNo].ID, quantity*2, dLength);
+    DumpHEX(recievedMessage, mLength);
     return;
   }
   if((fuctionCode>=ReadCoilStatus)&&(fuctionCode<=ReadInputRegister))
   {
-    log("function code is %d\n", fuctionCode-1);
     HandleServerRespond[fuctionCode-1](DevNo, client,recievedMessage,startAddress,quantity);
   }
 }

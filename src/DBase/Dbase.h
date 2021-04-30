@@ -604,7 +604,6 @@ typedef struct {
 }TLogicDBI;
 
 
-
 typedef struct{
     WORD	wRealID;                /*��DD�����豸��ID��*/
     WORD	wOffset;                /*��DD���豸ʵ�ʿ��е�ƫ����*/
@@ -730,6 +729,10 @@ typedef struct{
     TLogicCI        *pLogicCI;          /*ң���߼����Կ�ָ��,�����ڶ�̬RAM��*/
     TLogicBCD       *pLogicBCD;         /*BCD�߼����Կ�ָ��,�����ڶ�̬RAM��*/
     TLogicDBI       *pLogicDBI;         /*ң���߼����Կ�ָ��,�����ڶ�̬RAM��*/
+	Modbus_TransTable_T *pLogicCoiStatus;
+	Modbus_TransTable_T *pLogicInputStatus;
+	Modbus_TransTable_T *pLogicHoldingReg;
+	Modbus_TransTable_T *pLogicInputReg;
     TBurstAIWrap     BurstAIWrap;		/*�仯ң��ͷָ��,�����ڶ�̬RAM��*/
 	TBurstBcdWrap burstBcdWrap;
 }TLogicBase;

@@ -63,5 +63,13 @@ int HuaWei485Ctrl_Switch(int DevNo, int ctrlvalue)
 
 }
 
+uint32_t ip2long(char* ip)
+{
+	// exsample ip = "192.168.1.21"
+	uint8_t addr[4] = {0};
+	sscanf(ip, "%d.%d.%d.%d", &addr[0],&addr[1],&addr[2],&addr[3]);
+	return *(uint32_t*)addr;
+}
+
 
 

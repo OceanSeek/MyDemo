@@ -266,8 +266,8 @@ void ModifyModbusTransTable(sqlite3 *db, char *TableName){
 
 void ModifyTableProperty(void){
 	sqlite3 *db = NULL;
-	// db = DBase_Open("/mnt/internal_storage/dcu/IEC104_data.db");
-	db = DBase_Open("IEC104_data.db");
+	db = DBase_Open("/mnt/internal_storage/dcu/IEC104_data.db");
+	// db = DBase_Open("IEC104_data.db");
 	ModifyTransTable(db, "TransYxTable");
 	ModifyTransTable(db, "TransYcTable");
 	ModifyTransTable(db, "TransYkTable");
@@ -303,8 +303,8 @@ void InitDbase(void)
 void InitTransTable(void)
 {
 	sqlite3 *db = NULL;
-	// db = DBase_Open("/mnt/internal_storage/dcu/IEC104_data.db");
-	db = DBase_Open("IEC104_data.db");
+	db = DBase_Open("/mnt/internal_storage/dcu/IEC104_data.db");
+	// db = DBase_Open("IEC104_data.db");
 	TransYXTable = InitTransTab("TransYxTable", &gVars.TransYXTableNum, db);
 	TransYCTable = InitTransTab("TransYcTable", &gVars.TransYCTableNum, db);
 	TransYKTable = InitTransTab("TransYkTable", &gVars.TransYKTableNum, db);
@@ -385,8 +385,8 @@ int InitPortsTab(void)
 	int i=0;
 	char ComName[32];
 	char ComIP[32];
-	// db = DBase_Open("/mnt/internal_storage/dcu/IEC104_data.db");
-	db = DBase_Open("IEC104_data.db");
+	db = DBase_Open("/mnt/internal_storage/dcu/IEC104_data.db");
+	// db = DBase_Open("IEC104_data.db");
 
 	int32_t nrow=0,ncolumn=0;
 	char **azResult;//��ά�����Ž��
@@ -451,8 +451,8 @@ void InitWQ900Parameter()
 	char *sql;
 	int i=0;
 	PTDevie pDevice;
-	// db = DBase_Open("/mnt/internal_storage/dcu/IEC104_data.db");
-	db = DBase_Open("IEC104_data.db");
+	db = DBase_Open("/mnt/internal_storage/dcu/IEC104_data.db");
+	// db = DBase_Open("IEC104_data.db");
 	int32_t nrow=0,ncolumn=0;
 	char **azResult;//��ά�����Ž��
 	sqlite3_exec(db,sql,0,0,&zErrMsg);	
@@ -517,8 +517,8 @@ void InitPLCParameter()
 	char *sql;
 	int i=0;
 	PTDevie pDevice;
-	// db = DBase_Open("/mnt/internal_storage/dcu/IEC104_data.db");
-	db = DBase_Open("IEC104_data.db");
+	db = DBase_Open("/mnt/internal_storage/dcu/IEC104_data.db");
+	// db = DBase_Open("IEC104_data.db");
 	int32_t nrow=0,ncolumn=0;
 	char **azResult;//��ά�����Ž��
 	
@@ -1164,7 +1164,12 @@ void InitRegulaBurstBIPtr(uint32_t dwDevID, TBurstBIWrap *pBurstBIWrap)
 	}
 }
 
-//��ʼ��ת�����
+/******************************************************************************
+** 函 数		Init_Reffer()                                            
+** 功 能 	                                                          
+***1、初始化转发表                                                                                                                                                              
+** 日  期   2021年4月27日                                                   
+******************************************************************************/
 void Init_Reffer(void)
 {
 	int i;
@@ -1219,62 +1224,76 @@ void Init_Reffer(void)
 		pDevice->pBurstDZ[nPoint].nNo = TransDZTable[i].nIndex;//�豸�ڵ�Ŷ�Ӧ��ת�����
 
 	}
-	//��ʼ����վģ��ת����
+	//初始化logic设备
 	for(DevIDNum=0;DevIDNum<gVars.dwDevNum;DevIDNum++){
 		if(strcmp("Logic", gpDevice[DevIDNum].Type) == 0){
-			if(strcmp("WQ900", gpDevice[DevIDNum].Name) != 0) continue;
-			
-			/*�����ڴ�*/
-			/*�߼�����ַ*/
+			//申请逻辑模块基地址
 			gpDevice[DevIDNum].pLogicBase=(TLogicBase*)malloc(sizeof(TLogicBase));
 			memset(gpDevice[DevIDNum].pLogicBase,0,sizeof(TLogicBase));
-			/*ң��*/
-			gpDevice[DevIDNum].pLogicBase->pLogicBI=(TLogicBI*)malloc(gVars.TransYXTableNum * sizeof(TLogicBI));
-			memset(gpDevice[DevIDNum].pLogicBase->pLogicBI, 0, gVars.TransYXTableNum * sizeof(TLogicBI));
-			//˫��ң��
-			gpDevice[DevIDNum].pLogicBase->pLogicDBI=(TLogicDBI*)malloc(gVars.TransYXTableNum * sizeof(TLogicDBI));
-			memset(gpDevice[DevIDNum].pLogicBase->pLogicDBI, 0, gVars.TransYXTableNum * sizeof(TLogicDBI));
-			/*ң��*/
-			gpDevice[DevIDNum].pLogicBase->pLogicAI=(TLogicAI*)malloc(gVars.TransYCTableNum * sizeof(TLogicAI));
-			memset(gpDevice[DevIDNum].pLogicBase->pLogicAI, 0, gVars.TransYCTableNum * sizeof(TLogicAI));
-			//�����
-			gpDevice[DevIDNum].dwCINum = 100;
-			gpDevice[DevIDNum].pLogicBase->pLogicCI=(TLogicCI*)malloc(gpDevice[DevIDNum].dwCINum * sizeof(TLogicCI));
-			memset(gpDevice[DevIDNum].pLogicBase->pLogicCI, 0, gpDevice[DevIDNum].dwCINum * sizeof(TLogicCI));
-			//BCD
-			gpDevice[DevIDNum].dwBCDNum = 100;
-			gpDevice[DevIDNum].pLogicBase->pLogicBCD=(TLogicBCD*)malloc(gpDevice[DevIDNum].dwBCDNum * sizeof(TLogicBCD));
-			memset(gpDevice[DevIDNum].pLogicBase->pLogicBCD, 0, gpDevice[DevIDNum].dwBCDNum * sizeof(TLogicBCD));
-			/*��ֵ*/
-			gpDevice[DevIDNum].pLogicBase->pLogicDZ=(TLogicDZ*)malloc(gVars.TransDZTableNum * sizeof(TLogicDZ));
-			memset(gpDevice[DevIDNum].pLogicBase->pLogicDZ, 0, gVars.TransDZTableNum * sizeof(TLogicDZ));
-			
-			/*��վ�߼��豸��ʼ�����������豸���*/
-			for(i=0;i<gVars.TransYCTableNum;i++){
-				int wRealID = TransYCTable[i].wRealID;
-				int nPoint = TransYCTable[i].nPoint;
-				if(strcmp("WQ900", gpDevice[wRealID].Name) != 0) continue;
-//				log("i %d\n",i);
-				gpDevice[DevIDNum].pLogicBase->pLogicAI[i].wRealID = wRealID;
-				gpDevice[DevIDNum].pLogicBase->pLogicAI[i].wOffset = nPoint;
-			}
-			for(i=0;i<gVars.TransYXTableNum;i++){
-				int wRealID = TransYXTable[i].wRealID;
-				int nPoint = TransYXTable[i].nPoint;
-				if(strcmp("WQ900", gpDevice[wRealID].Name) != 0) continue;
-//				log("i %d\n",i);
-				gpDevice[DevIDNum].pLogicBase->pLogicBI[i].wRealID = wRealID;
-				gpDevice[DevIDNum].pLogicBase->pLogicBI[i].wOffset = nPoint;
+
+			// 初始化WQ900系列设备
+			if(strcmp("WQ900", gpDevice[DevIDNum].Name) == 0){
+				// 申请内存
+				gpDevice[DevIDNum].pLogicBase->pLogicBI=(TLogicBI*)malloc(gVars.TransYXTableNum * sizeof(TLogicBI));
+				memset(gpDevice[DevIDNum].pLogicBase->pLogicBI, 0, gVars.TransYXTableNum * sizeof(TLogicBI));
+				gpDevice[DevIDNum].pLogicBase->pLogicDBI=(TLogicDBI*)malloc(gVars.TransYXTableNum * sizeof(TLogicDBI));
+				memset(gpDevice[DevIDNum].pLogicBase->pLogicDBI, 0, gVars.TransYXTableNum * sizeof(TLogicDBI));
+				gpDevice[DevIDNum].pLogicBase->pLogicAI=(TLogicAI*)malloc(gVars.TransYCTableNum * sizeof(TLogicAI));
+				memset(gpDevice[DevIDNum].pLogicBase->pLogicAI, 0, gVars.TransYCTableNum * sizeof(TLogicAI));
+				gpDevice[DevIDNum].dwCINum = 100;
+				gpDevice[DevIDNum].pLogicBase->pLogicCI=(TLogicCI*)malloc(gpDevice[DevIDNum].dwCINum * sizeof(TLogicCI));
+				memset(gpDevice[DevIDNum].pLogicBase->pLogicCI, 0, gpDevice[DevIDNum].dwCINum * sizeof(TLogicCI));
+				gpDevice[DevIDNum].dwBCDNum = 100;
+				gpDevice[DevIDNum].pLogicBase->pLogicBCD=(TLogicBCD*)malloc(gpDevice[DevIDNum].dwBCDNum * sizeof(TLogicBCD));
+				memset(gpDevice[DevIDNum].pLogicBase->pLogicBCD, 0, gpDevice[DevIDNum].dwBCDNum * sizeof(TLogicBCD));
+				gpDevice[DevIDNum].pLogicBase->pLogicDZ=(TLogicDZ*)malloc(gVars.TransDZTableNum * sizeof(TLogicDZ));
+				memset(gpDevice[DevIDNum].pLogicBase->pLogicDZ, 0, gVars.TransDZTableNum * sizeof(TLogicDZ));
+				// 初始化赋值
+				for(i=0;i<gVars.TransYCTableNum;i++){
+					int wRealID = TransYCTable[i].wRealID;
+					int nPoint = TransYCTable[i].nPoint;
+					gpDevice[DevIDNum].pLogicBase->pLogicAI[i].wRealID = wRealID;
+					gpDevice[DevIDNum].pLogicBase->pLogicAI[i].wOffset = nPoint;
+				}
+				for(i=0;i<gVars.TransYXTableNum;i++){
+					int wRealID = TransYXTable[i].wRealID;
+					int nPoint = TransYXTable[i].nPoint;
+					gpDevice[DevIDNum].pLogicBase->pLogicBI[i].wRealID = wRealID;
+					gpDevice[DevIDNum].pLogicBase->pLogicBI[i].wOffset = nPoint;
+				}
+
+				for(i=0;i<gVars.TransDZTableNum;i++){
+					int wRealID = TransDZTable[i].wRealID;
+					int nPoint = TransDZTable[i].nPoint;
+					gpDevice[DevIDNum].pLogicBase->pLogicDZ[i].wRealID = wRealID;
+					gpDevice[DevIDNum].pLogicBase->pLogicDZ[i].wOffset = nPoint;
+				}
+			} 
+			else if(strcmp("PLC", gpDevice[DevIDNum].Name) == 0){
+				// 内存申请
+				gpDevice[DevIDNum].pLogicBase->pLogicCoiStatus = (Modbus_TransTable_T*)malloc(gVars.TransModbusCoidStatusTableNum * sizeof(Modbus_TransTable_T));
+				memset(gpDevice[DevIDNum].pLogicBase->pLogicCoiStatus, 0, gVars.TransModbusCoidStatusTableNum * sizeof(Modbus_TransTable_T));
+				gpDevice[DevIDNum].pLogicBase->pLogicInputStatus = (Modbus_TransTable_T*)malloc(gVars.TransModbusInputStatusTableNum * sizeof(Modbus_TransTable_T));
+				memset(gpDevice[DevIDNum].pLogicBase->pLogicInputStatus, 0, gVars.TransModbusInputStatusTableNum * sizeof(Modbus_TransTable_T));
+				gpDevice[DevIDNum].pLogicBase->pLogicHoldingReg = (Modbus_TransTable_T*)malloc(gVars.TransModbusHoldingRegTableNum * sizeof(Modbus_TransTable_T));
+				memset(gpDevice[DevIDNum].pLogicBase->pLogicHoldingReg, 0, gVars.TransModbusHoldingRegTableNum * sizeof(Modbus_TransTable_T));
+				gpDevice[DevIDNum].pLogicBase->pLogicInputReg = (Modbus_TransTable_T*)malloc(gVars.TransModbusInputRegTableNum * sizeof(Modbus_TransTable_T));
+				memset(gpDevice[DevIDNum].pLogicBase->pLogicInputReg, 0, gVars.TransModbusInputRegTableNum * sizeof(Modbus_TransTable_T));
+				// 初始化赋值
+				for(i=0;i<gVars.TransModbusCoidStatusTableNum;i++){
+					gpDevice[DevIDNum].pLogicBase->pLogicCoiStatus[i] = TransModbusCoidStatusTable[i];
+				}
+				for(i=0;i<gVars.TransModbusInputStatusTableNum;i++){
+					gpDevice[DevIDNum].pLogicBase->pLogicInputStatus[i] = TransModbusInputStatusTable[i];
+				}
+				for(i=0;i<gVars.TransModbusHoldingRegTableNum;i++){
+					gpDevice[DevIDNum].pLogicBase->pLogicHoldingReg[i] = TransModbusHoldingRegTable[i];
+				}
+				for(i=0;i<gVars.TransModbusInputRegTableNum;i++){
+					gpDevice[DevIDNum].pLogicBase->pLogicInputReg[i] = TransModbusInputRegTable[i];
+				}				
 			}
 
-			for(i=0;i<gVars.TransDZTableNum;i++){
-				int wRealID = TransDZTable[i].wRealID;
-				int nPoint = TransDZTable[i].nPoint;
-				if(strcmp("WQ900", gpDevice[wRealID].Name) != 0) continue;
-//				log("i %d\n",i);
-				gpDevice[DevIDNum].pLogicBase->pLogicDZ[i].wRealID = wRealID;
-				gpDevice[DevIDNum].pLogicBase->pLogicDZ[i].wOffset = nPoint;
-			}
 		}
 	}
 
@@ -1703,7 +1722,7 @@ int ReadYx(uint32_t nIndex)
 	int DevNo;
 	DevNo = GetDevNo(DevID);
 	if(RET_ERROR == DevNo){
-		perror("RET_ERROR == DevNo");
+		perror("RET_ERROR == DevNo, please check transTable realID\n");
 		return RET_ERROR;
 	}
 	return ReadRealYx(DevNo, nPoint);
@@ -1726,7 +1745,7 @@ uint32_t ReadYcData32(uint32_t nIndex)
 	int DevNo;
 	DevNo = GetDevNo(DevID);
 	if(RET_ERROR == DevNo){
-		perror("RET_ERROR == DevNo");
+		perror("RET_ERROR == DevNo, please check transTable realID\n");
 		return RET_ERROR;
 	}
 	
@@ -1750,7 +1769,7 @@ uint16_t ReadYcData16(uint32_t nIndex)
 	int DevNo;
 	DevNo = GetDevNo(DevID);
 	if(RET_ERROR == DevNo){
-		perror("RET_ERROR == DevNo");
+		perror("RET_ERROR == DevNo, please check transTable realID\n");
 		return RET_ERROR;
 	}
 	return ReadRealYcData16(DevNo, nPoint);
@@ -1772,7 +1791,7 @@ uint32_t ReadDzData32(uint32_t nIndex)
 	int DevNo;
 	DevNo = GetDevNo(DevID);
 	if(RET_ERROR == DevNo){
-		perror("RET_ERROR == DevNo");
+		perror("RET_ERROR == DevNo, please check transTable realID\n");
 		return RET_ERROR;
 	}
 	
@@ -1796,12 +1815,11 @@ uint32_t ReadDzYZData32(uint32_t nIndex)
 	int DevNo;
 	DevNo = GetDevNo(DevID);
 	if(RET_ERROR == DevNo){
-		perror("RET_ERROR == DevNo");
+		perror("RET_ERROR == DevNo, please check transTable realID\n");
 		return RET_ERROR;
 	}
 	
 	return ReadRealDzYZData32(DevNo, nPoint);
-
 }
 
 
@@ -1841,7 +1859,7 @@ PTBurstBI ReadYxSoe(uint16_t nIndex)
 	int DevNo;
 	DevNo = GetDevNo(DevID);
 	if(RET_ERROR == DevNo){
-		perror("RET_ERROR == DevNo");
+		perror("RET_ERROR == DevNo\n");
 		return NULL;
 	}
 	return ReadRealYxSoe(DevNo, nPoint);
@@ -1958,7 +1976,7 @@ uint8_t ReadYxSoeFlag(uint16_t nIndex)
 	int DevNo;
 	DevNo = GetDevNo(DevID);
 	if(RET_ERROR == DevNo){
-		perror("RET_ERROR == DevNo");
+		perror("RET_ERROR == DevNo, please check transTable realID\n");
 		return RET_ERROR;
 	}
 	return ReadRealYxSoeFlag(DevNo, nPoint);
@@ -2489,6 +2507,13 @@ void InitLogicAitReffer(DWORD dwDevNo)
 		}
 	}
 }
+
+void InitLogicCoidStatus(uint32_t dwDevNo)
+{
+	
+
+}
+
 //��ʼ��ת�����
 void InitReffer(void)//5512
 {

@@ -1,34 +1,34 @@
 /******************************************************************************/
-/** Ä£¿éÃû³Æ£ºModbusÍ¨Ñ¶                                                     **/
-/** ÎÄ¼þÃû³Æ£ºmodbusrtuslave.c                                               **/
-/** °æ    ±¾£ºV1.0.0                                                         **/
-/** ¼ò    ½é£ºÓÃÓÚÉùÃ÷Modbus RTU´ÓÕ¾Ïà¹ØÊôÐÔ¼°·½·¨                           **/
+/** Ä£ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ModbusÍ¨Ñ¶                                                     **/
+/** ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Æ£ï¿½modbusrtuslave.c                                               **/
+/** ï¿½ï¿½    ï¿½ï¿½ï¿½ï¿½V1.0.0                                                         **/
+/** ï¿½ï¿½    ï¿½é£ºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Modbus RTUï¿½ï¿½Õ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½                           **/
 /**--------------------------------------------------------------------------**/
-/** ÐÞ¸Ä¼ÇÂ¼£º                                                               **/
-/**     °æ±¾      ÈÕÆÚ              ×÷Õß              ËµÃ÷                   **/
-/**     V1.0.0  2016-04-17          Ä¾ÄÏ              ´´½¨ÎÄ¼þ               **/
+/** ï¿½Þ¸Ä¼ï¿½Â¼ï¿½ï¿½                                                               **/
+/**     ï¿½æ±¾      ï¿½ï¿½ï¿½ï¿½              ï¿½ï¿½ï¿½ï¿½              Ëµï¿½ï¿½                   **/
+/**     V1.0.0  2016-04-17          Ä¾ï¿½ï¿½              ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½               **/
 /**                                                                          **/
 /******************************************************************************/
 #include "sys.h"
 #include "mbrtuslave.h"
 
-//#define StationAddress 0x01   /*¶¨Òå±¾Õ¾µØÖ·*/
+//#define StationAddress 0x01   /*ï¿½ï¿½ï¿½å±¾Õ¾ï¿½ï¿½Ö·*/
 
-/*´¦Àí¶ÁÏßÈ¦×´Ì¬ÃüÁî*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¦×´Ì¬ï¿½ï¿½ï¿½ï¿½*/
 static uint16_t HandleReadCoilStatusCommand(int DevNo, uint16_t startAddress, uint16_t quantity, uint8_t *receivedMessage, uint8_t *respondBytes);
-/*´¦Àí¶ÁÊäÈë×´Ì¬ÃüÁî*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½*/
 static uint16_t HandleReadInputStatusCommand(int DevNo, uint16_t startAddress, uint16_t quantity, uint8_t *receivedMessage, uint8_t *respondBytes);
-/*´¦Àí¶Á±£³Ö¼Ä´æÆ÷ÃüÁî*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 static uint16_t HandleReadHoldingRegisterCommand(int DevNo, uint16_t startAddress, uint16_t quantity, uint8_t *receivedMessage, uint8_t *respondBytes);
-/*´¦Àí¶ÁÊäÈë¼Ä´æÆ÷ÃüÁî*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 static uint16_t HandleReadInputRegisterCommand(int DevNo, uint16_t startAddress, uint16_t quantity, uint8_t *receivedMessage, uint8_t *respondBytes);
-/*´¦ÀíÐ´µ¥¸öÏßÈ¦ÃüÁî*/
+/*ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¦ï¿½ï¿½ï¿½ï¿½*/
 static uint16_t HandleWriteSingleCoilCommand(int DevNo, uint16_t coilAddress, uint16_t coilValue, uint8_t *receivedMessage, uint8_t *respondBytes);
-/*´¦ÀíÐ´µ¥¸ö¼Ä´æÆ÷ÃüÁî*/
+/*ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 static uint16_t HandleWriteSingleRegisterCommand(int DevNo, uint16_t registerAddress, uint16_t registerValue, uint8_t *receivedMessage, uint8_t *respondBytes);
-/*´¦ÀíÐ´¶à¸öÏßÈ¦×´Ì¬*/
+/*ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½È¦×´Ì¬*/
 static uint16_t HandleWriteMultipleCoilCommand(int DevNo, uint16_t startAddress, uint16_t quantity, uint8_t *receivedMessage, uint8_t *respondBytes);
-/*´¦ÀíÐ´¶à¸ö¼Ä´æÆ÷×´Ì¬*/
+/*ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½×´Ì¬*/
 static uint16_t HandleWriteMultipleRegisterCommand(int DevNo, uint16_t startAddress, uint16_t quantity, uint8_t *receivedMessage, uint8_t *respondBytes);
 
 uint16_t (*HandleMasterCommand[])(int, uint16_t, uint16_t, uint8_t *, uint8_t *) = {HandleReadCoilStatusCommand,
@@ -40,35 +40,35 @@ HandleWriteSingleRegisterCommand,
 HandleWriteMultipleCoilCommand,
 HandleWriteMultipleRegisterCommand};
 
-/*½âÎö½ÓÊÕµ½µÄÐÅÏ¢£¬²¢·µ»ØºÏ³ÉµÄ»Ø¸´ÐÅÏ¢ºÍÐÅÏ¢µÄ×Ö½Ú³¤¶È£¬Í¨¹ý»Øµ÷º¯Êý*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ØºÏ³ÉµÄ»Ø¸ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Ö½Ú³ï¿½ï¿½È£ï¿½Í¨ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½*/
 /*
-receivedMessage	:½ÓÊÕÊý¾Ý»º³åÇø
-respondBytes	:Êý¾ÝÏìÓ¦»º³åÇø
-rxLength		:½ÓÊÕÊý¾Ý³¤¶È
-StationAddress	:±¾Õ¾µØÖ·
+receivedMessage	:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½ï¿½ï¿½
+respondBytes	:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+rxLength		:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½
+StationAddress	:ï¿½ï¿½Õ¾ï¿½ï¿½Ö·
 */
 uint16_t ParsingMasterAccessCommand(int DevNo, uint8_t *receivedMessage, uint8_t *respondBytes, uint16_t rxLength, uint8_t StationAddress)
 {
   uint16_t respondLength = 0;
-  /*ÅÐ¶ÏÊÇ·ñÊÇ±¾Õ¾£¬Èç²»ÊÇ²»´¦Àí*/
+  /*ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½Ç±ï¿½Õ¾ï¿½ï¿½ï¿½ç²»ï¿½Ç²ï¿½ï¿½ï¿½ï¿½ï¿½*/
   uint8_t slaveAddress = *receivedMessage;
   if (slaveAddress != StationAddress)
   {
     return 0;
   }
-  /*ÅÐ¶Ï¹¦ÄÜÂëÊÇ·ñÓÐÎó*/
+  /*ï¿½Ð¶Ï¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½*/
   FunctionCode fc = (FunctionCode)(*(receivedMessage + 1));
   if (CheckFunctionCode(fc) != Modbus_OK)
   {
     return 0;
   }
 
-  /*ÐÅÏ¢Ð£Ñé£¬Èç²»ÕýÈ·ÔòÎª´íÎóÐÅÏ¢²»ÓÃ´¦Àí*/
+  /*ï¿½ï¿½Ï¢Ð£ï¿½é£¬ï¿½ç²»ï¿½ï¿½È·ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½*/
   uint16_t dataLength = 8;
   if ((fc == WriteMultipleCoil) || (fc == WriteMultipleRegister))
   {
     dataLength = (uint16_t)(*(receivedMessage + 6)) + 9;
-    if (rxLength < dataLength) //ÉÐÎ´½ÓÊÕÍêÕû
+    if (rxLength < dataLength) //ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     {
       return 65535;
     }
@@ -85,12 +85,11 @@ uint16_t ParsingMasterAccessCommand(int DevNo, uint8_t *receivedMessage, uint8_t
   quantity = (quantity << 8) + (uint16_t)(*(receivedMessage + 5));
   
   uint8_t index = (fc > 0x08) ? (fc - 0x09) : (fc - 0x01);
-  
   respondLength = HandleMasterCommand[index](DevNo, startAddress, quantity, receivedMessage, respondBytes);
   return respondLength;
 }
 
-/*´¦Àí¶ÁÏßÈ¦×´Ì¬ÃüÁî*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¦×´Ì¬ï¿½ï¿½ï¿½ï¿½*/
 static uint16_t HandleReadCoilStatusCommand(int DevNo, uint16_t startAddress, uint16_t quantity, uint8_t *receivedMessage, uint8_t *respondBytes)
 {
   uint16_t length = 0;
@@ -103,11 +102,10 @@ static uint16_t HandleReadCoilStatusCommand(int DevNo, uint16_t startAddress, ui
   } 
   GetCoilStatus(DevNo, startAddress, quantity, statusList);
   length = SyntheticSlaveAccessRespond(DevNo, receivedMessage, statusList, NULL, respondBytes);
-  
   return length;
 }
 
-/*´¦Àí¶ÁÊäÈë×´Ì¬ÃüÁî*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½*/
 static uint16_t HandleReadInputStatusCommand(int DevNo, uint16_t startAddress, uint16_t quantity, uint8_t *receivedMessage, uint8_t *respondBytes)
 {
   uint16_t length = 0;
@@ -123,7 +121,7 @@ static uint16_t HandleReadInputStatusCommand(int DevNo, uint16_t startAddress, u
   return length;
 }
 
-/*´¦Àí¶Á±£³Ö¼Ä´æÆ÷ÃüÁî,¹¦ÄÜÂë03*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½03*/
 static uint16_t HandleReadHoldingRegisterCommand(int DevNo, uint16_t startAddress, uint16_t quantity, uint8_t *receivedMessage, uint8_t *respondBytes)
 {
   uint16_t length = 0;
@@ -138,7 +136,7 @@ static uint16_t HandleReadHoldingRegisterCommand(int DevNo, uint16_t startAddres
   return length;
 }
 
-/*´¦Àí¶ÁÊäÈë¼Ä´æÆ÷ÃüÁî*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 static uint16_t HandleReadInputRegisterCommand(int DevNo, uint16_t startAddress, uint16_t quantity, uint8_t *receivedMessage, uint8_t *respondBytes)
 {
   uint16_t length = 0;
@@ -156,7 +154,7 @@ static uint16_t HandleReadInputRegisterCommand(int DevNo, uint16_t startAddress,
   return length;
 }
 
-/*´¦ÀíÐ´µ¥¸öÏßÈ¦ÃüÁî*/
+/*ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¦ï¿½ï¿½ï¿½ï¿½*/
 static uint16_t HandleWriteSingleCoilCommand(int DevNo, uint16_t coilAddress, uint16_t coilValue, uint8_t *receivedMessage, uint8_t *respondBytes)
 {
   uint16_t length = 0;
@@ -171,7 +169,7 @@ static uint16_t HandleWriteSingleCoilCommand(int DevNo, uint16_t coilAddress, ui
   return length;
 }
 
-/*´¦ÀíÐ´µ¥¸ö¼Ä´æÆ÷ÃüÁî*/
+/*ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 static uint16_t HandleWriteSingleRegisterCommand(int DevNo, uint16_t registerAddress, uint16_t registerValue, uint8_t *receivedMessage, uint8_t *respondBytes)
 {
   uint16_t length = 0;
@@ -183,7 +181,7 @@ static uint16_t HandleWriteSingleRegisterCommand(int DevNo, uint16_t registerAdd
   return length;
 }
 
-/*´¦ÀíÐ´¶à¸öÏßÈ¦×´Ì¬*/
+/*ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½È¦×´Ì¬*/
 static uint16_t HandleWriteMultipleCoilCommand(int DevNo, uint16_t startAddress, uint16_t quantity, uint8_t *receivedMessage, uint8_t *respondBytes)
 {
   uint16_t length = 0;
@@ -196,7 +194,7 @@ static uint16_t HandleWriteMultipleCoilCommand(int DevNo, uint16_t startAddress,
   return length;
 }
 
-/*´¦ÀíÐ´¶à¸ö¼Ä´æÆ÷×´Ì¬*/
+/*ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½×´Ì¬*/
 static uint16_t HandleWriteMultipleRegisterCommand(int DevNo, uint16_t startAddress, uint16_t quantity, uint8_t *receivedMessage, uint8_t *respondBytes)
 {
   uint16_t length = 0;

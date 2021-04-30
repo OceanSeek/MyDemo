@@ -93,14 +93,14 @@ uint8_t GX104Master_send(int DevNO,char *buf, int len){
         return RET_ERROR;
     }
     gpDevice[DevNO].ReSendNum++;
-	log("send buf:");
-    DumpHEX((char *)GX104Master_Sendbuf, len);
+	// log("send buf:");
+    // DumpHEX((char *)GX104Master_Sendbuf, len);
 	MonitorTx(monitorData._TX_ID, DevNO, monitorData._fd, buf, len);
     return RET_SUCESS;
 }
 
 /*****************************************************************
-��������: GX104Master_Deal_RecvSYx
+Function Name: GX104Master_Deal_RecvSYx
 ��������: ��������ң����� 
 �������: 
 ����ֵ��  ��
@@ -118,13 +118,6 @@ void GX104Master_Deal_RecvSYx(int DevNO,PGX104Master_DATA_T GX104MasterData)
     uint32_t FirmwareType = 0;
 	CP56Time2a_T SoeTime;
 	TSysTimeSoe YxValue; 
-
-
-	/**test**/
-//	uint8_t test_buf[20]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
-//	PGX104Master_DATA_T buf_tmp = (PGX104Master_DATA_T)test_buf;
-//    PIEC10X_ASDU_T asdu = (PIEC10X_ASDU_T)(buf_tmp->Asdu);
-	/**test**/
 	
     PIEC10X_ASDU_T asdu = (PIEC10X_ASDU_T)(GX104MasterData->Asdu);
 
@@ -157,7 +150,7 @@ void GX104Master_Deal_RecvSYx(int DevNO,PGX104Master_DATA_T GX104MasterData)
 		for(i=0; i<BINum; i++)
 		{
 			if (wBINo+i >= gpDevice[DevNO].AINum){
-				perror("wBINo+i(%d) > wAllSYxNum(%d)\n", wBINo+i, gpDevice[DevNO].AINum);
+				// perror("wBINo+i(%d) > wAllSYxNum(%d)\n", wBINo+i, gpDevice[DevNO].AINum);
 				return;
 			}
 			if ( pData[i]&1 )
@@ -171,10 +164,6 @@ void GX104Master_Deal_RecvSYx(int DevNO,PGX104Master_DATA_T GX104MasterData)
 
 		}
 		
-//		for(i=0; i<BINum;i++){
-//			log("yx npoint is (%d) value is (%d)\n",i,ReadYx(DevNO,i));;
-//		}
-//		
 		return;
 	}
 	

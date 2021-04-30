@@ -38,12 +38,6 @@ float CheckWriteFloatDataIsValid(float value,float range,float zero);
 /*检验所写数据是否符合物理量要求范围并处理(双精度浮点数)*/
 double CheckWriteDoubleDataIsValid(double value,double range,double zero);
 
-/*检验所写数据是否符合物理量要求范围并处理(16位整数)*/
-uint16_t CheckWriteInt16DataIsValid(uint16_t value,uint16_t range,uint16_t zero);
- 
- /*检验所写数据是否符合物理量要求范围并处理(32位整数)*/
-uint32_t CheckWriteInt32DataIsValid(uint32_t value,uint32_t range,uint32_t zero);
-
 /*获取想要读取的Coil量的值*/
 void GetCoilStatus(int DevID, uint16_t startAddress,uint16_t quantity,bool *statusList);
 

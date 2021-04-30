@@ -370,8 +370,7 @@ int ModbusAskHoldingRegister(int DevNo)
 	}
 	if(quantity == 0) return false;
 	startAddr = addr[0];
-	// if(DevNo == 0)
-		// log("\nDevID is %d addrStart is %d quantity is %d  OldSlaverAddr is %d\n", gpDevice[DevNo].ID, startAddr, quantity, OldSlaverAddr);
+	log("\nModbusRtuMaster Ask Info:DevID is %d addrStart is %d quantity is %d  OldSlaverAddr is %d\n", gpDevice[DevNo].ID, startAddr, quantity, OldSlaverAddr);
 	ModbusRtuMaster_ASK(DevNo, OldSlaverAddr, ReadHoldingRegister, startAddr, quantity);
 	return true;
 
@@ -421,25 +420,6 @@ int ModbusSendAsk(int DevNo)
 		return true;
 }
 
-void Modbus_TestData(int DevNo, uint32_t timeCnt)
-{
-	int i;
-	int a;
-	for( i = 0 ; i < gpDevice[DevNo].ModbusData._HoldingRegNum; i++){
-		srand(i+1+timeCnt);
-		a = rand()%1000;
-		gpDevice[DevNo].ModbusData.pHoldingRegister[i] = a;
-//		log("i is %d a is %d\n", i, a);
-	}
-
-	for( i = 0 ; i < gpDevice[DevNo].ModbusData._CoilStatusNum; i++){
-		srand(i+1+timeCnt);
-		a = rand()%2;
-		gpDevice[DevNo].ModbusData.pCoilStatus[i] = a;
-	}
-
-}
-
 int ModbusRtuMaster_OnTimeOut(int DevNo)
 {
 	gpDevice[DevNo].TimeCnt++;
@@ -452,10 +432,7 @@ int ModbusRtuMaster_OnTimeOut(int DevNo)
 		ModbusSendAsk(DevNo);
 	}
 
-	// if(gpDevice[DevNo].TimeCnt%5 == 0){
-	// 	Modbus_TestData(DevNo, gpDevice[DevNo].TimeCnt);
-	// }
-
+	usleep(50000);
 	return RET_SUCESS;
 }
 
