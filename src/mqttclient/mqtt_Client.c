@@ -2,17 +2,11 @@
 
 // #define ADDRESS     "tcp://112.93.129.113:1883" //华为云地址
 #define ADDRESS     "tcp://1.15.122.102:1883" //腾讯云地址
-#define ADDRESS_02     "tcp://192.168.1.135:1883" //本地地址
-//#define ADDRESS     "tcp://127.0.0.1:1883" //
-//#define ADDRESS     "tcp://mqtt.eclipse.org:1883" //
 #define TOPIC       "topic01"  
 
 #define PAYLOAD     "Hello Man, Can you see me ?!" 
-#define QOS         1 	//0:至多一次，1：至少一次，2：确保一次
+#define QOS         0 	//0:至多一次，1：至少一次，2：确保一次
 #define TIMEOUT     10000L
-
-char *username= "b784300a8310c7d5"; 
-char *password = "9af083b5aee31a37"; 
 
 // 订阅主题
 char *topic_sub_command, *topic_sub_updataApp;
@@ -20,8 +14,76 @@ char *topic_sub_command, *topic_sub_updataApp;
 
 static MQTTClient client;
 static MQTTClient client_02;
+MQTT_CFG_INFO mqtt_cfg_info;
 static int MQTTConnectStatus;
 MQTTClient_connectOptions conn_opts = MQTTClient_connectOptions_initializer;
+
+sqlite3* DBase_Open_MQTT(char *TableName){
+
+	sqlite3 *db = NULL;
+	char *zErrMsg = 0;
+	int32_t rc;
+	char *sql;
+	int i=0;
+
+	rc = sqlite3_open(TableName,&db);
+	if(rc){
+		fprintf(stderr,"can't open database:%s \n",sqlite3_errmsg(db));
+		log("can't open database: \n");
+		sqlite3_close(db);
+		return 0;
+	}
+	else 
+		log("You have open a sqliet3 database named %s! successful!\n", TableName);
+	
+	return db;
+}
+
+void FreeMqttCfg()
+{
+    free(mqtt_cfg_info.ClientID);
+    free(mqtt_cfg_info.UserName);
+    free(mqtt_cfg_info.PassWord);
+    free(mqtt_cfg_info.BrokerIP);
+    free(mqtt_cfg_info.BrokerPort);
+    free(mqtt_cfg_info.MQ_Enable);
+    free(mqtt_cfg_info.Address);
+}
+
+int GetMqttConfigData(char *ClientID, char *UserName, char *PassWord, char *BrokerIP, char *BrokerPort, char *Enable)
+{
+	sqlite3 *MyDB = NULL;
+	char *zErrMsg = 0;
+	int32_t rc;
+	char *sql;
+	int i=0;
+	char ComName[32];
+	char ComIP[32];
+	MyDB = DBase_Open_MQTT("/mnt/internal_storage/dcu/IEC104_data.db");
+	int32_t nrow=0,ncolumn=0;
+	char **azResult;//
+	
+	sqlite3_exec(MyDB,sql,0,0,&zErrMsg);	
+	sql = "SELECT * FROM MqttConfig;";
+    log("sql is %s\n", sql);
+	sqlite3_get_table(MyDB,sql,&azResult,&nrow,&ncolumn,&zErrMsg);
+	if(nrow == 0){
+		perror("DeviceTable is null ,please check DB file path\n");
+		exit(-1);
+	}
+	for(i=0;i<nrow;i++){
+		strcpy(ClientID, azResult[(i+1)*ncolumn + DB_MQTT_ClientID]);
+		strcpy(UserName, azResult[(i+1)*ncolumn +  DB_MQTT_UserName]);
+		strcpy(PassWord, azResult[(i+1)*ncolumn + DB_MQTT_PassWord]);
+		strcpy(BrokerIP, azResult[(i+1)*ncolumn + DB_MQTT_BrokerIP]);
+		strcpy(BrokerPort, azResult[(i+1)*ncolumn + DB_MQTT_BrokerPort]);
+        strcpy(Enable, azResult[(i+1)*ncolumn + DB_MQTT_Enable]);
+        log("ID[%s]  username[%s]\n", ClientID, UserName);
+	}
+	sqlite3_free_table(azResult);
+
+	sqlite3_close(MyDB);
+}
 
 int Mqtt_Client_public(char *topic, char *playloadstring)
 {
@@ -68,7 +130,7 @@ int8_t Check_Deivce_ID(cJSON *json)
 	}
     char *deviceid;
     deviceid = node->valuestring;
-    if(strcmp(deviceid, CLIENTID) != 0){
+    if(strcmp(deviceid, mqtt_cfg_info.ClientID) != 0){
 		perror("deviceid(%s) is not this device \n", deviceid);
 		return RET_ERROR;
     } 
@@ -229,6 +291,7 @@ void connlost(void *context, char *cause)
     printf("     cause: %s\n", cause);
 	
 	MQTTConnectStatus = MQTT_DISCONNECT;
+    FreeMqttCfg();
 	MQTTClient_destroy(&client);
 	
 }
@@ -242,6 +305,7 @@ int Mqtt_Connect(void)
     else {
         perror("mqtt connect error\n");
         MQTTConnectStatus = MQTT_DISCONNECT;
+        FreeMqttCfg();
     }
     
 }
@@ -261,8 +325,8 @@ int Mqtt_Client_subscribe()
     char *firstName = "/v1/devices/";
     char *command = "/command";
     char *updateApp = "/CloudToPoint/updataApp";
-    topic_sub_command = mqtt_topic_joint(firstName, CLIENTID, command);
-    topic_sub_updataApp = mqtt_topic_joint(firstName, CLIENTID, updateApp);
+    topic_sub_command = mqtt_topic_joint(firstName, mqtt_cfg_info.ClientID, command);
+    topic_sub_updataApp = mqtt_topic_joint(firstName, mqtt_cfg_info.ClientID, updateApp);
 
     char *pTopics_sub[] = {topic_sub_command, topic_sub_updataApp};
     int *pQos;
@@ -287,6 +351,7 @@ int Mqtt_Client_subscribe()
     	rc = EXIT_FAILURE;
 		MQTTClient_destroy(&client);
         MQTTConnectStatus = MQTT_DISCONNECT;
+        FreeMqttCfg();
 		return rc;
     }
 
@@ -335,19 +400,55 @@ void Mqtt_Client_Create_Thread(void *arg)
 		exit(-1);	
 	} 
 }
+void Init_Mqtt_config()
+{
+    char *ClientID, *UserName, *PassWord, *BrokerIP, *BrokerPort, *MQ_Enable;
+
+    ClientID = (char *)malloc(255);
+    UserName = (char *)malloc(255);
+    PassWord = (char *)malloc(255);
+    BrokerIP = (char *)malloc(255);
+    BrokerPort = (char *)malloc(255);
+    MQ_Enable = (char *)malloc(255); 
+    GetMqttConfigData(ClientID, UserName, PassWord, BrokerIP, BrokerPort, MQ_Enable);
+    mqtt_cfg_info.ClientID = (char *)malloc(strlen(ClientID));
+    mqtt_cfg_info.UserName = (char *)malloc(strlen(UserName));
+    mqtt_cfg_info.PassWord = (char *)malloc(strlen(PassWord));
+    mqtt_cfg_info.BrokerIP = (char *)malloc(strlen(BrokerIP));
+    mqtt_cfg_info.BrokerPort = (char *)malloc(strlen(BrokerPort));
+    mqtt_cfg_info.MQ_Enable = (char *)malloc(strlen(MQ_Enable));
+    strcpy(mqtt_cfg_info.ClientID, ClientID);
+    strcpy(mqtt_cfg_info.UserName, UserName);
+    strcpy(mqtt_cfg_info.PassWord, PassWord);
+    strcpy(mqtt_cfg_info.BrokerIP, BrokerIP);
+    strcpy(mqtt_cfg_info.BrokerPort, BrokerPort);
+    strcpy(mqtt_cfg_info.MQ_Enable, MQ_Enable);
+
+    mqtt_cfg_info.Address = (char *)malloc(strlen("tcp://") + strlen(BrokerIP) + strlen(":") + strlen(BrokerPort));
+    strcpy(mqtt_cfg_info.Address, "tcp://");
+    strcat(mqtt_cfg_info.Address, BrokerIP);
+    strcat(mqtt_cfg_info.Address, ":");
+    strcat(mqtt_cfg_info.Address, BrokerPort);
+    free(ClientID);
+    free(UserName);
+    free(PassWord);
+    free(BrokerIP);
+    free(BrokerPort);
+    free(MQ_Enable);
+}
 
 int Init_Mqtt_Client()
 {
     MQTTClient_deliveryToken token;
     int rc;
     //mqtt配置服务器参数
-    MQTTClient_create(&client, ADDRESS, CLIENTID,
+    Init_Mqtt_config();
+    MQTTClient_create(&client, mqtt_cfg_info.Address, mqtt_cfg_info.ClientID,
         MQTTCLIENT_PERSISTENCE_NONE, NULL);
     conn_opts.keepAliveInterval = 20;
     conn_opts.cleansession = 1;
-    conn_opts.username = username; 
-    conn_opts.password = password;
-
+    conn_opts.username = mqtt_cfg_info.UserName; 
+    conn_opts.password = mqtt_cfg_info.PassWord;
     if ((rc = MQTTClient_setCallbacks(client, NULL, connlost, msgarrvd, delivered)) != MQTTCLIENT_SUCCESS)
     {
         printf("Failed to set callbacks, return code %d\n", rc);

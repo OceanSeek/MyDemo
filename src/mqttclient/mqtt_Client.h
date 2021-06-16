@@ -18,6 +18,17 @@ int Mqtt_Connect(void);
 int Mqtt_Reconnect(void);
 char *mqtt_topic_joint(char *firstName, char *middleName, char *lastName);
 
+typedef struct	
+{
+    char *ClientID;
+    char *UserName; 
+    char *PassWord; 
+    char *BrokerIP; 
+    char *BrokerPort; 
+    char *MQ_Enable; 
+    char *Address;
+}MQTT_CFG_INFO;
+
 
 #endif
 

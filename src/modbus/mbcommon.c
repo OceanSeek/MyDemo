@@ -79,7 +79,7 @@ void ReadCoilStatusData(int DevNo, uint16_t startAddress,uint16_t quantity,bool 
 			return;
 		}
 		if(strcmp("PLC", gpDevice[realDevNo].Name) == 0){
-			statusDataSrc[i] = gpDevice[DevNo].ModbusData.pCoilStatus[nPoint];
+			statusDataSrc[i] = gpDevice[realDevNo].ModbusData.pCoilStatus[nPoint];
 		}
 		if(strcmp("WQ900", gpDevice[realDevNo].Name) == 0){
 			bool value;
@@ -223,6 +223,18 @@ void SetSingleCoil(int DevNo, uint16_t coilAddress,bool coilValue)
 void SetSingleRegister(int DevNo, uint16_t registerAddress,uint16_t registerValue)
 {
   //�����ҪModbus TCP Server/RTU SlaveӦ����ʵ�־�������
+  uint16_t wRealID, nPoint, realDevNo;
+  if(registerAddress >= gVars.TransModbusHoldingRegTableNum){
+	  perror("registerAddress >= gVars.TransModbusHoldingRegTableNum\n");
+	  return;
+  }
+  wRealID = gpDevice[DevNo].pLogicBase->pLogicHoldingReg[registerAddress].wRealID;
+  nPoint = gpDevice[DevNo].pLogicBase->pLogicHoldingReg[registerAddress].nPoint;
+  realDevNo = GetDevNo(wRealID);
+  if(realDevNo == RET_ERROR)return;
+
+  gpDevice[realDevNo].ModbusData.pFlag_WriteSingleHoldingRegister[nPoint] = true;
+  gpDevice[realDevNo].ModbusData.pWriteSingleHoldingRegisterValue[nPoint] = registerValue;
 }
 
 /*���ö����Ȧ��ֵ*/
@@ -257,7 +269,7 @@ void UpdateCoilStatus(int DevNo, uint8_t salveAddress,uint16_t startAddress,uint
 	}
 	if(gpDevice[DevNo].ModbusData.pCoilStatus == NULL) return;
 
-	if((startRegister + quantity) >= gpDevice[DevNo].ModbusData._CoilStatusNum){
+	if((startRegister + quantity) > gpDevice[DevNo].ModbusData._CoilStatusNum){
 		perror("startRegister + quantity > gpDevice[%d].ModbusData._CoilStatusNum",DevNo);
 		return;
 	}
@@ -298,7 +310,7 @@ void UpdateInputStatus(int DevNo, uint8_t salveAddress,uint16_t startAddress,uin
 		perror("startRegister > gpDevice[%d].ModbusData._InputStatusNum",DevNo);
 		return;
 	}
-	if((startRegister + quantity) >= gpDevice[DevNo].ModbusData._InputStatusNum){
+	if((startRegister + quantity) > gpDevice[DevNo].ModbusData._InputStatusNum){
 		perror("startRegister + quantity > gpDevice[%d].ModbusData._InputStatusNum",DevNo);
 		return;
 	}
@@ -334,18 +346,18 @@ void UpdateHoldingRegister(int DevNo, uint8_t salveAddress,uint16_t startAddress
 		perror("startRegister > gpDevice[%d].ModbusData._HoldingRegNum",DevNo);
 		return;
 	}
-	if((startRegister + quantity) >= gpDevice[DevNo].ModbusData._HoldingRegNum){
-		perror("startRegister + quantity > gpDevice[%d].ModbusData._HoldingRegNum",DevNo);
+	if((startRegister + quantity) > gpDevice[DevNo].ModbusData._HoldingRegNum){
+		perror("startRegister + quantity = %d > gpDevice[%d].ModbusData._HoldingRegNum = %d", startRegister + quantity, DevNo, gpDevice[DevNo].ModbusData._HoldingRegNum);
 		return;
 	}
 	
 	memcpy(&gpDevice[DevNo].ModbusData.pHoldingRegister[startRegister], registerValue, quantity*sizeof(uint16_t));
-	log("DevID[%d] startRegister(%d) quantity(%d)------->",gpDevice[DevNo].ID, startRegister, quantity);
-	for(i=0;i<quantity;i++)
-	{
-		log("data[%d]",gpDevice[DevNo].ModbusData.pHoldingRegister[startRegister + i]);
-	}
-	log("\n");
+	// log("DevID[%d] startRegister(%d) quantity(%d)------->",gpDevice[DevNo].ID, startRegister, quantity);
+	// for(i=0;i<quantity;i++)
+	// {
+	// 	log("data[%d]",gpDevice[DevNo].ModbusData.pHoldingRegister[startRegister + i]);
+	// }
+	// log("\n");
 
 	
   //�ڿͻ��ˣ���վ��Ӧ����ʵ��

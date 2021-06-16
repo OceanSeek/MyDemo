@@ -54,22 +54,17 @@ int Init_ModbusRtuSlaver(int DevNo)
 
 int Modbus_Rtu_Slaver_OnTimeOut(int DevNo)
 {
-
 	gpDevice[DevNo].TimeCnt++;
-	
-	
-
 }
 
 int  ModbusRtuSlaver_Send(int DevNo,char *buf, int len)
 {
-
 	if(strcmp("UDP", gpDevice[DevNo].TcpType) == 0){
 		struct sockaddr_in dest_addr = {};
 		dest_addr.sin_family = AF_INET;//ipv4
-		dest_addr.sin_port = htons(gpDevice[DevNo].UDP_Dest_PORT);
+		dest_addr.sin_port = htons(2407);
 		dest_addr.sin_addr.s_addr = inet_addr(gpDevice[DevNo].UDP_Dest_IP);
-		log("ip:%s  port:%d\n", gpDevice[DevNo].UDP_Dest_IP, gpDevice[DevNo].UDP_Dest_PORT);
+		log("Send to udp ip:%s  port:%d\n", gpDevice[DevNo].UDP_Dest_IP, 2407);
 		sendto(gpDevice[DevNo].fd, buf, len, 0, (struct sockaddr *)&dest_addr,sizeof(dest_addr)); 
 	}
     else if(-1 == write(gpDevice[DevNo].fd, buf,len)){
@@ -145,8 +140,8 @@ int Modbus_Rtu_Slaver_Receive(int DevNo, uint8_t *buf, uint16_t len)
                 perror("len error(%d) \n",len);
                 return RET_ERROR;
             }
-			log("DevNo %d:receive:", DevNo);
-			DumpHEX(buf, len);
+			// log("DevNo %d:receive:", DevNo);
+			// DumpHEX(buf, len);
             Modbus_Deal(DevNo, BufTemp, LenTmp);
         }
         BufTemp+=LenTmp;
@@ -172,9 +167,8 @@ int Modbus_Deal(int DevNo, uint8_t *pbuf, uint16_t len)
 	pFun = pbuf[1];
 	num = MAKEWORD(pbuf[4], pbuf[5]);
 	SendLen = ParsingMasterAccessCommand(DevNo, pbuf, gpDevice[DevNo].pSendBuf, len, gpDevice[DevNo].Address);
-	LogSysLocalTime();
-	log("DevNo %d:slaver send:",DevNo);
-	DumpHEX(gpDevice[DevNo].pSendBuf, SendLen);
+	// log("DevNo %d:slaver send:",DevNo);
+	// DumpHEX(gpDevice[DevNo].pSendBuf, SendLen);
 	ModbusRtuSlaver_Send(DevNo, gpDevice[DevNo].pSendBuf, SendLen);
 	switch(pFun)
 	{

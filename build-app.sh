@@ -30,6 +30,7 @@ mkdir -p temp/mnt/internal_storage/
 mkdir -p temp/mnt/internal_storage/dcu/
 mkdir -p temp/mnt/internal_storage/dcu_backup/
 mkdir -p temp/mnt/internal_storage/dcu_update/
+mkdir -p temp/etc/
 
 #cp helloworld temp/usr/bin/
 #cp helloworld temp/usr/bin/
@@ -39,15 +40,19 @@ cp WQ-T9001.bin temp/mnt/internal_storage/dcu/
 cp IEC104_data.db temp/mnt/internal_storage/dcu/
 cp IEC104_data.db temp/mnt/internal_storage/dcu_update/
 cp remote_update.sh temp/mnt/internal_storage
+cp supervisor.sh temp/mnt/internal_storage
 cp sqlite3/bin/sqlite3 temp/usr/bin/
 cp -r sqlite3/lib/* temp/lib/
 #cp libdatabase.so temp/lib/libdatabase1.so
 cp srv2.service temp/lib/systemd/system/
+cp rc.local temp/etc/
 #cp app1srv2.service temp/lib/systemd/system/
  
 # chmod a+x temp/usr/bin/WQ-T9001.bin
 chmod a+x temp/mnt/internal_storage/dcu/WQ-T9001.bin
 chmod a+x temp/mnt/internal_storage/remote_update.sh
+chmod a+x temp/etc/rc.local
+chmod a+x temp/mnt/internal_storage/supervisor.sh
 #chmod a+x temp/usr/bin/app1srv2
 chmod 0644 ./temp/lib -R
 chmod -x ./temp/lib/libsqlite3.so

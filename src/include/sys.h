@@ -85,8 +85,11 @@ uint32_t ip2long(char* ip);
 #define Timer_4000ms    4000
 #define Timer_2s    	2
 #define Timer_60s   	60
+#define Timer_30s   	30
 #define FALSE  0    
 #define TRUE   1
+
+#define Modbus_Ask_Max_Num 100
 
 #define RESEND_YES	1
 #define RESEND_NO  	0
@@ -103,7 +106,7 @@ uint32_t ip2long(char* ip);
 
 
 #define PERROR(fmt,argc...) printf("Error:Function(%s)line(%d)--- "fmt, __FUNCTION__, __LINE__, ##argc)
-#define SERIAL_DEBUG//����log
+#define SERIAL_DEBUG//使能log
 
 //#define perror(...) printf("Error:(%s)line(%d)---(%s)  \n", __FUNCTION__, __LINE__, __VA_ARGS__)
 #define perror(fmt,argc...) printf("Error:Function(%s)line(%d)--- "fmt, __FUNCTION__, __LINE__, ##argc)
@@ -120,7 +123,7 @@ uint32_t ip2long(char* ip);
 #define LOG(...)
 //#define perror(...) 
 //#define DumpHEX(buffer,len)
-#define PRINT_FUNLINE
+#define PRINT_FUNLINE printf("_________________line(%d),function(%s)\r\n",__LINE__,__FUNCTION__)
 #endif
 
 

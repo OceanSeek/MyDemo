@@ -29,7 +29,7 @@ void LogSysLocalTime()
     time(&timesec);
     p = localtime(&timesec);  
 
-	log("%d:%02d:%02d %02d:%02d:%02d\n", 1900+p->tm_year, p->tm_mon + 1, p->tm_mday, p->tm_hour, p->tm_min, p->tm_sec);
+	log("%d-%02d-%02d %02d:%02d:%02d\n", 1900+p->tm_year, p->tm_mon + 1, p->tm_mday, p->tm_hour, p->tm_min, p->tm_sec);
 }  
 
 int HuaWei485Ctrl_Switch(int DevNo, int ctrlvalue)

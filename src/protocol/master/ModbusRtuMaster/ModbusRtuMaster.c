@@ -59,7 +59,6 @@ int Init_ModbusRtuMaster(int DevNo)
 //	}
 //	PRINT_FUNLINE;
 	/*endtest*/
-	
 }
 
 
@@ -296,6 +295,20 @@ int ModbusRtuMaster_ASK(int DevNo, uint16_t SlaverAddr, int functionCode, int ad
 	ModbusRtuMaster_Send(DevNo, gpDevice[DevNo].pSendBuf, len);
 }
 
+int ModbusRtuMaster_Write(int DevNo, uint16_t SlaverAddr, int functionCode, uint16_t *ResgisterList, int addrStart, int quantity)
+{
+	uint16_t len;
+	ObjAccessInfo slaveInfo;
+	
+	slaveInfo.functionCode = functionCode;
+	slaveInfo.quantity = quantity;
+	slaveInfo.startingAddress = addrStart;
+	slaveInfo.unitID = SlaverAddr;
+	len = SyntheticReadWriteSlaveCommand(DevNo, slaveInfo, NULL, ResgisterList, gpDevice[DevNo].pSendBuf);
+	
+	ModbusRtuMaster_Send(DevNo, gpDevice[DevNo].pSendBuf, len);
+}
+
 
 int ModbusAskCoilStatus(int DevNo)
 {	
@@ -311,6 +324,7 @@ int ModbusAskCoilStatus(int DevNo)
 			}
 			oldStartAddr = NewStartAddr;
 			OldSlaverAddr = NewSlaverAddr;
+			if(quantity > Modbus_Ask_Max_Num) break;
 			addr[quantity] = NewStartAddr;
 			quantity++;
 			gpDevice[DevNo].ModbusData.pFlag_AskCoilStatus[i] = false;
@@ -319,7 +333,7 @@ int ModbusAskCoilStatus(int DevNo)
 	if(quantity == 0) return false;
 	startAddr = addr[0];
 //	log("DevID is %d addrStart is %d quantity is %d\n", gpDevice[DevNo].ID, startAddr, quantity);
-	ModbusRtuMaster_ASK(DevNo, OldSlaverAddr, ReadCoilStatus, startAddr, quantity);
+	ModbusRtuMaster_ASK(DevNo, NewSlaverAddr, ReadCoilStatus, startAddr, quantity);
 	return true;
 }
 
@@ -337,6 +351,7 @@ int ModbusAskInputStatus(int DevNo)
 			}
 			oldStartAddr = NewStartAddr;
 			OldSlaverAddr = NewSlaverAddr;
+			if(quantity > Modbus_Ask_Max_Num) break;
 			addr[quantity] = NewStartAddr;
 			quantity++;
 			gpDevice[DevNo].ModbusData.pFlag_AskInputStatus[i] = false;
@@ -345,7 +360,7 @@ int ModbusAskInputStatus(int DevNo)
 	if(quantity == 0) return false;
 	startAddr = addr[0];
 //	log("DevID is %d addrStart is %d quantity is %d\n", gpDevice[DevNo].ID, startAddr, quantity);
-	ModbusRtuMaster_ASK(DevNo, OldSlaverAddr, ReadInputStatus, startAddr, quantity);
+	ModbusRtuMaster_ASK(DevNo, NewSlaverAddr, ReadInputStatus, startAddr, quantity);
 	return true;
 }
 
@@ -364,14 +379,15 @@ int ModbusAskHoldingRegister(int DevNo)
 			oldAddr = NewStartAddr;
 			OldSlaverAddr = NewSlaverAddr;
 			addr[quantity] = NewStartAddr;
+			if(quantity > Modbus_Ask_Max_Num) break;
 			quantity++;
 			gpDevice[DevNo].ModbusData.pFlag_AskHoldingRegister[i] = false;
 		}
 	}
 	if(quantity == 0) return false;
 	startAddr = addr[0];
-	log("\nModbusRtuMaster Ask Info:DevID is %d addrStart is %d quantity is %d  OldSlaverAddr is %d\n", gpDevice[DevNo].ID, startAddr, quantity, OldSlaverAddr);
-	ModbusRtuMaster_ASK(DevNo, OldSlaverAddr, ReadHoldingRegister, startAddr, quantity);
+	// log("\nModbusRtuMaster Ask Info:DevID is %d addrStart is %d quantity is %d  OldSlaverAddr is %d\n", gpDevice[DevNo].ID, startAddr, quantity, OldSlaverAddr);
+	ModbusRtuMaster_ASK(DevNo, NewSlaverAddr, ReadHoldingRegister, startAddr, quantity);
 	return true;
 
 }
@@ -391,25 +407,42 @@ int ModbusAskInputResgister(int DevNo)
 			oldAddr = NewStartAddr;
 			OldSlaverAddr = NewSlaverAddr;
 			addr[quantity] = NewStartAddr;
+			if(quantity > Modbus_Ask_Max_Num) break;
 			quantity++;
 			gpDevice[DevNo].ModbusData.pFlag_AskInputResgister[i] = false;
 		}
 	}
 	if(quantity == 0) return false;
 	startAddr = addr[0];
-//	log("DevID is %d addrStart is %d quantity is %d\n", gpDevice[DevNo].ID, startAddr, quantity);
-	ModbusRtuMaster_ASK(DevNo, OldSlaverAddr, ReadInputRegister, startAddr, quantity);
+	// log("DevID is %d addrStart is %d quantity is %d\n", gpDevice[DevNo].ID, startAddr, quantity);
+	ModbusRtuMaster_ASK(DevNo, NewSlaverAddr, ReadInputRegister, startAddr, quantity);
 	return true;
+}
+
+int ModbusWriteSingleHoldingResgister(int DevNo)
+{
+	int i;
+	uint16_t value, SlaverAddr, StartRegAddr;
+	uint16_t ResgisterList[1];
+	for(i = 0 ; i < gpDevice[DevNo].ModbusData._HoldingRegNum; i++){
+		if(gpDevice[DevNo].ModbusData.pFlag_WriteSingleHoldingRegister[i] == true){
+			PRINT_FUNLINE;
+			gpDevice[DevNo].ModbusData.pFlag_WriteSingleHoldingRegister[i] = false;
+			value = gpDevice[DevNo].ModbusData.pWriteSingleHoldingRegisterValue[i];
+			SlaverAddr = gpDevice[DevNo].ModbusData.pHoldingRegister_T[i]._SlaverAddr;
+			StartRegAddr = gpDevice[DevNo].ModbusData.pHoldingRegister_T[i]._RegAddr;
+			ResgisterList[0] = value;
+			ModbusRtuMaster_Write(DevNo, SlaverAddr, WriteSingleRegister, &ResgisterList[0], StartRegAddr, 1);
+			return true;
+		}
+	}
+	return false;
 }
 
 int ModbusSendAsk(int DevNo)
 {
-	
-	// ModbusAskCoilStatus(DevNo);
-	// ModbusAskInputStatus(DevNo);
-	// ModbusAskHoldingRegister(DevNo);
-	// ModbusAskInputResgister(DevNo);
-
+	if(ModbusWriteSingleHoldingResgister(DevNo))
+		return true;
 	if(ModbusAskCoilStatus(DevNo))
 		return true;
 	if(ModbusAskInputStatus(DevNo))
@@ -418,6 +451,9 @@ int ModbusSendAsk(int DevNo)
 		return true;
 	if(ModbusAskInputResgister(DevNo))
 		return true;
+
+	SetAskFlag(DevNo);
+	return true;
 }
 
 int ModbusRtuMaster_OnTimeOut(int DevNo)
@@ -425,7 +461,7 @@ int ModbusRtuMaster_OnTimeOut(int DevNo)
 	gpDevice[DevNo].TimeCnt++;
 	
 	if(gpDevice[DevNo].TimeCnt%20 == 0){
-		SetAskFlag(DevNo);
+		// SetAskFlag(DevNo);
 	}
 
 	if(gpDevice[DevNo].TimeCnt%1 == 0){

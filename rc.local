@@ -1,0 +1,3 @@
+#!/bin/bash
+cd /mnt/internal_storage/
+./supervisor.sh &

@@ -63,7 +63,6 @@ int Init_ModbusTcpMaster(int DevNo)
 //		,gpDevice[DevNo].ModbusData._InputStatusNum\
 //		,gpDevice[DevNo].ModbusData._HoldingRegNum\
 //		,gpDevice[DevNo].ModbusData._InputRegNum);
-	log("devno is %d\n",DevNo);
 	
 
 	/*test*/
@@ -83,6 +82,7 @@ int Init_ModbusTcpMaster(int DevNo)
 //	}
 //	PRINT_FUNLINE;
 	/*endtest*/
+	
 	
 }
 
@@ -297,6 +297,27 @@ int ModbusTcpMaster_ASK(int DevNo, uint16_t SlaverAddr, int functionCode, int ad
 	memcpy(pDest, gpDevice[DevNo].pSendBuf, 12);
 }
 
+int ModbusTcpMaster_Write(int DevNo, uint16_t SlaverAddr, int functionCode, uint16_t *ResgisterList, int addrStart, int quantity)
+{
+	uint16_t len;
+	ObjAccessInfo slaveInfo;
+	
+	slaveInfo.functionCode = functionCode;
+	slaveInfo.quantity = quantity;
+	slaveInfo.startingAddress = addrStart;
+	slaveInfo.unitID = SlaverAddr;
+	len = SyntheticReadWriteTCPServerCommand(DevNo, slaveInfo, NULL, ResgisterList, gpDevice[DevNo].pSendBuf);
+	// log("send data:");
+	// DumpHEX(gpDevice[DevNo].pSendBuf, len);
+	ModbusTcpMaster_Send(DevNo, gpDevice[DevNo].pSendBuf, len);
+	//读命令存储下来，与接下来的接收数据比对
+	uint8_t *pDest;
+	pDest = gpDevice[DevNo].pModbusTcpMaster->pServerList->pReadCommand[0];
+	memcpy(pDest, gpDevice[DevNo].pSendBuf, 12);
+}
+
+
+
 
 int ModbusTcp_AskCoilStatus(int DevNo)
 {	
@@ -312,6 +333,7 @@ int ModbusTcp_AskCoilStatus(int DevNo)
 			}
 			oldStartAddr = NewStartAddr;
 			OldSlaverAddr = NewSlaverAddr;
+			if(quantity > Modbus_Ask_Max_Num) break;
 			addr[quantity] = NewStartAddr;
 			quantity++;
 			gpDevice[DevNo].ModbusData.pFlag_AskCoilStatus[i] = false;
@@ -338,6 +360,7 @@ int ModbusTcp_AskInputStatus(int DevNo)
 			}
 			oldStartAddr = NewStartAddr;
 			OldSlaverAddr = NewSlaverAddr;
+			if(quantity > Modbus_Ask_Max_Num) break;
 			addr[quantity] = NewStartAddr;
 			quantity++;
 			gpDevice[DevNo].ModbusData.pFlag_AskInputStatus[i] = false;
@@ -365,6 +388,7 @@ int ModbusTcp_AskHoldingRegister(int DevNo)
 			}
 			oldAddr = NewStartAddr;
 			OldSlaverAddr = NewSlaverAddr;
+			if(quantity > Modbus_Ask_Max_Num) break;
 			addr[quantity] = NewStartAddr;
 			quantity++;
 			gpDevice[DevNo].ModbusData.pFlag_AskHoldingRegister[i] = false;
@@ -393,6 +417,7 @@ int ModbusTcp_AskInputResgister(int DevNo)
 			}
 			oldAddr = NewStartAddr;
 			OldSlaverAddr = NewSlaverAddr;
+			if(quantity > Modbus_Ask_Max_Num) break;
 			addr[quantity] = NewStartAddr;
 			quantity++;
 			gpDevice[DevNo].ModbusData.pFlag_AskInputResgister[i] = false;
@@ -405,14 +430,30 @@ int ModbusTcp_AskInputResgister(int DevNo)
 	return true;
 }
 
+int ModbusTcp_WriteSingleHoldingResgister(int DevNo)
+{
+	int i;
+	uint16_t value, SlaverAddr, StartRegAddr;
+	uint16_t ResgisterList[1];
+	for(i = 0 ; i < gpDevice[DevNo].ModbusData._HoldingRegNum; i++){
+		if(gpDevice[DevNo].ModbusData.pFlag_WriteSingleHoldingRegister[i] == true){
+			PRINT_FUNLINE;
+			gpDevice[DevNo].ModbusData.pFlag_WriteSingleHoldingRegister[i] = false;
+			value = gpDevice[DevNo].ModbusData.pWriteSingleHoldingRegisterValue[i];
+			SlaverAddr = gpDevice[DevNo].ModbusData.pHoldingRegister_T[i]._SlaverAddr;
+			StartRegAddr = gpDevice[DevNo].ModbusData.pHoldingRegister_T[i]._RegAddr;
+			ResgisterList[0] = value;
+			ModbusTcpMaster_Write(DevNo, SlaverAddr, WriteSingleRegister, &ResgisterList[0], StartRegAddr, 1);
+			return true;
+		}
+	}
+	return false;
+}
+
 int MModbusTcp_SendAsk(int DevNo)
 {
-	
-	// ModbusTcp_AskCoilStatus(DevNo);
-	// ModbusTcp_AskInputStatus(DevNo);
-	// ModbusTcp_AskHoldingRegister(DevNo);
-	// ModbusTcp_AskInputResgister(DevNo);
-
+	if(ModbusTcp_WriteSingleHoldingResgister(DevNo))
+		return true;
 	if(ModbusTcp_AskCoilStatus(DevNo))
 		return true;
 	if(ModbusTcp_AskInputStatus(DevNo))
@@ -421,25 +462,9 @@ int MModbusTcp_SendAsk(int DevNo)
 		return true;
 	if(ModbusTcp_AskInputResgister(DevNo))
 		return true;
-}
-
-void ModbusTcp_TestData(int DevNo, uint32_t timeCnt)
-{
-	int i;
-	int a;
-	for( i = 0 ; i < gpDevice[DevNo].ModbusData._HoldingRegNum; i++){
-		srand(i+1+timeCnt);
-		a = rand()%1000;
-		gpDevice[DevNo].ModbusData.pHoldingRegister[i] = a;
-//		log("i is %d a is %d\n", i, a);
-	}
-
-	for( i = 0 ; i < gpDevice[DevNo].ModbusData._CoilStatusNum; i++){
-		srand(i+1+timeCnt);
-		a = rand()%2;
-		gpDevice[DevNo].ModbusData.pCoilStatus[i] = a;
-	}
-
+	
+	ModbusTcp_SetAskFlag(DevNo);
+	return true;
 }
 
 int ModbusTcpMaster_OnTimeOut(int DevNo)
@@ -447,17 +472,13 @@ int ModbusTcpMaster_OnTimeOut(int DevNo)
 	gpDevice[DevNo].TimeCnt++;
 	
 	if(gpDevice[DevNo].TimeCnt%20 == 0){
-		ModbusTcp_SetAskFlag(DevNo);
+		// ModbusTcp_SetAskFlag(DevNo);
 	}
 
 	if(gpDevice[DevNo].TimeCnt%1 == 0){
-		// if(gpDevice[DevNo].ID == 4)usleep(1000000);
 		MModbusTcp_SendAsk(DevNo);
 	}
 	
-	// if(gpDevice[DevNo].TimeCnt%5 == 0){
-	// 	ModbusTcp_TestData(DevNo, gpDevice[DevNo].TimeCnt);
-	// }
 	usleep(50000);
 	return RET_SUCESS;
 }

@@ -909,7 +909,6 @@ uint8_t GX104Master_Build_S_Ack(int DevNO){
     /*len*/
     len = ptr - GX104Master_Sendbuf;
     GX104MasterData->Len = len - 2;
-    DumpHEX(GX104Master_Sendbuf,len);
     /* enqueue to the transmisson queue */
 	GX104Master_send(DevNO,(char *)GX104Master_Sendbuf,len);
 
@@ -1043,8 +1042,21 @@ int GX104Master_Deal_SN(uint16_t SendSn, uint16_t RecvSn){
     return RET_SUCESS;
 }
 
+uint8_t GX104Master_Deal_Call_Finish(int DevNO, PGX104Master_DATA_T GX104MasterData){
 
+    uint8_t len = 0;
+    uint8_t *ptr = NULL;
+	uint8_t reason;
 
+    PIEC10X_ASDU_T asdu = (PIEC10X_ASDU_T)(GX104MasterData->Asdu);
+    PASDU_INFO_T info = (PASDU_INFO_T)(asdu->_info);
+	reason = asdu->_reason._reason;
+	
+	if(reason != 0x0a) return RET_ERROR;
+
+	GX104Master_Build_S_Ack(DevNO);
+    return RET_SUCESS;
+}
 
 uint8_t GX104Master_Deal_YK_return(int DevNO, PGX104Master_DATA_T GX104MasterData){
 
@@ -1080,7 +1092,6 @@ uint8_t GX104Master_Deal_YK_return(int DevNO, PGX104Master_DATA_T GX104MasterDat
     return RET_SUCESS;
 }
 
-
 //uint8_t GX104Master_Deal_I(int fd, PGX104Master_DATA_T GX104MasterData, uint16_t len){
 int GX104Master_Deal_I(int DevNO, PGX104Master_DATA_T GX104MasterData, uint16_t len){
 
@@ -1104,6 +1115,7 @@ int GX104Master_Deal_I(int DevNO, PGX104Master_DATA_T GX104MasterData, uint16_t 
 //    if(GX104Master_Deal_SN(SendSn, RecvSn) == RET_ERROR){//�жϽ������к�
 //        return RET_ERROR;
 //    }
+	SendRecvSn.BuildRecvSn++;
 	
     Type = asdu->_type;
 	
@@ -1111,6 +1123,7 @@ int GX104Master_Deal_I(int DevNO, PGX104Master_DATA_T GX104MasterData, uint16_t 
 		
 		case IEC10X_C_IC_NA_1://0x64
 //			LOG("++++Asdu Type Call cmd... \n");
+			GX104Master_Deal_Call_Finish(DevNO,GX104MasterData);
 			gpDevice[DevNO].STATE_FLAG_CALLALL = GX104Master_FLAG_IDLE;
 			break;
 		
@@ -1147,7 +1160,7 @@ int GX104Master_Deal_I(int DevNO, PGX104Master_DATA_T GX104MasterData, uint16_t 
 			GX104Master_Deal_RecvSSoe(DevNO,GX104MasterData);
 			LOG("++++Asdu IEC10X_M_SP_TB_1... \n");
 			break;
-		case IEC10X_C_CS_NA_1://ʱ��ͬ��ȷ��
+		case IEC10X_C_CS_NA_1://0x67,对时
 			gpDevice[DevNO].STATE_FLAG_CLOCK = GX104Master_FLAG_IDLE;
 			break;
 
@@ -1548,5 +1561,5 @@ int GX104Master_On_Time_Out(int DevNO){
 	}
 
 	GX104Master_Build_Link(DevNO);
-	
+	usleep(50000);
 }

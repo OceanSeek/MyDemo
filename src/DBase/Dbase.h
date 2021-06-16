@@ -81,6 +81,16 @@ enum {
 };
 
 enum {
+    DB_MQTT_ClientID,			
+    DB_MQTT_UserName,		
+    DB_MQTT_PassWord,		
+    DB_MQTT_BrokerIP,			
+    DB_MQTT_BrokerPort,		
+    DB_MQTT_Enable,		
+};
+
+
+enum {
     WQ900_ID,			
     WQ900_ParentID,		
     WQ900_Address,		
@@ -887,10 +897,10 @@ typedef struct{
 	uint16_t	InputStatusStart;	
 	uint16_t	HoldingRegStart;	
 	uint16_t	InputRegStart;
-	uint8_t		CoiStatusNum;
-	uint8_t 	InputStatusNum;			
-	uint8_t		HoldingRegNum;			
-	uint8_t 	InputRegNum;	
+	uint16_t	CoiStatusNum;
+	uint16_t 	InputStatusNum;			
+	uint16_t	HoldingRegNum;			
+	uint16_t 	InputRegNum;	
 	char		DestIP[32];
 	uint16_t	DestPort;
 
@@ -912,24 +922,23 @@ typedef struct
 	BYTE bTestMode;//����ģʽ,bit7:1:����ģʽ��0������ģʽ
 	BYTE bCounterMode;// bit0,bit1 countermode, 0,1,2Modea, Modeb, modec
 	WORD wCylicDataNum;//�������ݸ���,Ĭ����0,ң�����������
-	WORD wScanTime;//ɨ��ʱ��
+	WORD wScanTime;
 	WORD wMaxFrm;
 	WORD wRsv[9];
 	TData_t spi;
 	TData_t dpi;
 	TData_t step;
-	TData_t bcd;//bit32string
+	TData_t bcd;
 	TData_t yc;
 	TData_t kwh;
 	TData_t yk;
 	TData_t yt;
-	TData_t bdo;//���������
+	TData_t bdo;
 	TData_t tq;
-	TData_t mr;//����
-	TData_t file;//�ļ�
+	TData_t mr;
+	TData_t file;
 	TData_t rsv[8];
-	//	struct TData_t data [10];	//14�����ݽṹ���������4��Ϊ����
-	WORD wCheckSum;	//�ۼӺͣ�ʹ�õ�16λ�������ǽ�λ
+	WORD wCheckSum;
 }TIEC101Cfg;
 
 

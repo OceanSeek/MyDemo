@@ -56,10 +56,10 @@ typedef struct{
   bool *pInputStatus;	//����״̬
   uint16_t *pHoldingRegister;         //���ּĴ���
   uint16_t *pInputResgister;           //����Ĵ���
-  uint8_t _CoilStatusNum;//��Ȧ����
-  uint8_t _InputStatusNum;//��Ȧ����
-  uint8_t _HoldingRegNum;//���ּĴ�������
-  uint8_t _InputRegNum;//����Ĵ�������
+  uint16_t _CoilStatusNum;//��Ȧ����
+  uint16_t _InputStatusNum;//��Ȧ����
+  uint16_t _HoldingRegNum;//���ּĴ�������
+  uint16_t _InputRegNum;//����Ĵ�������
   uint16_t _CoiStatusStart;
   uint16_t _InputStatusStart;
   uint16_t _HoldingRegStart;
@@ -69,6 +69,10 @@ typedef struct{
   bool *pFlag_AskInputStatus;
   bool *pFlag_AskHoldingRegister;
   bool *pFlag_AskInputResgister;
+
+  bool *pFlag_WriteSingleHoldingRegister;
+  uint16_t *pWriteSingleHoldingRegisterValue;
+
   MODBUSDEVICEDATA_T *pCoiStatus_T;
   MODBUSDEVICEDATA_T *pInputStatus_T;
   MODBUSDEVICEDATA_T *pHoldingRegister_T;
