@@ -1032,7 +1032,7 @@ int main()
 	pthread_mutex_init(&mutex,NULL);
 	pthread_mutex_init(&mutex2,NULL);
 	CreatePthread();
-	// Mqtt_Connect();
+	Mqtt_Connect();
 	Init_Json_Test();
 	while(1){
 		gettimeofday(&nowtime,NULL);
@@ -1041,7 +1041,7 @@ int main()
 		if(nowtime_ms-lasttime_ms >=Timer_1000ms){
 			sys_time_cnt++;
 
-			// if(sys_time_cnt %5 == 0)Mqtt_Reconnect();
+			if(sys_time_cnt %5 == 0)Mqtt_Reconnect();
 			lasttime = nowtime;
 			#ifndef HUAWEI
 			FeedWatchDog(wd_fd);
